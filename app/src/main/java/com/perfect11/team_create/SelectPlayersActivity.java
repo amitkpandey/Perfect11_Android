@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
+import com.squareup.picasso.Picasso;
 import com.utility.ActivityController;
 import com.utility.DialogUtility;
 import com.utility.customView.CustomButton;
@@ -33,6 +35,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,9 +73,18 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private String ateam, bteam;
     /**
      * Preview Section Start
-     */
-//private CircleImageView iv_team2,iv_team1;
+     * Ground View Start*/
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time;
+    private CircleImageView cimg_country1, cimg_country2;
+
+    private ImageView iv_wkt;
+    private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
+    private ImageView iv_ar1, iv_ar2, iv_ar3, iv_ar4;
+    private ImageView iv_bowler1, iv_bowler2, iv_bowler3, iv_bowler4, iv_bowler5, iv_bowler6;
+
+    /**
+     * Ground View End*/
+
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -100,7 +112,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        initViewPreview();
         tv_team1 = findViewById(R.id.tv_team1);
         tv_team2 = findViewById(R.id.tv_team2);
 
@@ -131,6 +143,73 @@ public class SelectPlayersActivity extends AppCompatActivity {
         rv_list.setLayoutManager(layoutManager1);
 
         selectedMatchDto = new SelectedMatchDto();
+    }
+
+    private void initViewPreview() {
+        tv_team1 = findViewById(R.id.tv_team1);
+        tv_team2 = findViewById(R.id.tv_team2);
+        tv_team_count1 = findViewById(R.id.tv_team_count1);
+        tv_team_count2 = findViewById(R.id.tv_team_count2);
+
+        cimg_country1 = findViewById(R.id.cimg_country1);
+        cimg_country2 = findViewById(R.id.cimg_country2);
+
+        iv_wkt = findViewById(R.id.iv_wkt);
+
+        iv_bat1 = findViewById(R.id.iv_bat1);
+        iv_bat2 = findViewById(R.id.iv_bat2);
+        iv_bat3 = findViewById(R.id.iv_bat3);
+        iv_bat4 = findViewById(R.id.iv_bat4);
+        iv_bat5 = findViewById(R.id.iv_bat5);
+        iv_bat6 = findViewById(R.id.iv_bat6);
+
+        iv_ar1 = findViewById(R.id.iv_ar1);
+        iv_ar2 = findViewById(R.id.iv_ar2);
+        iv_ar3 = findViewById(R.id.iv_ar3);
+        iv_ar4 = findViewById(R.id.iv_ar4);
+
+        iv_bowler1 = findViewById(R.id.iv_bowler1);
+        iv_bowler2 = findViewById(R.id.iv_bowler2);
+        iv_bowler3 = findViewById(R.id.iv_bowler3);
+        iv_bowler4 = findViewById(R.id.iv_bowler4);
+        iv_bowler5 = findViewById(R.id.iv_bowler5);
+        iv_bowler6 = findViewById(R.id.iv_bowler6);
+
+        btn_save = findViewById(R.id.btn_save);
+        btn_save.setText("Save Team");
+
+        setPlayerVisiblityGone();
+    }
+
+    private void setPlayerVisiblityGone() {
+        iv_wkt.setVisibility(View.GONE);
+
+        iv_bat1.setVisibility(View.GONE);
+        iv_bat2.setVisibility(View.GONE);
+        iv_bat3.setVisibility(View.GONE);
+        iv_bat4.setVisibility(View.GONE);
+        iv_bat5.setVisibility(View.GONE);
+        iv_bat6.setVisibility(View.GONE);
+
+        iv_ar1.setVisibility(View.INVISIBLE);
+        iv_ar2.setVisibility(View.INVISIBLE);
+        iv_ar3.setVisibility(View.INVISIBLE);
+        iv_ar4.setVisibility(View.INVISIBLE);
+
+        iv_bowler1.setVisibility(View.GONE);
+        iv_bowler2.setVisibility(View.GONE);
+        iv_bowler3.setVisibility(View.GONE);
+        iv_bowler4.setVisibility(View.GONE);
+        iv_bowler5.setVisibility(View.GONE);
+        iv_bowler6.setVisibility(View.GONE);
+    }
+
+
+
+    private String getPictureURL(String teama) {
+        String country = teama.trim().replace(" ", "-");
+        String url = "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        return url;
     }
 
     private void startUpdateTimer() {

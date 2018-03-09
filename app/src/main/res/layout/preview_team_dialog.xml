@@ -56,13 +56,12 @@
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/tv_name">
 
-            <ImageView
-                android:id="@+id/iv_team1"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cimg_country1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="@null"
                 android:onClick="onButtonClick"
-                android:scaleType="fitXY"
                 android:src="@drawable/ind" />
 
             <com.utility.customView.CustomTextView
@@ -72,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/iv_team1"
+                android:layout_toRightOf="@+id/cimg_country1"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="Ind"
@@ -87,7 +86,7 @@
                 android:layout_below="@+id/tv_team1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/iv_team1"
+                android:layout_toRightOf="@+id/cimg_country1"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="6/7"
@@ -107,14 +106,13 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp">
 
-            <ImageView
-                android:id="@+id/iv_team2"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cimg_country2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@null"
                 android:onClick="onButtonClick"
-                android:scaleType="fitXY"
                 android:src="@drawable/aus" />
 
             <com.utility.customView.CustomTextView
@@ -124,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/iv_team2"
+                android:layout_toRightOf="@+id/cimg_country2"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="Aus"
@@ -139,7 +137,7 @@
                 android:layout_below="@+id/tv_team2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/iv_team2"
+                android:layout_toRightOf="@+id/cimg_country2"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="5/7"

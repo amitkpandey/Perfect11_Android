@@ -32,6 +32,9 @@ import retrofit2.Response;
 
 public class TeamReadyFragment extends BaseFragment {
     private ArrayList<PlayerDto> selectedTeam;
+
+    /**
+     * Ground View Start*/
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2;
     private CircleImageView cimg_country1, cimg_country2;
 
@@ -39,6 +42,9 @@ public class TeamReadyFragment extends BaseFragment {
     private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
     private ImageView iv_ar1, iv_ar2, iv_ar3, iv_ar4;
     private ImageView iv_bowler1, iv_bowler2, iv_bowler3, iv_bowler4, iv_bowler5, iv_bowler6;
+
+    /**
+     * Ground View End*/
 
     private CustomButton btn_save;
 

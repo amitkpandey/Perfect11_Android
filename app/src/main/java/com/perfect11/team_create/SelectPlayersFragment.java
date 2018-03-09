@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
+import com.squareup.picasso.Picasso;
 import com.utility.DialogUtility;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
@@ -36,6 +38,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,12 +73,24 @@ public class SelectPlayersFragment extends BaseFragment {
     private CustomTextView tv_player_count, tv_header;
     private CustomButton btn_save;
 
-    String ateam, bteam;
     /**
      * Preview Section Start
      */
-//private CircleImageView iv_team2,iv_team1;
+    /**
+     * Preview Section Start
+     * Ground View Start
+     */
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time;
+    private CircleImageView cimg_country1, cimg_country2;
+
+    private ImageView iv_wkt;
+    private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
+    private ImageView iv_ar1, iv_ar2, iv_ar3, iv_ar4;
+    private ImageView iv_bowler1, iv_bowler2, iv_bowler3, iv_bowler4, iv_bowler5, iv_bowler6;
+    /**
+     * Ground View End
+     */
+
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -108,16 +123,17 @@ public class SelectPlayersFragment extends BaseFragment {
     }
 
     private void initView() {
-/**
- * Preview Section
- * */
+        initViewPreview();
+        /**
+         * Preview Section
+         * */
 
         tv_team1 = view.findViewById(R.id.tv_team1);
         tv_team2 = view.findViewById(R.id.tv_team2);
 
         tv_team_count1 = view.findViewById(R.id.tv_team_count1);
         tv_team_count2 = view.findViewById(R.id.tv_team_count2);
-        ctv_time  = view.findViewById(R.id.ctv_time);
+        ctv_time = view.findViewById(R.id.ctv_time);
 /**
  * End Preview Section
  * */
@@ -145,6 +161,219 @@ public class SelectPlayersFragment extends BaseFragment {
 
         selectedMatchDto = new SelectedMatchDto();
     }
+
+    private void initViewPreview() {
+        tv_team1 = view.findViewById(R.id.tv_team1);
+        tv_team2 = view.findViewById(R.id.tv_team2);
+        tv_team_count1 = view.findViewById(R.id.tv_team_count1);
+        tv_team_count2 = view.findViewById(R.id.tv_team_count2);
+
+        cimg_country1 = view.findViewById(R.id.cimg_country1);
+        cimg_country2 = view.findViewById(R.id.cimg_country2);
+
+        iv_wkt = view.findViewById(R.id.iv_wkt);
+
+        iv_bat1 = view.findViewById(R.id.iv_bat1);
+        iv_bat2 = view.findViewById(R.id.iv_bat2);
+        iv_bat3 = view.findViewById(R.id.iv_bat3);
+        iv_bat4 = view.findViewById(R.id.iv_bat4);
+        iv_bat5 = view.findViewById(R.id.iv_bat5);
+        iv_bat6 = view.findViewById(R.id.iv_bat6);
+
+        iv_ar1 = view.findViewById(R.id.iv_ar1);
+        iv_ar2 = view.findViewById(R.id.iv_ar2);
+        iv_ar3 = view.findViewById(R.id.iv_ar3);
+        iv_ar4 = view.findViewById(R.id.iv_ar4);
+
+        iv_bowler1 = view.findViewById(R.id.iv_bowler1);
+        iv_bowler2 = view.findViewById(R.id.iv_bowler2);
+        iv_bowler3 = view.findViewById(R.id.iv_bowler3);
+        iv_bowler4 = view.findViewById(R.id.iv_bowler4);
+        iv_bowler5 = view.findViewById(R.id.iv_bowler5);
+        iv_bowler6 = view.findViewById(R.id.iv_bowler6);
+
+        btn_save = view.findViewById(R.id.btn_save);
+        btn_save.setText("Save Team");
+    }
+
+    private void setTeam() {
+        setPlayerVisiblityGone();
+        tv_team1.setText(upCommingMatchesDto.teama);
+        tv_team2.setText(upCommingMatchesDto.teamb);
+        System.out.println("getPictureURL(upCommingMatchesDto.teama) "+ getPictureURL(upCommingMatchesDto.teama));
+        System.out.println("getPictureURL(upCommingMatchesDto.teamb) "+ getPictureURL(upCommingMatchesDto.teamb));
+        Picasso.with(getActivity()).load(getPictureURL(upCommingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
+        Picasso.with(getActivity()).load(getPictureURL(upCommingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+        arrangePlayerOnField();
+    }
+
+    private void setPlayerVisiblityGone() {
+        iv_wkt.setVisibility(View.GONE);
+
+        iv_bat1.setVisibility(View.GONE);
+        iv_bat2.setVisibility(View.GONE);
+        iv_bat3.setVisibility(View.GONE);
+        iv_bat4.setVisibility(View.GONE);
+        iv_bat5.setVisibility(View.GONE);
+        iv_bat6.setVisibility(View.GONE);
+
+        iv_ar1.setVisibility(View.INVISIBLE);
+        iv_ar2.setVisibility(View.INVISIBLE);
+        iv_ar3.setVisibility(View.INVISIBLE);
+        iv_ar4.setVisibility(View.INVISIBLE);
+
+        iv_bowler1.setVisibility(View.GONE);
+        iv_bowler2.setVisibility(View.GONE);
+        iv_bowler3.setVisibility(View.GONE);
+        iv_bowler4.setVisibility(View.GONE);
+        iv_bowler5.setVisibility(View.GONE);
+        iv_bowler6.setVisibility(View.GONE);
+    }
+
+    private void arrangePlayerOnField() {
+        int total_team1 = 0;
+        int total_team2 = 0;
+        int i = 1,j = 1,k = 1;
+        /**bowler*/
+        for (PlayerDto playerDto : bowler) {
+            if (playerDto.isSelected) {
+                System.out.println("Count:"+i);
+                setVisibleBowler(i);
+                i++;
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+        /**batsman*/
+        for (PlayerDto playerDto : batsman) {
+            if (playerDto.isSelected) {
+                System.out.println("Count:"+j);
+                setVisibleBatsman(j);
+                j++;
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+
+/**allrounder*/
+
+        for (PlayerDto playerDto : allrounder) {
+            if (playerDto.isSelected) {
+                System.out.println("Count:"+k);
+                setVisibleAllrounder(k);
+                k++;
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+
+/**keeper*/
+        for (PlayerDto playerDto : keeper) {
+            if (playerDto.isSelected) {
+                iv_wkt.setVisibility(View.VISIBLE);
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+
+
+        /** Set Player Number*/
+        tv_team_count1.setText("" + total_team1 + "/7");
+        tv_team_count2.setText("" + total_team2 + "/7");
+    }
+
+    private void setVisibleAllrounder(int allrounder) {
+
+        switch (allrounder) {
+            case 1:
+                iv_ar1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                iv_ar2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                iv_ar3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                iv_ar4.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /**
+     * Visible Batsman
+     */
+    private void setVisibleBatsman(int batsman) {
+        switch (batsman) {
+            case 1:
+                iv_bat1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                iv_bat2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                iv_bat3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                iv_bat4.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                iv_bat5.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                iv_bat6.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /**
+     * Visible Bowler
+     */
+    private void setVisibleBowler(int bowler) {
+        switch (bowler) {
+            case 1:
+                iv_bowler1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                iv_bowler2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                iv_bowler3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                iv_bowler4.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                iv_bowler5.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                iv_bowler6.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    private String getPictureURL(String teama) {
+        String country = teama.trim().replace(" ", "-");
+        String url = "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        return url;
+    }
+
 
     private void updateTimeRemaining(long currentTime) {
         try {
@@ -186,19 +415,20 @@ public class SelectPlayersFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
                     selectedPlayer = getSelectedPlayers();
                     bundle.putSerializable("selectedPlayer", selectedPlayer);
-                    selectedMatchDto.teamName1=ateam;
-                    selectedMatchDto.teamName2=bteam;
-                    selectedMatchDto.numberOfPlayer=totalPlayers;
-                    selectedMatchDto.credit_used=totalPoints;
+                    selectedMatchDto.teamName1 = upCommingMatchesDto.teama;
+                    selectedMatchDto.teamName2 = upCommingMatchesDto.teamb;
+                    selectedMatchDto.numberOfPlayer = totalPlayers;
+                    selectedMatchDto.credit_used = totalPoints;
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                     bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
-                    System.out.println("teamName1:"+ateam+"   teamName2:"+bteam);
-                    ChooseCaptainFragment chooseCaptainFragment=new ChooseCaptainFragment();
+                    System.out.println("teamName1:" + upCommingMatchesDto.teama + "   teamName2:" + upCommingMatchesDto.teamb);
+                    ChooseCaptainFragment chooseCaptainFragment = new ChooseCaptainFragment();
                     chooseCaptainFragment.setArguments(bundle);
                     ((BaseHeaderActivity) getActivity()).addFragment(chooseCaptainFragment, true, ChooseCaptainFragment.class.getName());
-                 }
+                }
                 break;
             case R.id.ll_up:
+                setTeam();
                 ll_select_payer.setVisibility(View.GONE);
                 ll_preview.setVisibility(View.VISIBLE);
               /*  ll_select_payer.animate()
@@ -303,7 +533,6 @@ public class SelectPlayersFragment extends BaseFragment {
      */
     private void selectPlayerList(ArrayList<PlayerDto> data) {
         //Name of Team a
-        ateam = data.get(0).team_name;
 
         for (PlayerDto playerDto : data) {
 
@@ -322,12 +551,6 @@ public class SelectPlayersFragment extends BaseFragment {
                     keeper.add(playerDto);
                     break;
             }
-
-            //Name of Team b
-            if (!playerDto.team_name.equals(ateam)) {
-                bteam = playerDto.team_name;
-            }
-
         }
         System.out.println(" bowler: " + bowler.size() + " batsman: " + batsman.size() + " allrounder: " + allrounder.size() + " keeper: " + keeper.size());
         setAdapter();
@@ -342,7 +565,7 @@ public class SelectPlayersFragment extends BaseFragment {
         /** Set Adapter Players*/
 
         /**Wicket Keeper*/
-        wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, ateam, bteam);
+        wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -357,7 +580,7 @@ public class SelectPlayersFragment extends BaseFragment {
         });
 
         /**BatsMan*/
-        batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, ateam, bteam);
+        batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -372,7 +595,7 @@ public class SelectPlayersFragment extends BaseFragment {
         });
 
         /**AllRounder*/
-        arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, ateam, bteam);
+        arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -386,7 +609,7 @@ public class SelectPlayersFragment extends BaseFragment {
             }
         });
         /**AllRounder*/
-        bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, ateam, bteam);
+        bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -479,7 +702,7 @@ public class SelectPlayersFragment extends BaseFragment {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
-            if (playerDto.team_name.equals(ateam)) {
+            if (playerDto.team_name.equals(upCommingMatchesDto.teama)) {
                 no_ateam++;
             } else {
                 no_bteam++;

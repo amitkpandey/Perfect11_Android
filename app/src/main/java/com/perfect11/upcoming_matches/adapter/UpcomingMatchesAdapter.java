@@ -95,7 +95,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
                     onButtonListener.onButtonClick(position);
                 }
             });
-            updateTimeRemaining(System.currentTimeMillis());
+//            updateTimeRemaining(System.currentTimeMillis());
         }
 
         private void updateTimeRemaining(long currentTime) {
