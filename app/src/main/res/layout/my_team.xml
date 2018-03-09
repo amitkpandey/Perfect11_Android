@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:layout_below="@+id/include">
+
+        <RelativeLayout
+            android:id="@+id/rl_team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_team1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="@null"
+                android:onClick="onButtonClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/ind" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_team1"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_team1"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Ind"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_team_count1"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_team1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_team1"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="6/7"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_team2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_team2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="@null"
+                android:onClick="onButtonClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/aus" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_team2"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_team2"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Aus"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_team_count2"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_team2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_team2"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="5/7"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_main"
+            android:layout_width="match_parent"
+            android:layout_height="370dp"
+            android:layout_below="@+id/rl_team1"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/pitch">
+
+            <TextView
+                android:id="@+id/tv_wkt_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/point_round"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="10"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/iv_wkt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_wkt_point"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:layout_marginTop="2dp"
+                android:onClick="onButtonClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/man3" />
+
+            <LinearLayout
+                android:id="@+id/rl_batsman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_bat1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_bat1_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bat1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bat1_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man4" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bat2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_bat2_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bat2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bat2_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man4" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bat3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_bat3_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bat3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bat3_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man4" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bat4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_bat4_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bat4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bat4_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man4" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bat5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_bat5_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bat5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bat5_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man4" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bat6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_bat6_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bat6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bat6_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man4" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rl_ar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/rl_ar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_ar1_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_ar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_ar1_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man2" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_ar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_ar2_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_ar2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_ar2_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man2" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_ar3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp">
+
+                    <TextView
+                        android:id="@+id/tv_ar3_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_ar3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_ar3_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man2" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_ar4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_ar4_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_ar4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_ar4_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man2" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rl_bowlers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_ar"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_bowler1_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bowler1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bowler1_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man1" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_bowler2_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bowler2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bowler2_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man1" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_bowler3_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_bowler3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bowler3_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man1" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_bowler4_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bowler4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bowler4_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man1" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_bowler5_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bowler5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bowler5_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man1" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_bowler6_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/point_round"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_bowler6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_bowler6_point"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/man1" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

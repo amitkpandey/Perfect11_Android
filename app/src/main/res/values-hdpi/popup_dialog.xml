@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="choose_picture_main_res_popup_root_height">533.33dp</dimen>
+    <dimen name="choose_picture_main_res_popup_root_width">320dp</dimen>
+
+    <dimen name="choose_picture_main_res_popup_ll_width">280dp</dimen>
+    <dimen name="choose_picture_main_res_popup_ll_height">300dp</dimen>
+
+    <dimen name="choose_picture_main_res_tv_marginTop">120dp</dimen>
+
+    <integer name="dd_jobs_popup_height">100</integer>
+
+</resources>

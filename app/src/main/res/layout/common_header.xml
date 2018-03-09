@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary"
+        >
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_action_back" />
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_menu"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:drawable/ic_menu_sort_by_size"
+            android:onClick="onButtonClick"
+            android:visibility="gone" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Register"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/min_text_size" />
+    </RelativeLayout>
+</LinearLayout>

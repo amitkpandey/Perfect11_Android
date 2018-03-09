@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="@dimen/choose_picture_main_res_popup_root_width"
+    android:layout_height="@dimen/choose_picture_main_res_popup_root_height"
+    android:layout_gravity="center_horizontal"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:onClick="onButtonClick"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="467dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/background_light"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_header"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/red_text_color">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="Filter"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/min_text_size" />
+
+                <Button
+                    android:id="@+id/btn_close"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="onButtonClick"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/cross"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_entry"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_header"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Entry"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_entry"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_first_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 1/- to Rs 100/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_first_02"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 101/- to Rs 1000/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_first"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_second_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 1/- to Rs 100/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_second_02"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 5001/- &amp; more"
+                    android:textColor="@color/green"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_winnings"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_second"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Winnings"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_winnings"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_third_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 11/- to Rs 1000/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_third_02"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 10,001/- to Rs 50,000/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_third"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_fourth_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 1 lakh to Rs 5 lakhs"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_contest_type"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_fourth"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Contest Type"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_fifth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_contest_type"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_fifth_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 1/- to Rs 100/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_fifth_02"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 1/- to Rs 100/-"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_sixth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_fifth"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_sixth_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 1/- to Rs 100/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_contest"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_sixth"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Contest Size"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_seventh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_contest"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_seventh_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="2 members"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_seventh_02"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="3 to 10"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_seventh"
+                android:layout_marginTop="10dp">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_eight_01"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="11 to 20"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_eight_02"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="1001 to 10,000"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/red_text_color">
+
+                <com.utility.customView.CustomButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/rounded_corner_light_red_btn"
+                    android:onClick="onButtonClick"
+                    android:text="Apply"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

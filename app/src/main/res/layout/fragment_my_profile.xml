@@ -1,0 +1,276 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.perfect11.myprofile.MyProfileFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/profile_bg">
+
+                <include
+                    layout="@layout/common_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:id="@+id/ll_profile_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_centerInParent="true">
+                <RelativeLayout
+                    android:id="@+id/rl_imageHolder"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:padding="5dp"
+                    android:background="@drawable/image_bg_round"
+                    android:layout_marginTop="15dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/myteam"
+                        />
+
+                </RelativeLayout>
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:gravity="center"
+                    android:layout_below="@+id/rl_imageHolder"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:textColor="@android:color/white"
+                    android:layout_marginTop="10dp"/>
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+91 21212122211"
+                    android:gravity="center"
+                    android:layout_below="@+id/ctv_name"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:textColor="@android:color/white"/>
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="vap@gmail.com"
+                    android:gravity="center"
+                    android:layout_below="@+id/ctv_phone"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:textColor="@android:color/white"/>
+                </LinearLayout>
+                <Button
+                    android:id="@+id/btn_edit"
+                    android:onClick="onButtonClick"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="65dp"
+                    android:background="@drawable/edit_profile_icon"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/off_white"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/left_img"
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/my_account_icon"
+
+                        />
+
+                    <com.utility.customView.CustomTextView
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/left_img"
+                        android:layout_gravity="center"
+                        android:layout_toEndOf="@+id/left_img"
+
+                        android:text="Contest Played"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_action_next" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/left2_img"
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/personal_detail_icon"
+
+                        />
+
+                    <com.utility.customView.CustomTextView
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/left2_img"
+                        android:layout_gravity="center"
+                        android:layout_toEndOf="@+id/left2_img"
+
+                        android:text="Personal Details"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_action_next" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/left3_img"
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/refer_a_friend_icon"
+
+                        />
+
+                    <com.utility.customView.CustomTextView
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/left3_img"
+                        android:layout_gravity="center"
+                        android:layout_toEndOf="@+id/left3_img"
+
+                        android:text="Refer a friend"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_action_next" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@color/red_text_color">
+                <TextView
+                    android:id="@+id/tv_contest_played"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/red_text_color"
+                    android:text="50"
+                    android:gravity="center"
+                    android:background="@drawable/rounded_corner_white_btn_bg"/>
+            <com.utility.customView.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Contest Played"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@color/gray">
+                <TextView
+                    android:id="@+id/tv_contest_won"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/gray"
+                    android:text="2"
+                    android:gravity="center"
+                    android:background="@drawable/rounded_corner_white_btn_bg"/>
+                <com.utility.customView.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Contest Won"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

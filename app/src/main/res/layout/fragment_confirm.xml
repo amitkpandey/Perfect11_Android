@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intro_screenbg"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+ 
+
+    <!-- Registration Body -->
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="35dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/enter_contest_icon"
+                android:layout_gravity="center_horizontal"/>
+  <com.utility.customView.CustomTextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Confirmation"
+      android:layout_gravity="center_horizontal"
+      android:textColor="@color/green"
+      android:layout_marginTop="20dp"
+      style="@android:style/TextAppearance.DeviceDefault.Large"/>
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usable Balance: Rs. 0/-"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"/>
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Joining Amount: Rs. 0/-"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="5dp"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"/>
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Demo String demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string demo string "
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="15dp"
+                style="@android:style/TextAppearance.DeviceDefault.Small"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

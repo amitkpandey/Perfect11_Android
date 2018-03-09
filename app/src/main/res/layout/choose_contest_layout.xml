@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical">
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_action_back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/img_back"
+            android:layout_toEndOf="@+id/img_back"
+            android:gravity="center">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/ctv_country1"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="IND"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/min_text_size" />
+
+            <com.utility.customView.CustomTextView
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=" vs "
+                android:textColor="@color/red_text_color"
+                android:textSize="@dimen/min_text_size" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/ctv_country2"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="IND"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/min_text_size" />
+        </LinearLayout>
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/ctv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:drawableLeft="@drawable/clock"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:textColor="@color/red_text_color"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <!--Body-->
+
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/rl_01"
+        android:background="@android:color/white"
+        android:contentDescription="@null"
+        android:src="@drawable/create_team_header_step3" />
+
+    <RelativeLayout
+        android:id="@+id/rl_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/include"
+        android:layout_below="@+id/iv_status"
+        android:background="@color/off_white">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_header"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="Step 3 - Join Contests to Complete"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            android:id="@+id/lv_contests"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_header"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="7dp"
+            android:drawSelectorOnTop="true"
+            android:fastScrollEnabled="true"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbarStyle="outsideOverlay"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

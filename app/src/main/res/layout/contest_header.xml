@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:background="@color/red_text_color">
+
+    <com.utility.customView.CustomTextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:text="Cash Contests"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+    <com.utility.customView.CustomButton
+        android:id="@+id/btn_filter"
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:text="Filter"
+        android:drawableLeft="@drawable/filter"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_corner_light_red_btn" />
+
+</RelativeLayout>

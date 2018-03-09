@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/red_text_color"
+        android:visibility="gone">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Cash Contests"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_filter"
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_corner_light_red_btn"
+            android:drawableLeft="@drawable/filter"
+            android:paddingLeft="10dp"
+            android:text="Filter"
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
+
+    <com.utility.customView.CustomTextView
+        android:id="@+id/tv_type"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_header"
+        android:gravity="center"
+        android:text="Wicket Keeper"
+        android:textColor="@color/red_text_color"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_contest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_type"
+        android:background="@android:color/white"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_player_details"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_total"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Total Winnings"
+                    android:textColor="@android:color/black" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 50000/-"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_spot_left"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:text="Only 496 spots left"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                android:id="@+id/donut_progress"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/ll_player_details"
+                android:layout_toRightOf="@+id/ll_player_details"
+                custom:donut_finished_color="@color/red_text_color"
+                custom:donut_prefix_text="Teams"
+                custom:donut_progress="60"
+                custom:donut_text="dsd"
+                custom:donut_suffix_text="hello"
+                custom:donut_text_color="@android:color/black"
+                custom:donut_text_size="11sp" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_winner_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+
+                android:layout_toEndOf="@+id/donut_progress"
+                android:layout_toRightOf="@+id/donut_progress"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.utility.customView.CustomTextView
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Winner"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_total_win"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="100"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_entry"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Entry Fee"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_entry_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 50/-"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_join"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_corner_white_btn_red_outline"
+                    android:checked="true"
+                    android:contentDescription="@null"
+                    android:gravity="center"
+                    android:text="Join"
+                    android:textColor="@color/red_text_color"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

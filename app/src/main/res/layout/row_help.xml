@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/editbox_dropdown_light_frame"
+    android:layout_margin="5dp"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <com.utility.customView.CustomTextView
+        android:id="@+id/ctv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title 1"
+        android:textColor="@android:color/black"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"/>
+    <com.utility.customView.CustomTextView
+        android:id="@+id/ctv_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Demo string string  string string  string string string string  string string  string  string  string string "
+        android:textColor="@android:color/black"
+        style="@android:style/TextAppearance.DeviceDefault.Small"/>
+</LinearLayout>

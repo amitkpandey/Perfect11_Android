@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/create_contest_background"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/include"
+        android:background="@color/red_text_color">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="India vs Australia"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Completed"
+            android:textAllCaps="false"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+    <!--Body-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_create"
+        android:layout_below="@+id/rl_01"
+        android:layout_margin="5dp"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:clipToPadding="false"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarStyle="outsideOverlay"
+        android:visibility="visible" />
+
+    <com.utility.customView.CustomButton
+        android:id="@+id/btn_create"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_corner_light_red_btn"
+        android:onClick="onButtonClick"
+        android:text="Create Team"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

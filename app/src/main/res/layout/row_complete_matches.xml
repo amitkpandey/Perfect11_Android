@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:paddingTop="5dp"
+        android:layout_marginBottom="3dp"
+        >
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/replace_sri" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Country"
+                android:textColor="@android:color/black"
+                android:textSize="11dp">
+
+            </com.utility.customView.CustomTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="IND vs AUS T20 Series"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="VS"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Completed"
+                android:textColor="@color/green"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/replace_sri" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Country"
+                android:textColor="@android:color/black"
+                android:textSize="11dp">
+
+            </com.utility.customView.CustomTextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

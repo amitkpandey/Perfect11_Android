@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_contest_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_captain"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Captain"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_captain_name"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_captain"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="V Kohli"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_team"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Team 1"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_vice_captain"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Vice Captain"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_vice_captain_name"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_captain"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="D Warner"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_score_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_contest_details"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_wicket_text"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="WK"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_wicket"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_wicket_text"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="1"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_bat_text"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="80dp"
+                android:layout_marginStart="80dp"
+                android:layout_toEndOf="@+id/tv_wicket_text"
+                android:layout_toRightOf="@+id/tv_wicket_text"
+                android:text="BAT"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_bat"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_wicket_text"
+                android:layout_marginLeft="85dp"
+                android:layout_marginStart="85dp"
+                android:layout_toEndOf="@+id/tv_wicket_text"
+                android:layout_toRightOf="@+id/tv_wicket_text"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="2"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_all_text"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="80dp"
+                android:layout_marginStart="80dp"
+                android:layout_toEndOf="@+id/tv_bat_text"
+                android:layout_toRightOf="@+id/tv_bat_text"
+                android:text="ALL"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_all"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_all_text"
+                android:layout_marginLeft="85dp"
+                android:layout_marginStart="85dp"
+                android:layout_toEndOf="@+id/tv_bat_text"
+                android:layout_toRightOf="@+id/tv_bat_text"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="2"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_bowl_text"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="BOWL"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_bowl"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_all_text"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="2"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_score_details"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:checked="true"
+                android:contentDescription="@null"
+                android:drawableLeft="@drawable/edit_drawable"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/edit_drawable"
+                android:gravity="center_vertical"
+                android:text="Edit"
+                android:textAllCaps="false"
+                android:textColor="@color/red_text_color"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:checked="true"
+                android:contentDescription="@null"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/preview_drawable"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/preview_drawable"
+                android:gravity="center_vertical"
+                android:text="Preview"
+                android:textAllCaps="false"
+                android:textColor="@color/red_text_color"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

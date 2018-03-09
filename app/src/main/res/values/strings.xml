@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Perfect11</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_empty_password">Enter a password</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_blank_password">Please enter a password</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings related to Register -->
+    <string name="action_register">Register</string>
+    <string name="prompt_name">Name</string>
+
+    <!-- Strings related to Forgot Password -->
+    <string name="action_forgot_password">Forgot Password</string>
+
+    <!--Dialog-->
+    <string name="button_btnChoosePicLibrary">My Album</string>
+    <string name="button_btnChoosePicCamera">Camera</string>
+    <string name="camera_cancel">Cancel</string>
+    <string name="video_validation_alert">You cannot upload videos of duration more than 1 minute</string>
+    <string name="image_validation_alert">You cannot upload images of size larger than 5 MB</string>
+    <string name="select_files">Select Files</string>
+    <string name="network_unavailable">No Internet Connection</string>
+    <string name="server_alert">Some Server Problem has been encountered</string>
+    <string name="whats_happen">What\'s going to happen</string>
+    <string name="camera_capture">Capture</string>
+    <string name="camera_switch">Switch Camera</string>
+    <string name="camera_save">Save</string>
+    <string name="select">Select</string>
+    <string name="done">Done</string>
+    <string name="okay">OK</string>
+    <string name="do_not_agree">Don\'t Agree</string>
+    <string name="agree">Agree</string>
+    <string name="terms_agree">I AGREE</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Upcoming Matches-->
+    <string name="upcoming_matches">Upcoming Matches</string>
+    <!--Base Header Activity-->
+    <string name="base_header_activity">Base Header Activity</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <!--Create Team-->
+    <string name="create_team_activity">Create Team</string>
+    <string name="team_count">10 teams</string>
+</resources>

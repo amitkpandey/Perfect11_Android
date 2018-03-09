@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/include"
+        android:background="@color/green">
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_create_contest"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_corner_green_btn_bg"
+            android:onClick="onButtonClick"
+            android:text="Create Contest"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_02"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="2"
+        android:layout_below="@+id/rl_01"
+        android:orientation="horizontal">
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_my_team"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/rounded_corner_dark_red_btn_bg"
+            android:onClick="onButtonClick"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:text="My Team"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_join_contest"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/rounded_corner_black_btn_bg"
+            android:onClick="onButtonClick"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="Joined Contests(3)"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+        android:id="@+id/lv_contests"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_02"
+        android:layout_marginTop="10dp"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="7dp"
+        android:drawSelectorOnTop="true"
+        android:fastScrollEnabled="true"
+        android:listSelector="@android:color/transparent"
+        android:overScrollMode="never"
+        android:scrollbarStyle="outsideOverlay"
+        android:visibility="visible"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,226 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/intro_screenbg">
+
+    <include
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
+    <!-- Registration Body -->
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:background="@drawable/squrecorner_account_bg"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Balance:"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs: 0/-"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/squrecorner_account_bg"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Unutilized:"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs: 0/-"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Amount to Expire:"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs: 0/-"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:background="@drawable/squrecorner_account_bg"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Winnings:"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs: 0/-"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/squrecorner_account_bg"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Unutilized:"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs: 0/-"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bonus to Expire:"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs: 0/-"
+                        android:textColor="@android:color/white"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        <LinearLayout
+           android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="50dp">
+
+
+
+            <Button
+                android:id="@+id/btn_add_cash"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner_dark_red_btn_bg"
+                android:text="Add Cash"
+                android:textAllCaps="false"
+                android:onClick="onButtonClick"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"/>
+            <Button
+                android:id="@+id/btn_transactions"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner_white_btn_bg"
+                android:text="Transactions"
+                android:textAllCaps="false"
+                android:onClick="onButtonClick"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

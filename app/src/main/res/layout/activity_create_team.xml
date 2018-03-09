@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
+    tools:context="com.perfect11.team_create.CreateTeamActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_action_back" />
+
+        <com.utility.customView.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/create_team_activity"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/min_text_size" />
+    </RelativeLayout>
+    <!--Body-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:contentDescription="@null"
+        android:src="@drawable/create_team_header" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/create_team_bg" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_header"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="Step 2:Create Your Team"
+            android:textColor="#31BB6E"
+            android:textStyle="bold" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_sub_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_header"
+            android:layout_centerHorizontal="true"
+            android:text="INDIA vs AUSTRALIA T20 Series"
+            android:textColor="@android:color/black"
+            android:textSize="11dp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/ctv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_sub_header"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/clock"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:textColor="@color/red_text_color"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <com.utility.customView.CustomButton
+        android:id="@+id/btn_create_team"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_corner_red_btn_bg"
+        android:onClick="onButtonClick"
+        android:text="Create Team"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.utility.customView.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Get points for every run,wicket &amp; catch!"
+            android:textColor="@android:color/black"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onButtonClick"
+            android:orientation="horizontal">
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Click"
+                android:textColor="@android:color/black"
+                android:textSize="11dp" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text=" Rules"
+                android:textColor="@color/red_text_color"
+                android:textSize="11dp" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text=" for Details"
+                android:textColor="@android:color/black"
+                android:textSize="11dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

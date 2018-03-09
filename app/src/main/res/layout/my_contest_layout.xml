@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <com.utility.customView.CustomTextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/include"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:text="20 Oct, 2017"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black" />
+
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tv_date"
+        android:layout_marginTop="5dp"
+        android:background="@color/red_text_color">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Team"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Rank"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_01"
+        android:layout_margin="5dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_contests"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="7dp"
+            android:drawSelectorOnTop="true"
+            android:fastScrollEnabled="true"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbarStyle="outsideOverlay"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</RelativeLayout>

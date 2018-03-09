@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
+    tools:context="com.perfect11.team_create.SelectPlayersActivity">
+    <!--Header-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_action_back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/img_back"
+            android:gravity="center">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/ctv_country1"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="IND"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/min_text_size" />
+
+            <com.utility.customView.CustomTextView
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=" vs "
+                android:textColor="@color/red_text_color"
+                android:textSize="@dimen/min_text_size" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/ctv_country2"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="IND"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/min_text_size" />
+        </LinearLayout>
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/ctv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="3dp"
+            android:drawableLeft="@drawable/clock"
+            android:gravity="center"
+            android:textColor="@color/red_text_color"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <!--Sub Header-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:contentDescription="@null"
+        android:src="@drawable/create_team_header" />
+    <!--Body-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/include_01"
+            android:background="@drawable/create_team_step1_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_select_payer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:weightSum="6">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5.5"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:weightSum="4">
+                    <!--Select Type-->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_section"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/background_light"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/header_title_bg"
+                            android:orientation="horizontal"
+                            android:weightSum="6">
+
+                            <com.utility.customView.CustomTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:text="INFO"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <com.utility.customView.CustomTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.8"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:text="PLAYER"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <com.utility.customView.CustomTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.2"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:text="POINTS"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <com.utility.customView.CustomTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.4"
+                                android:drawableRight="@drawable/droup_down_arrow"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:text="CRADITS"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"
+                    android:background="@color/light_gray"
+                    android:gravity="center"
+                    android:onClick="onButtonClick"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="10dp"
+                        android:layout_below="@+id/tv_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/up_arrow"
+                        android:checked="true"
+                        android:contentDescription="@null"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                    <com.utility.customView.CustomTextView
+                        android:id="@+id/tv_name"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="Team Preview"
+                        android:textColor="@color/red_text_color"
+
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="onButtonClick"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/include_02"
+                    layout="@layout/preview_team_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/include_01"
+            layout="@layout/common_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>

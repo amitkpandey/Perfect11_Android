@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="65dp" />
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profileImage"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <com.utility.customView.CustomTextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="John Doe"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+
+                    <com.utility.customView.CustomTextView
+                        android:id="@+id/ctv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="7dp"
+                        android:text="shondue@gmail.com"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_home"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                >
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_home"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Home"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/home_menu_icon"
+                    android:background="@drawable/shaddo"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_profile"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3"
+             >
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_profile"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="My Profile"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/my_profile_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_account"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_account"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="My Account"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/my_account_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_my_contests"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_my_contests"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="My Contests"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/my_contests_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_leader_board"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_leader_board"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Leader Board"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/leader_board_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_invite_friends"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_invite_friends"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Invite Friends"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/invite_friends_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_point_system"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_point_system"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Point System"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/point_system_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_help"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_help"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Help"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/help_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_contest_invited_code"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_contest_invited_code"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Contest Invited Code"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/contest_invited_code_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginRight="50dp"
+                        android:contentDescription="@null" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_logout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_logout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Logout"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/logout_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_contest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/rl_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            >
+
+            <RelativeLayout
+                android:id="@+id/rl_contest_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_practice"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Practice Contest"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_price"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_practice"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Winner takes all the glory"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_entry"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Entry Fee"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_entry_fee"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tv_entry"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Rs 50/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_winner_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_contest_details"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_join"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Joined With"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_joined_count"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_join"
+
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Dinesh Kartik"
+                    android:textColor="@color/green"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_points"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Points"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_points_count"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_points"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="304.75"
+                    android:textColor="@color/green"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_rank"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Rank"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_rank_count"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tv_rank"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="#55"
+                    android:textColor="@color/green"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_leaderboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rl_contest"
+android:padding="5dp"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_marginTop="1dp">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_leaderBoard"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="View LeaderBoard"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"/>
+
+            <com.utility.customView.CustomButton
+                android:id="@+id/btn_next"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_action_next" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

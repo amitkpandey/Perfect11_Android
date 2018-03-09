@@ -1,0 +1,184 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intro_screenbg"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+    <!-- Register progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <!-- Registration Body -->
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="35dp">
+
+            <com.utility.customView.CustomTextView
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Enter Card Details"
+                android:textColor="@color/red_text_color"
+                android:textStyle="bold" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/account_holder_name"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:hint="Account Holder Name:"
+                    android:imeActionId="6"
+                    android:imeActionLabel="Invite"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/card_number"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:hint="Card Nmber:"
+                    android:imeActionId="6"
+                    android:imeActionLabel="Invite"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <com.utility.customView.CustomTextView
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Expiry Date:"
+                android:textColor="@color/red_text_color"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.DropDownViewForXML
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:hint="MM"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:background="@drawable/drop_down_icon"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <com.utility.DropDownViewForXML
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:hint="YY"
+                    android:layout_marginRight="10dp"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:background="@drawable/drop_down_icon"
+                    />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="5dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/cvv"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:hint="CVV"
+                        android:imeActionId="6"
+                        android:imeActionLabel="Invite"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="50dp">
+
+
+
+                <Button
+                    android:id="@+id/btn_save_card"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner_dark_red_btn_bg"
+                    android:text="Save Card"
+                    android:textAllCaps="false"
+                    android:onClick="onButtonClick"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"/>
+                <Button
+                    android:id="@+id/btn_submit"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner_white_btn_bg"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:onClick="onButtonClick"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

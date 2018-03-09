@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.utility.customView.CustomTextView
+        android:id="@+id/tv_type"
+        style="@android:style/TextAppearance.DeviceDefault.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Wicket Keeper"
+        android:textColor="@color/red_text_color"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="2dp"
+        android:textStyle="bold"
+        />
+
+    <RelativeLayout
+        android:layout_marginTop="2dp"
+        android:id="@+id/rl_offer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_type"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:background="@android:color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_imageHolder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/transparent"
+            android:padding="3dp">
+
+            <ImageView
+                android:id="@+id/iv_rentImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:contentDescription="@null"
+                android:onClick="onButtonClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/jersey" />
+            <ImageView
+                android:id="@+id/iv_rentImage2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:contentDescription="@null"
+                android:onClick="onButtonClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/jersey2" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@style/SmallProgressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:indeterminate="false"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/rl_imageHolder"
+            android:layout_toRightOf="@+id/rl_imageHolder"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_player_details"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_name"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Dinesh Kartik"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_point"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:text="Ind | 0 point"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
+
+                <!--<RadioGroup
+                    android:id="@+id/rg_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">-->
+                <RadioButton
+                    android:id="@+id/rb_captain"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@null"
+                    android:gravity="center"
+                    android:button="@drawable/c_check_box"
+                   />
+
+                <RadioButton
+                    android:id="@+id/rb_vice_captain"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:contentDescription="@null"
+                    android:gravity="center"
+                    android:button="@drawable/vc_check_box"/>
+                <!--</RadioGroup>-->
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

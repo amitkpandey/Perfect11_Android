@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_contests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_imageHolder"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/transparent"
+            android:padding="3dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_contest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:src="@drawable/myteam" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@style/SmallProgressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:indeterminate="false"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/rl_imageHolder"
+            android:layout_toRightOf="@+id/rl_imageHolder"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_contest_details"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_name"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Dinesh Kartik"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_point"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:text="340.75 Points"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_rank"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="start"
+                android:text="# 55"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

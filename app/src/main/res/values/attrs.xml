@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="fontFace" format="enum">
+        <enum name="roboto_condensed_regular" value="0" />
+        <enum name="roboto_condensed_bold" value="1" />
+        <enum name="roboto_condensed_light" value="2" />
+    </attr>
+
+    <declare-styleable name="CustomFont">
+        <attr name="fontFace" />
+        <attr name="trimLength" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ViewfinderView" />
+    <declare-styleable name="DropDownViewForXML">
+        <attr name="popupHeight" format="integer" />
+        <attr name="popupWidth" format="integer" />
+        <attr name="popup_background" format="integer" />
+    </declare-styleable>
+
+    <!-- Circle image view -->
+    <declare-styleable name="CircularImageView">
+        <attr name="border" format="boolean" />
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="shadow" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="Theme">
+        <attr name="circularImageViewStyle" format="reference" />
+    </declare-styleable>
+
+    <!-- custom grid view -->
+    <declare-styleable name="CustomGridView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="DonutProgress">
+        <attr name="donut_progress" format="integer"/>
+        <attr name="donut_max" format="integer"/>
+        <attr name="donut_unfinished_color" format="color"/>
+        <attr name="donut_finished_color" format="color"/>
+        <attr name="donut_finished_stroke_width" format="dimension"/>
+        <attr name="donut_unfinished_stroke_width" format="dimension"/>
+        <attr name="donut_text_size" format="dimension"/>
+        <attr name="donut_text_color" format="color"/>
+        <attr name="donut_text" format="string"/>
+        <attr name="donut_prefix_text" format="string"/>
+        <attr name="donut_suffix_text" format="string"/>
+        <attr name="donut_background_color" format="color"/>
+    </declare-styleable>
+
+</resources>
