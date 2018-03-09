@@ -7,19 +7,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
-import com.perfect11.requestHandler.ApplicationServiceRequestHandler;
 import com.perfect11.team_create.CreateTeamActivity;
 import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
 import com.utility.ActivityController;
-import com.utility.Constants;
-import com.utility.DialogUtility;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +32,7 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private UpComingMatchesWrapper upCommingMatchesWrapper;
     private static final String TAG = UpcomingMatchesActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +80,23 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
                 upcomingMatchesAdapter.setOnButtonListener(new UpcomingMatchesAdapter.OnButtonListener() {
                     @Override
                     public void onButtonClick(int position) {
-                        Bundle bundle=new Bundle();
-                        UpComingMatchesDto upCommingMatchesDto=upCommingMatchesWrapper.data.get(position);
-                        bundle.putSerializable("upCommingMatchesDto",upCommingMatchesDto);
-                        ActivityController.startNextActivity(UpcomingMatchesActivity.this, CreateTeamActivity.class, bundle,false);
+                        Bundle bundle = new Bundle();
+                        UpComingMatchesDto upComingMatchesDto = upCommingMatchesWrapper.data.get(position);
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                            Date date;
+                            date = sdf.parse(upComingMatchesDto.start_date);
+                            long millis = date.getTime();
+                            long hoursMillis = 60 * 60 * 1000;
+                            long timeDiff = (millis - hoursMillis) - System.currentTimeMillis();
+                            if (timeDiff > 0) {
+                                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                                ActivityController.startNextActivity(UpcomingMatchesActivity.this, CreateTeamActivity.class, bundle, false);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 });
             }

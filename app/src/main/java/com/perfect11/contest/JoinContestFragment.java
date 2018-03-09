@@ -14,21 +14,14 @@ import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
-import com.perfect11.contest.adapter.ContestListAdapter;
 import com.perfect11.contest.adapter.JoinContestAdapter;
 import com.perfect11.contest.dto.JoinedContestDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
-import com.perfect11.login_signup.RegisterActivity;
 import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.team_create.ChooseContestActivity;
-import com.perfect11.team_create.dto.ContestDto;
-import com.perfect11.team_create.dto.PlayerDto;
-import com.perfect11.team_create.dto.SelectedMatchDto;
-import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
-import com.utility.ActivityController;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
+import com.utility.customView.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -38,8 +31,9 @@ import retrofit2.Response;
 
 public class JoinContestFragment extends BaseFragment {
     private RecyclerView rv_contests;
+    private CustomTextView tv_match, tv_status;
     private ApiInterface apiInterface;
-    private JoinedContestDto joinedContestDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private JoinContestAdapter joinContestAdapter;
     private UserDto userDto;
 
@@ -52,19 +46,23 @@ public class JoinContestFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.join_contest_layout, container, false);
         setInnerHeader("Joined Contests");
-        readFromBundle();
         initView();
+        readFromBundle();
         callAPI();
         return view;
     }
 
     private void readFromBundle() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
-//        joinedContestDto = (JoinedContestDto) getArguments().getSerializable("joinedContestDto");
+        upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+        tv_match.setText(upComingMatchesDto.teama + " vs " + upComingMatchesDto.teamb);
+        tv_status.setText(upComingMatchesDto.matchstatus);
     }
 
     private void initView() {
         rv_contests = view.findViewById(R.id.rv_contests);
+        tv_match = view.findViewById(R.id.tv_match);
+        tv_status = view.findViewById(R.id.tv_status);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_contests.setLayoutManager(layoutManager);
@@ -91,13 +89,13 @@ public class JoinContestFragment extends BaseFragment {
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<JoinedContestWrapper> call = apiInterface.getJoinedContestList("nzeng_2018_one-day_03", "1");
+        Call<JoinedContestWrapper> call = apiInterface.getJoinedContestList(upComingMatchesDto.key_name, userDto.member_id);
         call.enqueue(new Callback<JoinedContestWrapper>() {
             @Override
             public void onResponse(Call<JoinedContestWrapper> call, Response<JoinedContestWrapper> response) {
                 JoinedContestWrapper joinedContestWrapper = response.body();
 
-                Log.e("JoinedContestWrapperAPI", joinedContestWrapper.toString());
+//                Log.e("JoinedContestWrapperAPI", joinedContestWrapper.toString());
                 if (joinedContestWrapper.status) {
                     System.out.println(joinedContestWrapper.data.size());
                     setAdapter(joinedContestWrapper.data);

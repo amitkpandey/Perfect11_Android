@@ -129,12 +129,11 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         practiceContestAdapter.setOnButtonListener(new PracticeContestAdapter.OnButtonListener() {
             @Override
             public void onButtonClick(int position) {
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("joinedContestDto", data.get(position));
-//                LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
-//                liveLeaderBoardFragment.setArguments(bundle);
-//                ((BaseHeaderActivity) getActivity()).addFragment(LiveLeaderBoardFragment.newInstance(), true, LiveLeaderBoardFragment.class.getName());
-                ((BaseHeaderActivity) getActivity()).addFragment(MyTeamFragment.newInstance(), true, MyTeamFragment.class.getName());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("joinedContestDto", data.get(position));
+                MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
+                myTeamFragment.setArguments(bundle);
+                ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
             }
         });
 

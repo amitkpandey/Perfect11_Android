@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 public class SelectPlayersFragment extends BaseFragment {
     private RecyclerView rv_section, rv_list;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private ApiInterface apiInterface;
     private PlayerWrapper playerWrapper;
 
@@ -104,7 +104,7 @@ public class SelectPlayersFragment extends BaseFragment {
     }
 
     private void readFromBundle() {
-        upCommingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upCommingMatchesDto");
+        upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
     }
 
     private void initView() {
@@ -150,7 +150,7 @@ public class SelectPlayersFragment extends BaseFragment {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
             Date date;
-            date = sdf.parse(upCommingMatchesDto.start_date);
+            date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
             long timeDiff = millis - currentTime;
             if (timeDiff > 0) {
@@ -191,7 +191,7 @@ public class SelectPlayersFragment extends BaseFragment {
                     selectedMatchDto.numberOfPlayer=totalPlayers;
                     selectedMatchDto.credit_used=totalPoints;
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
-                    bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                    bundle.putSerializable("upCommingMatchesDto", upComingMatchesDto);
                     System.out.println("teamName1:"+ateam+"   teamName2:"+bteam);
                     ChooseCaptainFragment chooseCaptainFragment=new ChooseCaptainFragment();
                     chooseCaptainFragment.setArguments(bundle);
@@ -272,7 +272,7 @@ public class SelectPlayersFragment extends BaseFragment {
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<PlayerWrapper> call = apiInterface.getPlayer(upCommingMatchesDto.key_name);
+        Call<PlayerWrapper> call = apiInterface.getPlayer(upComingMatchesDto.key_name);
         call.enqueue(new Callback<PlayerWrapper>() {
             @Override
             public void onResponse(Call<PlayerWrapper> call, Response<PlayerWrapper> response) {

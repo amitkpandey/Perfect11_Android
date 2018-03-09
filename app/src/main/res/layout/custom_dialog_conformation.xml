@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
     android:layout_height="400dp"
-    android:orientation="vertical"
-    android:background="@drawable/scoring_rules"
     android:layout_gravity="center"
+    android:background="@drawable/scoring_rules"
     android:gravity="center_horizontal"
-    >
-
+    android:orientation="vertical">
 
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_title"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -19,50 +17,46 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Conformation"
+        android:text="Confirmation"
         android:textColor="@android:color/white"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
+
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_useable_balance"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_below="@+id/ctv_title"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Usable Balance: Rs. 0/-"
-        android:textColor="@android:color/black"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:layout_below="@+id/ctv_title"
-        />
+        android:textColor="@android:color/black" />
+
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_joining_amount"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ctv_useable_balance"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="Joining Amount: Rs. 0/-"
-        android:textColor="@android:color/white"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:layout_below="@+id/ctv_useable_balance"
-        />
+        android:textColor="@android:color/white" />
+
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_body"
+        style="@android:style/TextAppearance.DeviceDefault.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ctv_joining_amount"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="Demo String Body"
-        android:textColor="@android:color/white"
-        style="@android:style/TextAppearance.DeviceDefault.Small"
-        android:layout_below="@+id/ctv_joining_amount"
-        />
-
+        android:textColor="@android:color/white" />
 
 
     <LinearLayout
@@ -72,30 +66,28 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <com.utility.customView.CustomButton
             android:id="@+id/cbtn_cancel"
             android:layout_width="120dp"
             android:layout_height="40dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/rounded_corner_light_red_btn"
             android:onClick="onButtonClick"
             android:text="Cancel"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="10dp"
-            />
+            android:textColor="@android:color/white" />
+
         <com.utility.customView.CustomButton
             android:id="@+id/cbtn_join"
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:background="@drawable/rounded_corner_white_btn_bg"
             android:onClick="onButtonClick"
-            android:text="join Contest"
+            android:text="Join Contest"
             android:textAllCaps="false"
-            android:textColor="@color/green"
-            android:layout_centerHorizontal="true"
-            />
+            android:textColor="@color/green" />
     </LinearLayout>
 </RelativeLayout>

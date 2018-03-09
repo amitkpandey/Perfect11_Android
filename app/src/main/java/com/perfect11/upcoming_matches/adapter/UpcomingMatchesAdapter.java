@@ -95,7 +95,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
                     onButtonListener.onButtonClick(position);
                 }
             });
-            updateTimeRemaining(System.currentTimeMillis());
+//            updateTimeRemaining(System.currentTimeMillis());
         }
 
         private void updateTimeRemaining(long currentTime) {
@@ -104,12 +104,15 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
                 Date date;
                 date = sdf.parse(upComingMatchesDto.start_date);
                 long millis = date.getTime();
-                long timeDiff = millis - currentTime;
+                long hoursMillis = 60 * 60 * 1000;
+//                System.out.println("millis " + millis + " start " + upComingMatchesDto.start_date + " current " + System.currentTimeMillis());
+                long timeDiff = (millis - hoursMillis) - currentTime;
                 if (timeDiff > 0) {
                     int seconds = (int) (timeDiff / 1000) % 60;
                     int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                     int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                    ctv_timer.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                    int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                    ctv_timer.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
                 } else {
                     ctv_timer.setText("Expired!!");
                 }
