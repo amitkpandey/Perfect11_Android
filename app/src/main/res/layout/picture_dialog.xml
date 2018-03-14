@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:id="@+id/ll_root">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_above="@+id/btn_cancel"
+        android:alpha="0.75"
+        android:background="@drawable/rounded_corner" />
+
+    <LinearLayout
+        android:id="@+id/ll_optionButton"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_above="@+id/btn_cancel"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_content"
+            style="@android:style/TextAppearance.DeviceDefault.DialogWindowTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="Select an option"
+            android:textColor="@android:color/black"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_camera"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@android:drawable/ic_menu_camera"
+                android:onClick="onButtonClick" />
+
+            <Button
+                android:id="@+id/btn_album"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="20dp"
+                android:background="@android:drawable/ic_menu_gallery"
+                android:onClick="onButtonClick" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/view_01"
+        android:layout_marginTop="10dp"
+        android:alpha="0.75"
+        android:background="@drawable/rounded_corner" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/view_01"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:onClick="onButtonClick"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/view_01"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

@@ -41,7 +41,8 @@
                     android:layout_centerInParent="true"
                     android:padding="5dp"
                     android:background="@drawable/image_bg_round"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:onClick="onButtonClick">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image"
                         android:layout_width="match_parent"
@@ -50,24 +51,52 @@
                         />
 
                 </RelativeLayout>
+<LinearLayout
+    android:id="@+id/ll_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="60dp"
+    android:paddingRight="60dp">
 
-                <com.utility.customView.CustomTextView
-                    android:id="@+id/ctv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:gravity="center"
-                    android:layout_below="@+id/rl_imageHolder"
-                    style="@android:style/TextAppearance.DeviceDefault.Small"
-                    android:textColor="@android:color/white"
-                    android:layout_marginTop="10dp"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/name_drawable_icon"
+            android:hint="@string/prompt_name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:drawablePadding="10dp"
+            android:singleLine="true"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:visibility="visible"/>
+
+    </android.support.design.widget.TextInputLayout>
+    <com.utility.customView.CustomTextView
+        android:id="@+id/ctv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:gravity="center"
+        android:layout_below="@+id/rl_imageHolder"
+        style="@android:style/TextAppearance.DeviceDefault.Small"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>
+
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="+91 21212122211"
                     android:gravity="center"
-                    android:layout_below="@+id/ctv_name"
+                    android:layout_below="@+id/ll_name"
                     style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:textColor="@android:color/white"/>
 
@@ -140,7 +169,7 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_action_next" />
                 </RelativeLayout>
-                <RelativeLayout
+               <!-- <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
@@ -177,8 +206,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_action_next" />
-                </RelativeLayout>
+                </RelativeLayout>-->
                 <RelativeLayout
+                    android:id="@+id/rl_refer_fnd"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
@@ -188,6 +218,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
+                    android:onClick="onButtonClick"
                     >
                     <ImageView
                         android:id="@+id/left3_img"
@@ -207,6 +238,46 @@
                         android:layout_toEndOf="@+id/left3_img"
 
                         android:text="Refer a friend"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_action_next" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_change_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    android:onClick="onButtonClick"
+                    >
+                    <ImageView
+                        android:id="@+id/left4_img"
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/refer_a_friend_icon"
+
+                        />
+
+                    <com.utility.customView.CustomTextView
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/left4_img"
+                        android:layout_gravity="center"
+                        android:layout_toEndOf="@+id/left4_img"
+
+                        android:text="Change Password"
                         android:textColor="@android:color/black" />
 
                     <ImageView

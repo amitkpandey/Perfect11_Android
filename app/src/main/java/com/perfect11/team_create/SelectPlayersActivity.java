@@ -70,7 +70,6 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private CustomTextView tv_player_count, tv_header;
     private CustomButton btn_save;
 
-    private String ateam, bteam;
     /**
      * Preview Section Start
      * Ground View Start*/
@@ -181,6 +180,17 @@ public class SelectPlayersActivity extends AppCompatActivity {
         setPlayerVisiblityGone();
     }
 
+    private void setTeam() {
+        setPlayerVisiblityGone();
+        tv_team1.setText(upCommingMatchesDto.teama);
+        tv_team2.setText(upCommingMatchesDto.teamb);
+        System.out.println("getPictureURL(upCommingMatchesDto.teama) "+ getPictureURL(upCommingMatchesDto.teama));
+        System.out.println("getPictureURL(upCommingMatchesDto.teamb) "+ getPictureURL(upCommingMatchesDto.teamb));
+        Picasso.with(this).load(getPictureURL(upCommingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
+        Picasso.with(this).load(getPictureURL(upCommingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+        arrangePlayerOnField();
+    }
+
     private void setPlayerVisiblityGone() {
         iv_wkt.setVisibility(View.GONE);
 
@@ -204,13 +214,151 @@ public class SelectPlayersActivity extends AppCompatActivity {
         iv_bowler6.setVisibility(View.GONE);
     }
 
+    private void arrangePlayerOnField() {
+        int total_team1 = 0;
+        int total_team2 = 0;
+        int i = 1,j = 1,k = 1;
+        /**bowler*/
+        for (PlayerDto playerDto : bowler) {
+            if (playerDto.isSelected) {
+                System.out.println("Count:"+i);
+                setVisibleBowler(i);
+                i++;
 
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+        /**batsman*/
+        for (PlayerDto playerDto : batsman) {
+            if (playerDto.isSelected) {
+                System.out.println("Count:"+j);
+                setVisibleBatsman(j);
+                j++;
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+
+/**allrounder*/
+
+        for (PlayerDto playerDto : allrounder) {
+            if (playerDto.isSelected) {
+                System.out.println("Count:"+k);
+                setVisibleAllrounder(k);
+                k++;
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+
+/**keeper*/
+        for (PlayerDto playerDto : keeper) {
+            if (playerDto.isSelected) {
+                iv_wkt.setVisibility(View.VISIBLE);
+
+                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                    total_team1++;
+                } else {
+                    total_team2++;
+                }
+            }
+        }
+
+
+        /** Set Player Number*/
+        tv_team_count1.setText("" + total_team1 + "/7");
+        tv_team_count2.setText("" + total_team2 + "/7");
+    }
+
+    private void setVisibleAllrounder(int allrounder) {
+
+        switch (allrounder) {
+            case 1:
+                iv_ar1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                iv_ar2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                iv_ar3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                iv_ar4.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /**
+     * Visible Batsman
+     */
+    private void setVisibleBatsman(int batsman) {
+        switch (batsman) {
+            case 1:
+                iv_bat1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                iv_bat2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                iv_bat3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                iv_bat4.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                iv_bat5.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                iv_bat6.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /**
+     * Visible Bowler
+     */
+    private void setVisibleBowler(int bowler) {
+        switch (bowler) {
+            case 1:
+                iv_bowler1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                iv_bowler2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                iv_bowler3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                iv_bowler4.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                iv_bowler5.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                iv_bowler6.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
         String url = "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
         return url;
     }
+
+
 
     private void startUpdateTimer() {
         Timer tmr = new Timer();
@@ -252,20 +400,19 @@ public class SelectPlayersActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     selectedPlayer = getSelectedPlayers();
                     bundle.putSerializable("selectedPlayer", selectedPlayer);
-//                    bundle.putString("teamName1", ateam);
-//                    bundle.putString("teamName2", bteam);
-                    selectedMatchDto.teamName1 = ateam;
-                    selectedMatchDto.teamName2 = bteam;
+                    selectedMatchDto.teamName1 = upCommingMatchesDto.teama;
+                    selectedMatchDto.teamName2 = upCommingMatchesDto.teamb;
                     selectedMatchDto.numberOfPlayer = totalPlayers;
                     selectedMatchDto.credit_used = totalPoints;
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                     bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
 
-                    System.out.println("teamName1:" + ateam + "   teamName2:" + bteam);
+                    System.out.println("teamName1:" + upCommingMatchesDto.teama + "   teamName2:" + upCommingMatchesDto.teamb);
                     ActivityController.startNextActivity(this, ChooseCaptainActivity.class, bundle, false);
                 }
                 break;
             case R.id.ll_up:
+                setTeam();
                 ll_select_payer.setVisibility(View.GONE);
                 ll_preview.setVisibility(View.VISIBLE);
               /*  ll_select_payer.animate()
@@ -369,8 +516,6 @@ public class SelectPlayersActivity extends AppCompatActivity {
      * Divided Player as per type
      */
     private void selectPlayerList(ArrayList<PlayerDto> data) {
-        //Name of Team a
-        ateam = data.get(0).team_name;
 
         for (PlayerDto playerDto : data) {
 
@@ -390,10 +535,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                     break;
             }
 
-            //Name of Team b
-            if (!playerDto.team_name.equals(ateam)) {
-                bteam = playerDto.team_name;
-            }
+
 
         }
         System.out.println(" bowler: " + bowler.size() + " batsman: " + batsman.size() + " allrounder: " + allrounder.size() + " keeper: " + keeper.size());
@@ -409,7 +551,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         /** Set Adapter Players*/
 
         /**Wicket Keeper*/
-        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers, ateam, bteam);
+        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers,upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -424,7 +566,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**BatsMan*/
-        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, ateam, bteam);
+        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -439,7 +581,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**AllRounder*/
-        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, ateam, bteam);
+        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -453,7 +595,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
             }
         });
         /**AllRounder*/
-        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, ateam, bteam);
+        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -546,7 +688,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
-            if (playerDto.team_name.equals(ateam)) {
+            if (playerDto.team_name.equals(upCommingMatchesDto.teama)) {
                 no_ateam++;
             } else {
                 no_bteam++;

@@ -157,7 +157,7 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
 
         ctv_email.setText(userDto.email);
         if (!userDto.picture.equals("")) {
-            Picasso.with(this).load(userDto.picture).placeholder(R.drawable.progress_animation).into(profileImage);
+            Picasso.with(this).load(userDto.picture).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(profileImage);
         }
     }
 
@@ -374,7 +374,7 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
                     setDefaultBG();
                     ctv_contest_invited_code.setBackground(getResources().getDrawable(R.drawable.shaddo));
                     removeAllFragment();
-                    replaceFragment(ContestInviteFragment.newInstance(), false, ContestInviteFragment.class.getName());
+                    replaceFragment(InviteCodeFragment.newInstance(), false, InviteCodeFragment.class.getName());
                     slideMenu.closeMenu();
                 }
                 break;

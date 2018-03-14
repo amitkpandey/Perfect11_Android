@@ -8,6 +8,8 @@ import com.perfect11.login_signup.ForgotPasswordActivity;
 import com.perfect11.login_signup.LoginActivity;
 import com.perfect11.login_signup.RegisterActivity;
 import com.perfect11.login_signup.wrapper.UserDetailsWrapper;
+import com.perfect11.myprofile.ChangePasswordFragment;
+import com.perfect11.myprofile.MyProfileFragment;
 import com.utility.Constants;
 import com.utility.PreferenceUtility;
 import com.webservice.RequestHandler;
@@ -31,7 +33,9 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
     public static final int FORGET_PASSWORD = 2;
     public static final int SIGN_UP = 3;
     public static final int UPCOMING_MATCHES = 4;
-
+    public static final int CHANGEMYPICTURE = 5;
+    public static final int CHANGEPASSWORD = 6;
+    public static final int EDIT_PROFILE=7;
 
     public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String[] keys, Object[] values,
                                             String loadingMessage, int index, String baseURL) {
@@ -202,6 +206,12 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 return "register";
             case UPCOMING_MATCHES:
                 return url;
+            case CHANGEMYPICTURE:
+                return "changeMyPicture";
+            case CHANGEPASSWORD:
+                return "update_password";
+            case EDIT_PROFILE:
+                return "editProfile";
         }
         return "";
     }
@@ -277,8 +287,33 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 if (mActivity instanceof RegisterActivity) {
                     ((RegisterActivity) mActivity).serviceCallbackSignUP(message);
                 }
+                break;
+            case CHANGEMYPICTURE:
+                userWrapper = MyApplication.gson.fromJson(response, UserDetailsWrapper.class);
+                PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
 
+                if (mFragment instanceof MyProfileFragment) {
+                    ((MyProfileFragment) mFragment).serviceCallback(userWrapper.message);
+                }
+                break;
+            case EDIT_PROFILE:
+                userWrapper = MyApplication.gson.fromJson(response, UserDetailsWrapper.class);
+                PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
 
+                if (mFragment instanceof MyProfileFragment) {
+                    ((MyProfileFragment) mFragment).serviceChangeProfileCallback(userWrapper.message);
+                }
+                break;
+            case CHANGEPASSWORD:
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    message = jsonObject.optString("message");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (mFragment instanceof ChangePasswordFragment) {
+                    ((ChangePasswordFragment) mFragment).serviceCallback(message);
+                }
                 break;
         }
     }

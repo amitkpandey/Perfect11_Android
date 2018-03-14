@@ -4,6 +4,7 @@ import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
+import com.perfect11.myprofile.wrapper.MyContestInfoWrapper;
 import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
@@ -56,4 +57,8 @@ public interface ApiInterface {
 
     @GET("players/getpoints/{matchkey}/{roomid}")
     Call<ArrayList<LiveLeaderboardDto>> getLeaderboardList(@Path("matchkey") String matchkey, @Path("roomid") String roomid);
+
+    @FormUrlEncoded
+    @POST("api/myAccount")
+    Call<MyContestInfoWrapper> getMyContestDetails(@Field("member_id") String member_id);
 }
