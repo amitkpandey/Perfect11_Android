@@ -58,6 +58,9 @@ public class JoinContestFragment extends BaseFragment {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         try {
             upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+            String[] team = upComingMatchesDto.short_name.split(" ");
+            team1 = team[0];
+            team2 = team[2];
         } catch (Exception e) {
             e.printStackTrace();
         }

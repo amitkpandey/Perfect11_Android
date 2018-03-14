@@ -236,6 +236,20 @@
                 android:textSize="12sp" />
 
             <com.utility.customView.CustomButton
+                android:id="@+id/btn_join"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rounded_corner_light_red_btn"
+                android:checked="true"
+                android:contentDescription="@null"
+                android:gravity="center"
+                android:text="Join Contest"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+            <com.utility.customView.CustomButton
                 android:id="@+id/btn_preview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

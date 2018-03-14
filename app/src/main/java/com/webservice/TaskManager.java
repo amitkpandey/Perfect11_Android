@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.perfect11.R;
+import com.perfect11.base.ApiClient2;
 import com.utility.CommonUtilities;
 import com.utility.Constants;
 import com.utility.DialogUtility;
@@ -84,12 +85,10 @@ public class TaskManager implements IServerResponse {
     /**
      * Call service context.
      */
-    public void callServiceContext() {
+    public void callServiceContext(Context context) {
         if (CommonUtilities.checkConnectivity(context)) {
-            String[] keys = iRequestCaller.getKeys();
-            Object[] values = iRequestCaller.getValues();
-            String url = Constants.BASE_URL + iRequestCaller.getWebServiceMethod();
-            RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, null, "");
+            String url = ApiClient2.BASE_URL_RETROFIT + iRequestCaller.getWebServiceMethod();
+            RestServiceClient restServiceClient = new RestServiceClient(this, url, context, "", true);
             restServiceClient.execute();
         } /*else {
             DialogUtility.showMessageWithOk(activity.getResources().getString(R.string.network_unavailable), null);
@@ -191,12 +190,12 @@ public class TaskManager implements IServerResponse {
      *
      * @param loadingMessage the loading message
      */
-    public void callService(String loadingMessage, boolean isLanding,String baseURL) {
+    public void callService(String loadingMessage, boolean isLanding, String baseURL) {
         if (isLanding) {
             if (CommonUtilities.checkConnectivity(activity)) {
                 String[] keys = iRequestCaller.getKeys();
                 Object[] values = iRequestCaller.getValues();
-                String url = baseURL+ iRequestCaller.getWebServiceMethod();
+                String url = baseURL + iRequestCaller.getWebServiceMethod();
                 RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity, loadingMessage);
                 restServiceClient.execute();
             }
@@ -204,7 +203,7 @@ public class TaskManager implements IServerResponse {
             if (CommonUtilities.checkConnectivity(activity)) {
                 String[] keys = iRequestCaller.getKeys();
                 Object[] values = iRequestCaller.getValues();
-                String url =  baseURL + iRequestCaller.getWebServiceMethod();
+                String url = baseURL + iRequestCaller.getWebServiceMethod();
                 RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity, loadingMessage);
                 restServiceClient.execute();
             } else {
@@ -261,9 +260,9 @@ public class TaskManager implements IServerResponse {
         }
     }
 
-    public void callServiceForGet(String loadingMessage,String baseURL) {
+    public void callServiceForGet(String loadingMessage, String baseURL) {
         if (CommonUtilities.checkConnectivity(activity)) {
-            String url = baseURL+ iRequestCaller.getWebServiceMethod();
+            String url = baseURL + iRequestCaller.getWebServiceMethod();
             RestServiceClient restServiceClient = new RestServiceClient(this, url, activity, loadingMessage);
             restServiceClient.execute();
         } else {
@@ -271,7 +270,7 @@ public class TaskManager implements IServerResponse {
         }
     }
 
-    public void callServiceForGet(String loadingMessage, boolean isLanding,String baseURL) {
+    public void callServiceForGet(String loadingMessage, boolean isLanding, String baseURL) {
         if (CommonUtilities.checkConnectivity(activity)) {
             String url = baseURL + iRequestCaller.getWebServiceMethod();
             RestServiceClient restServiceClient = new RestServiceClient(this, url, activity, loadingMessage);

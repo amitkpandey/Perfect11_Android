@@ -7,8 +7,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient2 {
-    public static final String BASE_URL_RETROFIT = "http://52.15.50.179:4201/";
+public class ApiClient3 {
+    public static final String BASE_URL_RETROFIT = "http://perfect11.in/";
     public static Retrofit retrofit = null;
     public static HttpLoggingInterceptor interceptor = null;
     public static OkHttpClient client = null;

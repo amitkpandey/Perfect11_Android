@@ -95,7 +95,12 @@ public class LiveLeaderBoardFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_save:
-                ((BaseHeaderActivity) getActivity()).addFragment(MyTeamFragment.newInstance(), true, MyTeamFragment.class.getName());
+                Bundle bundle = new Bundle();
+                bundle.putString("matchId", joinedContestDto.matchID);
+                bundle.putString("teamId", joinedContestDto.team_id);
+                MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
+                myTeamFragment.setArguments(bundle);
+                ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
                 break;
         }
     }
@@ -111,7 +116,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         mProgressDialog.show();
         apiInterface = ApiClient2.getApiClient().create(ApiInterface.class);
 
-        Call<ArrayList<LiveLeaderboardDto>> call = apiInterface.getLeaderBoardList(joinedContestDto.matchID, joinedContestDto.team_id);
+        Call<ArrayList<LiveLeaderboardDto>> call = apiInterface.getLeaderBoardList(joinedContestDto.matchID, joinedContestDto.contestId);
         call.enqueue(new Callback<ArrayList<LiveLeaderboardDto>>() {
             @Override
             public void onResponse(Call<ArrayList<LiveLeaderboardDto>> call, Response<ArrayList<LiveLeaderboardDto>> response) {
@@ -137,7 +142,8 @@ public class LiveLeaderBoardFragment extends BaseFragment {
             @Override
             public void onButtonClick(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("joinedContestDto", data.get(position));
+                bundle.putString("matchId", joinedContestDto.matchID);
+                bundle.putString("teamId", "" + data.get(position).team_id);
                 MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
                 myTeamFragment.setArguments(bundle);
                 ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());

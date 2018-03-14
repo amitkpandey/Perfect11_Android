@@ -13,7 +13,6 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.adapter.ContestListAdapter;
-import com.perfect11.contest.dto.JoinedContestDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.login_signup.dto.UserDto;
@@ -189,14 +188,28 @@ public class ContestFragment extends BaseFragment {
 
             @Override
             public void onJoinClick(ContestDto contestDto) {
+                String[] team = upComingMatchesDto.short_name.split(" ");
+                String team1 = team[0];
+                String team2 = team[2];
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("contestDto", contestDto);
-                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                if (teamWrapper.data != null && teamWrapper.data.size() > 0) {
+                    bundle.putString("team1", team1);
+                    bundle.putString("team2", team2);
+                    bundle.putString("teamA", upComingMatchesDto.teama);
+                    bundle.putString("teamB", upComingMatchesDto.teamb);
+                    bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
+                    bundle.putSerializable("teamDto", teamWrapper.data);
+                    CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
+                    createTeamFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(createTeamFragment, true, CreateTeamFragment.class.getName());
+                } else {
+                    bundle.putSerializable("contestDto", contestDto);
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                    SelectPlayersFragment selectPlayersFragment = new SelectPlayersFragment();
+                    selectPlayersFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(selectPlayersFragment, true, SelectPlayersFragment.class.getName());
 
-                SelectPlayersFragment selectPlayersFragment = new SelectPlayersFragment();
-                selectPlayersFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(selectPlayersFragment, true, SelectPlayersFragment.class.getName());
-//                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -217,26 +230,30 @@ public class ContestFragment extends BaseFragment {
                         CreateContestFragment.class.getName());
                 break;
             case R.id.btn_join_contest:
-                bundle = new Bundle();
-                bundle.putString("team1", team1);
-                bundle.putString("team2", team2);
-                bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
-                bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
-                JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();
-                joinContestFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(joinContestFragment, true, JoinContestFragment.class.getName());
+                if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0) {
+                    bundle = new Bundle();
+                    bundle.putString("team1", team1);
+                    bundle.putString("team2", team2);
+                    bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
+                    bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
+                    JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();
+                    joinContestFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(joinContestFragment, true, JoinContestFragment.class.getName());
+                }
                 break;
             case R.id.btn_my_team:
-                bundle = new Bundle();
-                bundle.putString("team1", team1);
-                bundle.putString("team2", team2);
-                bundle.putString("teamA", upComingMatchesDto.teama);
-                bundle.putString("teamB", upComingMatchesDto.teamb);
-                bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
-                bundle.putSerializable("teamDto", teamWrapper.data);
-                CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
-                createTeamFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(createTeamFragment, true, CreateTeamFragment.class.getName());
+                if (teamWrapper.data != null && teamWrapper.data.size() > 0) {
+                    bundle = new Bundle();
+                    bundle.putString("team1", team1);
+                    bundle.putString("team2", team2);
+                    bundle.putString("teamA", upComingMatchesDto.teama);
+                    bundle.putString("teamB", upComingMatchesDto.teamb);
+                    bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
+                    bundle.putSerializable("teamDto", teamWrapper.data);
+                    CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
+                    createTeamFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(createTeamFragment, true, CreateTeamFragment.class.getName());
+                }
                 break;
         }
     }

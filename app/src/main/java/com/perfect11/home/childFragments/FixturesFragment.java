@@ -16,12 +16,9 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.ContestFragment;
-import com.perfect11.team_create.CreateTeamActivity;
-import com.perfect11.upcoming_matches.UpcomingMatchesActivity;
 import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
-import com.utility.ActivityController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -84,19 +81,22 @@ public class FixturesFragment extends BaseFragment {
 //                Log.e("UpcomingMatchesAPI", upCommingMatchesWrapper.toString());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
-                for (UpComingMatchesDto upComingMatchesDto : upComingMatchesWrapper.data) {
-                    try {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-                        Date date;
-                        date = sdf.parse(upComingMatchesDto.start_date);
-                        long millis = date.getTime();
-                        upComingMatchesDto.timeRemaining = millis - System.currentTimeMillis();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                if (upComingMatchesWrapper.data != null && upComingMatchesWrapper.data.size() > 0) {
+                    for (UpComingMatchesDto upComingMatchesDto : upComingMatchesWrapper.data) {
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                            Date date;
+                            date = sdf.parse(upComingMatchesDto.start_date);
+                            long millis = date.getTime();
+                            upComingMatchesDto.timeRemaining = millis - System.currentTimeMillis();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                    upcomingMatchesAdapter = new UpcomingMatchesAdapter(upComingMatchesWrapper.data, getActivity());
+                    rv_list.setAdapter(upcomingMatchesAdapter);
                 }
-                upcomingMatchesAdapter = new UpcomingMatchesAdapter(upComingMatchesWrapper.data, getActivity());
-                rv_list.setAdapter(upcomingMatchesAdapter);
 
                 upcomingMatchesAdapter.setOnButtonListener(new UpcomingMatchesAdapter.OnButtonListener() {
                     @Override

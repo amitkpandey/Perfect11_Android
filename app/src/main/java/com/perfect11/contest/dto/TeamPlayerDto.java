@@ -14,4 +14,19 @@ public class TeamPlayerDto implements Serializable {
     public String team_code;
     public String points_gain;
     public String full_name;
+
+    @Override
+    public String toString() {
+        return "TeamPlayerDto{" +
+                "lteam_list_id='" + lteam_list_id + '\'' +
+                ", team_id='" + team_id + '\'' +
+                ", matchId='" + matchId + '\'' +
+                ", player='" + player + '\'' +
+                ", type='" + type + '\'' +
+                ", credit='" + credit + '\'' +
+                ", team_code='" + team_code + '\'' +
+                ", points_gain='" + points_gain + '\'' +
+                ", full_name='" + full_name + '\'' +
+                '}';
+    }
 }

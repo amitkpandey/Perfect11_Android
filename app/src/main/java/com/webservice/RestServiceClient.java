@@ -106,10 +106,7 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
      */
     private String url;
 
-    /**
-     * The activity.
-     */
-    private Activity activity;
+    private Context activity;
 
     private int count;
 
@@ -133,6 +130,8 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
     private int requestType;
 
     private boolean flag = false;
+    private String serverErrorMessage = "Some Server Problem has been encountered";
+
 
     /**
      * Instantiates a new rest service client.
@@ -304,6 +303,15 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
         this.flag = flag;
     }
 
+    public RestServiceClient(IServerResponse iResponse, String url, Context activity, String loadingMessage, boolean flag) {
+        this.iResponse = iResponse;
+        this.url = url;
+        this.activity = activity;
+        this.loadingMessage = loadingMessage;
+        this.requestType = AppConstant.HTTP_GET;
+        this.flag = flag;
+    }
+
     /* (non-Javadoc)
      * @see android.os.AsyncTask#onPreExecute()
      */
@@ -312,18 +320,21 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
         super.onPreExecute();
         try {
             if (!"".equalsIgnoreCase(loadingMessage)) {
-                if (!activity.isFinishing()) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            pd = ProgressDialog.show(activity, "", loadingMessage, false, false);
-                            // pd.setContentView(R.layout.custume_progress_dailog);
-//                            pd.setMessage(loadingMessage);
-//                            pd.setCancelable(false);
-//                            pd.show();
-                        }
-                    });
-                }
+                pd = ProgressDialog.show(activity, "", loadingMessage, false, false);
+                pd.setCancelable(false);
+                pd.show();
+//                if (!activity.isFinishing()) {
+//                    activity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            pd = ProgressDialog.show(activity, "", loadingMessage, false, false);
+//                            // pd.setContentView(R.layout.custume_progress_dailog);
+////                            pd.setMessage(loadingMessage);
+////                            pd.setCancelable(false);
+////                            pd.show();
+//                        }
+//                    });
+//                }
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -387,61 +398,41 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
      */
     @Override
     protected void onPostExecute(String sResponse) {
-        System.out.println("isLoaderVisible " + isLoaderVisible);
-        System.out.println("ProgressDialog " + pd);
-        if (isLoaderVisible) {
-            try {
-                if (pd != null && pd.isShowing()) {
-                    System.out.println("is here");
-                    pd.dismiss();
+        if (activity != null) {
+            System.out.println("flag " + flag);
+            if (flag) {
+                System.out.println("hello");
+                if (iResponse != null && !sResponse.equals("")) {
+                    iResponse.onSuccess(sResponse);
+                } else {
+                    if (iResponse != null)
+                        iResponse.onFailure("", "0");
                 }
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("is else here");
-            try {
-                if (pd != null) {
-                    pd.show();
-                }
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        }
-        /* The server error message. */
-        String serverErrorMessage = activity.getResources().getString(R.string.server_alert);
-        if (flag) {
-            if (iResponse != null && !sResponse.equals("")) {
-                iResponse.onSuccess(sResponse);
             } else {
-                if (iResponse != null)
-                    iResponse.onFailure(serverErrorMessage, "0");
-            }
-        } else {
-            if (iResponse != null && !sResponse.equals("")) {
-                JSONObject json;
-                try {
-                    json = new JSONObject(sResponse);
+                if (iResponse != null && !sResponse.equals("")) {
+                    JSONObject json;
+                    try {
+                        json = new JSONObject(sResponse);
                     /*String errorCode = json.optString("error");*/
-                    boolean status = json.optBoolean("status");
+                        boolean status = json.optBoolean("status");
 
-                    System.out.println("status  " + status);
-                    String msg = json.optString("message");
-                    if (status) {
-                        iResponse.onSuccess(sResponse);
-                    } else {
-                        iResponse.onFailure(msg, /*errorCode*/"0");
+                        System.out.println("status  " + status);
+                        String msg = json.optString("message");
+                        if (status) {
+                            iResponse.onSuccess(sResponse);
+                        } else {
+                            iResponse.onFailure(msg, /*errorCode*/"0");
+                        }
+                    } catch (JSONException e) {
+                        iResponse.onFailure(serverErrorMessage, "1");
                     }
-                } catch (JSONException e) {
-                    iResponse.onFailure(serverErrorMessage, "1");
-                }
-            } else {
-                if (iResponse != null) {
-                    iResponse.onFailure(serverErrorMessage, "0");
+                } else {
+                    if (iResponse != null) {
+                        iResponse.onFailure(serverErrorMessage, "0");
+                    }
                 }
             }
         }
-
     }
 
     /**
@@ -527,6 +518,7 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
 //            return result.toString();
         } catch (IOException e) {
             e.printStackTrace();
+            serverErrorMessage = e.getMessage();
         }
         return builderResponse.toString();
     }
@@ -573,7 +565,7 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
 
         } catch (Exception e) {
             e.printStackTrace();
-//            serverErrorMessage = e.getMessage();
+            serverErrorMessage = e.getMessage();
         }
 
         return builderResponse.toString();
@@ -635,7 +627,7 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
 
         } catch (Exception e) {
             e.printStackTrace();
-//            serverErrorMessage = e.getMessage();
+            serverErrorMessage = e.getMessage();
         }
 
         return builderResponse.toString();

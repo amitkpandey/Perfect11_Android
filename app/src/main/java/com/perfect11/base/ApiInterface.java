@@ -69,4 +69,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/myAccount")
     Call<MyContestInfoWrapper> getMyContestDetails(@Field("member_id") String member_id);
+
+    @GET("api/getteamData/{team_id}/{matchkey}")
+    Call<TeamWrapper> getPlayerLiveScore(@Path("team_id") String team_id, @Path("matchkey") String matchkey);
 }

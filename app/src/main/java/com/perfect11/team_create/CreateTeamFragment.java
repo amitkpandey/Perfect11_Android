@@ -35,7 +35,7 @@ public class CreateTeamFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.create_team, container, false);
         readFromBundle();
-        setInnerHeader("Create Contest");
+        setInnerHeader("My Team List");
         initView();
         return view;
     }

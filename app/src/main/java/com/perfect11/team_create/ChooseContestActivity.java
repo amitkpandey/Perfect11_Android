@@ -159,7 +159,6 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
                     mProgressDialog.dismiss();
             }
         });
-
     }
 
     private void setAdapter(ArrayList<ContestDto> data) {

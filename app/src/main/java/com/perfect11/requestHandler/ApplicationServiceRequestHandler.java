@@ -1,9 +1,12 @@
 package com.perfect11.requestHandler;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.perfect11.base.MyApplication;
+import com.perfect11.contest.dto.LiveScoreDto;
 import com.perfect11.login_signup.ForgotPasswordActivity;
 import com.perfect11.login_signup.LoginActivity;
 import com.perfect11.login_signup.RegisterActivity;
@@ -17,9 +20,13 @@ import com.webservice.TaskManager;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class ApplicationServiceRequestHandler extends RequestHandler {
 
     public Activity mActivity;
+    public Context mContext;
     private Fragment mFragment;
     public String message, emailID, password;
     public Object[] values;
@@ -35,7 +42,8 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
     public static final int UPCOMING_MATCHES = 4;
     public static final int CHANGEMYPICTURE = 5;
     public static final int CHANGEPASSWORD = 6;
-    public static final int EDIT_PROFILE=7;
+    public static final int EDIT_PROFILE = 7;
+    public static final int GET_LIVE_SCORE = 8;
 
     public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String[] keys, Object[] values,
                                             String loadingMessage, int index, String baseURL) {
@@ -139,14 +147,13 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
         callServiceForGet();
     }
 
-    public ApplicationServiceRequestHandler(Activity activity, String baseURL, String url, String loadingMessage, int index) {
-        super(activity);
-        this.mActivity = activity;
-        this.message = loadingMessage;
+    public ApplicationServiceRequestHandler(Context context, String url, int index) {
+        super(context);
+        this.mContext = context;
         this.url = url;
         this.index = index;
-        this.baseURL = baseURL;
-        callServiceForGet();
+        TaskManager taskManager = new TaskManager(this, this, mActivity);
+        taskManager.callServiceContext(context);
     }
 
    /*  public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String url, String loadingMessage, int index,
@@ -212,6 +219,8 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 return "update_password";
             case EDIT_PROFILE:
                 return "editProfile";
+            case GET_LIVE_SCORE:
+                return "players/playerspoint/" + url;
         }
         return "";
     }
@@ -313,6 +322,27 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 }
                 if (mFragment instanceof ChangePasswordFragment) {
                     ((ChangePasswordFragment) mFragment).serviceCallback(message);
+                }
+                break;
+            case GET_LIVE_SCORE:
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    LiveScoreDto liveScoreDto;
+                    ArrayList<LiveScoreDto> liveScoreDtoArrayList = new ArrayList<>();
+                    Iterator<String> iterator = jsonObject.keys();
+                    while (iterator.hasNext()) {
+                        String key = iterator.next();
+                        liveScoreDto = MyApplication.gson.fromJson(jsonObject.optString(key), LiveScoreDto.class);
+                        liveScoreDto.player_short_name = key;
+                        liveScoreDtoArrayList.add(liveScoreDto);
+                        Log.e("TAG", "key:" + key + "--Value::" + jsonObject.optString(key) + "live score" + liveScoreDtoArrayList.size());
+                        for (LiveScoreDto liveScoreDto1 : liveScoreDtoArrayList) {
+                            System.out.println("liveScoreDto1 " + liveScoreDto1.toString());
+
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
         }
