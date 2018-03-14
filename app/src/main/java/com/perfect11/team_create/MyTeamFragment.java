@@ -41,10 +41,10 @@ public class MyTeamFragment extends BaseFragment {
 
     private int bowler = 0, batsman = 0, allrounder = 0, keeper = 0;
 
-    private ArrayList<String> batsmanList = new ArrayList<>();
-    private ArrayList<String> allRounderList = new ArrayList<>();
-    private ArrayList<String> bowlerList = new ArrayList<>();
-    private ArrayList<String> keeperList = new ArrayList<>();
+    private ArrayList<String> batsmanList;
+    private ArrayList<String> allRounderList;
+    private ArrayList<String> bowlerList;
+    private ArrayList<String> keeperList;
     private String captain = "", vCaptain = "", team1, team2, teamA, teamB;
     private float player_amount_count = 0;
     private TeamDto teamDto;
@@ -82,7 +82,10 @@ public class MyTeamFragment extends BaseFragment {
     private void updateUI(Intent intent) {
         teamDto = (TeamDto) intent.getExtras().getSerializable("teamDto");
         System.out.println("intent Background Service " + intent);
-        setPlayerVisibilityGone();
+        batsmanList = new ArrayList<>();
+        allRounderList = new ArrayList<>();
+        bowlerList = new ArrayList<>();
+        keeperList = new ArrayList<>();
         setTeam();
     }
 
@@ -146,6 +149,7 @@ public class MyTeamFragment extends BaseFragment {
         tv_bowler4_point = view.findViewById(R.id.tv_bowler4_point);
         tv_bowler5_point = view.findViewById(R.id.tv_bowler5_point);
         tv_bowler6_point = view.findViewById(R.id.tv_bowler6_point);
+        setPlayerVisibilityGone();
     }
 
     private void readFromBundle() {
@@ -357,39 +361,42 @@ public class MyTeamFragment extends BaseFragment {
 
 
     private void setImageWK(ImageView iv_bowler1, TextView tv_wicketKeeper, TeamPlayerDto teamPlayerDto) {
-        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w1));
-        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w2));
-        }
+        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
+//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w1));
+//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w2));
+//        }
         tv_wicketKeeper.setText(teamPlayerDto.points_gain);
     }
 
     private void setImageAllRounder(ImageView iv_bowler1, TextView tv_allRounder, TeamPlayerDto teamPlayerDto) {
         System.out.println("teamPlayerDto " + teamPlayerDto.toString());
-        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar1));
-        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar2));
-        }
+//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar1));
+//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar2));
+//        }
         tv_allRounder.setText(teamPlayerDto.points_gain);
     }
 
     private void setImageBowler(ImageView iv_bowler1, TextView tv_bowler, TeamPlayerDto teamPlayerDto) {
-        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b1));
-        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b2));
-        }
+        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
+//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b1));
+//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b2));
+//        }
         tv_bowler.setText(teamPlayerDto.points_gain);
     }
 
     private void setImageBatsman(ImageView iv_bowler1, TextView tv_batsman, TeamPlayerDto teamPlayerDto) {
-        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat1));
-        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat2));
-        }
+        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
+//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat1));
+//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat2));
+//        }
         tv_batsman.setText(teamPlayerDto.points_gain);
     }
 

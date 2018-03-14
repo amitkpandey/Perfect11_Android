@@ -90,7 +90,7 @@ public class BackgroundScoreUpdateService extends Service {
 
     public void runBackgroundOperation(String matchId, String contestId) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore("sltriseriest20_2018_g5", "325");
+        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore("325", "sltriseriest20_2018_g5");
         call.enqueue(new Callback<TeamWrapper>() {
             @Override
             public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
