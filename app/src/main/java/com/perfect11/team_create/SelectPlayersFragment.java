@@ -198,12 +198,12 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private void setTeam() {
         setPlayerVisiblityGone();
-        tv_team1.setText(upCommingMatchesDto.teama);
-        tv_team2.setText(upCommingMatchesDto.teamb);
-        System.out.println("getPictureURL(upCommingMatchesDto.teama) "+ getPictureURL(upCommingMatchesDto.teama));
-        System.out.println("getPictureURL(upCommingMatchesDto.teamb) "+ getPictureURL(upCommingMatchesDto.teamb));
-        Picasso.with(getActivity()).load(getPictureURL(upCommingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
-        Picasso.with(getActivity()).load(getPictureURL(upCommingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+        tv_team1.setText(upComingMatchesDto.teama);
+        tv_team2.setText(upComingMatchesDto.teamb);
+        System.out.println("getPictureURL(upCommingMatchesDto.teama) "+ getPictureURL(upComingMatchesDto.teama));
+        System.out.println("getPictureURL(upCommingMatchesDto.teamb) "+ getPictureURL(upComingMatchesDto.teamb));
+        Picasso.with(getActivity()).load(getPictureURL(upComingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
+        Picasso.with(getActivity()).load(getPictureURL(upComingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
         arrangePlayerOnField();
     }
 
@@ -241,7 +241,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 setVisibleBowler(i);
                 i++;
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -255,7 +255,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 setVisibleBatsman(j);
                 j++;
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -271,7 +271,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 setVisibleAllrounder(k);
                 k++;
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -284,7 +284,7 @@ public class SelectPlayersFragment extends BaseFragment {
             if (playerDto.isSelected) {
                 iv_wkt.setVisibility(View.VISIBLE);
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -421,7 +421,7 @@ public class SelectPlayersFragment extends BaseFragment {
                     selectedMatchDto.credit_used = totalPoints;
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                     bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                    System.out.println("teamName1:" + upComingMatchesDto.teama + "   teamName2:" + upCommingMatchesDto.teamb);
+                    System.out.println("teamName1:" + upComingMatchesDto.teama + "   teamName2:" + upComingMatchesDto.teamb);
                     ChooseCaptainFragment chooseCaptainFragment = new ChooseCaptainFragment();
                     chooseCaptainFragment.setArguments(bundle);
                     ((BaseHeaderActivity) getActivity()).addFragment(chooseCaptainFragment, true, ChooseCaptainFragment.class.getName());
@@ -565,7 +565,7 @@ public class SelectPlayersFragment extends BaseFragment {
         /** Set Adapter Players*/
 
         /**Wicket Keeper*/
-        wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -580,7 +580,7 @@ public class SelectPlayersFragment extends BaseFragment {
         });
 
         /**BatsMan*/
-        batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -595,7 +595,7 @@ public class SelectPlayersFragment extends BaseFragment {
         });
 
         /**AllRounder*/
-        arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -609,7 +609,7 @@ public class SelectPlayersFragment extends BaseFragment {
             }
         });
         /**AllRounder*/
-        bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -702,7 +702,7 @@ public class SelectPlayersFragment extends BaseFragment {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
-            if (playerDto.team_name.equals(upCommingMatchesDto.teama)) {
+            if (playerDto.team_name.equals(upComingMatchesDto.teama)) {
                 no_ateam++;
             } else {
                 no_bteam++;
