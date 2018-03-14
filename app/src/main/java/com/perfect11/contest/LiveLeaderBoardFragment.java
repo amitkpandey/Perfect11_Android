@@ -41,7 +41,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     private PracticeContestAdapter practiceContestAdapter;
 
     private ApiInterface apiInterface;
-    private String team1, team2, matchStatus;
+    private String team1, team2, teamA, teamB, matchStatus;
 
     public static LiveLeaderBoardFragment newInstance() {
         return new LiveLeaderBoardFragment();
@@ -64,6 +64,8 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         joinedContestDto = (JoinedContestDto) getArguments().getSerializable("joinedContestDto");
         team1 = getArguments().getString("team1");
         team2 = getArguments().getString("team2");
+        teamA = getArguments().getString("teamA");
+        teamB = getArguments().getString("teamB");
         matchStatus = getArguments().getString("matchStatus");
     }
 
@@ -144,6 +146,10 @@ public class LiveLeaderBoardFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("matchId", joinedContestDto.matchID);
                 bundle.putString("teamId", "" + data.get(position).team_id);
+                bundle.putString("team1", team1);
+                bundle.putString("team2", team2);
+                bundle.putString("teamA", teamA);
+                bundle.putString("teamB", teamB);
                 MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
                 myTeamFragment.setArguments(bundle);
                 ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());

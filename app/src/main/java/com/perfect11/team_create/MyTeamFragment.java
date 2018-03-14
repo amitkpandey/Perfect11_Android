@@ -27,7 +27,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MyTeamFragment extends BaseFragment {
-    private UserDto userDto;
     private String matchId, team_id;
     private Intent intent;
     private TextView tv_wkt_point, tv_bat1_point, tv_bat2_point, tv_bat3_point, tv_bat4_point, tv_bat5_point, tv_bat6_point, tv_ar1_point, tv_ar2_point,
@@ -39,7 +38,7 @@ public class MyTeamFragment extends BaseFragment {
 
     private CircleImageView iv_team1, iv_team2;
 
-    private int bowler = 0, batsman = 0, allrounder = 0, keeper = 0;
+    private int bowler, batsman, allrounder, keeper;
 
     private ArrayList<String> batsmanList;
     private ArrayList<String> allRounderList;
@@ -57,11 +56,9 @@ public class MyTeamFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.my_team, container, false);
-        userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         readFromBundle();
         initView();
         setInnerHeader("My Team");
-        startBackgroundService();
         return view;
     }
 
@@ -81,7 +78,11 @@ public class MyTeamFragment extends BaseFragment {
 
     private void updateUI(Intent intent) {
         teamDto = (TeamDto) intent.getExtras().getSerializable("teamDto");
-        System.out.println("intent Background Service " + intent);
+        System.out.println("intent Background Service " + teamDto.toString());
+        bowler = 0;
+        batsman = 0;
+        allrounder = 0;
+        keeper = 0;
         batsmanList = new ArrayList<>();
         allRounderList = new ArrayList<>();
         bowlerList = new ArrayList<>();
@@ -110,7 +111,11 @@ public class MyTeamFragment extends BaseFragment {
         tv_team_count1 = view.findViewById(R.id.tv_team_count1);
         tv_team_count2 = view.findViewById(R.id.tv_team_count2);
 
+        iv_team1 = view.findViewById(R.id.iv_team1);
+        iv_team2 = view.findViewById(R.id.iv_team2);
+
         iv_wkt = view.findViewById(R.id.iv_wkt);
+
         iv_bat1 = view.findViewById(R.id.iv_bat1);
         iv_bat2 = view.findViewById(R.id.iv_bat2);
         iv_bat3 = view.findViewById(R.id.iv_bat3);
@@ -131,6 +136,7 @@ public class MyTeamFragment extends BaseFragment {
         iv_bowler6 = view.findViewById(R.id.iv_bowler6);
 
         tv_wkt_point = view.findViewById(R.id.tv_wkt_point);
+
         tv_bat1_point = view.findViewById(R.id.tv_bat1_point);
         tv_bat2_point = view.findViewById(R.id.tv_bat2_point);
         tv_bat3_point = view.findViewById(R.id.tv_bat3_point);
@@ -154,8 +160,12 @@ public class MyTeamFragment extends BaseFragment {
 
     private void readFromBundle() {
         try {
-            matchId = getArguments().getString(matchId);
-            team_id = getArguments().getString(team_id);
+            matchId = getArguments().getString("matchId");
+            team_id = getArguments().getString("teamId");
+            team1 = getArguments().getString("team1");
+            team2 = getArguments().getString("team2");
+            teamA = getArguments().getString("teamA");
+            teamB = getArguments().getString("teamB");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -174,6 +184,7 @@ public class MyTeamFragment extends BaseFragment {
     }
 
     private void setPlayerVisibilityGone() {
+        tv_wkt_point.setVisibility(View.GONE);
         iv_wkt.setVisibility(View.GONE);
 
         iv_bat1.setVisibility(View.GONE);
@@ -219,6 +230,8 @@ public class MyTeamFragment extends BaseFragment {
         int total_team1 = 0;
         int total_team2 = 0;
 
+        System.out.println("team1" + team1);
+        System.out.println("team2" + team2);
         for (TeamPlayerDto teamPlayerDto : teamDto.team_player) {
             if (teamPlayerDto.team_code.trim().equals(team1)) {
                 total_team1++;
@@ -228,15 +241,16 @@ public class MyTeamFragment extends BaseFragment {
         }
         tv_team1.setText(team1);
         tv_team2.setText(team2);
-//        Picasso.with(getActivity()).load(getPictureURL(teamA)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(iv_team1);
-//        Picasso.with(getActivity()).load(getPictureURL(teamB)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(iv_team2);
+        Picasso.with(getActivity()).load(getPictureURL(teamA)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
+                into(iv_team1);
+        Picasso.with(getActivity()).load(getPictureURL(teamB)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
+                into(iv_team2);
         tv_team_count1.setText("" + total_team1 + "/7");
         tv_team_count2.setText("" + total_team2 + "/7");
         arrangePlayerOnField();
     }
 
     private void arrangePlayerOnField() {
-
         for (TeamPlayerDto teamPlayerDto : teamDto.team_player) {
             /* Divided  players*/
             switch (teamPlayerDto.type) {
@@ -256,7 +270,7 @@ public class MyTeamFragment extends BaseFragment {
                     allRounderList.add(teamPlayerDto.full_name);
                     break;
                 case "keeper":
-                    iv_wkt.setVisibility(View.VISIBLE);
+//                    iv_wkt.setVisibility(View.VISIBLE);
                     setImageWK(iv_wkt, tv_wkt_point, teamPlayerDto);
                     keeperList.add(teamPlayerDto.full_name);
                     break;
@@ -277,19 +291,15 @@ public class MyTeamFragment extends BaseFragment {
 
         switch (allRounder) {
             case 1:
-                iv_ar1.setVisibility(View.VISIBLE);
                 setImageAllRounder(iv_ar1, tv_ar1_point, teamPlayerDto);
                 break;
             case 2:
-                iv_ar2.setVisibility(View.VISIBLE);
                 setImageAllRounder(iv_ar2, tv_ar2_point, teamPlayerDto);
                 break;
             case 3:
-                iv_ar3.setVisibility(View.VISIBLE);
                 setImageAllRounder(iv_ar3, tv_ar3_point, teamPlayerDto);
                 break;
             case 4:
-                iv_ar4.setVisibility(View.VISIBLE);
                 setImageAllRounder(iv_ar4, tv_ar4_point, teamPlayerDto);
                 break;
         }
@@ -301,27 +311,21 @@ public class MyTeamFragment extends BaseFragment {
     private void setVisibleBatsman(int batsman, TeamPlayerDto teamPlayerDto) {
         switch (batsman) {
             case 1:
-                iv_bat1.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat1, tv_bat1_point, teamPlayerDto);
                 break;
             case 2:
-                iv_bat2.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat2, tv_bat2_point, teamPlayerDto);
                 break;
             case 3:
-                iv_bat3.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat3, tv_bat3_point, teamPlayerDto);
                 break;
             case 4:
-                iv_bat4.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat4, tv_bat4_point, teamPlayerDto);
                 break;
             case 5:
-                iv_bat5.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat5, tv_bat5_point, teamPlayerDto);
                 break;
             case 6:
-                iv_bat6.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat6, tv_bat6_point, teamPlayerDto);
                 break;
         }
@@ -333,27 +337,21 @@ public class MyTeamFragment extends BaseFragment {
     private void setVisibleBowler(int bowler, TeamPlayerDto teamPlayerDto) {
         switch (bowler) {
             case 1:
-                iv_bowler1.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler1, tv_bowler1_point, teamPlayerDto);
                 break;
             case 2:
-                iv_bowler2.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler2, tv_bowler2_point, teamPlayerDto);
                 break;
             case 3:
-                iv_bowler3.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler3, tv_bowler3_point, teamPlayerDto);
                 break;
             case 4:
-                iv_bowler4.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler4, tv_bowler4_point, teamPlayerDto);
                 break;
             case 5:
-                iv_bowler5.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler5, tv_bowler5_point, teamPlayerDto);
                 break;
             case 6:
-                iv_bowler6.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler6, tv_bowler6_point, teamPlayerDto);
                 break;
         }
@@ -361,49 +359,53 @@ public class MyTeamFragment extends BaseFragment {
 
 
     private void setImageWK(ImageView iv_bowler1, TextView tv_wicketKeeper, TeamPlayerDto teamPlayerDto) {
-        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
-//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w1));
-//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w2));
-//        }
+        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w1));
+        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w2));
+        }
+        iv_bowler1.setVisibility(View.VISIBLE);
+        tv_wicketKeeper.setVisibility(View.VISIBLE);
         tv_wicketKeeper.setText(teamPlayerDto.points_gain);
     }
 
     private void setImageAllRounder(ImageView iv_bowler1, TextView tv_allRounder, TeamPlayerDto teamPlayerDto) {
-        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
-//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar1));
-//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar2));
-//        }
+        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar1));
+        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar2));
+        }
+        iv_bowler1.setVisibility(View.VISIBLE);
+        tv_allRounder.setVisibility(View.VISIBLE);
         tv_allRounder.setText(teamPlayerDto.points_gain);
     }
 
     private void setImageBowler(ImageView iv_bowler1, TextView tv_bowler, TeamPlayerDto teamPlayerDto) {
-        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
-//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b1));
-//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b2));
-//        }
+        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b1));
+        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b2));
+        }
+        iv_bowler1.setVisibility(View.VISIBLE);
+        tv_bowler.setVisibility(View.VISIBLE);
         tv_bowler.setText(teamPlayerDto.points_gain);
     }
 
     private void setImageBatsman(ImageView iv_bowler1, TextView tv_batsman, TeamPlayerDto teamPlayerDto) {
-        System.out.println("teamPlayerDto " + teamPlayerDto.toString());
-//        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat1));
-//        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
-//            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat2));
-//        }
+        if (teamPlayerDto.player.equalsIgnoreCase(teamDto.captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat1));
+        } else if (teamPlayerDto.player.equalsIgnoreCase(teamDto.vice_captain)) {
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat2));
+        }
+        iv_bowler1.setVisibility(View.VISIBLE);
+        tv_batsman.setVisibility(View.VISIBLE);
         tv_batsman.setText(teamPlayerDto.points_gain);
     }
 
-//    private String getPictureURL(String teama) {
-//        String country = teama.trim().replace(" ", "-");
-//        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
-//    }
+    private String getPictureURL(String teama) {
+        String country = teama.trim().replace(" ", "-");
+        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+    }
 
     @Override
     public void onButtonClick(View view) {

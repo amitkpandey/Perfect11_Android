@@ -37,7 +37,7 @@ public class JoinContestFragment extends BaseFragment {
     private ArrayList<JoinedContestDto> joinedContestDtoArrayList;
     private JoinContestAdapter joinContestAdapter;
     private UserDto userDto;
-    private String team1, team2, matchStatus;
+    private String team1, teamA, team2, teamB, matchStatus;
 
     public static JoinContestFragment newInstance() {
         return new JoinContestFragment();
@@ -61,6 +61,8 @@ public class JoinContestFragment extends BaseFragment {
             String[] team = upComingMatchesDto.short_name.split(" ");
             team1 = team[0];
             team2 = team[2];
+            teamA = upComingMatchesDto.teama;
+            teamB = upComingMatchesDto.teamb;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,6 +70,8 @@ public class JoinContestFragment extends BaseFragment {
             joinedContestDtoArrayList = (ArrayList<JoinedContestDto>) getArguments().getSerializable("joinedContestDto");
             team1 = getArguments().getString("team1");
             team2 = getArguments().getString("team2");
+            teamA = getArguments().getString("teamA");
+            teamB = getArguments().getString("teamB");
             matchStatus = getArguments().getString("matchStatus");
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,6 +157,8 @@ public class JoinContestFragment extends BaseFragment {
                 bundle.putSerializable("joinedContestDto", data.get(position));
                 bundle.putString("team1", team1);
                 bundle.putString("team2", team2);
+                bundle.putString("teamA", teamA);
+                bundle.putString("teamB", teamB);
                 LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
                 liveLeaderBoardFragment.setArguments(bundle);
                 ((BaseHeaderActivity) getActivity()).addFragment(liveLeaderBoardFragment, true, LiveLeaderBoardFragment.class.getName());

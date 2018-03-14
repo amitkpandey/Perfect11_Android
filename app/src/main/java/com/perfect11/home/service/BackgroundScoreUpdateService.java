@@ -11,13 +11,9 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.perfect11.base.ApiClient;
-import com.perfect11.base.ApiClient2;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.contest.dto.TeamDto;
 import com.perfect11.contest.wrapper.TeamWrapper;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +24,6 @@ public class BackgroundScoreUpdateService extends Service {
     public static final String BROADCAST_ACTION = "com.perfect11.home.service.BackgroundReceiver";
     private final Handler handler = new Handler();
     private Intent intent;
-    private int counter = 0;
 
     private String matchId, team_id;
 
@@ -53,7 +48,7 @@ public class BackgroundScoreUpdateService extends Service {
         public void run() {
             if (isOnline())
                 runBackgroundOperation(matchId, team_id);
-            handler.postDelayed(this, 3000); // 3 seconds
+            handler.postDelayed(this, 1000); // 3 seconds
         }
     };
 
@@ -88,30 +83,21 @@ public class BackgroundScoreUpdateService extends Service {
     }
 
 
-    public void runBackgroundOperation(String matchId, String contestId) {
+    public void runBackgroundOperation(String matchId, String team_id) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore("325", "sltriseriest20_2018_g5");
+        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore(team_id, matchId);
         call.enqueue(new Callback<TeamWrapper>() {
             @Override
             public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
                 TeamWrapper teamWrapper = response.body();
 
-                Log.e("CreateTeamCallBack", "" + teamWrapper.data.size());
+//                Log.e("CreateTeamCallBack", "" + teamWrapper.data.size());
                 displayLoggingInfo(teamWrapper.data.get(0));
-//                if (callBackDto.status) {
-//                    Log.e("CreateTeamCallBack", callBackDto.message);
-//                    // callAPIJoinContest(callBackDto.data.team_id);
-//                } else {
-//                    DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
-//                }
-//                if (mProgressDialog.isShowing())
-//                    mProgressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<TeamWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
-//                DialogUtility.showMessageWithOk(t.toString(), getActivity());
             }
         });
     }

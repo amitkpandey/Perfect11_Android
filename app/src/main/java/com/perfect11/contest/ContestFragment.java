@@ -17,6 +17,7 @@ import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.team_create.CreateTeamFragment;
+import com.perfect11.team_create.MyTeamFragment;
 import com.perfect11.team_create.SelectPlayersFragment;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.wrapper.ContestWrapper;
@@ -226,14 +227,22 @@ public class ContestFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_create_contest:
-                ((BaseHeaderActivity) getActivity()).addFragment(CreateContestFragment.newInstance(), true,
-                        CreateContestFragment.class.getName());
+                bundle = new Bundle();
+                bundle.putString("matchId", "sltriseriest20_2018_g5");
+                bundle.putString("teamId", "325");
+                MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
+                myTeamFragment.setArguments(bundle);
+                ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
+//                ((BaseHeaderActivity) getActivity()).addFragment(CreateContestFragment.newInstance(), true,
+//                        CreateContestFragment.class.getName());
                 break;
             case R.id.btn_join_contest:
                 if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0) {
                     bundle = new Bundle();
                     bundle.putString("team1", team1);
                     bundle.putString("team2", team2);
+                    bundle.putString("teamA", upComingMatchesDto.teama);
+                    bundle.putString("teamB", upComingMatchesDto.teamb);
                     bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
                     bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
                     JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();

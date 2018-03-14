@@ -31,8 +31,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@null"
-                android:onClick="onButtonClick"
-                android:src="@drawable/ind" />
+                android:onClick="onButtonClick" />
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/tv_team1"
@@ -44,8 +43,7 @@
                 android:layout_toRightOf="@+id/iv_team1"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="Ind"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
             <com.utility.customView.CustomTextView
@@ -59,8 +57,7 @@
                 android:layout_toRightOf="@+id/iv_team1"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="6/7"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
         </RelativeLayout>
@@ -81,8 +78,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@null"
-                android:onClick="onButtonClick"
-                android:src="@drawable/aus" />
+                android:onClick="onButtonClick" />
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/tv_team2"
@@ -94,8 +90,7 @@
                 android:layout_toRightOf="@+id/iv_team2"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="Aus"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
             <com.utility.customView.CustomTextView
@@ -109,8 +104,7 @@
                 android:layout_toRightOf="@+id/iv_team2"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="5/7"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
         </RelativeLayout>
