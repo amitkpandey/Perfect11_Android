@@ -63,8 +63,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:drawableLeft="@drawable/clock"
-            android:gravity="center"
             android:drawablePadding="3dp"
+            android:gravity="center"
             android:textColor="@color/red_text_color"
             android:textSize="12sp" />
     </RelativeLayout>
@@ -140,8 +140,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Ind"
-                    android:textColor="@android:color/black"
-                    />
+                    android:textColor="@android:color/black" />
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_team_count1"
@@ -155,8 +154,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="6/7"
-                    android:textColor="@android:color/black"
-                    />
+                    android:textColor="@android:color/black" />
 
             </RelativeLayout>
 
@@ -189,8 +187,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Aus"
-                    android:textColor="@android:color/black"
-                    />
+                    android:textColor="@android:color/black" />
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_team_count2"
@@ -204,8 +201,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="5/7"
-                    android:textColor="@android:color/black"
-                     />
+                    android:textColor="@android:color/black" />
 
             </RelativeLayout>
 
@@ -213,11 +209,11 @@
                 android:id="@+id/rl_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/pitch">
 
                 <ImageView
@@ -230,14 +226,14 @@
                     android:onClick="onButtonClick"
                     android:scaleType="fitXY"
                     android:src="@drawable/man3"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/rl_batsman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_below="@+id/iv_wkt"
+                    android:layout_marginTop="30dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -304,11 +300,10 @@
                     android:id="@+id/rl_ar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_below="@+id/rl_batsman"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/rl_batsman"
-                    >
+                    android:gravity="center">
 
                     <ImageView
                         android:id="@+id/iv_ar1"
@@ -361,8 +356,8 @@
                     android:id="@+id/rl_bowlers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_below="@+id/rl_ar"
+                    android:layout_marginTop="30dp"
                     android:gravity="center">
 
                     <ImageView

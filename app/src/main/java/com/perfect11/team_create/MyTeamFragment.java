@@ -46,7 +46,7 @@ public class MyTeamFragment extends BaseFragment {
             }
         });
 
-        getActivity().registerReceiver(backgroundReceiver, new IntentFilter("com.yo.service.MessageActionReceiver"));
+        getActivity().registerReceiver(backgroundReceiver, new IntentFilter("com.perfect11.home.service.BackgroundReceiver"));
     }
 
     private void readFromBundle() {
@@ -55,7 +55,7 @@ public class MyTeamFragment extends BaseFragment {
 
     private void startBackgroundService() {
         Intent intent = new Intent();
-        intent.putExtra("matchID", joinedContestDto.matchID);
+        intent.putExtra("matchId", joinedContestDto.matchID);
         intent.putExtra("contestId", joinedContestDto.contestId);
         intent.setClass(getActivity(), BackgroundScoreUpdateService.class);
         //mActivity.sendBroadcast(intent);

@@ -34,8 +34,10 @@ public class JoinContestFragment extends BaseFragment {
     private CustomTextView tv_match, tv_status;
     private ApiInterface apiInterface;
     private UpComingMatchesDto upComingMatchesDto;
+    private ArrayList<JoinedContestDto> joinedContestDtoArrayList;
     private JoinContestAdapter joinContestAdapter;
     private UserDto userDto;
+    private String team1, team2, matchStatus;
 
     public static JoinContestFragment newInstance() {
         return new JoinContestFragment();
@@ -48,15 +50,25 @@ public class JoinContestFragment extends BaseFragment {
         setInnerHeader("Joined Contests");
         initView();
         readFromBundle();
-        callAPI();
+        setValues();
         return view;
     }
 
     private void readFromBundle() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
-        upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
-        tv_match.setText(upComingMatchesDto.teama + " vs " + upComingMatchesDto.teamb);
-        tv_status.setText(upComingMatchesDto.matchstatus);
+        try {
+            upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            joinedContestDtoArrayList = (ArrayList<JoinedContestDto>) getArguments().getSerializable("joinedContestDto");
+            team1 = getArguments().getString("team1");
+            team2 = getArguments().getString("team2");
+            matchStatus = getArguments().getString("matchStatus");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initView() {
@@ -66,6 +78,18 @@ public class JoinContestFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_contests.setLayoutManager(layoutManager);
+    }
+
+    private void setValues() {
+        if (upComingMatchesDto != null) {
+            tv_match.setText(upComingMatchesDto.teama + " vs " + upComingMatchesDto.teamb);
+            tv_status.setText(upComingMatchesDto.matchstatus);
+            callAPI();
+        } else {
+            tv_match.setText(team1 + " vs " + team2);
+            tv_status.setText(matchStatus);
+            setAdapter(joinedContestDtoArrayList);
+        }
     }
 
     @Override
@@ -80,7 +104,7 @@ public class JoinContestFragment extends BaseFragment {
 
     private void callAPI() {
         //API
-        /**
+        /*
          * Collecting data*/
         Log.d("API", "Get Player");
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
@@ -124,6 +148,8 @@ public class JoinContestFragment extends BaseFragment {
             public void onButtonClick(int position) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("joinedContestDto", data.get(position));
+                bundle.putString("team1", team1);
+                bundle.putString("team2", team2);
                 LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
                 liveLeaderBoardFragment.setArguments(bundle);
                 ((BaseHeaderActivity) getActivity()).addFragment(liveLeaderBoardFragment, true, LiveLeaderBoardFragment.class.getName());

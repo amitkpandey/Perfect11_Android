@@ -76,7 +76,7 @@ public class FixturesFragment extends BaseFragment {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<UpComingMatchesWrapper> call = apiInterface.getUpcommingMatches();
+        Call<UpComingMatchesWrapper> call = apiInterface.getUpcomingMatches();
         call.enqueue(new Callback<UpComingMatchesWrapper>() {
             @Override
             public void onResponse(Call<UpComingMatchesWrapper> call, Response<UpComingMatchesWrapper> response) {

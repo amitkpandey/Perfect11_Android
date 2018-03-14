@@ -1,7 +1,6 @@
 package com.perfect11.base;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,8 +19,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.perfect11.R;
 import com.perfect11.account.MyAccountFragment;
@@ -78,7 +75,8 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
     private ContestDto contestDto;
 
     private ArrayList<PlayerDto> selectedTeam;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
+
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
      */
@@ -89,21 +87,21 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
         setContentView(R.layout.common_base_header);
         readFromBundle();
 
-            if (bundle == null) {
-                Bundle bundle1=new Bundle();
-                if(flag) {
-                    bundle1.putSerializable("upCommingMatchesDto",upCommingMatchesDto);
-                    bundle1.putSerializable("selectedTeam",selectedTeam);
-                    bundle1.putSerializable("contestDto", contestDto);
-                }
-                bundle1.putBoolean("flag",flag);
-                mHomeScreen = new HomeFragment();
-                mHomeScreen.setArguments(bundle1);
-                mFragmentTransaction.replace(R.id.fl_container, mHomeScreen);
-                mFragmentTransaction.commit();
-            } else {
-                mHomeScreen = (HomeFragment) this.getSupportFragmentManager().findFragmentById(R.id.fl_container);
+        if (bundle == null) {
+            Bundle bundle1 = new Bundle();
+            if (flag) {
+                bundle1.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                bundle1.putSerializable("selectedTeam", selectedTeam);
+                bundle1.putSerializable("contestDto", contestDto);
             }
+            bundle1.putBoolean("flag", flag);
+            mHomeScreen = new HomeFragment();
+            mHomeScreen.setArguments(bundle1);
+            mFragmentTransaction.replace(R.id.fl_container, mHomeScreen);
+            mFragmentTransaction.commit();
+        } else {
+            mHomeScreen = (HomeFragment) this.getSupportFragmentManager().findFragmentById(R.id.fl_container);
+        }
         setValueOnSideMenu();
         readFromBundle();
     }
@@ -113,10 +111,11 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
             flag = getIntent().getExtras().getBoolean("flag");
             contestDto = (ContestDto) getIntent().getExtras().getSerializable("contestDto");
             selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
-            upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
+            upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
             System.out.println(contestDto.toString());
-            Log.e("BaseHeaderActivity:",contestDto.toString()+upCommingMatchesDto.toString()+selectedTeam.size()+""+flag);
-        }catch (Exception e){}
+//            Log.e("BaseHeaderActivity:", contestDto.toString() + upComingMatchesDto.toString() + selectedTeam.size() + "" + flag);
+        } catch (Exception e) {
+        }
 
 
     }
@@ -148,7 +147,6 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
         ctv_contest_invited_code.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
         ctv_logout.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
     }
-
 
 
     private void setValueOnSideMenu() {

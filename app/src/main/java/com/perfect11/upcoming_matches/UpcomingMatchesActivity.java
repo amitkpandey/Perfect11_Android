@@ -30,7 +30,7 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
     private RecyclerView rv_list;
     private UpcomingMatchesAdapter upcomingMatchesAdapter;
     private ApiInterface apiInterface;
-    private UpComingMatchesWrapper upCommingMatchesWrapper;
+    private UpComingMatchesWrapper upComingMatchesWrapper;
     private static final String TAG = UpcomingMatchesActivity.class.getSimpleName();
 
     @Override
@@ -65,23 +65,23 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<UpComingMatchesWrapper> call = apiInterface.getUpcommingMatches();
+        Call<UpComingMatchesWrapper> call = apiInterface.getUpcomingMatches();
         call.enqueue(new Callback<UpComingMatchesWrapper>() {
             @Override
             public void onResponse(Call<UpComingMatchesWrapper> call, Response<UpComingMatchesWrapper> response) {
-                upCommingMatchesWrapper = response.body();
-                Log.e("UpcomingMatchesAPI", upCommingMatchesWrapper.toString());
+                upComingMatchesWrapper = response.body();
+                Log.e("UpcomingMatchesAPI", upComingMatchesWrapper.toString());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
-                upcomingMatchesAdapter = new UpcomingMatchesAdapter(upCommingMatchesWrapper.data, UpcomingMatchesActivity.this);
+                upcomingMatchesAdapter = new UpcomingMatchesAdapter(upComingMatchesWrapper.data, UpcomingMatchesActivity.this);
                 rv_list.setAdapter(upcomingMatchesAdapter);
 
                 upcomingMatchesAdapter.setOnButtonListener(new UpcomingMatchesAdapter.OnButtonListener() {
                     @Override
                     public void onButtonClick(int position) {
                         Bundle bundle = new Bundle();
-                        UpComingMatchesDto upComingMatchesDto = upCommingMatchesWrapper.data.get(position);
+                        UpComingMatchesDto upComingMatchesDto = upComingMatchesWrapper.data.get(position);
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                             Date date;
@@ -91,7 +91,8 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
                             long timeDiff = (millis - hoursMillis) - System.currentTimeMillis();
                             if (timeDiff > 0) {
                                 bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                                ActivityController.startNextActivity(UpcomingMatchesActivity.this, CreateTeamActivity.class, bundle, false);
+                                ActivityController.startNextActivity(UpcomingMatchesActivity.this, CreateTeamActivity.class, bundle,
+                                        false);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();

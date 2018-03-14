@@ -74,17 +74,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private ContestDto contestDto;
 
     private ArrayList<PlayerDto> selectedTeam;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,9 +114,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             flag = getIntent().getExtras().getBoolean("flag");
             contestDto = (ContestDto) getIntent().getExtras().getSerializable("contestDto");
             selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
-            upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
-            Log.e("Login:",contestDto.toString()+upCommingMatchesDto.toString()+selectedTeam.size()+""+flag);
-        }catch (Exception e){}
+            upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
+//            Log.e("Login:", contestDto.toString() + upComingMatchesDto.toString() + selectedTeam.size() + "" + flag);
+        } catch (Exception e) {
+        }
 
     }
 
@@ -339,15 +340,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void serviceCallbackLogin() {
         //showProgress(false);
 
-        Bundle bundle=new Bundle();
-        if(flag) {
-            bundle.putSerializable("upCommingMatchesDto",upCommingMatchesDto);
-            bundle.putSerializable("selectedTeam",selectedTeam);
+        Bundle bundle = new Bundle();
+        if (flag) {
+            bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+            bundle.putSerializable("selectedTeam", selectedTeam);
             bundle.putSerializable("contestDto", contestDto);
         }
-        bundle.putBoolean("flag",flag);
+        bundle.putBoolean("flag", flag);
 
-        ActivityController.startNextActivity(this, BaseHeaderActivity.class,bundle, true);
+        ActivityController.startNextActivity(this, BaseHeaderActivity.class, bundle, true);
     }
 
 

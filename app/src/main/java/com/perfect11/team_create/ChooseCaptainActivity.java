@@ -29,8 +29,8 @@ public class ChooseCaptainActivity extends Activity {
     private ArrayList<PlayerDto> selectedPlayer = null;
     private CaptainAdapter captainAdapter;
     private SelectedMatchDto selectedMatchDto;
-    private UpComingMatchesDto upCommingMatchesDto;
-    private CustomTextView tv_player_count, tv_header, ctv_time;
+    private UpComingMatchesDto upComingMatchesDto;
+    private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, ctv_time;
     private CustomButton btn_save;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
@@ -53,12 +53,14 @@ public class ChooseCaptainActivity extends Activity {
     private void readFromBundle() {
         selectedPlayer = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedPlayer");
         selectedMatchDto = (SelectedMatchDto) getIntent().getExtras().getSerializable("selectedMatchDto");
-        upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
-//        System.out.println("upCommingMatchesDto:" + upCommingMatchesDto.toString());
+        upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
+//        System.out.println("upComingMatchesDto:" + upComingMatchesDto.toString());
     }
 
     private void initView() {
         rv_team = findViewById(R.id.rv_team);
+        ctv_country1 = findViewById(R.id.ctv_country1);
+        ctv_country2 = findViewById(R.id.ctv_country2);
         ctv_time = findViewById(R.id.ctv_time);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -66,6 +68,11 @@ public class ChooseCaptainActivity extends Activity {
 
         captainAdapter = new CaptainAdapter(this, selectedPlayer, selectedMatchDto.teamName1, selectedMatchDto.teamName2);
         rv_team.setAdapter(captainAdapter);
+        String[] team = upComingMatchesDto.short_name.split(" ");
+        String team1 = team[0];
+        String team2 = team[2];
+        ctv_country1.setText(team1);
+        ctv_country2.setText(team2);
     }
 
     private void startUpdateTimer() {
@@ -82,14 +89,16 @@ public class ChooseCaptainActivity extends Activity {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
             Date date;
-            date = sdf.parse(upCommingMatchesDto.start_date);
+            date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
-            long timeDiff = millis - currentTime;
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - currentTime;
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                 int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                ctv_time.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                ctv_time.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
             } else {
                 ctv_time.setText("Expired!!");
             }
@@ -107,13 +116,13 @@ public class ChooseCaptainActivity extends Activity {
                 ArrayList<PlayerDto> selectedTeam = captainAdapter.getSelectedCaptainAndVCaptainWithTeam();
 
                 if (selectedTeam != null) {
-                    for (PlayerDto playerDto : selectedTeam) {
-                        System.out.println(playerDto.full_name + "  " + playerDto.isC + "  " + playerDto.isCV);
-                    }
+//                    for (PlayerDto playerDto : selectedTeam) {
+//                        System.out.println(playerDto.full_name + "  " + playerDto.isC + "  " + playerDto.isCV);
+//                    }
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("selectedTeam", selectedTeam);
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
-                    bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
 
                     ActivityController.startNextActivity(this, TeamReadyActivity.class, bundle, false);
                 }

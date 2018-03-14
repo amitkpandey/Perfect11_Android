@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 public class SelectPlayersActivity extends AppCompatActivity {
     private RecyclerView rv_section, rv_list;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private ApiInterface apiInterface;
     private PlayerWrapper playerWrapper;
 
@@ -67,13 +67,13 @@ public class SelectPlayersActivity extends AppCompatActivity {
 
     private LinearLayout ll_preview, ll_select_payer;
 
-    private CustomTextView tv_player_count, tv_header;
+    private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, tv_team_count1, tv_team_count2, ctv_time, tv_team1, tv_team2;
     private CustomButton btn_save;
 
     /**
      * Preview Section Start
-     * Ground View Start*/
-    private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time;
+     * Ground View Start
+     */
     private CircleImageView cimg_country1, cimg_country2;
 
     private ImageView iv_wkt;
@@ -82,7 +82,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private ImageView iv_bowler1, iv_bowler2, iv_bowler3, iv_bowler4, iv_bowler5, iv_bowler6;
 
     /**
-     * Ground View End*/
+     * Ground View End
+     */
 
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
@@ -100,20 +101,20 @@ public class SelectPlayersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_players);
-        initView();
         readFromBundle();
+        initView();
+        initViewPreview();
         startUpdateTimer();
         callAPI();
     }
 
     private void readFromBundle() {
-        upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
+        upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
     }
 
     private void initView() {
-        initViewPreview();
-        tv_team1 = findViewById(R.id.tv_team1);
-        tv_team2 = findViewById(R.id.tv_team2);
+        ctv_country1 = findViewById(R.id.ctv_country1);
+        ctv_country2 = findViewById(R.id.ctv_country2);
 
         tv_team_count1 = findViewById(R.id.tv_team_count1);
         tv_team_count2 = findViewById(R.id.tv_team_count2);
@@ -140,6 +141,12 @@ public class SelectPlayersActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
         layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(layoutManager1);
+
+        String[] team = upComingMatchesDto.short_name.split(" ");
+        String team1 = team[0];
+        String team2 = team[2];
+        ctv_country1.setText(team1);
+        ctv_country2.setText(team2);
 
         selectedMatchDto = new SelectedMatchDto();
     }
@@ -177,21 +184,21 @@ public class SelectPlayersActivity extends AppCompatActivity {
         btn_save = findViewById(R.id.btn_save);
         btn_save.setText("Save Team");
 
-        setPlayerVisiblityGone();
+        setPlayerVisibilityGone();
     }
 
     private void setTeam() {
-        setPlayerVisiblityGone();
-        tv_team1.setText(upCommingMatchesDto.teama);
-        tv_team2.setText(upCommingMatchesDto.teamb);
-        System.out.println("getPictureURL(upCommingMatchesDto.teama) "+ getPictureURL(upCommingMatchesDto.teama));
-        System.out.println("getPictureURL(upCommingMatchesDto.teamb) "+ getPictureURL(upCommingMatchesDto.teamb));
-        Picasso.with(this).load(getPictureURL(upCommingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
-        Picasso.with(this).load(getPictureURL(upCommingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+        setPlayerVisibilityGone();
+        tv_team1.setText(upComingMatchesDto.teama);
+        tv_team2.setText(upComingMatchesDto.teamb);
+        System.out.println("getPictureURL(upComingMatchesDto.teama) " + getPictureURL(upComingMatchesDto.teama));
+        System.out.println("getPictureURL(upComingMatchesDto.teamb) " + getPictureURL(upComingMatchesDto.teamb));
+        Picasso.with(this).load(getPictureURL(upComingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
+        Picasso.with(this).load(getPictureURL(upComingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
         arrangePlayerOnField();
     }
 
-    private void setPlayerVisiblityGone() {
+    private void setPlayerVisibilityGone() {
         iv_wkt.setVisibility(View.GONE);
 
         iv_bat1.setVisibility(View.GONE);
@@ -217,29 +224,29 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private void arrangePlayerOnField() {
         int total_team1 = 0;
         int total_team2 = 0;
-        int i = 1,j = 1,k = 1;
-        /**bowler*/
+        int i = 1, j = 1, k = 1;
+        /*bowler*/
         for (PlayerDto playerDto : bowler) {
             if (playerDto.isSelected) {
-                System.out.println("Count:"+i);
+                System.out.println("Count:" + i);
                 setVisibleBowler(i);
                 i++;
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
                 }
             }
         }
-        /**batsman*/
+        /*batsman*/
         for (PlayerDto playerDto : batsman) {
             if (playerDto.isSelected) {
-                System.out.println("Count:"+j);
+                System.out.println("Count:" + j);
                 setVisibleBatsman(j);
                 j++;
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -247,15 +254,15 @@ public class SelectPlayersActivity extends AppCompatActivity {
             }
         }
 
-/**allrounder*/
+    /*allrounder*/
 
         for (PlayerDto playerDto : allrounder) {
             if (playerDto.isSelected) {
-                System.out.println("Count:"+k);
+                System.out.println("Count:" + k);
                 setVisibleAllrounder(k);
                 k++;
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -268,7 +275,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
             if (playerDto.isSelected) {
                 iv_wkt.setVisibility(View.VISIBLE);
 
-                if (playerDto.team_name.trim().equals(upCommingMatchesDto.teama)) {
+                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -359,7 +366,6 @@ public class SelectPlayersActivity extends AppCompatActivity {
     }
 
 
-
     private void startUpdateTimer() {
         Timer tmr = new Timer();
         tmr.schedule(new TimerTask() {
@@ -374,14 +380,16 @@ public class SelectPlayersActivity extends AppCompatActivity {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
             Date date;
-            date = sdf.parse(upCommingMatchesDto.start_date);
+            date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
-            long timeDiff = millis - currentTime;
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - currentTime;
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                 int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                ctv_time.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                ctv_time.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
             } else {
                 ctv_time.setText("Expired!!");
             }
@@ -400,14 +408,14 @@ public class SelectPlayersActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     selectedPlayer = getSelectedPlayers();
                     bundle.putSerializable("selectedPlayer", selectedPlayer);
-                    selectedMatchDto.teamName1 = upCommingMatchesDto.teama;
-                    selectedMatchDto.teamName2 = upCommingMatchesDto.teamb;
+                    selectedMatchDto.teamName1 = upComingMatchesDto.teama;
+                    selectedMatchDto.teamName2 = upComingMatchesDto.teamb;
                     selectedMatchDto.numberOfPlayer = totalPlayers;
                     selectedMatchDto.credit_used = totalPoints;
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
-                    bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
 
-                    System.out.println("teamName1:" + upCommingMatchesDto.teama + "   teamName2:" + upCommingMatchesDto.teamb);
+                    System.out.println("teamName1:" + upComingMatchesDto.teama + "   teamName2:" + upComingMatchesDto.teamb);
                     ActivityController.startNextActivity(this, ChooseCaptainActivity.class, bundle, false);
                 }
                 break;
@@ -486,7 +494,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<PlayerWrapper> call = apiInterface.getPlayer(upCommingMatchesDto.key_name);
+        Call<PlayerWrapper> call = apiInterface.getPlayer(upComingMatchesDto.key_name);
         call.enqueue(new Callback<PlayerWrapper>() {
             @Override
             public void onResponse(Call<PlayerWrapper> call, Response<PlayerWrapper> response) {
@@ -536,7 +544,6 @@ public class SelectPlayersActivity extends AppCompatActivity {
             }
 
 
-
         }
         System.out.println(" bowler: " + bowler.size() + " batsman: " + batsman.size() + " allrounder: " + allrounder.size() + " keeper: " + keeper.size());
         setAdapter();
@@ -551,7 +558,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         /** Set Adapter Players*/
 
         /**Wicket Keeper*/
-        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers,upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -566,7 +573,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**BatsMan*/
-        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -581,7 +588,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**AllRounder*/
-        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -595,7 +602,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
             }
         });
         /**AllRounder*/
-        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, upCommingMatchesDto.teama, upCommingMatchesDto.teamb);
+        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -688,7 +695,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
-            if (playerDto.team_name.equals(upCommingMatchesDto.teama)) {
+            if (playerDto.team_name.equals(upComingMatchesDto.teama)) {
                 no_ateam++;
             } else {
                 no_bteam++;

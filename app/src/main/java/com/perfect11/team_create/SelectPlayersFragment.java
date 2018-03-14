@@ -62,7 +62,7 @@ public class SelectPlayersFragment extends BaseFragment {
     private WkAdapter arAdapter;
     private WkAdapter bowlAdapter;
 
-    private int selectedplayerType = 0;
+    private int selectedPlayerType = 0;
     private float totalPoints = 0;
     private int totalPlayers = 0;
 
@@ -70,7 +70,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private LinearLayout ll_preview, ll_select_payer;
 
-    private CustomTextView tv_player_count, tv_header;
+    private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, tv_team_count1, tv_team_count2, ctv_time, tv_team1, tv_team2;
     private CustomButton btn_save;
 
     /**
@@ -80,7 +80,6 @@ public class SelectPlayersFragment extends BaseFragment {
      * Preview Section Start
      * Ground View Start
      */
-    private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time;
     private CircleImageView cimg_country1, cimg_country2;
 
     private ImageView iv_wkt;
@@ -107,8 +106,9 @@ public class SelectPlayersFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.activity_select_players, container, false);
-        initView();
         readFromBundle();
+        initView();
+        initViewPreview();
         startUpdateTimer();
         callAPI();
         return view;
@@ -123,20 +123,17 @@ public class SelectPlayersFragment extends BaseFragment {
     }
 
     private void initView() {
-        initViewPreview();
+
         /**
          * Preview Section
          * */
 
-        tv_team1 = view.findViewById(R.id.tv_team1);
-        tv_team2 = view.findViewById(R.id.tv_team2);
+        ctv_country1 = view.findViewById(R.id.ctv_country1);
+        ctv_country2 = view.findViewById(R.id.ctv_country2);
 
         tv_team_count1 = view.findViewById(R.id.tv_team_count1);
         tv_team_count2 = view.findViewById(R.id.tv_team_count2);
         ctv_time = view.findViewById(R.id.ctv_time);
-/**
- * End Preview Section
- * */
         tv_player_count = view.findViewById(R.id.tv_player_count);
         tv_player_count.setVisibility(View.VISIBLE);
 
@@ -154,6 +151,11 @@ public class SelectPlayersFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_section.setLayoutManager(layoutManager);
+        String[] team = upComingMatchesDto.short_name.split(" ");
+        String team1 = team[0];
+        String team2 = team[2];
+        ctv_country1.setText(team1);
+        ctv_country2.setText(team2);
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity());
         layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
@@ -197,17 +199,17 @@ public class SelectPlayersFragment extends BaseFragment {
     }
 
     private void setTeam() {
-        setPlayerVisiblityGone();
+        setPlayerVisibilityGone();
         tv_team1.setText(upComingMatchesDto.teama);
         tv_team2.setText(upComingMatchesDto.teamb);
-        System.out.println("getPictureURL(upCommingMatchesDto.teama) "+ getPictureURL(upComingMatchesDto.teama));
-        System.out.println("getPictureURL(upCommingMatchesDto.teamb) "+ getPictureURL(upComingMatchesDto.teamb));
+        System.out.println("getPictureURL(upComingMatchesDto.teama) " + getPictureURL(upComingMatchesDto.teama));
+        System.out.println("getPictureURL(upComingMatchesDto.teamb) " + getPictureURL(upComingMatchesDto.teamb));
         Picasso.with(getActivity()).load(getPictureURL(upComingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
         Picasso.with(getActivity()).load(getPictureURL(upComingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
         arrangePlayerOnField();
     }
 
-    private void setPlayerVisiblityGone() {
+    private void setPlayerVisibilityGone() {
         iv_wkt.setVisibility(View.GONE);
 
         iv_bat1.setVisibility(View.GONE);
@@ -233,11 +235,11 @@ public class SelectPlayersFragment extends BaseFragment {
     private void arrangePlayerOnField() {
         int total_team1 = 0;
         int total_team2 = 0;
-        int i = 1,j = 1,k = 1;
-        /**bowler*/
+        int i = 1, j = 1, k = 1;
+        /*bowler*/
         for (PlayerDto playerDto : bowler) {
             if (playerDto.isSelected) {
-                System.out.println("Count:"+i);
+                System.out.println("Count:" + i);
                 setVisibleBowler(i);
                 i++;
 
@@ -248,10 +250,10 @@ public class SelectPlayersFragment extends BaseFragment {
                 }
             }
         }
-        /**batsman*/
+        /*batsman*/
         for (PlayerDto playerDto : batsman) {
             if (playerDto.isSelected) {
-                System.out.println("Count:"+j);
+                System.out.println("Count:" + j);
                 setVisibleBatsman(j);
                 j++;
 
@@ -263,11 +265,11 @@ public class SelectPlayersFragment extends BaseFragment {
             }
         }
 
-/**allrounder*/
+    /*allrounder*/
 
         for (PlayerDto playerDto : allrounder) {
             if (playerDto.isSelected) {
-                System.out.println("Count:"+k);
+                System.out.println("Count:" + k);
                 setVisibleAllrounder(k);
                 k++;
 
@@ -279,7 +281,7 @@ public class SelectPlayersFragment extends BaseFragment {
             }
         }
 
-/**keeper*/
+    /*keeper*/
         for (PlayerDto playerDto : keeper) {
             if (playerDto.isSelected) {
                 iv_wkt.setVisibility(View.VISIBLE);
@@ -293,7 +295,7 @@ public class SelectPlayersFragment extends BaseFragment {
         }
 
 
-        /** Set Player Number*/
+        /* Set Player Number*/
         tv_team_count1.setText("" + total_team1 + "/7");
         tv_team_count2.setText("" + total_team2 + "/7");
     }
@@ -370,8 +372,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        String url = "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
-        return url;
+        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
     }
 
 
@@ -381,12 +382,14 @@ public class SelectPlayersFragment extends BaseFragment {
             Date date;
             date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
-            long timeDiff = millis - currentTime;
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - currentTime;
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                 int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                ctv_time.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                ctv_time.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
             } else {
                 ctv_time.setText("Expired!!");
             }
@@ -425,7 +428,7 @@ public class SelectPlayersFragment extends BaseFragment {
                     ChooseCaptainFragment chooseCaptainFragment = new ChooseCaptainFragment();
                     chooseCaptainFragment.setArguments(bundle);
                     ((BaseHeaderActivity) getActivity()).addFragment(chooseCaptainFragment, true, ChooseCaptainFragment.class.getName());
-                 }
+                }
                 break;
             case R.id.ll_up:
                 setTeam();
@@ -562,9 +565,9 @@ public class SelectPlayersFragment extends BaseFragment {
      */
     private void setAdapter() {
 
-        /** Set Adapter Players*/
+        /* Set Adapter Players*/
 
-        /**Wicket Keeper*/
+        /*Wicket Keeper*/
         wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
@@ -575,11 +578,11 @@ public class SelectPlayersFragment extends BaseFragment {
                 totalPlayers = totalPlayer;
                 tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
-                playerTypeAdapter.updateView(selectedplayerType, keeper);
+                playerTypeAdapter.updateView(selectedPlayerType, keeper);
             }
         });
 
-        /**BatsMan*/
+        /*BatsMan*/
         batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
@@ -590,11 +593,11 @@ public class SelectPlayersFragment extends BaseFragment {
                 totalPlayers = totalPlayer;
                 tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
-                playerTypeAdapter.updateView(selectedplayerType, batsman);
+                playerTypeAdapter.updateView(selectedPlayerType, batsman);
             }
         });
 
-        /**AllRounder*/
+        /*AllRounder*/
         arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
@@ -605,10 +608,10 @@ public class SelectPlayersFragment extends BaseFragment {
                 totalPlayers = totalPlayer;
                 tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
-                playerTypeAdapter.updateView(selectedplayerType, allrounder);
+                playerTypeAdapter.updateView(selectedPlayerType, allrounder);
             }
         });
-        /**AllRounder*/
+        /*AllRounder*/
         bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
@@ -619,23 +622,23 @@ public class SelectPlayersFragment extends BaseFragment {
                 totalPlayers = totalPlayer;
                 tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
-                playerTypeAdapter.updateView(selectedplayerType, bowler);
+                playerTypeAdapter.updateView(selectedPlayerType, bowler);
             }
         });
 
-        /**Set Adapter Keeper*/
+        /*Set Adapter Keeper*/
 
         rv_list.setAdapter(wkAdapter);
 
 
-/** Set Adapter Type */
+/* Set Adapter Type */
         playerTypeAdapter = new PlayerTypeAdapter(getActivity(), bowler, batsman, allrounder, keeper);
         rv_section.setAdapter(playerTypeAdapter);
 
         playerTypeAdapter.setOnButtonListener(new PlayerTypeAdapter.OnButtonListener() {
             @Override
             public void onButtonClick(int position) {
-                selectedplayerType = position;
+                selectedPlayerType = position;
                 switch (position) {
                     case 0:
                         rv_list.setAdapter(wkAdapter);

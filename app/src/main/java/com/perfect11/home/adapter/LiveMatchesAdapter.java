@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.perfect11.R;
-import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.squareup.picasso.Picasso;
 import com.utility.customView.CustomTextView;
@@ -34,15 +33,16 @@ public class LiveMatchesAdapter extends RecyclerView.Adapter<LiveMatchesAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout ll_root;
         private CustomTextView ctv_title, ctv_country1, ctv_country2;
-        private CircleImageView cimg_country1,cimg_country2;
+        private CircleImageView cimg_country1, cimg_country2;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ll_root = itemView.findViewById(R.id.ll_root);
             ctv_title = itemView.findViewById(R.id.ctv_title);
             ctv_country1 = itemView.findViewById(R.id.ctv_country1);
             ctv_country2 = itemView.findViewById(R.id.ctv_country2);
-            cimg_country1=itemView.findViewById(R.id.cimg_country1);
-            cimg_country2=itemView.findViewById(R.id.cimg_country2);
+            cimg_country1 = itemView.findViewById(R.id.cimg_country1);
+            cimg_country2 = itemView.findViewById(R.id.cimg_country2);
         }
     }
 
@@ -76,8 +76,7 @@ public class LiveMatchesAdapter extends RecyclerView.Adapter<LiveMatchesAdapter.
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        String url = "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
-        return url;
+        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
     }
 
     public void setOnButtonListener(OnButtonListener onButtonListener) {

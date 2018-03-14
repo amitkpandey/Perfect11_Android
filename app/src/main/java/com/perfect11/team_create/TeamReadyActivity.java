@@ -27,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TeamReadyActivity extends Activity {
     private ArrayList<PlayerDto> selectedTeam;
-    private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time;
+    private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time, ctv_country1, ctv_country2;
     private CircleImageView cimg_country1, cimg_country2;
 
     private ImageView iv_wkt;
@@ -40,7 +40,7 @@ public class TeamReadyActivity extends Activity {
     private int bowler = 0, batsman = 0, allrounder = 0, keeper = 0;
 
     private SelectedMatchDto selectedMatchDto;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -62,11 +62,13 @@ public class TeamReadyActivity extends Activity {
     private void readFromBundle() {
         selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
         selectedMatchDto = (SelectedMatchDto) getIntent().getExtras().getSerializable("selectedMatchDto");
-        upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
-//        System.out.println("upCommingMatchesDto:"+upCommingMatchesDto.toString());
+        upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
     }
 
     private void initView() {
+        ctv_country1 = findViewById(R.id.ctv_country1);
+        ctv_country2 = findViewById(R.id.ctv_country2);
+        tv_team2 = findViewById(R.id.tv_team2);
         tv_team1 = findViewById(R.id.tv_team1);
         tv_team2 = findViewById(R.id.tv_team2);
         tv_team_count1 = findViewById(R.id.tv_team_count1);
@@ -109,14 +111,16 @@ public class TeamReadyActivity extends Activity {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
             Date date;
-            date = sdf.parse(upCommingMatchesDto.start_date);
+            date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
-            long timeDiff = millis - currentTime;
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - currentTime;
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                 int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                ctv_time.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                ctv_time.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
             } else {
                 ctv_time.setText("Expired!!");
             }
@@ -170,6 +174,11 @@ public class TeamReadyActivity extends Activity {
             }
 
         }
+        String[] team = upComingMatchesDto.short_name.split(" ");
+        String team1 = team[0];
+        String team2 = team[2];
+        ctv_country1.setText(team1);
+        ctv_country2.setText(team2);
         tv_team1.setText(selectedMatchDto.teamName1);
         tv_team2.setText(selectedMatchDto.teamName2);
         Picasso.with(this).load(getPictureURL(selectedMatchDto.teamName1)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
@@ -182,7 +191,7 @@ public class TeamReadyActivity extends Activity {
     private void arrangePlayerOnField() {
 
         for (PlayerDto playerDto : selectedTeam) {
-            /** Divided  players*/
+            /* Divided  players*/
             switch (playerDto.seasonal_role) {
                 case "bowler":
                     bowler++;
@@ -194,7 +203,7 @@ public class TeamReadyActivity extends Activity {
                     break;
                 case "allrounder":
                     allrounder++;
-                    setVisibleAllrounder(allrounder, playerDto.isC, playerDto.isCV);
+                    setVisibleAllRounder(allrounder, playerDto.isC, playerDto.isCV);
                     break;
                 case "keeper":
                     iv_wkt.setVisibility(View.VISIBLE);
@@ -204,9 +213,9 @@ public class TeamReadyActivity extends Activity {
         }
     }
 
-    private void setVisibleAllrounder(int allrounder, boolean isC, boolean isVC) {
+    private void setVisibleAllRounder(int allRounder, boolean isC, boolean isVC) {
 
-        switch (allrounder) {
+        switch (allRounder) {
             case 1:
                 iv_ar1.setVisibility(View.VISIBLE);
                 setImageAllrounder(iv_ar1, isC, isVC);
@@ -332,7 +341,7 @@ public class TeamReadyActivity extends Activity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("selectedTeam", selectedTeam);
                 bundle.putSerializable("selectedMatchDto", selectedMatchDto);
-                bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                 ActivityController.startNextActivity(this, ChooseContestActivity.class, bundle, false);
                 break;
         }

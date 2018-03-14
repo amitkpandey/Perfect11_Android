@@ -9,18 +9,15 @@
     android:onClick="onButtonClick"
     android:orientation="vertical">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:background="@color/light_gray">
+        android:background="@color/light_gray"
+        android:orientation="vertical">
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_name"
-
             style="@android:style/TextAppearance.DeviceDefault.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,33 +25,32 @@
             android:layout_marginTop="5dp"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="Team Preview"
-            android:textColor="@color/red_text_color"
             android:onClick="onButtonClick"
-            />
+            android:text="Team Preview"
+            android:textColor="@color/red_text_color" />
 
         <Button
             android:id="@+id/btn_arrow"
             android:layout_width="20dp"
             android:layout_height="10dp"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/down_arrow"
+            android:checked="true"
             android:contentDescription="@null"
             android:gravity="center"
-            android:checked="true"
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tv_name"
-            android:background="@drawable/down_arrow"
+            android:onClick="onButtonClick"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:onClick="onButtonClick"/>
+            android:textSize="12sp" />
 
         <RelativeLayout
             android:id="@+id/rl_team1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_name"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/tv_name">
+            android:layout_marginTop="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cimg_country1"
@@ -100,11 +96,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_name"
             android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cimg_country2"
@@ -151,12 +147,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/pitch"
             android:layout_below="@+id/tv_name"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginTop="30dp"
+            android:background="@drawable/pitch">
 
             <ImageView
                 android:id="@+id/iv_wkt"

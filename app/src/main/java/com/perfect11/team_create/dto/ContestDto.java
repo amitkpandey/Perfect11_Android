@@ -1,6 +1,8 @@
 package com.perfect11.team_create.dto;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Developer on 02-03-2018.
@@ -15,6 +17,7 @@ public class ContestDto implements Serializable {
     public String matchid;
     public String room_name;
     public String winningAmount;
+    public ArrayList<ContestSubDto> sub_data;
 
     @Override
     public String toString() {

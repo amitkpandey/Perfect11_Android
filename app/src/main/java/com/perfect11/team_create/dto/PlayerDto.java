@@ -17,10 +17,11 @@ public class PlayerDto implements Serializable {
     public String short_name;
     public String team_code;
 
-    public boolean isSelected=false;
-    public boolean isC=false;
-    public boolean isCV=false;
-    public String titleHeader="";
+    public boolean isSelected = false;
+    public boolean isC = false;
+    public boolean isCV = false;
+    public String titleHeader = "";
+
     @Override
     public String toString() {
         return "PlayerDto{" +

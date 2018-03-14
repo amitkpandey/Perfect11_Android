@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/off_white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include"
@@ -51,139 +51,140 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_01"
-        android:orientation="vertical"
-        android:background="@android:color/white"
         android:layout_margin="10dp"
-        android:padding="5dp"
-        >
-    <RelativeLayout
-        android:id="@+id/rl_02"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/rl_01"
-        android:visibility="gone">
-
-        <com.utility.customView.CustomTextView
-            android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Scoreboard"
-            android:textAllCaps="false"
-            android:textColor="@android:color/black" />
-
-        <com.utility.customView.CustomTextView
-            android:id="@+id/tv_team1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_score"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Ind 215/6 (20)"
-            android:textAllCaps="false"
-            android:textColor="@android:color/black" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_score"
-            android:layout_centerInParent="true"
-            android:background="@android:color/black" />
-
-        <com.utility.customView.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/tv_score"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Aus 205/10 (19.5)"
-            android:textAllCaps="false"
-            android:textColor="@android:color/black" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_03"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_02"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/green"
+        android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
-        <com.utility.customView.CustomTextView
-            android:id="@+id/tv_total"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_02"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/rl_01"
+            android:visibility="gone">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Scoreboard"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_team1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_score"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Ind 215/6 (20)"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_score"
+                android:layout_centerInParent="true"
+                android:background="@android:color/black" />
+
+            <com.utility.customView.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_score"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Aus 205/10 (19.5)"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_03"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="Total Winnings"
-            android:textColor="@android:color/black"
-            android:textSize="13sp" />
+            android:layout_below="@+id/rl_02"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/green"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <com.utility.customView.CustomTextView
-            android:id="@+id/tv_total_win"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_total"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="Rs 0/-"
-            android:textColor="@android:color/black"
-            android:textSize="13sp" />
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_total"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Total Winnings"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
-        <com.utility.customView.CustomTextView
-            android:id="@+id/tv_entry"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="Entry Fee"
-            android:textColor="@android:color/black"
-            android:textSize="13sp" />
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_total_win"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Rs 0/-"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
-        <com.utility.customView.CustomTextView
-            android:id="@+id/tv_entry_fee"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/tv_entry"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="Free"
-            android:textColor="@color/red_text_color"
-            android:textSize="13sp" />
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_entry"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Entry Fee"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
-    </RelativeLayout>
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_entry_fee"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_entry"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Free"
+                android:textColor="@color/red_text_color"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
     </LinearLayout>
+
     <com.utility.customView.CustomTextView
         android:id="@+id/tv_lead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_score_board"
         android:layout_centerHorizontal="true"
-        android:text="LeaderBoard"
-        android:textAllCaps="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/white"
         android:gravity="center"
         android:padding="5dp"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:text="LeaderBoard"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black" />
 
     <RelativeLayout
         android:id="@+id/rl_04"
@@ -226,13 +227,14 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/include1"
         android:layout_below="@+id/rl_04"
-        android:layout_margin="5dp"
-        >
+        android:layout_margin="5dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_contests"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:clipToPadding="false"
             android:divider="@android:color/transparent"
             android:dividerHeight="7dp"
@@ -241,9 +243,7 @@
             android:listSelector="@android:color/transparent"
             android:overScrollMode="never"
             android:scrollbarStyle="outsideOverlay"
-            android:visibility="visible"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:visibility="visible" />
     </RelativeLayout>
 
 

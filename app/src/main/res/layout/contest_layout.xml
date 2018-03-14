@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
@@ -36,20 +37,19 @@
         android:id="@+id/ll_02"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:weightSum="2"
         android:layout_below="@+id/rl_01"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <com.utility.customView.CustomButton
             android:id="@+id/btn_my_team"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_corner_dark_red_btn_bg"
             android:onClick="onButtonClick"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:text="My Team"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
@@ -58,12 +58,11 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_corner_black_btn_bg"
             android:onClick="onButtonClick"
-            android:layout_weight="1"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="10dp"
-            android:text="Joined Contests(3)"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
@@ -74,6 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_02"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
@@ -83,8 +84,6 @@
         android:listSelector="@android:color/transparent"
         android:overScrollMode="never"
         android:scrollbarStyle="outsideOverlay"
-        android:visibility="visible"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:visibility="visible" />
 
 </RelativeLayout>

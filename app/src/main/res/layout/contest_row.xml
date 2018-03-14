@@ -109,15 +109,15 @@
                 android:id="@+id/donut_progress"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/ll_player_details"
-                android:layout_toRightOf="@+id/ll_player_details"
+                android:layout_toLeftOf="@+id/ll_winner_details"
+                android:layout_toStartOf="@+id/ll_winner_details"
                 custom:donut_finished_color="@color/red_text_color"
                 custom:donut_prefix_text="Teams"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 custom:donut_progress="60"
-                custom:donut_text="dsd"
                 custom:donut_suffix_text="hello"
+                custom:donut_text="dsd"
                 custom:donut_text_color="@android:color/black"
                 custom:donut_text_size="11sp" />
 
@@ -126,10 +126,10 @@
                 android:id="@+id/ll_winner_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
-                android:layout_toEndOf="@+id/donut_progress"
-                android:layout_toRightOf="@+id/donut_progress"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@+id/ll_entry"
+                android:layout_toLeftOf="@+id/ll_entry"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -158,7 +158,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_entry"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
@@ -184,7 +184,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="Rs 50/-"
+                    android:text="Rs 10/-"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 

@@ -25,13 +25,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class CreateTeamActivity extends AppCompatActivity {
     private Dialog dialog;
     private WebView myWebView;
     private ProgressDialog progressDialog;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private CustomTextView tv_sub_header, ctv_time;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
@@ -57,23 +56,25 @@ public class CreateTeamActivity extends AppCompatActivity {
     }
 
     private void readFromBundle() {
-        upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
+        upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
 
-        tv_sub_header.setText(upCommingMatchesDto.season + " " + upCommingMatchesDto.format);
+        tv_sub_header.setText(upComingMatchesDto.season + " " + upComingMatchesDto.format);
     }
 
     private void updateTimeRemaining(long currentTime) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
             Date date;
-            date = sdf.parse(upCommingMatchesDto.start_date);
+            date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
-            long timeDiff = millis - currentTime;
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - currentTime;
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                 int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                ctv_time.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                ctv_time.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
             } else {
                 ctv_time.setText("Expired!!");
             }
@@ -165,7 +166,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 break;
             case R.id.btn_create_team:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                 ActivityController.startNextActivity(this, SelectPlayersActivity.class, bundle, false);
                 break;
         }

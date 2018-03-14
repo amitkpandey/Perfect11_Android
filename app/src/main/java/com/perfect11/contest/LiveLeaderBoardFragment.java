@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient2;
@@ -33,7 +32,7 @@ import retrofit2.Response;
 
 public class LiveLeaderBoardFragment extends BaseFragment {
     private RecyclerView rv_contests;
-    private CustomTextView tv_total_win, tv_entry_fee;
+    private CustomTextView tv_total_win, tv_entry_fee, tv_match, tv_status;
     private CustomButton btn_save;
 
     private JoinedContestDto joinedContestDto;
@@ -42,6 +41,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     private PracticeContestAdapter practiceContestAdapter;
 
     private ApiInterface apiInterface;
+    private String team1, team2, matchStatus;
 
     public static LiveLeaderBoardFragment newInstance() {
         return new LiveLeaderBoardFragment();
@@ -62,9 +62,14 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     private void readFromBundle() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         joinedContestDto = (JoinedContestDto) getArguments().getSerializable("joinedContestDto");
+        team1 = getArguments().getString("team1");
+        team2 = getArguments().getString("team2");
+        matchStatus = getArguments().getString("matchStatus");
     }
 
     private void initView() {
+        tv_match = view.findViewById(R.id.tv_match);
+        tv_status = view.findViewById(R.id.tv_status);
         tv_total_win = view.findViewById(R.id.tv_total_win);
         tv_entry_fee = view.findViewById(R.id.tv_entry_fee);
         rv_contests = view.findViewById(R.id.rv_contests);
@@ -75,6 +80,8 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     }
 
     private void setValues() {
+        tv_match.setText(team1 + " vs " + team2);
+        tv_status.setText(matchStatus);
         tv_total_win.setText("Rs. " + joinedContestDto.winingamount + "/-");
         tv_entry_fee.setText("Rs. " + joinedContestDto.amount + "/-");
         btn_save.setText("Team Preview");
@@ -104,7 +111,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         mProgressDialog.show();
         apiInterface = ApiClient2.getApiClient().create(ApiInterface.class);
 
-        Call<ArrayList<LiveLeaderboardDto>> call = apiInterface.getLeaderboardList("nzeng_2018_one-day_03", "133");
+        Call<ArrayList<LiveLeaderboardDto>> call = apiInterface.getLeaderBoardList(joinedContestDto.matchID, joinedContestDto.team_id);
         call.enqueue(new Callback<ArrayList<LiveLeaderboardDto>>() {
             @Override
             public void onResponse(Call<ArrayList<LiveLeaderboardDto>> call, Response<ArrayList<LiveLeaderboardDto>> response) {

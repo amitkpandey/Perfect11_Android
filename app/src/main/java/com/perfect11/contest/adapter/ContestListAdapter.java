@@ -25,8 +25,7 @@ import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
-public class ContestListAdapter extends ArrayAdapter<ContestDto> implements StickyListHeadersAdapter,
-        SectionIndexer {
+public class ContestListAdapter extends ArrayAdapter<ContestDto> implements StickyListHeadersAdapter, SectionIndexer {
 
     private List<String> stringList;
     private Activity activity;
@@ -77,12 +76,14 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        viewHolder.tv_entry_fee.setText("Rs "+mdata.get(position).entryfee+"/-");
-        viewHolder.tv_spot_left.setText("Only "+(Integer.parseInt(mdata.get(position).contestSize)-Integer.parseInt(mdata.get(position).join_size))+" spots left");
+        viewHolder.tv_entry_fee.setText(activity.getResources().getString(R.string.Rs) + " " + mdata.get(position).entryfee + "/-");
+        viewHolder.tv_spot_left.setText("Only " + (Integer.parseInt(mdata.get(position).contestSize) - Integer.parseInt(mdata.get(position).join_size)) + " spots left");
+        viewHolder.tv_price.setText(activity.getResources().getString(R.string.Rs) + " " + mdata.get(position).winningAmount + "/-");
+        viewHolder.tv_total_win.setText("" + mdata.get(position).sub_data.size());
 
         viewHolder.donut_progress.setMax(Integer.parseInt(mdata.get(position).contestSize));
         viewHolder.donut_progress.setProgress(Integer.parseInt((mdata.get(position).join_size)));
-        viewHolder.donut_progress.setText(""+mdata.get(position).contestSize+"\nTeams");
+        viewHolder.donut_progress.setText("" + mdata.get(position).contestSize + "\nTeams");
         viewHolder.rl_row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +97,7 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onjoinClick(mdata.get(position));
+                    onItemClickListener.onJoinClick(mdata.get(position));
                 }
             }
         });
@@ -192,7 +193,8 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
         private DonutProgress donut_progress;
         private CustomButton btn_filter;
         private Button btn_join;
-        private CustomTextView tv_price,tv_total_win,tv_entry_fee,tv_spot_left;
+        private CustomTextView tv_price, tv_total_win, tv_entry_fee, tv_spot_left;
+
         public ViewHolder(View view) {
             rl_row = view.findViewById(R.id.rl_row);
             rl_header = view.findViewById(R.id.rl_header);
@@ -202,8 +204,8 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
 
             tv_price = view.findViewById(R.id.tv_price);
             tv_total_win = view.findViewById(R.id.tv_total_win);
-            tv_entry_fee= view.findViewById(R.id.tv_entry_fee);
-            tv_spot_left=view.findViewById(R.id.tv_spot_left);
+            tv_entry_fee = view.findViewById(R.id.tv_entry_fee);
+            tv_spot_left = view.findViewById(R.id.tv_spot_left);
         }
     }
 
@@ -214,6 +216,6 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
     public interface OnItemClickListener {
         void onItemClick(int position);
 
-        void onjoinClick(ContestDto contestDto);
+        void onJoinClick(ContestDto contestDto);
     }
 }

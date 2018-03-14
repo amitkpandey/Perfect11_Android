@@ -41,11 +41,11 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
     private StickyListHeadersListView lv_contests;
     private ArrayList<PlayerDto> selectedTeam;
     private SelectedMatchDto selectedMatchDto;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
 
     private ApiInterface apiInterface;
     private ContestListAdapter contestListAdapter;
-    private CustomTextView ctv_time;
+    private CustomTextView ctv_time, ctv_country1, ctv_country2;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -68,13 +68,20 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
     private void readFromBundle() {
         selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
         selectedMatchDto = (SelectedMatchDto) getIntent().getExtras().getSerializable("selectedMatchDto");
-        upCommingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upCommingMatchesDto");
-//        System.out.println("upCommingMatchesDto:" + upCommingMatchesDto.toString() + selectedTeam.size());
+        upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
+//        System.out.println("upComingMatchesDto:" + upComingMatchesDto.toString() + selectedTeam.size());
     }
 
     private void initView() {
         lv_contests = findViewById(R.id.lv_contests);
+        ctv_country1 = findViewById(R.id.ctv_country1);
+        ctv_country2 = findViewById(R.id.ctv_country2);
         ctv_time = findViewById(R.id.ctv_time);
+        String[] team = upComingMatchesDto.short_name.split(" ");
+        String team1 = team[0];
+        String team2 = team[2];
+        ctv_country1.setText(team1);
+        ctv_country2.setText(team2);
     }
 
     private void startUpdateTimer() {
@@ -99,14 +106,16 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
             Date date;
-            date = sdf.parse(upCommingMatchesDto.start_date);
+            date = sdf.parse(upComingMatchesDto.start_date);
             long millis = date.getTime();
-            long timeDiff = millis - currentTime;
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - currentTime;
             if (timeDiff > 0) {
                 int seconds = (int) (timeDiff / 1000) % 60;
                 int minutes = (int) ((timeDiff / (1000 * 60)) % 60);
                 int hours = (int) ((timeDiff / (1000 * 60 * 60)) % 24);
-                ctv_time.setText(hours + " hrs " + minutes + " mins " + seconds + " sec");
+                int diffDays = (int) timeDiff / (24 * 60 * 60 * 1000);
+                ctv_time.setText((diffDays == 0 ? "" : diffDays + " days ") + hours + " hrs " + minutes + " mins " + seconds + " sec");
             } else {
                 ctv_time.setText("Expired!!");
             }
@@ -117,7 +126,7 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
 
     private void callAPI() {
         //API
-        /**
+        /*
          * Collecting data*/
         Log.d("API", "Get Player");
         final ProgressDialog mProgressDialog = new ProgressDialog(this);
@@ -126,7 +135,7 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<ContestWrapper> call = apiInterface.getContestList(upCommingMatchesDto.key_name, "all", "all", "all");
+        Call<ContestWrapper> call = apiInterface.getContestList(upComingMatchesDto.key_name, "all", "all", "all");
         call.enqueue(new Callback<ContestWrapper>() {
             @Override
             public void onResponse(Call<ContestWrapper> call, Response<ContestWrapper> response) {
@@ -178,14 +187,13 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
             }
 
             @Override
-            public void onjoinClick(ContestDto contestDto) {
+            public void onJoinClick(ContestDto contestDto) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("contestDto", contestDto);
-                bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                 bundle.putSerializable("selectedTeam", selectedTeam);
                 bundle.putBoolean("flag", true);
-                ActivityController.startNextActivity(ChooseContestActivity.this,
-                        RegisterActivity.class, bundle, false);
+                ActivityController.startNextActivity(ChooseContestActivity.this, RegisterActivity.class, bundle, false);
             }
         });
     }

@@ -1,18 +1,14 @@
 package com.perfect11.contest.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.perfect11.R;
 import com.perfect11.contest.dto.JoinedContestDto;
-import com.perfect11.team_create.dialog.FilterDialog;
-import com.perfect11.team_create.dto.ContestDto;
 import com.utility.customView.CustomTextView;
 
 import java.util.ArrayList;
@@ -52,7 +48,7 @@ public class JoinContestAdapter extends RecyclerView.Adapter<JoinContestAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if(mdata.get(position).amount.equalsIgnoreCase("0.00")) {
+        if (mdata.get(position).amount.equalsIgnoreCase("0.00")) {
             holder.tv_practice.setText("Practice Contest");
             holder.tv_price.setText("Winner takes all the glory");
         } else {

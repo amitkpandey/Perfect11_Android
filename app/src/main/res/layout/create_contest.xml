@@ -48,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_01"
-        android:orientation="vertical"
-        android:background="@drawable/create_contest_background">
+        android:background="@drawable/create_contest_background"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_01"
@@ -59,49 +59,47 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-          <!--<com.utility.customView.CustomEditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/name_black_drawable_icon"
-                android:drawablePadding="20dp"
-                android:drawableStart="@drawable/name_black_drawable_icon"
-                android:hint="Name"
-                android:inputType="textPersonName"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textSize="16sp" />-->
+            <!--<com.utility.customView.CustomEditText
+                  android:id="@+id/et_email"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@android:color/transparent"
+                  android:drawableLeft="@drawable/name_black_drawable_icon"
+                  android:drawablePadding="20dp"
+                  android:drawableStart="@drawable/name_black_drawable_icon"
+                  android:hint="Name"
+                  android:inputType="textPersonName"
+                  android:textColor="@android:color/black"
+                  android:textColorHint="@android:color/black"
+                  android:textSize="16sp" />-->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:theme="@style/TextLabel"
-                >
+                android:theme="@style/TextLabel">
 
                 <AutoCompleteTextView
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/name_black_drawable_icon"
+                    android:drawablePadding="10dp"
                     android:hint="Name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:drawablePadding="10dp"
                     android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    />
+                    android:textColor="@android:color/black" />
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
-      <!--  <View
-            android:layout_width="300dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:background="@android:color/black" />-->
+        <!--  <View
+              android:layout_width="300dp"
+              android:layout_height="1dp"
+              android:layout_gravity="center"
+              android:background="@android:color/black" />-->
 
         <LinearLayout
             android:layout_width="300dp"
@@ -109,40 +107,38 @@
             android:layout_gravity="center"
 
             android:orientation="horizontal">
-<!--
-            <com.utility.customView.CustomEditText
-                android:id="@+id/et_winning_amount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/amount_drawable"
-                android:drawablePadding="20dp"
-                android:drawableStart="@drawable/amount_drawable"
-                android:hint="Winning Amount"
-                android:inputType="number"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textSize="16sp" />-->
+            <!--
+                        <com.utility.customView.CustomEditText
+                            android:id="@+id/et_winning_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:drawableLeft="@drawable/amount_drawable"
+                            android:drawablePadding="20dp"
+                            android:drawableStart="@drawable/amount_drawable"
+                            android:hint="Winning Amount"
+                            android:inputType="number"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black"
+                            android:textSize="16sp" />-->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:theme="@style/TextLabel"
-                >
+                android:theme="@style/TextLabel">
 
                 <AutoCompleteTextView
                     android:id="@+id/winning_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/amount_drawable"
+                    android:drawablePadding="10dp"
                     android:hint="Winning Amount"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:drawablePadding="10dp"
                     android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    />
+                    android:textColor="@android:color/black" />
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -159,50 +155,48 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
-          <!--  <com.utility.customView.CustomEditText
-                android:id="@+id/et_contest_size"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/contest_drawable"
-                android:drawablePadding="20dp"
-                android:drawableStart="@drawable/contest_drawable"
-                android:hint="Contest Size"
-                android:inputType="number"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textSize="16sp" />-->
+            <!--  <com.utility.customView.CustomEditText
+                  android:id="@+id/et_contest_size"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@android:color/transparent"
+                  android:drawableLeft="@drawable/contest_drawable"
+                  android:drawablePadding="20dp"
+                  android:drawableStart="@drawable/contest_drawable"
+                  android:hint="Contest Size"
+                  android:inputType="number"
+                  android:textColor="@android:color/black"
+                  android:textColorHint="@android:color/black"
+                  android:textSize="16sp" />-->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:theme="@style/TextLabel"
-                >
+                android:theme="@style/TextLabel">
 
                 <AutoCompleteTextView
                     android:id="@+id/contest_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/contest_drawable"
+                    android:drawablePadding="10dp"
                     android:hint="Contest Size"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:drawablePadding="10dp"
                     android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    />
+                    android:textColor="@android:color/black" />
 
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
-       <!-- <View
-            android:layout_width="300dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:background="@android:color/black" />-->
+        <!-- <View
+             android:layout_width="300dp"
+             android:layout_height="1dp"
+             android:layout_gravity="center"
+             android:background="@android:color/black" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -223,8 +217,7 @@
                 android:text="Allow friends to join multiple team:"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                android:textStyle="normal"
-                />
+                android:textStyle="normal" />
 
             <CheckBox
                 android:id="@+id/cb_allow"

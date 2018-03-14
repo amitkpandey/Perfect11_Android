@@ -4,11 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,24 +13,17 @@ import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.BaseFragment;
-import com.perfect11.base.BaseHeaderActivity;
-import com.perfect11.help.childFragments.BattingFragment;
-import com.perfect11.home.childFragments.FixturesFragment;
-import com.perfect11.home.childFragments.LiveFragment;
-import com.perfect11.home.childFragments.ResultsFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HelpFragment extends BaseFragment {
     /*private ViewPager viewPager;
     private TabLayout tabLayout;*/
     private WebView myWebView;
     private ProgressDialog progressDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
-        view=inflater.inflate(R.layout.fragment_help,container,false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_help, container, false);
         setHeader("Help");
         initView();
         return view;
@@ -46,7 +34,7 @@ public class HelpFragment extends BaseFragment {
     }
 
     private void initView() {
-        myWebView = (WebView)view.findViewById(R.id.webview);
+        myWebView = view.findViewById(R.id.webview);
         setValues();
         /*viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         ((BaseHeaderActivity)getActivity()).slideMenu.addIgnoredView(viewPager);

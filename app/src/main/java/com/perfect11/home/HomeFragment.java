@@ -46,7 +46,7 @@ public class HomeFragment extends BaseFragment {
     private boolean flag;
     private ContestDto contestDto;
     private ArrayList<PlayerDto> selectedTeam;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private ApiInterface apiInterface;
 
     private int bowler_size, batsman_size, allrounder_size, keeper_size;
@@ -87,9 +87,9 @@ public class HomeFragment extends BaseFragment {
             flag = getArguments().getBoolean("flag");
             contestDto = (ContestDto) getArguments().getSerializable("contestDto");
             selectedTeam = (ArrayList<PlayerDto>) getArguments().getSerializable("selectedTeam");
-            upCommingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upCommingMatchesDto");
+            upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
             System.out.println(contestDto.toString());
-            Log.e("BaseHeaderActivity:", contestDto.toString() + upCommingMatchesDto.toString() + selectedTeam.size() + "" + flag);
+//            Log.e("BaseHeaderActivity:", contestDto.toString() + upComingMatchesDto.toString() + selectedTeam.size() + "" + flag);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,7 +121,6 @@ public class HomeFragment extends BaseFragment {
             });
 
         }
-
     }
 
     private void callCreateTeamAPI() {
@@ -161,7 +160,7 @@ public class HomeFragment extends BaseFragment {
             keeperList.add(keeper);
         }
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upCommingMatchesDto.key_name, vcaptain, userDto.member_id);
+                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id);
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
@@ -196,7 +195,7 @@ public class HomeFragment extends BaseFragment {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
 
-        Call<JoinContestCallBackDto> call = apiInterface.joinContest(contestDto.id, userDto.reference_id, userDto.member_id, upCommingMatchesDto.key_name);
+        Call<JoinContestCallBackDto> call = apiInterface.joinContest(contestDto.id, userDto.reference_id, userDto.member_id, upComingMatchesDto.key_name);
         call.enqueue(new Callback<JoinContestCallBackDto>() {
             @Override
             public void onResponse(Call<JoinContestCallBackDto> call, Response<JoinContestCallBackDto> response) {

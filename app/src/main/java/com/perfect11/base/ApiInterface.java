@@ -2,6 +2,7 @@ package com.perfect11.base;
 
 import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
+import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
 import com.perfect11.myprofile.wrapper.MyContestInfoWrapper;
@@ -25,13 +26,16 @@ import retrofit2.http.Path;
 public interface ApiInterface {
 
     @GET("api/getSchedule/0/0/notstarted")
-    Call<UpComingMatchesWrapper> getUpcommingMatches();
+    Call<UpComingMatchesWrapper> getUpcomingMatches();
 
     @GET("api/getSchedule/0/0/started")
     Call<UpComingMatchesWrapper> getLiveMatches();
 
     @GET("api/getPlayers/{matchkey}")
     Call<PlayerWrapper> getPlayer(@Path("matchkey") String matchkey);
+
+    @GET("api/getMyContests/{matchkey}/{userid}")
+    Call<JoinedContestWrapper> getUserContest(@Path("matchkey") String matchkey, @Path("userid") String userid);
 
     @FormUrlEncoded
     @POST("api/getAllContest/{matchkey}")
@@ -56,7 +60,11 @@ public interface ApiInterface {
 
 
     @GET("players/getpoints/{matchkey}/{roomid}")
-    Call<ArrayList<LiveLeaderboardDto>> getLeaderboardList(@Path("matchkey") String matchkey, @Path("roomid") String roomid);
+    Call<ArrayList<LiveLeaderboardDto>> getLeaderBoardList(@Path("matchkey") String matchkey, @Path("roomid") String roomid);
+
+    @FormUrlEncoded
+    @POST("api/getMultipleTeam/{matchkey}")
+    Call<TeamWrapper> getTeamList(@Path("matchkey") String matchkey, @Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("api/myAccount")

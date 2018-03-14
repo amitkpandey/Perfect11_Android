@@ -16,6 +16,7 @@
             android:id="@+id/img_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
+            android:contentDescription="@null"
             android:onClick="onButtonClick"
             android:src="@drawable/ic_action_back" />
 
@@ -62,8 +63,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:drawablePadding="3dp"
             android:drawableLeft="@drawable/clock"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:textColor="@color/red_text_color"
             android:textSize="11sp" />

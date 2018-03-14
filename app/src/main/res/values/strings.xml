@@ -13,9 +13,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_blank_password">Please enter a password</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="Rs">\u20B9</string>
 
     <!-- Strings related to Register -->
     <string name="action_register">Register</string>
