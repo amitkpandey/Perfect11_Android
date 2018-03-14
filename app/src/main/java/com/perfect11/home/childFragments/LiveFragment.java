@@ -82,11 +82,11 @@ public class LiveFragment extends BaseFragment {
                     @Override
                     public void onButtonClick(int position) {
                         Bundle bundle = new Bundle();
-                        UpComingMatchesDto liveMatchesDto = liveMatchesWrapper.data.get(position);
-                        bundle.putSerializable("liveMatchesDto", liveMatchesDto);
-                        ContestFragment contestFragment = ContestFragment.newInstance();
-                        contestFragment.setArguments(bundle);
-                        ((BaseHeaderActivity) getActivity()).addFragment(JoinContestFragment.newInstance(), true, JoinContestFragment.class.getName());
+                        UpComingMatchesDto upComingMatchesDto = liveMatchesWrapper.data.get(position);
+                        bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                        JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();
+                        joinContestFragment.setArguments(bundle);
+                        ((BaseHeaderActivity) getActivity()).addFragment(joinContestFragment, true, JoinContestFragment.class.getName());
                     }
                 });
             }

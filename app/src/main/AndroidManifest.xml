@@ -79,6 +79,12 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/DialogSlideAnim" />
+
+        <service
+            android:name="com.perfect11.home.service.BackgroundScoreUpdateService"
+            android:exported="false" />
+
+        <receiver android:name="com.perfect11.home.service.BackgroundReceiver" />
     </application>
 
 </manifest>

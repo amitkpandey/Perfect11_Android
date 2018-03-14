@@ -18,7 +18,6 @@ import com.perfect11.team_create.SelectPlayersFragment;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
-import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.DialogUtility;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class ContestFragment extends BaseFragment {
 
     private StickyListHeadersListView lv_contests;
     private ApiInterface apiInterface;
-    private UpComingMatchesDto upCommingMatchesDto;
+    private UpComingMatchesDto upComingMatchesDto;
     private ContestListAdapter contestListAdapter;
 
     public static ContestFragment newInstance() {
@@ -54,11 +53,10 @@ public class ContestFragment extends BaseFragment {
     }
 
     private void readFromBundle() {
-        upCommingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upCommingMatchesDto");
-        System.out.println("upCommingMatchesDto:" + upCommingMatchesDto.toString());
+        upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+        System.out.println("upComingMatchesDto:" + upComingMatchesDto.toString());
         callAPI();
     }
-
 
     private void callAPI() {
         //API
@@ -71,7 +69,7 @@ public class ContestFragment extends BaseFragment {
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<ContestWrapper> call = apiInterface.getContestList(upCommingMatchesDto.key_name, "all", "all", "all");
+        Call<ContestWrapper> call = apiInterface.getContestList(upComingMatchesDto.key_name, "all", "all", "all");
         call.enqueue(new Callback<ContestWrapper>() {
             @Override
             public void onResponse(Call<ContestWrapper> call, Response<ContestWrapper> response) {
@@ -112,7 +110,7 @@ public class ContestFragment extends BaseFragment {
             public void onjoinClick(ContestDto contestDto) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("contestDto", contestDto);
-                bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
+                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
 
                 SelectPlayersFragment selectPlayersFragment = new SelectPlayersFragment();
                 selectPlayersFragment.setArguments(bundle);

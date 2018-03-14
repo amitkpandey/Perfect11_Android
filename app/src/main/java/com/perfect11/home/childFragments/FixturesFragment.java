@@ -16,9 +16,12 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.ContestFragment;
+import com.perfect11.team_create.CreateTeamActivity;
+import com.perfect11.upcoming_matches.UpcomingMatchesActivity;
 import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
+import com.utility.ActivityController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +40,7 @@ import retrofit2.Response;
 public class FixturesFragment extends BaseFragment {
     private RecyclerView rv_list;
     private ApiInterface apiInterface;
-    private UpComingMatchesWrapper upCommingMatchesWrapper;
+    private UpComingMatchesWrapper upComingMatchesWrapper;
     private UpcomingMatchesAdapter upcomingMatchesAdapter;
 
     @Nullable
@@ -77,11 +80,11 @@ public class FixturesFragment extends BaseFragment {
         call.enqueue(new Callback<UpComingMatchesWrapper>() {
             @Override
             public void onResponse(Call<UpComingMatchesWrapper> call, Response<UpComingMatchesWrapper> response) {
-                upCommingMatchesWrapper = response.body();
+                upComingMatchesWrapper = response.body();
 //                Log.e("UpcomingMatchesAPI", upCommingMatchesWrapper.toString());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
-                for (UpComingMatchesDto upComingMatchesDto : upCommingMatchesWrapper.data) {
+                for (UpComingMatchesDto upComingMatchesDto : upComingMatchesWrapper.data) {
                     try {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                         Date date;
@@ -92,18 +95,32 @@ public class FixturesFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
-                upcomingMatchesAdapter = new UpcomingMatchesAdapter(upCommingMatchesWrapper.data, getActivity());
+                upcomingMatchesAdapter = new UpcomingMatchesAdapter(upComingMatchesWrapper.data, getActivity());
                 rv_list.setAdapter(upcomingMatchesAdapter);
 
                 upcomingMatchesAdapter.setOnButtonListener(new UpcomingMatchesAdapter.OnButtonListener() {
                     @Override
                     public void onButtonClick(int position) {
                         Bundle bundle = new Bundle();
-                        UpComingMatchesDto upCommingMatchesDto = upCommingMatchesWrapper.data.get(position);
-                        bundle.putSerializable("upCommingMatchesDto", upCommingMatchesDto);
-                        ContestFragment contestFragment = ContestFragment.newInstance();
-                        contestFragment.setArguments(bundle);
-                        ((BaseHeaderActivity) getActivity()).addFragment(contestFragment, true, ContestFragment.class.getName());
+                        UpComingMatchesDto upComingMatchesDto = upComingMatchesWrapper.data.get(position);
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                            Date date;
+                            date = sdf.parse(upComingMatchesDto.start_date);
+                            long millis = date.getTime();
+                            long hoursMillis = 60 * 60 * 1000;
+                            long timeDiff = (millis - hoursMillis) - System.currentTimeMillis();
+                            if (timeDiff > 0) {
+                                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                                ContestFragment contestFragment = ContestFragment.newInstance();
+                                contestFragment.setArguments(bundle);
+                                ((BaseHeaderActivity) getActivity()).addFragment(contestFragment, true, ContestFragment.class.getName());
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
                 });
             }
