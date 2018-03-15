@@ -197,6 +197,7 @@ public class ContestFragment extends BaseFragment {
                 if (teamWrapper.data != null && teamWrapper.data.size() > 0) {
                     bundle.putString("team1", team1);
                     bundle.putString("team2", team2);
+                    bundle.putSerializable("contestDto", contestDto);
                     bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                     bundle.putSerializable("teamDto", teamWrapper.data);
                     CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();

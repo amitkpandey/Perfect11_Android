@@ -58,11 +58,7 @@ public class JoinContestFragment extends BaseFragment {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         try {
             upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
-            String[] team = upComingMatchesDto.short_name.split(" ");
-            team1 = team[0];
-            team2 = team[2];
-            teamA = upComingMatchesDto.teama;
-            teamB = upComingMatchesDto.teamb;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,6 +87,11 @@ public class JoinContestFragment extends BaseFragment {
         if (upComingMatchesDto != null) {
             tv_match.setText(upComingMatchesDto.teama + " vs " + upComingMatchesDto.teamb);
             tv_status.setText(upComingMatchesDto.matchstatus);
+            String[] team = upComingMatchesDto.short_name.split(" ");
+            team1 = team[0];
+            team2 = team[2];
+            teamA = upComingMatchesDto.teama;
+            teamB = upComingMatchesDto.teamb;
             callAPI();
         } else {
             tv_match.setText(team1 + " vs " + team2);

@@ -23,6 +23,7 @@ import com.perfect11.contest.dto.TeamDto;
 import com.perfect11.contest.dto.TeamPlayerDto;
 import com.perfect11.team_create.adapter.PlayerTypeAdapter;
 import com.perfect11.team_create.adapter.WkAdapter;
+import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
@@ -50,6 +51,7 @@ public class SelectPlayersFragment extends BaseFragment {
     private UpComingMatchesDto upComingMatchesDto;
     private ApiInterface apiInterface;
     private PlayerWrapper playerWrapper;
+    private ContestDto contestDto = null;
 
     private ArrayList<PlayerDto> bowler = new ArrayList<>();
     private ArrayList<PlayerDto> batsman = new ArrayList<>();
@@ -92,7 +94,7 @@ public class SelectPlayersFragment extends BaseFragment {
      * Ground View End
      */
 
-    private TeamDto teamDto=null;
+    private TeamDto teamDto = null;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -125,7 +127,13 @@ public class SelectPlayersFragment extends BaseFragment {
         upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
 
         try {
-            teamDto= (TeamDto) getArguments().getSerializable("teamDto");
+            teamDto = (TeamDto) getArguments().getSerializable("teamDto");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            contestDto = (ContestDto) getArguments().getSerializable("contestDto");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -431,10 +439,13 @@ public class SelectPlayersFragment extends BaseFragment {
                     selectedMatchDto.teamName2 = upComingMatchesDto.teamb;
                     selectedMatchDto.numberOfPlayer = totalPlayers;
                     selectedMatchDto.credit_used = totalPoints;
-                    if(teamDto!=null)
-                    {
-                        selectedMatchDto.isEditing=true;
-                        selectedMatchDto.team_id=teamDto.team_id;
+                    if (teamDto != null) {
+                        selectedMatchDto.isEditing = true;
+                        selectedMatchDto.team_id = teamDto.team_id;
+                    }
+
+                    if (contestDto != null) {
+                        selectedMatchDto.contest_id = contestDto.id;
                     }
 
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
@@ -528,7 +539,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
                 Log.e("UpcomingMatchesAPI", playerWrapper.toString());
                 if (playerWrapper.data.size() != 0) {
-                    ArrayList<PlayerDto> playerDtoArrayList=setPlayerForEdit(playerWrapper.data);
+                    ArrayList<PlayerDto> playerDtoArrayList = setPlayerForEdit(playerWrapper.data);
                     selectPlayerList(playerDtoArrayList);
                 } else {
                     DialogUtility.showMessageWithOk("Have no player", getActivity());
@@ -547,31 +558,26 @@ public class SelectPlayersFragment extends BaseFragment {
 
     }
 
-    private ArrayList<PlayerDto> setPlayerForEdit(ArrayList<PlayerDto> playerDtoArrayList)
-    {
+    private ArrayList<PlayerDto> setPlayerForEdit(ArrayList<PlayerDto> playerDtoArrayList) {
 
         System.out.println(playerDtoArrayList.toString());
-        if(teamDto!=null)
-        {
+        if (teamDto != null) {
             System.out.println(teamDto.toString());
-            for(TeamPlayerDto teamPlayerDto:teamDto.team_player)
-            {
-                for(int i=0;i<playerDtoArrayList.size();i++)
-                {
-                    if(playerDtoArrayList.get(i).short_name.trim().equals(teamPlayerDto.player))
-                    playerDtoArrayList.get(i).isSelected=true;
+            for (TeamPlayerDto teamPlayerDto : teamDto.team_player) {
+                for (int i = 0; i < playerDtoArrayList.size(); i++) {
+                    if (playerDtoArrayList.get(i).short_name.trim().equals(teamPlayerDto.player))
+                        playerDtoArrayList.get(i).isSelected = true;
 
-                    if(playerDtoArrayList.get(i).short_name.trim().equals(teamDto.captain.trim()))
-                        playerDtoArrayList.get(i).isC=true;
+                    if (playerDtoArrayList.get(i).short_name.trim().equals(teamDto.captain.trim()))
+                        playerDtoArrayList.get(i).isC = true;
 
-                    if(playerDtoArrayList.get(i).short_name.trim().equals(teamDto.vice_captain.trim()))
-                        playerDtoArrayList.get(i).isCV=true;
+                    if (playerDtoArrayList.get(i).short_name.trim().equals(teamDto.vice_captain.trim()))
+                        playerDtoArrayList.get(i).isCV = true;
                 }
             }
 
-            for (int i=0;i<playerDtoArrayList.size();i++)
-            {
-                if(playerDtoArrayList.get(i).isSelected) {
+            for (int i = 0; i < playerDtoArrayList.size(); i++) {
+                if (playerDtoArrayList.get(i).isSelected) {
                     totalPoints = totalPoints + Float.parseFloat(playerDtoArrayList.get(i).credit);
                     totalPlayers++;
                 }
