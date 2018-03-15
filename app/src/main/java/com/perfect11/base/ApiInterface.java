@@ -29,6 +29,9 @@ public interface ApiInterface {
     @GET("api/getSchedule/0/0/notstarted")
     Call<UpComingMatchesWrapper> getUpcomingMatches();
 
+    @GET("api/getSchedule/0/0/completed")
+    Call<UpComingMatchesWrapper> getCompletedMatches();
+
     @GET("api/getSchedule/0/0/started")
     Call<UpComingMatchesWrapper> getLiveMatches();
 

@@ -24,6 +24,7 @@
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"
         android:text="Filter"
+        android:visibility="gone"
         android:drawableLeft="@drawable/filter"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
