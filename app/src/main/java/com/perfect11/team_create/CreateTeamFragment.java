@@ -13,6 +13,7 @@ import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.dto.TeamDto;
 import com.perfect11.contest.dto.TeamPlayerDto;
 import com.perfect11.team_create.adapter.CreateTeamAdapter;
+import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
 
@@ -25,6 +26,7 @@ public class CreateTeamFragment extends BaseFragment {
     private CustomButton btn_create;
     private CustomTextView tv_match, tv_status;
     private String team1, teamA, team2, teamB, matchStatus;
+    private UpComingMatchesDto upComingMatchesDto;
 
     public static CreateTeamFragment newInstance() {
         return new CreateTeamFragment();
@@ -43,10 +45,12 @@ public class CreateTeamFragment extends BaseFragment {
     private void readFromBundle() {
         teamDtoArrayList = (ArrayList<TeamDto>) getArguments().getSerializable("teamDto");
         team1 = getArguments().getString("team1");
-        teamA = getArguments().getString("teamA");
         team2 = getArguments().getString("team2");
-        teamB = getArguments().getString("teamB");
-        matchStatus = getArguments().getString("matchStatus");
+
+        upComingMatchesDto= (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+        teamA =upComingMatchesDto.teama;
+        teamB =upComingMatchesDto.teamb;
+        matchStatus = upComingMatchesDto.matchstatus;
     }
 
     private void initView() {
@@ -63,7 +67,13 @@ public class CreateTeamFragment extends BaseFragment {
 
             @Override
             public void onEditClick(int position) {
-
+                SelectPlayersFragment selectPlayersFragment=new SelectPlayersFragment();
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("upComingMatchesDto",upComingMatchesDto);
+                TeamDto teamDto = teamDtoArrayList.get(position);
+                bundle.putSerializable("teamDto", teamDto);
+                selectPlayersFragment.setArguments(bundle);
+                ((BaseHeaderActivity) getActivity()).addFragment(selectPlayersFragment, true, SelectPlayersFragment.class.getName());
             }
 
             @Override
@@ -93,7 +103,11 @@ public class CreateTeamFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_create:
-                ((BaseHeaderActivity) getActivity()).addFragment(MyTeamFragment.newInstance(), true, MyTeamFragment.class.getName());
+                SelectPlayersFragment selectPlayersFragment=new SelectPlayersFragment();
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("upComingMatchesDto",upComingMatchesDto);
+                selectPlayersFragment.setArguments(bundle);
+                ((BaseHeaderActivity) getActivity()).addFragment(selectPlayersFragment, true, SelectPlayersFragment.class.getName());
                 break;
         }
     }

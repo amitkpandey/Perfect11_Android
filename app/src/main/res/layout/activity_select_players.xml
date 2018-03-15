@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:orientation="vertical"
-    tools:context="com.perfect11.team_create.SelectPlayersActivity">
+    tools:context="com.perfect11.team_create.SelectPlayersActivity"
+    android:id="@+id/ll_root">
     <!--Header-->
     <RelativeLayout
         android:layout_width="match_parent"

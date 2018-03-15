@@ -19,6 +19,8 @@ import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
+import com.perfect11.contest.dto.TeamDto;
+import com.perfect11.contest.dto.TeamPlayerDto;
 import com.perfect11.team_create.adapter.PlayerTypeAdapter;
 import com.perfect11.team_create.adapter.WkAdapter;
 import com.perfect11.team_create.dto.PlayerDto;
@@ -90,6 +92,7 @@ public class SelectPlayersFragment extends BaseFragment {
      * Ground View End
      */
 
+    private TeamDto teamDto=null;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -120,6 +123,12 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private void readFromBundle() {
         upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+
+        try {
+            teamDto= (TeamDto) getArguments().getSerializable("teamDto");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initView() {
@@ -422,6 +431,12 @@ public class SelectPlayersFragment extends BaseFragment {
                     selectedMatchDto.teamName2 = upComingMatchesDto.teamb;
                     selectedMatchDto.numberOfPlayer = totalPlayers;
                     selectedMatchDto.credit_used = totalPoints;
+                    if(teamDto!=null)
+                    {
+                        selectedMatchDto.isEditing=true;
+                        selectedMatchDto.team_id=teamDto.team_id;
+                    }
+
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                     bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                     System.out.println("teamName1:" + upComingMatchesDto.teama + "   teamName2:" + upComingMatchesDto.teamb);
@@ -513,7 +528,8 @@ public class SelectPlayersFragment extends BaseFragment {
 
                 Log.e("UpcomingMatchesAPI", playerWrapper.toString());
                 if (playerWrapper.data.size() != 0) {
-                    selectPlayerList(playerWrapper.data);
+                    ArrayList<PlayerDto> playerDtoArrayList=setPlayerForEdit(playerWrapper.data);
+                    selectPlayerList(playerDtoArrayList);
                 } else {
                     DialogUtility.showMessageWithOk("Have no player", getActivity());
                 }
@@ -529,6 +545,39 @@ public class SelectPlayersFragment extends BaseFragment {
             }
         });
 
+    }
+
+    private ArrayList<PlayerDto> setPlayerForEdit(ArrayList<PlayerDto> playerDtoArrayList)
+    {
+
+        System.out.println(playerDtoArrayList.toString());
+        if(teamDto!=null)
+        {
+            System.out.println(teamDto.toString());
+            for(TeamPlayerDto teamPlayerDto:teamDto.team_player)
+            {
+                for(int i=0;i<playerDtoArrayList.size();i++)
+                {
+                    if(playerDtoArrayList.get(i).short_name.trim().equals(teamPlayerDto.player))
+                    playerDtoArrayList.get(i).isSelected=true;
+
+                    if(playerDtoArrayList.get(i).short_name.trim().equals(teamDto.captain.trim()))
+                        playerDtoArrayList.get(i).isC=true;
+
+                    if(playerDtoArrayList.get(i).short_name.trim().equals(teamDto.vice_captain.trim()))
+                        playerDtoArrayList.get(i).isCV=true;
+                }
+            }
+
+            for (int i=0;i<playerDtoArrayList.size();i++)
+            {
+                if(playerDtoArrayList.get(i).isSelected) {
+                    totalPoints = totalPoints + Float.parseFloat(playerDtoArrayList.get(i).credit);
+                    totalPlayers++;
+                }
+            }
+        }
+        return playerDtoArrayList;
     }
 
     /**

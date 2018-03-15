@@ -23,13 +23,22 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
     private int selectedCapten = -1, selectedVCapten = -1;
     private Activity activity;
     ArrayList<PlayerDto> selectedPlayer;
-    private String teamName1,teamName2;
+    private String teamName1, teamName2;
 
     public CaptainAdapter(Activity activity, ArrayList<PlayerDto> selectedPlayer, String teamName1, String teamName2) {
         this.activity = activity;
         this.selectedPlayer = selectedPlayer;
         this.teamName1 = teamName1;
-        this.teamName2=teamName2;
+        this.teamName2 = teamName2;
+
+        for (int i = 0; i < selectedPlayer.size(); i++) {
+            if (selectedPlayer.get(i).isC) {
+                selectedCapten=i;
+            }
+            if (selectedPlayer.get(i).isCV) {
+                selectedVCapten=i;
+            }
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -149,13 +158,11 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
     //Return the selectedPosition item
     public ArrayList<PlayerDto> getSelectedCaptainAndVCaptainWithTeam() {
 
-        for(int i=0;i<selectedPlayer.size();i++)
-        {
+        for (int i = 0; i < selectedPlayer.size(); i++) {
             selectedPlayer.get(i).isC = false;
             selectedPlayer.get(i).isCV = false;
         }
-        if(isValid())
-        {
+        if (isValid()) {
             selectedPlayer.get(selectedCapten).isC = true;
             selectedPlayer.get(selectedVCapten).isCV = true;
             return selectedPlayer;
@@ -167,7 +174,7 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
         if (selectedCapten == -1) {
             Toast.makeText(activity, "Select Captain", Toast.LENGTH_SHORT).show();
             return false;
-        }else if (selectedVCapten == -1) {
+        } else if (selectedVCapten == -1) {
             Toast.makeText(activity, "Select Vice Captain", Toast.LENGTH_SHORT).show();
             return false;
         }

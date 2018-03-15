@@ -15,4 +15,20 @@ public class TeamDto implements Serializable {
     public String modifedon;
     public String status;
     public ArrayList<TeamPlayerDto> team_player;
+
+    @Override
+    public String toString() {
+        return "TeamDto{" +
+                "team_id='" + team_id + '\'' +
+                ", matchId='" + matchId + '\'' +
+                ", captain='" + captain + '\'' +
+                ", vice_captain='" + vice_captain + '\'' +
+                ", usedCredit='" + usedCredit + '\'' +
+                ", createdby='" + createdby + '\'' +
+                ", addedon='" + addedon + '\'' +
+                ", modifedon='" + modifedon + '\'' +
+                ", status='" + status + '\'' +
+                ", team_player=" + team_player.toString() +
+                '}';
+    }
 }

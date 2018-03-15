@@ -13,6 +13,7 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.adapter.ContestListAdapter;
+import com.perfect11.contest.dto.JoinedContestDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.login_signup.dto.UserDto;
@@ -196,9 +197,7 @@ public class ContestFragment extends BaseFragment {
                 if (teamWrapper.data != null && teamWrapper.data.size() > 0) {
                     bundle.putString("team1", team1);
                     bundle.putString("team2", team2);
-                    bundle.putString("teamA", upComingMatchesDto.teama);
-                    bundle.putString("teamB", upComingMatchesDto.teamb);
-                    bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                     bundle.putSerializable("teamDto", teamWrapper.data);
                     CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
                     createTeamFragment.setArguments(bundle);
@@ -227,14 +226,8 @@ public class ContestFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_create_contest:
-                bundle = new Bundle();
-                bundle.putString("matchId", "sltriseriest20_2018_g5");
-                bundle.putString("teamId", "325");
-                MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
-                myTeamFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
-//                ((BaseHeaderActivity) getActivity()).addFragment(CreateContestFragment.newInstance(), true,
-//                        CreateContestFragment.class.getName());
+                ((BaseHeaderActivity) getActivity()).addFragment(CreateContestFragment.newInstance(), true,
+                        CreateContestFragment.class.getName());
                 break;
             case R.id.btn_join_contest:
                 if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0) {
@@ -255,9 +248,7 @@ public class ContestFragment extends BaseFragment {
                     bundle = new Bundle();
                     bundle.putString("team1", team1);
                     bundle.putString("team2", team2);
-                    bundle.putString("teamA", upComingMatchesDto.teama);
-                    bundle.putString("teamB", upComingMatchesDto.teamb);
-                    bundle.putString("matchStatus", upComingMatchesDto.matchstatus);
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                     bundle.putSerializable("teamDto", teamWrapper.data);
                     CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
                     createTeamFragment.setArguments(bundle);

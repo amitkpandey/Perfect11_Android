@@ -43,6 +43,7 @@
                 android:layout_toRightOf="@+id/iv_team1"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:text="Ind"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
@@ -57,6 +58,7 @@
                 android:layout_toRightOf="@+id/iv_team1"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:text="6/7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
@@ -90,6 +92,7 @@
                 android:layout_toRightOf="@+id/iv_team2"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:text="Aus"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
@@ -104,6 +107,7 @@
                 android:layout_toRightOf="@+id/iv_team2"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:text="5/7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
@@ -144,7 +148,7 @@
                 android:padding="5dp"
                 android:text="M S Dhoni"
                 android:textColor="@android:color/white"
-                android:textSize="11sp" />
+                android:textSize="9sp" />
 
             <LinearLayout
                 android:id="@+id/rl_batsman"
@@ -479,7 +483,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_ar"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_centerHorizontal="true">
 
                 <RelativeLayout
                     android:id="@+id/rl_bowler1"

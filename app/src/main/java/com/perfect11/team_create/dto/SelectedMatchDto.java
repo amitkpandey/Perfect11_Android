@@ -13,4 +13,6 @@ public class SelectedMatchDto implements Serializable {
     public String teamName2;
     public int numberOfTeamName1;
     public int numberOfTeamName2;
+    public boolean isEditing=false;
+    public String team_id;
 }

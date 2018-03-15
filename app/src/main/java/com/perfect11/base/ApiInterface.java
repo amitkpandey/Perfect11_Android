@@ -1,5 +1,6 @@
 package com.perfect11.base;
 
+import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
@@ -51,6 +52,15 @@ public interface ApiInterface {
                                                   @Field("user_id") String user_id);
 
     @FormUrlEncoded
+    @POST("api/setTeam/{team_id}")
+    Call<CreateTeamCallBackWrapper> updateTeamAPI(@Path("team_id") String team_id_path,
+                                                  @Field("batsmandata[]") ArrayList<String> batsmanList, @Field("allrounderdata[]") ArrayList<String> allRounderList,
+                                                  @Field("bowlerdata[]") ArrayList<String> bowlerList, @Field("keeperdata[]") ArrayList<String> keeperList,
+                                                  @Field("captain") String captain, @Field("player_amount_count") float player_amount_count,
+                                                  @Field("team_id") String team_id, @Field("vice_captain") String vice_captain,
+                                                  @Field("user_id") String user_id);
+
+    @FormUrlEncoded
     @POST("api/makeJoinContest")
     Call<JoinContestCallBackDto> joinContest(@Field("join_id") String join_id, @Field("reference_id") String reference_id, @Field("user_id")
             String user_id, @Field("matchID") String matchID);
@@ -72,4 +82,9 @@ public interface ApiInterface {
 
     @GET("api/getteamData/{team_id}/{matchkey}")
     Call<TeamWrapper> getPlayerLiveScore(@Path("team_id") String team_id, @Path("matchkey") String matchkey);
+
+    @FormUrlEncoded
+    @POST("api/myAccountProfile")
+    Call<MyAccountWrapper> getMyAccountDetails(@Field("member_id") String member_id);
+
 }

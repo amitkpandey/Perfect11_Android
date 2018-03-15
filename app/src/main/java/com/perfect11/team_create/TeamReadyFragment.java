@@ -13,12 +13,15 @@ import com.perfect11.R;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
+import com.perfect11.base.BaseHeaderActivity;
+import com.perfect11.home.HomeFragment;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.squareup.picasso.Picasso;
+import com.utility.AlertDialogCallBack;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
@@ -121,6 +124,9 @@ public class TeamReadyFragment extends BaseFragment {
         iv_bowler6 = view.findViewById(R.id.iv_bowler6);
 
         btn_save = view.findViewById(R.id.btn_save);
+        if(selectedMatchDto.isEditing)
+            btn_save.setText("Update Team");
+            else
         btn_save.setText("Save Team");
 
         String[] team = upComingMatchesDto.short_name.split(" ");
@@ -378,10 +384,15 @@ public class TeamReadyFragment extends BaseFragment {
                 bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                 bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                 ActivityController.startNextActivity(getActivity(), ChooseContestActivity.class,bundle, false);*/
+                if(selectedMatchDto.isEditing)
+                    callUpdateTeamAPI();
+                else
                 callCreateTeamAPI();
                 break;
         }
     }
+
+
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
@@ -411,6 +422,58 @@ public class TeamReadyFragment extends BaseFragment {
                     Log.e("CreateTeamCallBack", callBackDto.message);
                     // callAPIJoinContest(callBackDto.data.team_id);
                 } else {
+                    DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+                }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<CreateTeamCallBackWrapper> call, Throwable t) {
+                Log.e("TAG", t.toString());
+                DialogUtility.showMessageWithOk(t.toString(), getActivity());
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
+
+    /*
+    * Update Team*/
+    private void callUpdateTeamAPI() {
+        //API
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Log.d("API", "Update Team");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+
+        Call<CreateTeamCallBackWrapper> call = apiInterface.updateTeamAPI(selectedMatchDto.team_id,batsmanList, allRounderList, bowlerList, keeperList, captain,
+                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id);
+        call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
+            @Override
+            public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
+                CreateTeamCallBackWrapper callBackDto = response.body();
+
+                Log.e("CreateTeamCallBack", callBackDto.toString());
+                if (callBackDto.status) {
+                    Log.e("CreateTeamCallBack", callBackDto.message);
+                    // callAPIJoinContest(callBackDto.data.team_id);
+                    DialogUtility.showMessageOkWithCallback("Successfully Updated.", getActivity(), new AlertDialogCallBack() {
+                        @Override
+                        public void onSubmit() {
+                            ((BaseHeaderActivity)getActivity()).removeAllFragment();
+                            ((BaseHeaderActivity)getActivity()).replaceFragment(HomeFragment.newInstance(), false, HomeFragment.class.getName());
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                    } else {
                     DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
                 }
                 if (mProgressDialog.isShowing())
