@@ -445,7 +445,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="130dp"
-                android:gravity="center">
+                android:gravity="center_horizontal">
 
                 <RelativeLayout
                     android:id="@+id/rl_ar1"
@@ -496,7 +496,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:paddingBottom="10dp">
+                    >
 
                     <TextView
                         android:id="@+id/tv_ar2_point"
@@ -541,7 +541,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
                     android:layout_marginTop="20dp"
-                    android:paddingBottom="10dp">
+                    >
 
                     <TextView
                         android:id="@+id/tv_ar3_point"
@@ -630,7 +630,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_ar"
 
-                android:gravity="center">
+                android:gravity="center_horizontal">
 
                 <RelativeLayout
                     android:id="@+id/rl_bowler1"
@@ -678,7 +678,8 @@
                     android:id="@+id/rl_bowler2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:id="@+id/tv_bowler2_point"
@@ -765,7 +766,8 @@
                     android:id="@+id/rl_bowler4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:id="@+id/tv_bowler4_point"
@@ -852,7 +854,8 @@
                     android:id="@+id/rl_bowler6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:id="@+id/tv_bowler6_point"
