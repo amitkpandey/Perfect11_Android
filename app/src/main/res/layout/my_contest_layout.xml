@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    android:orientation="vertical"
-    android:id="@+id/rl_root"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include"
@@ -14,24 +13,132 @@
         android:layout_height="wrap_content"
         android:visibility="visible" />
 
-    <com.utility.customView.CustomTextView
-        android:id="@+id/tv_date"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/include"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center_vertical"
-        android:text="20 Oct, 2017"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
     <RelativeLayout
         android:id="@+id/rl_01"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/tv_date"
+        android:layout_below="@+id/include"
+        android:background="@color/red_text_color">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="India vs Australia"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Completed"
+            android:textAllCaps="false"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_score_board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_01"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/green"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_total"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Total Winnings"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_total_win"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Rs 0/-"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_entry"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Entry Fee"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <com.utility.customView.CustomTextView
+                android:id="@+id/tv_entry_fee"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_entry"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Free"
+                android:textColor="@color/red_text_color"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.utility.customView.CustomTextView
+        android:id="@+id/tv_lead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_score_board"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="LeaderBoard"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black" />
+
+    <RelativeLayout
+        android:id="@+id/rl_02"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tv_lead"
         android:layout_marginTop="5dp"
         android:background="@color/red_text_color">
 
@@ -65,7 +172,7 @@
         android:id="@+id/rl_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_01"
+        android:layout_below="@+id/rl_02"
         android:layout_margin="5dp">
 
         <android.support.v7.widget.RecyclerView
@@ -82,5 +189,13 @@
             android:scrollbarStyle="outsideOverlay"
             android:visibility="visible" />
     </RelativeLayout>
+
+    <include
+        android:id="@+id/rl_footer"
+        layout="@layout/common_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible" />
 
 </RelativeLayout>

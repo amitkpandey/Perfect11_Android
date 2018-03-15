@@ -91,7 +91,10 @@
             android:name="com.perfect11.home.service.BackgroundScoreUpdateService"
             android:exported="false" />
 
-        <receiver android:name="com.perfect11.home.service.BackgroundReceiver" />
+        <service
+            android:name="com.perfect11.home.service.BackgroundPointsUpdateService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

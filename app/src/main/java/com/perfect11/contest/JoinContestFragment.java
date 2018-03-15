@@ -160,9 +160,15 @@ public class JoinContestFragment extends BaseFragment {
                 bundle.putString("team2", team2);
                 bundle.putString("teamA", teamA);
                 bundle.putString("teamB", teamB);
-                LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
-                liveLeaderBoardFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(liveLeaderBoardFragment, true, LiveLeaderBoardFragment.class.getName());
+                if (upComingMatchesDto.matchstatus.equalsIgnoreCase("completed")) {
+                    ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
+                    resultLeaderBoardFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
+                } else {
+                    LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
+                    liveLeaderBoardFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(liveLeaderBoardFragment, true, LiveLeaderBoardFragment.class.getName());
+                }
             }
         });
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/rl_root">
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include"
@@ -16,8 +16,8 @@
         android:id="@+id/rl_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:layout_below="@+id/include">
+        android:layout_below="@+id/include"
+        android:background="@color/gray">
 
         <RelativeLayout
             android:id="@+id/rl_team1"
@@ -112,10 +112,10 @@
         <RelativeLayout
             android:id="@+id/rl_main"
 
-            android:layout_below="@+id/rl_team1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
+            android:layout_below="@+id/rl_team1"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -127,13 +127,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/point_round"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="10"
                 android:textColor="@android:color/black"
-                android:textSize="10sp"
-                android:layout_marginTop="20dp"/>
+                android:textSize="10sp" />
 
             <ImageView
                 android:id="@+id/iv_wkt"
@@ -141,11 +141,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_wkt_point"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="@null"
                 android:layout_marginTop="2dp"
+                android:contentDescription="@null"
                 android:onClick="onButtonClick"
                 android:scaleType="fitXY"
                 android:src="@drawable/man3" />
+
             <com.utility.customView.CustomTextView
                 android:id="@+id/tv_wkt_name"
                 android:layout_width="wrap_content"
@@ -166,8 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/rl_bat1"
@@ -178,38 +178,39 @@
                         android:id="@+id/tv_bat1_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bat1_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man4"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man4" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bat1_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_bat1"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:background="@color/light_red"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="M S Dhoni"
                         android:textColor="@android:color/white"
-                        android:textSize="9sp"
-                        android:layout_centerHorizontal="true"/>
+                        android:textSize="9sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -225,25 +226,26 @@
                         android:id="@+id/tv_bat2_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bat2_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man4"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man4" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bat2_name"
                         android:layout_width="wrap_content"
@@ -255,8 +257,7 @@
                         android:padding="5dp"
                         android:text="M S Dhoni"
                         android:textColor="@android:color/white"
-                        android:textSize="9sp"
-                        />
+                        android:textSize="9sp" />
 
                 </RelativeLayout>
 
@@ -270,25 +271,26 @@
                         android:id="@+id/tv_bat3_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bat3_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man4"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man4" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bat3_name"
                         android:layout_width="wrap_content"
@@ -309,32 +311,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    >
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_bat4_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bat4_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man4"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man4" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bat4_name"
                         android:layout_width="wrap_content"
@@ -359,25 +361,25 @@
                         android:id="@+id/tv_bat5_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bat5_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man4"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man4" />
 
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bat5_name"
@@ -405,26 +407,26 @@
                         android:id="@+id/tv_bat6_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bat6_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man4"
-                        android:layout_centerHorizontal="true"
-                        />
+                        android:src="@drawable/man4" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bat6_name"
                         android:layout_width="wrap_content"
@@ -450,32 +452,32 @@
                 <RelativeLayout
                     android:id="@+id/rl_ar1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_ar1_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_ar1_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/man2" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_ar1_name"
                         android:layout_width="wrap_content"
@@ -502,25 +504,26 @@
                         android:id="@+id/tv_ar2_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_ar2_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man2"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man2" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_ar2_name"
                         android:layout_width="wrap_content"
@@ -547,25 +550,26 @@
                         android:id="@+id/tv_ar3_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_ar3_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/man2" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_ar3_name"
                         android:layout_width="wrap_content"
@@ -590,25 +594,26 @@
                         android:id="@+id/tv_ar4_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_ar4_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/man2" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_ar4_name"
                         android:layout_width="wrap_content"
@@ -641,25 +646,26 @@
                         android:id="@+id/tv_bowler1_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler1"
-                        android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bowler1_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
                         android:src="@drawable/man1" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bowler1_name"
                         android:layout_width="wrap_content"
@@ -685,25 +691,26 @@
                         android:id="@+id/tv_bowler2_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bowler2_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man1"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man1" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bowler2_name"
                         android:layout_width="wrap_content"
@@ -728,26 +735,27 @@
                         android:id="@+id/tv_bowler3_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
 
                     <ImageView
-                        android:layout_centerHorizontal="true"
                         android:id="@+id/iv_bowler3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bowler3_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
                         android:src="@drawable/man1" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bowler3_name"
                         android:layout_width="wrap_content"
@@ -773,25 +781,26 @@
                         android:id="@+id/tv_bowler4_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bowler4_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man1"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man1" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bowler4_name"
                         android:layout_width="wrap_content"
@@ -817,25 +826,26 @@
                         android:id="@+id/tv_bowler5_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
-                        android:layout_centerHorizontal="true"
                         android:id="@+id/iv_bowler5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bowler5_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
                         android:src="@drawable/man1" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bowler5_name"
                         android:layout_width="wrap_content"
@@ -861,25 +871,26 @@
                         android:id="@+id/tv_bowler6_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:background="@drawable/point_round"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="10"
-                        android:textSize="10sp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bowler6_point"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@null"
                         android:onClick="onButtonClick"
                         android:scaleType="fitXY"
-                        android:src="@drawable/man1"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/man1" />
+
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_bowler6_name"
                         android:layout_width="wrap_content"

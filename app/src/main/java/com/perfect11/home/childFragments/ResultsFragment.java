@@ -16,6 +16,8 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.ContestFragment;
+import com.perfect11.contest.JoinContestFragment;
+import com.perfect11.contest.LiveLeaderBoardFragment;
 import com.perfect11.home.adapter.ResultMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
@@ -94,22 +96,10 @@ public class ResultsFragment extends BaseFragment {
                     public void onButtonClick(int position) {
                         Bundle bundle = new Bundle();
                         UpComingMatchesDto upComingMatchesDto = upComingMatchesWrapper.data.get(position);
-                        try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-                            Date date;
-                            date = sdf.parse(upComingMatchesDto.start_date);
-                            long millis = date.getTime();
-                            long hoursMillis = 60 * 60 * 1000;
-                            long timeDiff = (millis - hoursMillis) - System.currentTimeMillis();
-                            if (timeDiff > 0) {
-                                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                                ContestFragment contestFragment = ContestFragment.newInstance();
-                                contestFragment.setArguments(bundle);
-                                ((BaseHeaderActivity) getActivity()).addFragment(contestFragment, true, ContestFragment.class.getName());
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                        JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();
+                        joinContestFragment.setArguments(bundle);
+                        ((BaseHeaderActivity) getActivity()).addFragment(joinContestFragment, true, JoinContestFragment.class.getName());
 
 
                     }

@@ -32,7 +32,8 @@ public class UserDto implements Serializable {
     public String country_name;
     public String state_name;
     public String city_name;
-public String reference_id;
+    public String reference_id;
+
     @Override
     public String toString() {
         return "UserDto{" +

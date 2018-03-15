@@ -10,22 +10,23 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.perfect11.base.ApiClient;
+import com.perfect11.base.ApiClient2;
 import com.perfect11.base.ApiInterface;
-import com.perfect11.contest.dto.TeamDto;
-import com.perfect11.contest.wrapper.TeamWrapper;
+import com.perfect11.contest.dto.LiveLeaderboardDto;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BackgroundScoreUpdateService extends Service {
+public class BackgroundPointsUpdateService extends Service {
     private static final String TAG = "BroadcastService";
-    public static final String BROADCAST_ACTION = "com.perfect11.home.service.ScoreUpdta";
+    public static final String BROADCAST_ACTION = "com.perfect11.home.service.PointsUpdate";
     private final Handler handler = new Handler();
     private Intent intent;
 
-    private String matchId, team_id;
+    private String matchId, contestId;
 
     @Override
     public void onCreate() {
@@ -37,7 +38,7 @@ public class BackgroundScoreUpdateService extends Service {
     public void onStart(Intent intent, int startId) {
         if (intent != null) {
             matchId = intent.getStringExtra("matchId");
-            team_id = intent.getStringExtra("teamId");
+            contestId = intent.getStringExtra("contestId");
         }
         handler.removeCallbacks(sendUpdatesToUI);
         handler.postDelayed(sendUpdatesToUI, 1000); // 1 second
@@ -47,15 +48,15 @@ public class BackgroundScoreUpdateService extends Service {
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             if (isOnline())
-                runBackgroundOperation(matchId, team_id);
+                runBackgroundOperation(matchId, contestId);
             handler.postDelayed(this, 10000); // 10 seconds
         }
     };
 
-    private void displayLoggingInfo(TeamDto teamDto) {
+    private void publishLeaderBoardList(ArrayList<LiveLeaderboardDto> liveLeaderBoardDtoArrayList) {
         Log.d(TAG, "entered DisplayLoggingInfo");
         Bundle bundle = new Bundle();
-        bundle.putSerializable("teamDto", teamDto);
+        bundle.putSerializable("liveLeaderBoardDtoArrayList", liveLeaderBoardDtoArrayList);
 
         intent.putExtras(bundle);
         sendBroadcast(intent);
@@ -83,20 +84,18 @@ public class BackgroundScoreUpdateService extends Service {
     }
 
 
-    public void runBackgroundOperation(String matchId, String team_id) {
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore(team_id, matchId);
-        call.enqueue(new Callback<TeamWrapper>() {
+    public void runBackgroundOperation(String matchId, String contestId) {
+        ApiInterface apiInterface = ApiClient2.getApiClient().create(ApiInterface.class);
+        Call<ArrayList<LiveLeaderboardDto>> call = apiInterface.getLeaderBoardList(matchId, contestId);
+        call.enqueue(new Callback<ArrayList<LiveLeaderboardDto>>() {
             @Override
-            public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
-                TeamWrapper teamWrapper = response.body();
-
-//                Log.e("CreateTeamCallBack", "" + teamWrapper.data.size());
-                displayLoggingInfo(teamWrapper.data.get(0));
+            public void onResponse(Call<ArrayList<LiveLeaderboardDto>> call, Response<ArrayList<LiveLeaderboardDto>> response) {
+                publishLeaderBoardList(response.body());
+                System.out.println("hello");
             }
 
             @Override
-            public void onFailure(Call<TeamWrapper> call, Throwable t) {
+            public void onFailure(Call<ArrayList<LiveLeaderboardDto>> call, Throwable t) {
                 Log.e("TAG", t.toString());
             }
         });

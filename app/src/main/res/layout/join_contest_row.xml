@@ -12,25 +12,22 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/rl_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:orientation="vertical"
             android:background="@android:color/white"
-            android:padding="10dp"
-            >
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <RelativeLayout
                 android:id="@+id/rl_contest_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_practice"
@@ -167,15 +164,16 @@
                     android:textSize="13sp" />
             </RelativeLayout>
         </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/rl_leaderboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/rl_contest"
-android:padding="5dp"
-            android:gravity="center"
+            android:layout_marginTop="1dp"
             android:background="@android:color/white"
-            android:layout_marginTop="1dp">
+            android:gravity="center"
+            android:padding="5dp">
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/tv_leaderBoard"
@@ -183,13 +181,13 @@ android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="View LeaderBoard"
                 android:textColor="@android:color/black"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"/>
+                android:textStyle="bold" />
 
             <com.utility.customView.CustomButton
                 android:id="@+id/btn_next"

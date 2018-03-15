@@ -1,10 +1,6 @@
 package com.perfect11.team_create;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +17,6 @@ import com.perfect11.base.BaseFragment;
 import com.perfect11.contest.dto.TeamDto;
 import com.perfect11.contest.dto.TeamPlayerDto;
 import com.perfect11.contest.wrapper.TeamWrapper;
-import com.perfect11.home.service.BackgroundScoreUpdateService;
 import com.perfect11.login_signup.dto.UserDto;
 import com.squareup.picasso.Picasso;
 import com.utility.PreferenceUtility;
@@ -35,9 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MyTeamFragment extends BaseFragment {
+public class ResultTeamFragment extends BaseFragment {
     private String matchId, team_id;
-    private Intent intent;
     private TextView tv_wkt_point, tv_bat1_point, tv_bat2_point, tv_bat3_point, tv_bat4_point, tv_bat5_point, tv_bat6_point, tv_ar1_point, tv_ar2_point,
             tv_ar3_point, tv_ar4_point, tv_bowler1_point, tv_bowler2_point, tv_bowler3_point, tv_bowler4_point, tv_bowler5_point, tv_bowler6_point,
             tv_wkt_name, tv_bat1_name, tv_bat2_name, tv_bat3_name, tv_bat4_name, tv_bat5_name, tv_bat6_name, tv_ar1_name, tv_ar2_name, tv_ar3_name,
@@ -49,22 +43,21 @@ public class MyTeamFragment extends BaseFragment {
 
     private CircleImageView iv_team1, iv_team2;
 
-    private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
-            rl_bowler4, rl_bowler5, rl_bowler6;
+    private int bowler = 0, batsman = 0, allrounder = 0, keeper = 0;
 
-    private int bowler, batsman, allrounder, keeper;
-
-    private ArrayList<String> batsmanList;
-    private ArrayList<String> allRounderList;
-    private ArrayList<String> bowlerList;
-    private ArrayList<String> keeperList;
+    private ArrayList<String> batsmanList = new ArrayList<>();
+    private ArrayList<String> allRounderList = new ArrayList<>();
+    private ArrayList<String> bowlerList = new ArrayList<>();
+    private ArrayList<String> keeperList = new ArrayList<>();
     private String captain = "", vCaptain = "", team1, team2, teamA, teamB, reference_id;
     private float player_amount_count = 0;
     private TeamDto teamDto;
     private UserDto userDto;
+    private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
+            rl_bowler4, rl_bowler5, rl_bowler6;
 
-    public static MyTeamFragment newInstance() {
-        return new MyTeamFragment();
+    public static ResultTeamFragment newInstance() {
+        return new ResultTeamFragment();
     }
 
     @Override
@@ -74,59 +67,40 @@ public class MyTeamFragment extends BaseFragment {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         readFromBundle();
         initView();
-        initTeam();
-        callApi();
-        startBackgroundService();
         if (userDto.reference_id.equalsIgnoreCase(reference_id)) {
             setInnerHeader("My Team");
         } else
             setInnerHeader(reference_id + " Team");
+        callApi();
         return view;
     }
 
-    private void startBackgroundService() {
-        intent = new Intent();
-        intent.putExtra("matchId", matchId);
-        intent.putExtra("teamId", team_id);
-        intent.setClass(getActivity(), BackgroundScoreUpdateService.class);
+    private void callApi() {
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore(team_id, matchId);
+        call.enqueue(new Callback<TeamWrapper>() {
+            @Override
+            public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+                TeamWrapper teamWrapper = response.body();
+                if (teamWrapper != null && teamWrapper.data != null && teamWrapper.data.size() > 0) {
+                    teamDto = teamWrapper.data.get(0);
+                    setTeam();
+                }
+            }
 
-    }
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateUI(intent);
-        }
-    };
-
-    private void updateUI(Intent intent) {
-        teamDto = (TeamDto) intent.getExtras().getSerializable("teamDto");
-//        System.out.println("intent Background Service " + teamDto.toString());
-        arrangePlayerOnField();
-    }
-
-    private void initTeam() {
-        tv_team1.setText(team1);
-        tv_team2.setText(team2);
-        Picasso.with(getActivity()).load(getPictureURL(teamA)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
-                into(iv_team1);
-        Picasso.with(getActivity()).load(getPictureURL(teamB)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
-                into(iv_team2);
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().startService(intent);
-        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(BackgroundScoreUpdateService.BROADCAST_ACTION));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        getActivity().unregisterReceiver(broadcastReceiver);
-        getActivity().stopService(intent);
+            @Override
+            public void onFailure(Call<TeamWrapper> call, Throwable t) {
+                Log.e("TAG", t.toString());
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
     }
 
     private void initView() {
@@ -219,6 +193,7 @@ public class MyTeamFragment extends BaseFragment {
         tv_bowler5_point = view.findViewById(R.id.tv_bowler5_point);
         tv_bowler6_point = view.findViewById(R.id.tv_bowler6_point);
         setPlayerVisibilityGone();
+
     }
 
     private void readFromBundle() {
@@ -235,49 +210,10 @@ public class MyTeamFragment extends BaseFragment {
         }
     }
 
-    private void callApi() {
-        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore(team_id, matchId);
-        call.enqueue(new Callback<TeamWrapper>() {
-            @Override
-            public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
-                if (mProgressDialog.isShowing())
-                    mProgressDialog.dismiss();
-                TeamWrapper teamWrapper = response.body();
-                if (teamWrapper != null && teamWrapper.data != null && teamWrapper.data.size() > 0) {
-                    teamDto = teamWrapper.data.get(0);
-                    arrangePlayerOnField();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TeamWrapper> call, Throwable t) {
-                Log.e("TAG", t.toString());
-                if (mProgressDialog.isShowing())
-                    mProgressDialog.dismiss();
-            }
-        });
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().stopService(intent);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        getActivity().stopService(intent);
-    }
-
     private void setPlayerVisibilityGone() {
         tv_wkt_point.setVisibility(View.GONE);
         iv_wkt.setVisibility(View.GONE);
+
         tv_wkt_name.setVisibility(View.GONE);
 
         rl_bat1.setVisibility(View.GONE);
@@ -300,15 +236,7 @@ public class MyTeamFragment extends BaseFragment {
         rl_bowler6.setVisibility(View.GONE);
     }
 
-    private void arrangePlayerOnField() {
-        bowler = 0;
-        batsman = 0;
-        allrounder = 0;
-        keeper = 0;
-        batsmanList = new ArrayList<>();
-        allRounderList = new ArrayList<>();
-        bowlerList = new ArrayList<>();
-        keeperList = new ArrayList<>();
+    private void setTeam() {
         int total_team1 = 0;
         int total_team2 = 0;
 
@@ -319,9 +247,18 @@ public class MyTeamFragment extends BaseFragment {
                 total_team2++;
             }
         }
+        tv_team1.setText(team1);
+        tv_team2.setText(team2);
+        Picasso.with(getActivity()).load(getPictureURL(teamA)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
+                into(iv_team1);
+        Picasso.with(getActivity()).load(getPictureURL(teamB)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
+                into(iv_team2);
         tv_team_count1.setText("" + total_team1 + "/7");
         tv_team_count2.setText("" + total_team2 + "/7");
+        arrangePlayerOnField();
+    }
 
+    private void arrangePlayerOnField() {
         for (TeamPlayerDto teamPlayerDto : teamDto.team_player) {
             /* Divided  players*/
             switch (teamPlayerDto.type) {
