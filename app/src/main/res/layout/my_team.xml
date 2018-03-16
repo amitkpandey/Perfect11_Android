@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_root"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -120,20 +120,21 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/pitch">
+            android:background="@drawable/pitch"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_wkt_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/point_round"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="10"
                 android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                android:textSize="9sp"
+               />
 
             <ImageView
                 android:id="@+id/iv_wkt"
@@ -165,14 +166,16 @@
                 android:id="@+id/rl_batsman"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_below="@+id/iv_wkt">
 
                 <RelativeLayout
                     android:id="@+id/rl_bat1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <TextView
                         android:id="@+id/tv_bat1_point"
@@ -184,7 +187,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat1"
@@ -232,7 +235,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat2"
@@ -277,7 +280,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat3"
@@ -323,7 +326,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat4"
@@ -367,7 +370,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat5"
@@ -400,8 +403,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:paddingBottom="10dp">
+                    android:layout_marginTop="10dp"
+                  >
 
                     <TextView
                         android:id="@+id/tv_bat6_point"
@@ -413,7 +416,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bat6"
@@ -446,7 +449,7 @@
                 android:id="@+id/rl_ar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="130dp"
+                android:layout_below="@+id/rl_batsman"
                 android:gravity="center_horizontal">
 
                 <RelativeLayout
@@ -464,7 +467,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar1"
@@ -510,7 +513,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar2"
@@ -556,7 +559,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar3"
@@ -600,7 +603,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_ar4"
@@ -634,7 +637,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_ar"
-
+                android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal">
 
                 <RelativeLayout
@@ -652,7 +655,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler1"
@@ -697,7 +700,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler2"
@@ -741,7 +744,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
 
                     <ImageView
@@ -787,7 +790,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler4"
@@ -832,7 +835,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler5"
@@ -877,7 +880,7 @@
                         android:padding="5dp"
                         android:text="10"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        android:textSize="9sp" />
 
                     <ImageView
                         android:id="@+id/iv_bowler6"

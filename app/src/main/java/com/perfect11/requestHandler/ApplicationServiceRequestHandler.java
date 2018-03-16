@@ -358,6 +358,11 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
     @Override
     public void onFailure(String message, String errorCode) {
         switch (index) {
+            case GET_USER_LOGIN_DETAIL:
+                if (mActivity instanceof LoginActivity) {
+                    ((LoginActivity) mActivity).serviceCallbackLoginFail();
+                }
+                break;
             default:
                 super.onFailure(message, errorCode);
         }

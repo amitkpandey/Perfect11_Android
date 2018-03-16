@@ -68,7 +68,7 @@ public class HelpFragment extends BaseFragment {
                                    }
 
         );
-        myWebView.loadUrl("http://52.15.50.179/point-system");
+        myWebView.loadUrl("http://www.perfect11.in/page/help_for_app/");
     }
 
     private void initializeProgressBar() {

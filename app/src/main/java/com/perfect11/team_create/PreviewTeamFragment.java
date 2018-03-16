@@ -141,7 +141,7 @@ public class PreviewTeamFragment extends BaseFragment {
     }
 
     private void setPlayerVisibilityGone() {
-        iv_wkt.setVisibility(View.GONE);
+        iv_wkt.setVisibility(View.INVISIBLE);
 
         rl_bat1.setVisibility(View.GONE);
         rl_bat2.setVisibility(View.GONE);

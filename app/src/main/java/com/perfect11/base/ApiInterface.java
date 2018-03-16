@@ -6,6 +6,7 @@ import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
+import com.perfect11.login_signup.wrapper.PictureWrapper;
 import com.perfect11.myprofile.wrapper.MyContestInfoWrapper;
 import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
@@ -90,4 +91,6 @@ public interface ApiInterface {
     @POST("api/myAccountProfile")
     Call<MyAccountWrapper> getMyAccountDetails(@Field("member_id") String member_id);
 
+    @GET("api/bannerlist")
+    Call<PictureWrapper> getPictureList();
 }

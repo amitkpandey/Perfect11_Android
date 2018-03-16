@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.perfect11.R;
@@ -90,6 +91,13 @@ public class SelectPlayersFragment extends BaseFragment {
     private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
     private ImageView iv_ar1, iv_ar2, iv_ar3, iv_ar4;
     private ImageView iv_bowler1, iv_bowler2, iv_bowler3, iv_bowler4, iv_bowler5, iv_bowler6;
+
+    private CustomTextView tv_wkt_name, tv_bat1_name, tv_bat2_name, tv_bat3_name, tv_bat4_name,
+            tv_bat5_name, tv_bat6_name, tv_ar1_name, tv_ar2_name, tv_ar3_name, tv_ar4_name, tv_bowler1_name, tv_bowler2_name, tv_bowler3_name,
+            tv_bowler4_name, tv_bowler5_name, tv_bowler6_name;
+
+    private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
+            rl_bowler4, rl_bowler5, rl_bowler6;
     /**
      * Ground View End
      */
@@ -213,6 +221,48 @@ public class SelectPlayersFragment extends BaseFragment {
 
         btn_save = view.findViewById(R.id.btn_save);
         btn_save.setText("Save Team");
+
+
+        tv_wkt_name = view.findViewById(R.id.tv_wkt_name);
+
+        tv_bat1_name = view.findViewById(R.id.tv_bat1_name);
+        tv_bat2_name = view.findViewById(R.id.tv_bat2_name);
+        tv_bat3_name = view.findViewById(R.id.tv_bat3_name);
+        tv_bat4_name = view.findViewById(R.id.tv_bat4_name);
+        tv_bat5_name = view.findViewById(R.id.tv_bat5_name);
+        tv_bat6_name = view.findViewById(R.id.tv_bat6_name);
+
+        tv_ar1_name = view.findViewById(R.id.tv_ar1_name);
+        tv_ar2_name = view.findViewById(R.id.tv_ar2_name);
+        tv_ar3_name = view.findViewById(R.id.tv_ar3_name);
+        tv_ar4_name = view.findViewById(R.id.tv_ar4_name);
+
+        tv_bowler1_name = view.findViewById(R.id.tv_bowler1_name);
+        tv_bowler2_name = view.findViewById(R.id.tv_bowler2_name);
+        tv_bowler3_name = view.findViewById(R.id.tv_bowler3_name);
+        tv_bowler4_name = view.findViewById(R.id.tv_bowler4_name);
+        tv_bowler5_name = view.findViewById(R.id.tv_bowler5_name);
+        tv_bowler6_name = view.findViewById(R.id.tv_bowler6_name);
+
+        rl_bat1 = view.findViewById(R.id.rl_bat1);
+        rl_bat2 = view.findViewById(R.id.rl_bat2);
+        rl_bat3 = view.findViewById(R.id.rl_bat3);
+        rl_bat4 = view.findViewById(R.id.rl_bat4);
+        rl_bat5 = view.findViewById(R.id.rl_bat5);
+        rl_bat6 = view.findViewById(R.id.rl_bat6);
+
+        rl_ar1 = view.findViewById(R.id.rl_ar1);
+        rl_ar2 = view.findViewById(R.id.rl_ar2);
+        rl_ar3 = view.findViewById(R.id.rl_ar3);
+        rl_ar4 = view.findViewById(R.id.rl_ar4);
+
+        rl_bowler1 = view.findViewById(R.id.rl_bowler1);
+        rl_bowler2 = view.findViewById(R.id.rl_bowler2);
+        rl_bowler3 = view.findViewById(R.id.rl_bowler3);
+        rl_bowler4 = view.findViewById(R.id.rl_bowler4);
+        rl_bowler5 = view.findViewById(R.id.rl_bowler5);
+        rl_bowler6 = view.findViewById(R.id.rl_bowler6);
+
     }
 
     private void setTeam() {
@@ -227,26 +277,27 @@ public class SelectPlayersFragment extends BaseFragment {
     }
 
     private void setPlayerVisibilityGone() {
-        iv_wkt.setVisibility(View.GONE);
+        iv_wkt.setVisibility(View.INVISIBLE);
+       tv_wkt_name.setVisibility(View.INVISIBLE);
 
-        iv_bat1.setVisibility(View.GONE);
-        iv_bat2.setVisibility(View.GONE);
-        iv_bat3.setVisibility(View.GONE);
-        iv_bat4.setVisibility(View.GONE);
-        iv_bat5.setVisibility(View.GONE);
-        iv_bat6.setVisibility(View.GONE);
+        rl_bat1.setVisibility(View.INVISIBLE);
+        rl_bat2.setVisibility(View.INVISIBLE);
+        rl_bat3.setVisibility(View.GONE);
+        rl_bat4.setVisibility(View.GONE);
+        rl_bat5.setVisibility(View.GONE);
+        rl_bat6.setVisibility(View.GONE);
 
-        iv_ar1.setVisibility(View.INVISIBLE);
-        iv_ar2.setVisibility(View.INVISIBLE);
-        iv_ar3.setVisibility(View.INVISIBLE);
-        iv_ar4.setVisibility(View.INVISIBLE);
+        rl_ar1.setVisibility(View.INVISIBLE);
+        rl_ar2.setVisibility(View.INVISIBLE);
+        rl_ar3.setVisibility(View.INVISIBLE);
+        rl_ar4.setVisibility(View.INVISIBLE);
 
-        iv_bowler1.setVisibility(View.GONE);
-        iv_bowler2.setVisibility(View.GONE);
-        iv_bowler3.setVisibility(View.GONE);
-        iv_bowler4.setVisibility(View.GONE);
-        iv_bowler5.setVisibility(View.GONE);
-        iv_bowler6.setVisibility(View.GONE);
+        rl_bowler1.setVisibility(View.INVISIBLE);
+        rl_bowler2.setVisibility(View.INVISIBLE);
+        rl_bowler3.setVisibility(View.GONE);
+        rl_bowler4.setVisibility(View.GONE);
+        rl_bowler5.setVisibility(View.GONE);
+        rl_bowler6.setVisibility(View.GONE);
     }
 
     private void arrangePlayerOnField() {
@@ -257,7 +308,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : bowler) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + i);
-                setVisibleBowler(i);
+                setVisibleBowler(i,playerDto.full_name);
                 i++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -271,7 +322,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : batsman) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + j);
-                setVisibleBatsman(j);
+                setVisibleBatsman(j,playerDto.full_name);
                 j++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -287,7 +338,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : allrounder) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + k);
-                setVisibleAllrounder(k);
+                setVisibleAllrounder(k,playerDto.full_name);
                 k++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -302,6 +353,8 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : keeper) {
             if (playerDto.isSelected) {
                 iv_wkt.setVisibility(View.VISIBLE);
+                tv_wkt_name.setVisibility(View.VISIBLE);
+                tv_wkt_name.setText(playerDto.full_name);
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
@@ -317,20 +370,24 @@ public class SelectPlayersFragment extends BaseFragment {
         tv_team_count2.setText("" + total_team2 + "/7");
     }
 
-    private void setVisibleAllrounder(int allrounder) {
+    private void setVisibleAllrounder(int allrounder, String full_name) {
 
         switch (allrounder) {
             case 1:
-                iv_ar1.setVisibility(View.VISIBLE);
+                rl_ar1.setVisibility(View.VISIBLE);
+                tv_ar1_name.setText(full_name);
                 break;
             case 2:
-                iv_ar2.setVisibility(View.VISIBLE);
+                rl_ar2.setVisibility(View.VISIBLE);
+                tv_ar2_name.setText(full_name);
                 break;
             case 3:
-                iv_ar3.setVisibility(View.VISIBLE);
+                rl_ar3.setVisibility(View.VISIBLE);
+                tv_ar3_name.setText(full_name);
                 break;
             case 4:
-                iv_ar4.setVisibility(View.VISIBLE);
+                rl_ar4.setVisibility(View.VISIBLE);
+                tv_ar4_name.setText(full_name);
                 break;
         }
     }
@@ -338,25 +395,31 @@ public class SelectPlayersFragment extends BaseFragment {
     /**
      * Visible Batsman
      */
-    private void setVisibleBatsman(int batsman) {
+    private void setVisibleBatsman(int batsman, String full_name) {
         switch (batsman) {
             case 1:
-                iv_bat1.setVisibility(View.VISIBLE);
+                rl_bat1.setVisibility(View.VISIBLE);
+                tv_bat1_name.setText(full_name);
                 break;
             case 2:
-                iv_bat2.setVisibility(View.VISIBLE);
+                rl_bat2.setVisibility(View.VISIBLE);
+                tv_bat2_name.setText(full_name);
                 break;
             case 3:
-                iv_bat3.setVisibility(View.VISIBLE);
+                rl_bat3.setVisibility(View.VISIBLE);
+                tv_bat3_name.setText(full_name);
                 break;
             case 4:
-                iv_bat4.setVisibility(View.VISIBLE);
+                rl_bat4.setVisibility(View.VISIBLE);
+                tv_bat4_name.setText(full_name);
                 break;
             case 5:
-                iv_bat5.setVisibility(View.VISIBLE);
+                rl_bat5.setVisibility(View.VISIBLE);
+                tv_bat5_name.setText(full_name);
                 break;
             case 6:
-                iv_bat6.setVisibility(View.VISIBLE);
+                rl_bat6.setVisibility(View.VISIBLE);
+                tv_bat6_name.setText(full_name);
                 break;
         }
     }
@@ -364,25 +427,31 @@ public class SelectPlayersFragment extends BaseFragment {
     /**
      * Visible Bowler
      */
-    private void setVisibleBowler(int bowler) {
+    private void setVisibleBowler(int bowler, String full_name) {
         switch (bowler) {
             case 1:
-                iv_bowler1.setVisibility(View.VISIBLE);
+                rl_bowler1.setVisibility(View.VISIBLE);
+                tv_bowler1_name.setText(full_name);
                 break;
             case 2:
-                iv_bowler2.setVisibility(View.VISIBLE);
+                rl_bowler2.setVisibility(View.VISIBLE);
+                tv_bowler2_name.setText(full_name);
                 break;
             case 3:
-                iv_bowler3.setVisibility(View.VISIBLE);
+                rl_bowler3.setVisibility(View.VISIBLE);
+                tv_bowler3_name.setText(full_name);
                 break;
             case 4:
-                iv_bowler4.setVisibility(View.VISIBLE);
+                rl_bowler4.setVisibility(View.VISIBLE);
+                tv_bowler4_name.setText(full_name);
                 break;
             case 5:
-                iv_bowler5.setVisibility(View.VISIBLE);
+                rl_bowler5.setVisibility(View.VISIBLE);
+                tv_bowler5_name.setText(full_name);
                 break;
             case 6:
-                iv_bowler6.setVisibility(View.VISIBLE);
+                rl_bowler6.setVisibility(View.VISIBLE);
+                tv_bowler6_name.setText(full_name);
                 break;
         }
     }
@@ -582,6 +651,8 @@ public class SelectPlayersFragment extends BaseFragment {
                     totalPlayers++;
                 }
             }
+            tv_header.setText("" + totalPoints + "/1000\nCredit Left");
+            tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
         }
         return playerDtoArrayList;
     }

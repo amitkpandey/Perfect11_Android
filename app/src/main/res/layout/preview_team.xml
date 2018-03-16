@@ -122,6 +122,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="70dp"
+            android:gravity="center"
             android:background="@drawable/pitch">
 
             <ImageView
@@ -129,7 +130,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
                 android:contentDescription="@null"
                 android:onClick="onButtonClick"
                 android:scaleType="fitXY"
@@ -148,7 +148,8 @@
                 android:padding="5dp"
                 android:text="M S Dhoni"
                 android:textColor="@android:color/white"
-                android:textSize="9sp" />
+                android:textSize="9sp"
+                />
 
             <LinearLayout
                 android:id="@+id/rl_batsman"
@@ -485,7 +486,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_ar"
                 android:gravity="center_horizontal"
-                android:layout_centerHorizontal="true">
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_bowler1"
