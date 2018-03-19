@@ -26,8 +26,6 @@ import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.myprofile.wrapper.MyContestInfoWrapper;
 import com.perfect11.othersMenuItem.InviteFriendsFragment;
 import com.perfect11.requestHandler.ApplicationServiceRequestHandler;
-import com.perfect11.team_create.SelectPlayersActivity;
-import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.squareup.picasso.Picasso;
 import com.utility.ActivityController;
 import com.utility.CommonUtility;
@@ -46,7 +44,7 @@ import retrofit2.Response;
 
 
 public class MyProfileFragment extends BaseFragment {
-    private CustomTextView ctv_name,ctv_phone,ctv_mail;
+    private CustomTextView ctv_name, ctv_phone, ctv_mail;
     private UserDto userDto;
     private AutoCompleteTextView name;
     private CircleImageView image;
@@ -55,9 +53,9 @@ public class MyProfileFragment extends BaseFragment {
     private String selectProfileImage1 = "";
     private ApiInterface apiInterface;
     private MyContestInfoWrapper myContestInfoWrapper;
-private Button btn_edit;
+    private Button btn_edit;
 
-private TextView tv_contest_played,tv_contest_won;
+    private TextView tv_contest_played, tv_contest_won;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,28 +71,26 @@ private TextView tv_contest_played,tv_contest_won;
     }
 
     private void initView() {
-        btn_edit=view.findViewById(R.id.btn_edit);
-        ctv_name=view.findViewById(R.id.ctv_name);
-        ctv_phone=view.findViewById(R.id.ctv_phone);
-        ctv_mail=view.findViewById(R.id.ctv_mail);
-        image=view.findViewById(R.id.image);
-        name=view.findViewById(R.id.name);
+        btn_edit = view.findViewById(R.id.btn_edit);
+        ctv_name = view.findViewById(R.id.ctv_name);
+        ctv_phone = view.findViewById(R.id.ctv_phone);
+        ctv_mail = view.findViewById(R.id.ctv_mail);
+        image = view.findViewById(R.id.image);
+        name = view.findViewById(R.id.name);
         name.setVisibility(View.GONE);
 
-        tv_contest_played=view.findViewById(R.id.tv_contest_played);
-        tv_contest_won=view.findViewById(R.id.tv_contest_won);
+        tv_contest_played = view.findViewById(R.id.tv_contest_played);
+        tv_contest_won = view.findViewById(R.id.tv_contest_won);
 
         setValue();
     }
 
     private void setValue() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
-        ctv_name.setText(userDto.first_name+" "+userDto.last_name);
-        if(userDto.phone.trim().equals(""))
-        {
+        ctv_name.setText(userDto.first_name + " " + userDto.last_name);
+        if (userDto.phone.trim().equals("")) {
             ctv_phone.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             ctv_phone.setText(userDto.phone);
         }
         ctv_mail.setText(userDto.email);
@@ -111,8 +107,7 @@ private TextView tv_contest_played,tv_contest_won;
     public void onButtonClick(View view) {
         super.onButtonClick(view);
 
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.btn_edit:
                 //((BaseHeaderActivity)getActivity()).addFragment(new ChangeProfileFragment(),true,ChangeProfileFragment.class.getName());
                 if (ctv_name.getVisibility() == View.VISIBLE) {
@@ -120,9 +115,9 @@ private TextView tv_contest_played,tv_contest_won;
                     name.setText(userDto.first_name + " " + userDto.last_name);
                     ctv_name.setVisibility(View.GONE);
                     btn_edit.setBackground(getActivity().getResources().getDrawable(R.drawable.save_profile_icon));
-                }else{
-                    if(isValid())
-                    callChangeProfileAPI();
+                } else {
+                    if (isValid())
+                        callChangeProfileAPI();
                 }
                 break;
             case R.id.rl_imageHolder:
@@ -132,14 +127,14 @@ private TextView tv_contest_played,tv_contest_won;
                         IMAGE1);
                 break;
             case R.id.rl_change_password:
-                ((BaseHeaderActivity)getActivity()).addFragment(new ChangePasswordFragment(),true,ChangePasswordFragment.class.getName());
+                ((BaseHeaderActivity) getActivity()).addFragment(new ChangePasswordFragment(), true, ChangePasswordFragment.class.getName());
                 break;
             case R.id.rl_refer_fnd:
-                InviteFriendsFragment inviteFriendsFragment=new InviteFriendsFragment();
-                Bundle bundle1=new Bundle();
-                bundle1.putBoolean("flag",true);
+                InviteFriendsFragment inviteFriendsFragment = new InviteFriendsFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean("flag", true);
                 inviteFriendsFragment.setArguments(bundle1);
-                ((BaseHeaderActivity)getActivity()).addFragment(inviteFriendsFragment,true,InviteFriendsFragment.class.getName());
+                ((BaseHeaderActivity) getActivity()).addFragment(inviteFriendsFragment, true, InviteFriendsFragment.class.getName());
                 break;
         }
     }
@@ -148,6 +143,7 @@ private TextView tv_contest_played,tv_contest_won;
         bitmap = CommonUtility.getAspectBitmap(getActivity(), bitmap, imageView, backgroundImageID);
         imageView.setImageBitmap(bitmap);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,8 +157,7 @@ private TextView tv_contest_played,tv_contest_won;
                             selectProfileImage1);
                     localMaskImage(background, image, R.drawable.myteam);
 
-                    if(!selectProfileImage1.equals(""))
-                    {
+                    if (!selectProfileImage1.equals("")) {
                         callAPI1();
                     }
 
@@ -174,17 +169,17 @@ private TextView tv_contest_played,tv_contest_won;
 
     private void callAPI1() {
         //API
-        new ApplicationServiceRequestHandler(getActivity(),this, new String[]{"member_id", "picture"},
-                new Object[]{userDto.member_id,new File(selectProfileImage1)},
-                "Loading...", ApplicationServiceRequestHandler.CHANGEMYPICTURE, Constants.BASE_URL);
+        new ApplicationServiceRequestHandler(getActivity(), this, new String[]{"member_id", "picture"},
+                new Object[]{userDto.member_id, new File(selectProfileImage1)},
+                "Loading...", ApplicationServiceRequestHandler.CHANGE_MY_PICTURE, Constants.BASE_URL);
     }
 
     private void callChangeProfileAPI() {
         //API
-        String str[]=name.getText().toString().trim().split(" ");
-        new ApplicationServiceRequestHandler(getActivity(),this, new String[]{"member_id", "first_name","last_name","weblink","address"
-                ,"country","state","city","gender","zipcode"},
-                new Object[]{userDto.member_id,str[0],(str.length>=2)?str[1]:"","perfect11","","","","","",""},
+        String str[] = name.getText().toString().trim().split(" ");
+        new ApplicationServiceRequestHandler(getActivity(), this, new String[]{"member_id", "first_name", "last_name", "weblink", "address"
+                , "country", "state", "city", "gender", "zipcode"},
+                new Object[]{userDto.member_id, str[0], (str.length >= 2) ? str[1] : "", "perfect11", "", "", "", "", "", ""},
                 "Loading...", ApplicationServiceRequestHandler.EDIT_PROFILE, Constants.BASE_URL);
     }
 
@@ -196,12 +191,13 @@ private TextView tv_contest_played,tv_contest_won;
         }
         return true;
     }
+
     public void serviceCallback(String message) {
-        DialogUtility.showMessageWithOk(message,getActivity());
+        DialogUtility.showMessageWithOk(message, getActivity());
     }
 
     public void serviceChangeProfileCallback(String message) {
-        DialogUtility.showMessageWithOk(message,getActivity());
+        DialogUtility.showMessageWithOk(message, getActivity());
         ctv_name.setVisibility(View.VISIBLE);
         ctv_name.setText(userDto.first_name + " " + userDto.last_name);
         name.setVisibility(View.GONE);
@@ -223,9 +219,9 @@ private TextView tv_contest_played,tv_contest_won;
         call.enqueue(new Callback<MyContestInfoWrapper>() {
             @Override
             public void onResponse(Call<MyContestInfoWrapper> call, Response<MyContestInfoWrapper> response) {
-                myContestInfoWrapper= response.body();
-                tv_contest_played.setText(""+myContestInfoWrapper.data.contest_played);
-                tv_contest_won.setText(""+myContestInfoWrapper.data.contest_win);
+                myContestInfoWrapper = response.body();
+                tv_contest_played.setText("" + myContestInfoWrapper.data.contest_played);
+                tv_contest_won.setText("" + myContestInfoWrapper.data.contest_win);
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

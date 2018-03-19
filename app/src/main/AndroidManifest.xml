@@ -87,6 +87,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/DialogSlideAnim" />
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_app_id" />
+
         <service
             android:name="com.perfect11.home.service.BackgroundScoreUpdateService"
             android:exported="false" />

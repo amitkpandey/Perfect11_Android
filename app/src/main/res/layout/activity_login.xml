@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/intro_screenbg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.perfect11.login_signup.LoginActivity"
-    android:background="@drawable/intro_screenbg">
+    tools:context="com.perfect11.login_signup.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,13 +46,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="35dp"
-            >
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:src="@drawable/login_banner"
-    android:layout_marginBottom="40dp"/>
+            android:padding="35dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/login_banner" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -63,11 +63,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/email_drawable_icon"
+                    android:drawablePadding="10dp"
                     android:hint="@string/prompt_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:drawablePadding="10dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -81,13 +81,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/password_drawable_icon"
+                    android:drawablePadding="10dp"
                     android:hint="@string/prompt_password"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:drawablePadding="10dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -98,50 +98,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
                 android:background="@drawable/rounded_corner_dark_red_btn_bg"
-                android:textAllCaps="false"/>
+                android:text="@string/action_sign_in"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/ctv_forgot_password"
-                android:onClick="onButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forgot password?"
-                android:textSize="@dimen/min_text_size"
                 android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:onClick="onButtonClick"
+                android:text="Forgot password?"
                 android:textColor="@android:color/white"
-                android:layout_margin="15dp"/>
+                android:textSize="@dimen/min_text_size" />
+
             <com.utility.customView.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="or"
-                android:textSize="@dimen/mid_text_size"
-                android:textStyle="bold"
                 android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="or"
                 android:textColor="@android:color/white"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="@dimen/mid_text_size"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/img_fb"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/fb"
-                    android:layout_weight="1"
                     android:layout_marginRight="10dp"
-                    />
+                    android:layout_weight="1"
+                    android:contentDescription="@null"
+                    android:onClick="onButtonClick"
+                    android:src="@drawable/fb" />
+
                 <ImageView
                     android:id="@+id/img_google"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/google"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:contentDescription="@null"
+                    android:onClick="onButtonClick"
+                    android:src="@drawable/google" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_register"
                 android:layout_width="match_parent"
@@ -150,22 +158,22 @@
                 android:layout_margin="15dp"
                 android:gravity="center"
                 android:onClick="onButtonClick">
+
                 <com.utility.customView.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Don't have an account? "
-                    android:textSize="@dimen/min_text_size"
-
                     android:textColor="@android:color/white"
-                    />
+
+                    android:textSize="@dimen/min_text_size" />
+
                 <com.utility.customView.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_register"
-                    android:textSize="@dimen/min_text_size"
                     android:layout_gravity="center"
+                    android:text="@string/action_register"
                     android:textColor="@color/red_text_color"
-                    />
+                    android:textSize="@dimen/min_text_size" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

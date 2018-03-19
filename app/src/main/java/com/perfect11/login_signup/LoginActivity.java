@@ -1,10 +1,9 @@
 package com.perfect11.login_signup;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -26,6 +25,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.perfect11.R;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.requestHandler.ApplicationServiceRequestHandler;
@@ -35,6 +41,9 @@ import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.ActivityController;
 import com.utility.CommonUtility;
 import com.utility.Constants;
+import com.utility.facebook.FacebookLoginListener;
+import com.utility.facebook.FacebookUtil;
+import com.utility.facebook.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +53,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, FacebookLoginListener, GoogleApiClient.OnConnectionFailedListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -70,6 +79,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private ArrayList<PlayerDto> selectedTeam;
     private UpComingMatchesDto upComingMatchesDto;
+    private FacebookUtil facebookUtil;
+    private GoogleApiClient mGoogleApiClient;
+    private static final int GOOGLE_SIGN_IN = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +113,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         readFromBundle();
+        initSocialLogin();
+    }
+
+    private void initSocialLogin() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).
+                addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        facebookUtil = FacebookUtil.getFBUtilInstance(this);
     }
 
     private void readFromBundle() {
@@ -111,8 +131,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
 //            Log.e("Login:", contestDto.toString() + upComingMatchesDto.toString() + selectedTeam.size() + "" + flag);
         } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount googleSignInAccount = result.getSignInAccount();
+            String email = googleSignInAccount.getEmail();
+            System.out.println(" email: " + email);
+            callServiceForSocialLogin(googleSignInAccount);
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
+//        System.out.println("onActivityResult Request Code: " + requestCode + " Result Code: " + responseCode + " Data: " + data);
+        if (FacebookSdk.isFacebookRequestCode(requestCode)) {
+            facebookUtil.callbackManager.onActivityResult(requestCode, responseCode, data);
+        } else if (requestCode == GOOGLE_SIGN_IN) {
+            System.out.println("is Google here");
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
     }
 
     private void populateAutoComplete() {
@@ -149,8 +192,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Callback received when a permissions request has been completed.
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 populateAutoComplete();
@@ -215,12 +257,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return !CommonUtility.validateEmail(email);
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 5;
     }
 
@@ -261,11 +301,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
         mEmailView.setAdapter(adapter);
+    }
+
+    private void doGoogleLogin() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
+    }
+
+    private void doFaceBookLogin() {
+        facebookUtil.isFBLogin = true;
+        facebookUtil.initFacebook(this);
+        facebookUtil.setFacebookLoginListener(this);
     }
 
     public void onButtonClick(View view) {
@@ -280,6 +328,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             case R.id.ctv_forgot_password:
                 ActivityController.startNextActivity(this, ForgotPasswordActivity.class, false);
                 finish();
+                break;
+            case R.id.img_fb:
+                doFaceBookLogin();
+                break;
+            case R.id.img_google:
+                doGoogleLogin();
                 break;
         }
     }
@@ -306,14 +360,42 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void serviceCallbackLoginFail() {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onCompleted(UserInfo userInfo) {
+        callServiceForSocialLogin(userInfo);
+    }
+
+    @Override
+    public void onFailure() {
+
+    }
+
+    private void callServiceForSocialLogin(Object object) {
+//        String device_token = PreferenceUtility.getStringFromPreference(this, PreferenceUtility.DEVICE_TOKEN);
+        if (object instanceof UserInfo) {
+            new ApplicationServiceRequestHandler(this, new String[]{"oauth_type", "oauth_uid", "first_name", "email", "device_type", "device_token",
+                    "weblink"}, new Object[]{"facebook", ((UserInfo) object).getFacebookUserId(), ((UserInfo) object).getFirstName() + " " +
+                    ((UserInfo) object).getLastName(), ((UserInfo) object).getEmailId(), "Android", "test", "perfect11"}, Constants.LOADING_MESSAGE,
+                    ApplicationServiceRequestHandler.SOCIAL_LOGIN, Constants.BASE_URL);
+        } else if (object instanceof GoogleSignInAccount) {
+            new ApplicationServiceRequestHandler(this, new String[]{"oauth_type", "oauth_uid", "first_name", "email", "device_type", "device_token",
+                    "weblink"}, new Object[]{"google", ((GoogleSignInAccount) object).getId(), ((GoogleSignInAccount) object).getGivenName() + " " +
+                    ((GoogleSignInAccount) object).getFamilyName(), ((GoogleSignInAccount) object).getEmail(), "Android", "test", "perfect11"},
+                    Constants.LOADING_MESSAGE, ApplicationServiceRequestHandler.SOCIAL_LOGIN, Constants.BASE_URL);
+        }
     }
 
 
     private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
+        String[] PROJECTION = {ContactsContract.CommonDataKinds.Email.ADDRESS, ContactsContract.CommonDataKinds.Email.IS_PRIMARY,};
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;

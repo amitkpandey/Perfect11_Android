@@ -40,10 +40,11 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
     public static final int FORGET_PASSWORD = 2;
     public static final int SIGN_UP = 3;
     public static final int UPCOMING_MATCHES = 4;
-    public static final int CHANGEMYPICTURE = 5;
-    public static final int CHANGEPASSWORD = 6;
+    public static final int CHANGE_MY_PICTURE = 5;
+    public static final int CHANGE_PASSWORD = 6;
     public static final int EDIT_PROFILE = 7;
     public static final int GET_LIVE_SCORE = 8;
+    public static final int SOCIAL_LOGIN = 9;
 
     public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String[] keys, Object[] values,
                                             String loadingMessage, int index, String baseURL) {
@@ -97,15 +98,13 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
         callService();
     }
 
-    public ApplicationServiceRequestHandler(Activity activity, String[] keys, Object[] values, String url, String loadingMessage,
-                                            int index) {
+    public ApplicationServiceRequestHandler(Activity activity, String[] keys, Object[] values, String loadingMessage, int index) {
         super(activity);
         this.mActivity = activity;
         this.message = loadingMessage;
         this.values = values;
         this.index = index;
         this.keys = keys;
-        this.url = url;
         callService();
     }
 
@@ -147,58 +146,12 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
         callServiceForGet();
     }
 
-//    public ApplicationServiceRequestHandler(Context context, String url, int index) {
-//        super(context);
-//        this.mContext = context;
-//        this.url = url;
-//        this.index = index;
-//        TaskManager taskManager = new TaskManager(this, this, mActivity);
-//        taskManager.callServiceContext(context);
-//    }
-
-   /*  public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String url, String loadingMessage, int index,
-                                            boolean flag, boolean isLandingScreen) {
-        super(activity);
-        this.mActivity = activity;
-        this.mFragment = fragment;
-        this.message = loadingMessage;
-        this.url = url;
-        this.index = index;
-        this.isLandingScreen = isLandingScreen;
-        if (flag)
-            callServiceForGet();
-        else
-            callServiceForGetVimeo();
-    }
-
-    public ApplicationServiceRequestHandler(Activity activity, String url, String loadingMessage, int index, boolean flag) {
-        super(activity);
-        this.mActivity = activity;
-        this.message = loadingMessage;
-        this.url = url;
-        this.index = index;
-        if (flag)
-            callServiceForGet();
-        else
-            callServiceForGetVimeo();
-    }
-*/
-
     private void callServiceForGet() {
         TaskManager taskManager = new TaskManager(this, this, mActivity);
         if (!isLandingScreen)
             taskManager.callServiceForGet(message, baseURL);
         else
             taskManager.callServiceForGet(message, true, baseURL);
-    }
-
-    private void callServiceForGetVimeo() {
-        TaskManager taskManager = new TaskManager(this, this, mActivity);
-        if (!isLandingScreen)
-            taskManager.callServiceForGetVimeoThumbnail(message);
-        else
-            taskManager.callServiceForGetVimeoThumbnail(message, true);
-//        taskManager.callServiceForGetVimeoThumbnail(message);
     }
 
     @Override
@@ -213,14 +166,16 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 return "register";
             case UPCOMING_MATCHES:
                 return url;
-            case CHANGEMYPICTURE:
+            case CHANGE_MY_PICTURE:
                 return "changeMyPicture";
-            case CHANGEPASSWORD:
+            case CHANGE_PASSWORD:
                 return "update_password";
             case EDIT_PROFILE:
                 return "editProfile";
             case GET_LIVE_SCORE:
                 return "players/playerspoint/" + url;
+            case SOCIAL_LOGIN:
+                return "socialLoginApi";
         }
         return "";
     }
@@ -297,7 +252,7 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                     ((RegisterActivity) mActivity).serviceCallbackSignUP(message);
                 }
                 break;
-            case CHANGEMYPICTURE:
+            case CHANGE_MY_PICTURE:
                 userWrapper = MyApplication.gson.fromJson(response, UserDetailsWrapper.class);
                 PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
 
@@ -313,7 +268,7 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                     ((MyProfileFragment) mFragment).serviceChangeProfileCallback(userWrapper.message);
                 }
                 break;
-            case CHANGEPASSWORD:
+            case CHANGE_PASSWORD:
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     message = jsonObject.optString("message");
@@ -343,6 +298,13 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                break;
+            case SOCIAL_LOGIN:
+                userWrapper = MyApplication.gson.fromJson(response, UserDetailsWrapper.class);
+                PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
+                if (mActivity instanceof LoginActivity) {
+                    ((LoginActivity) mActivity).serviceCallbackLogin();
                 }
                 break;
         }

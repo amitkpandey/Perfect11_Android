@@ -106,7 +106,7 @@ public class ChangePasswordFragment extends BaseFragment {
 
         new ApplicationServiceRequestHandler(getActivity(),this, new String[]{"old_password", "new_password","member_id"},
                 new Object[]{old_password.getText().toString(),confirm_password.getText().toString(),userDto.member_id},
-                "Loading...", ApplicationServiceRequestHandler.CHANGEPASSWORD, Constants.BASE_URL);
+                "Loading...", ApplicationServiceRequestHandler.CHANGE_PASSWORD, Constants.BASE_URL);
     }
 
     public void serviceCallback(String message) {
