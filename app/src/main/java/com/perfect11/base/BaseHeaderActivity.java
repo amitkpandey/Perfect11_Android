@@ -20,9 +20,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.perfect11.R;
 import com.perfect11.account.MyAccountFragment;
-import com.perfect11.contest.ContestInviteFragment;
 import com.perfect11.contest.InviteCodeFragment;
 import com.perfect11.help.HelpFragment;
 import com.perfect11.home.HomeFragment;
@@ -44,7 +48,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderActivity
+public class BaseHeaderActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {// .base.BaseHeaderActivity
 
     public ResideMenu slideMenu;
 
@@ -57,6 +61,8 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
     private UserDto userDto;
 
     private CustomTextView tv_name, ctv_email;
+
+    private GoogleApiClient mGoogleApiClient;
 
     //Menu Items
     private CustomTextView ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout;
@@ -84,6 +90,8 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(this, PreferenceUtility.APP_PREFERENCE_NAME);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
         setContentView(R.layout.common_base_header);
         readFromBundle();
 
@@ -397,6 +405,8 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
             case R.id.ll_logout:
                 if (isOpenSlide) {
                     setDefaultBG();
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                    LoginManager.getInstance().logOut();
                     ctv_logout.setBackground(getResources().getDrawable(R.drawable.shaddo));
                     slideMenu.closeMenu();
                     PreferenceUtility.saveObjectInAppPreference(this, null, PreferenceUtility.APP_PREFERENCE_NAME);
@@ -482,6 +492,11 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
      */
     private final FireResumeHandler mFireResumeHandler = new FireResumeHandler();
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        
+    }
+
     /**
      * The Class FireResumeHandler.
      */
@@ -541,5 +556,7 @@ public class BaseHeaderActivity extends FragmentActivity {// .base.BaseHeaderAct
     protected void onDestroy() {
         super.onDestroy();
         finish();
+        mGoogleApiClient.stopAutoManage(this);
+        mGoogleApiClient.disconnect();
     }
 }

@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onActivityResult(int requestCode, int responseCode, Intent data) {
-//        System.out.println("onActivityResult Request Code: " + requestCode + " Result Code: " + responseCode + " Data: " + data);
+        System.out.println("onActivityResult Request Code: " + requestCode + " Result Code: " + responseCode + " Data: " + data);
         if (FacebookSdk.isFacebookRequestCode(requestCode)) {
             facebookUtil.callbackManager.onActivityResult(requestCode, responseCode, data);
         } else if (requestCode == GOOGLE_SIGN_IN) {
