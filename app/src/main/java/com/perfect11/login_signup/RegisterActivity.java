@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.perfect11.R;
+import com.perfect11.contest.InviteCodeFragment;
 import com.perfect11.requestHandler.ApplicationServiceRequestHandler;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
@@ -147,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
         DialogUtility.showMessageOkWithCallback(message, this, new AlertDialogCallBack() {
             @Override
             public void onSubmit() {
-                gotoLogin();
+                gotoInviteCode();
             }
 
             @Override
@@ -167,5 +168,17 @@ public class RegisterActivity extends AppCompatActivity {
         }
         bundle.putBoolean("flag", flag);
         ActivityController.startNextActivity(RegisterActivity.this, LoginActivity.class, bundle, true);
+    }
+
+    private void gotoInviteCode() {
+        Bundle bundle = new Bundle();
+        Log.e("flag", "" + flag);
+        if (flag) {
+            bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+            bundle.putSerializable("selectedTeam", selectedTeam);
+            bundle.putSerializable("contestDto", contestDto);
+        }
+        bundle.putBoolean("flag", flag);
+        ActivityController.startNextActivity(RegisterActivity.this, InviteActivity.class, bundle, true);
     }
 }

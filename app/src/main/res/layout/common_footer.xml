@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="@color/red_text_color">
 
         <com.utility.customView.CustomTextView
@@ -25,7 +25,7 @@
         <com.utility.customView.CustomButton
             android:id="@+id/btn_save"
             android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_centerInParent="true"
             android:background="@drawable/rounded_corner_light_red_btn"
             android:onClick="onButtonClick"

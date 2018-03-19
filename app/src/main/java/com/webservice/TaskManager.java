@@ -85,7 +85,7 @@ public class TaskManager implements IServerResponse {
     /**
      * Call service context.
      */
-    public void callServiceContext(Context context) {
+    public void callServiceContext(Activity context) {
         if (CommonUtilities.checkConnectivity(context)) {
             String url = ApiClient2.BASE_URL_RETROFIT + iRequestCaller.getWebServiceMethod();
             RestServiceClient restServiceClient = new RestServiceClient(this, url, context, "", true);
@@ -107,8 +107,8 @@ public class TaskManager implements IServerResponse {
             String[] keys = iRequestCaller.getKeys();
             Object[] values = iRequestCaller.getValues();
             String url = Constants.BASE_URL + iRequestCaller.getWebServiceMethod();
-            RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity, keyForFileUpload, Path,
-                    loadingMessage);
+            RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity,
+                    keyForFileUpload, Path, loadingMessage);
             restServiceClient.execute();
 //        } else {
 //            LinearLayout ll_image = activity.findViewById(R.id.ll_image);
@@ -133,8 +133,8 @@ public class TaskManager implements IServerResponse {
             String[] keys = iRequestCaller.getKeys();
             Object[] values = iRequestCaller.getValues();
             String url = Constants.BASE_URL + iRequestCaller.getWebServiceMethod();
-            RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity, still_path,
-                    still_image_key, videoPath, video_path_key, loadingMessage);
+            RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity,
+                    still_path, still_image_key, videoPath, video_path_key, loadingMessage);
             restServiceClient.execute();
 //        } else {
 //            LinearLayout ll_image = activity.findViewById(R.id.ll_image);

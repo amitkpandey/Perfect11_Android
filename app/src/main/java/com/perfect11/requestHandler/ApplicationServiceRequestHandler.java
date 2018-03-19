@@ -147,14 +147,14 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
         callServiceForGet();
     }
 
-    public ApplicationServiceRequestHandler(Context context, String url, int index) {
-        super(context);
-        this.mContext = context;
-        this.url = url;
-        this.index = index;
-        TaskManager taskManager = new TaskManager(this, this, mActivity);
-        taskManager.callServiceContext(context);
-    }
+//    public ApplicationServiceRequestHandler(Context context, String url, int index) {
+//        super(context);
+//        this.mContext = context;
+//        this.url = url;
+//        this.index = index;
+//        TaskManager taskManager = new TaskManager(this, this, mActivity);
+//        taskManager.callServiceContext(context);
+//    }
 
    /*  public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String url, String loadingMessage, int index,
                                             boolean flag, boolean isLandingScreen) {
@@ -358,11 +358,11 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
     @Override
     public void onFailure(String message, String errorCode) {
         switch (index) {
-            case GET_USER_LOGIN_DETAIL:
-                if (mActivity instanceof LoginActivity) {
-                    ((LoginActivity) mActivity).serviceCallbackLoginFail();
-                }
-                break;
+//            case GET_USER_LOGIN_DETAIL:
+//                if (mActivity instanceof LoginActivity) {
+//                    ((LoginActivity) mActivity).serviceCallbackLoginFail();
+//                }
+//                break;
             default:
                 super.onFailure(message, errorCode);
         }

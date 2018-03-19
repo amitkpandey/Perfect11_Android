@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.perfect11.R;
 import com.perfect11.base.AppConstant;
 import com.utility.Constants;
 import com.webservice.interfaces.IServerResponse;
@@ -106,7 +105,7 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
      */
     private String url;
 
-    private Context activity;
+    private Activity activity;
 
     private int count;
 
@@ -303,15 +302,6 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
         this.flag = flag;
     }
 
-    public RestServiceClient(IServerResponse iResponse, String url, Context activity, String loadingMessage, boolean flag) {
-        this.iResponse = iResponse;
-        this.url = url;
-        this.activity = activity;
-        this.loadingMessage = loadingMessage;
-        this.requestType = AppConstant.HTTP_GET;
-        this.flag = flag;
-    }
-
     /* (non-Javadoc)
      * @see android.os.AsyncTask#onPreExecute()
      */
@@ -319,22 +309,17 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         try {
-            if (!"".equalsIgnoreCase(loadingMessage)) {
-                pd = ProgressDialog.show(activity, "", loadingMessage, false, false);
-                pd.setCancelable(false);
-                pd.show();
-//                if (!activity.isFinishing()) {
-//                    activity.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            pd = ProgressDialog.show(activity, "", loadingMessage, false, false);
-//                            // pd.setContentView(R.layout.custume_progress_dailog);
-////                            pd.setMessage(loadingMessage);
-////                            pd.setCancelable(false);
-////                            pd.show();
-//                        }
-//                    });
-//                }
+            if (!activity.isFinishing()) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd = ProgressDialog.show(activity, "", loadingMessage, false, false);
+                        // pd.setContentView(R.layout.custume_progress_dailog);
+//                            pd.setMessage(loadingMessage);
+//                            pd.setCancelable(false);
+//                            pd.show();
+                    }
+                });
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -399,6 +384,13 @@ public class RestServiceClient extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String sResponse) {
         if (activity != null) {
+            try {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
             System.out.println("flag " + flag);
             if (flag) {
                 System.out.println("hello");

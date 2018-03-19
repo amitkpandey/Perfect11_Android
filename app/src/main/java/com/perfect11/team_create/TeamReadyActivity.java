@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.perfect11.R;
 import com.perfect11.team_create.dto.PlayerDto;
@@ -34,6 +35,13 @@ public class TeamReadyActivity extends Activity {
     private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
     private ImageView iv_ar1, iv_ar2, iv_ar3, iv_ar4;
     private ImageView iv_bowler1, iv_bowler2, iv_bowler3, iv_bowler4, iv_bowler5, iv_bowler6;
+
+    private CustomTextView tv_wkt_name, tv_bat1_name, tv_bat2_name, tv_bat3_name, tv_bat4_name,
+            tv_bat5_name, tv_bat6_name, tv_ar1_name, tv_ar2_name, tv_ar3_name, tv_ar4_name, tv_bowler1_name, tv_bowler2_name, tv_bowler3_name,
+            tv_bowler4_name, tv_bowler5_name, tv_bowler6_name;
+
+    private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
+            rl_bowler4, rl_bowler5, rl_bowler6;
 
     private CustomButton btn_save;
 
@@ -102,6 +110,45 @@ public class TeamReadyActivity extends Activity {
         btn_save = findViewById(R.id.btn_save);
         btn_save.setText("Join Contest");
 
+        tv_wkt_name = findViewById(R.id.tv_wkt_name);
+
+        tv_bat1_name = findViewById(R.id.tv_bat1_name);
+        tv_bat2_name = findViewById(R.id.tv_bat2_name);
+        tv_bat3_name = findViewById(R.id.tv_bat3_name);
+        tv_bat4_name = findViewById(R.id.tv_bat4_name);
+        tv_bat5_name = findViewById(R.id.tv_bat5_name);
+        tv_bat6_name = findViewById(R.id.tv_bat6_name);
+
+        tv_ar1_name = findViewById(R.id.tv_ar1_name);
+        tv_ar2_name = findViewById(R.id.tv_ar2_name);
+        tv_ar3_name = findViewById(R.id.tv_ar3_name);
+        tv_ar4_name = findViewById(R.id.tv_ar4_name);
+
+        tv_bowler1_name = findViewById(R.id.tv_bowler1_name);
+        tv_bowler2_name = findViewById(R.id.tv_bowler2_name);
+        tv_bowler3_name = findViewById(R.id.tv_bowler3_name);
+        tv_bowler4_name = findViewById(R.id.tv_bowler4_name);
+        tv_bowler5_name = findViewById(R.id.tv_bowler5_name);
+        tv_bowler6_name = findViewById(R.id.tv_bowler6_name);
+
+        rl_bat1 = findViewById(R.id.rl_bat1);
+        rl_bat2 = findViewById(R.id.rl_bat2);
+        rl_bat3 = findViewById(R.id.rl_bat3);
+        rl_bat4 = findViewById(R.id.rl_bat4);
+        rl_bat5 = findViewById(R.id.rl_bat5);
+        rl_bat6 = findViewById(R.id.rl_bat6);
+
+        rl_ar1 = findViewById(R.id.rl_ar1);
+        rl_ar2 = findViewById(R.id.rl_ar2);
+        rl_ar3 = findViewById(R.id.rl_ar3);
+        rl_ar4 = findViewById(R.id.rl_ar4);
+
+        rl_bowler1 = findViewById(R.id.rl_bowler1);
+        rl_bowler2 = findViewById(R.id.rl_bowler2);
+        rl_bowler3 = findViewById(R.id.rl_bowler3);
+        rl_bowler4 = findViewById(R.id.rl_bowler4);
+        rl_bowler5 = findViewById(R.id.rl_bowler5);
+        rl_bowler6 = findViewById(R.id.rl_bowler6);
         updateTimeRemaining(System.currentTimeMillis());
         setPlayerVisibilityGone();
         setTeam();
@@ -140,26 +187,27 @@ public class TeamReadyActivity extends Activity {
     }
 
     private void setPlayerVisibilityGone() {
-        iv_wkt.setVisibility(View.GONE);
+        iv_wkt.setVisibility(View.INVISIBLE);
+        tv_wkt_name.setVisibility(View.INVISIBLE);
 
-        iv_bat1.setVisibility(View.GONE);
-        iv_bat2.setVisibility(View.GONE);
-        iv_bat3.setVisibility(View.GONE);
-        iv_bat4.setVisibility(View.GONE);
-        iv_bat5.setVisibility(View.GONE);
-        iv_bat6.setVisibility(View.GONE);
+        rl_bat1.setVisibility(View.INVISIBLE);
+        rl_bat2.setVisibility(View.INVISIBLE);
+        rl_bat3.setVisibility(View.GONE);
+        rl_bat4.setVisibility(View.GONE);
+        rl_bat5.setVisibility(View.GONE);
+        rl_bat6.setVisibility(View.GONE);
 
-        iv_ar1.setVisibility(View.INVISIBLE);
-        iv_ar2.setVisibility(View.INVISIBLE);
-        iv_ar3.setVisibility(View.INVISIBLE);
-        iv_ar4.setVisibility(View.INVISIBLE);
+        rl_ar1.setVisibility(View.INVISIBLE);
+        rl_ar2.setVisibility(View.INVISIBLE);
+        rl_ar3.setVisibility(View.INVISIBLE);
+        rl_ar4.setVisibility(View.INVISIBLE);
 
-        iv_bowler1.setVisibility(View.GONE);
-        iv_bowler2.setVisibility(View.GONE);
-        iv_bowler3.setVisibility(View.GONE);
-        iv_bowler4.setVisibility(View.GONE);
-        iv_bowler5.setVisibility(View.GONE);
-        iv_bowler6.setVisibility(View.GONE);
+        rl_bowler1.setVisibility(View.INVISIBLE);
+        rl_bowler2.setVisibility(View.INVISIBLE);
+        rl_bowler3.setVisibility(View.GONE);
+        rl_bowler4.setVisibility(View.GONE);
+        rl_bowler5.setVisibility(View.GONE);
+        rl_bowler6.setVisibility(View.GONE);
     }
 
     private void setTeam() {
@@ -207,6 +255,8 @@ public class TeamReadyActivity extends Activity {
                     break;
                 case "keeper":
                     iv_wkt.setVisibility(View.VISIBLE);
+                    tv_wkt_name.setVisibility(View.VISIBLE);
+                    tv_wkt_name.setText(playerDto.full_name);
                     setImageWK(iv_wkt, playerDto.isC, playerDto.isCV);
                     break;
             }
@@ -217,19 +267,19 @@ public class TeamReadyActivity extends Activity {
 
         switch (allRounder) {
             case 1:
-                iv_ar1.setVisibility(View.VISIBLE);
+                rl_ar1.setVisibility(View.VISIBLE);
                 setImageAllrounder(iv_ar1, isC, isVC);
                 break;
             case 2:
-                iv_ar2.setVisibility(View.VISIBLE);
+                rl_ar2.setVisibility(View.VISIBLE);
                 setImageAllrounder(iv_ar2, isC, isVC);
                 break;
             case 3:
-                iv_ar3.setVisibility(View.VISIBLE);
+                rl_ar3.setVisibility(View.VISIBLE);
                 setImageAllrounder(iv_ar3, isC, isVC);
                 break;
             case 4:
-                iv_ar4.setVisibility(View.VISIBLE);
+                rl_ar4.setVisibility(View.VISIBLE);
                 setImageAllrounder(iv_ar4, isC, isVC);
                 break;
         }
@@ -241,27 +291,27 @@ public class TeamReadyActivity extends Activity {
     private void setVisibleBatsman(int batsman, boolean isC, boolean isVC) {
         switch (batsman) {
             case 1:
-                iv_bat1.setVisibility(View.VISIBLE);
+                rl_bat1.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat1, isC, isVC);
                 break;
             case 2:
-                iv_bat2.setVisibility(View.VISIBLE);
+                rl_bat2.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat2, isC, isVC);
                 break;
             case 3:
-                iv_bat3.setVisibility(View.VISIBLE);
+                rl_bat3.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat3, isC, isVC);
                 break;
             case 4:
-                iv_bat4.setVisibility(View.VISIBLE);
+                rl_bat4.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat4, isC, isVC);
                 break;
             case 5:
-                iv_bat5.setVisibility(View.VISIBLE);
+                rl_bat5.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat5, isC, isVC);
                 break;
             case 6:
-                iv_bat6.setVisibility(View.VISIBLE);
+                rl_bat6.setVisibility(View.VISIBLE);
                 setImageBatsman(iv_bat6, isC, isVC);
                 break;
         }
@@ -273,27 +323,27 @@ public class TeamReadyActivity extends Activity {
     private void setVisibleBowler(int bowler, boolean isC, boolean isVC) {
         switch (bowler) {
             case 1:
-                iv_bowler1.setVisibility(View.VISIBLE);
+                rl_bowler1.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler1, isC, isVC);
                 break;
             case 2:
-                iv_bowler2.setVisibility(View.VISIBLE);
+                rl_bowler2.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler2, isC, isVC);
                 break;
             case 3:
-                iv_bowler3.setVisibility(View.VISIBLE);
+                rl_bowler3.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler3, isC, isVC);
                 break;
             case 4:
-                iv_bowler4.setVisibility(View.VISIBLE);
+                rl_bowler4.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler4, isC, isVC);
                 break;
             case 5:
-                iv_bowler5.setVisibility(View.VISIBLE);
+                rl_bowler5.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler5, isC, isVC);
                 break;
             case 6:
-                iv_bowler6.setVisibility(View.VISIBLE);
+                rl_bowler6.setVisibility(View.VISIBLE);
                 setImageBowler(iv_bowler6, isC, isVC);
                 break;
         }

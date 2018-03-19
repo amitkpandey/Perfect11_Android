@@ -7,11 +7,25 @@
     android:orientation="vertical"
     android:background="@drawable/intro_screenbg">
 
-    <include
-        layout="@layout/common_header"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"/>
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_back"
+            android:onClick="onButtonClick"/>
+        <com.utility.customView.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Invitation Code"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/min_text_size"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
     <!-- Register progress -->
     <ProgressBar
         android:id="@+id/login_progress"
@@ -45,28 +59,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
-                    android:hint="Contest Invite Code"
+                    android:hint="Invite Code"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:imeActionId="6"
-                    android:imeActionLabel="Invite"
+                    android:imeActionLabel="Submit"
                     android:imeOptions="actionUnspecified"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btn_reset"
+                android:id="@+id/btn_submit"
                 style="@android:style/TextAppearance.DeviceDefault.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/rounded_corner_dark_red_btn_bg"
-                android:text="Join This Contest"
+                android:text="Submit"
                 android:textAllCaps="false"
                 android:onClick="onButtonClick"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
+            <com.utility.customView.CustomTextView
+                android:id="@+id/ctv_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Skip"
+                android:onClick="onButtonClick"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
