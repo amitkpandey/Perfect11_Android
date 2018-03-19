@@ -58,7 +58,6 @@ public class JoinContestFragment extends BaseFragment {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         try {
             upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,7 +159,7 @@ public class JoinContestFragment extends BaseFragment {
                 bundle.putString("team2", team2);
                 bundle.putString("teamA", teamA);
                 bundle.putString("teamB", teamB);
-                if (upComingMatchesDto.matchstatus.equalsIgnoreCase("completed")) {
+                if (upComingMatchesDto != null && upComingMatchesDto.matchstatus.equalsIgnoreCase("completed")) {
                     ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
                     resultLeaderBoardFragment.setArguments(bundle);
                     ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
