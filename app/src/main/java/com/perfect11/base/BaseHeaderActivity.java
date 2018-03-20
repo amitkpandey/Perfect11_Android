@@ -32,6 +32,7 @@ import com.perfect11.help.HelpFragment;
 import com.perfect11.home.HomeFragment;
 import com.perfect11.login_signup.IntroScreen;
 import com.perfect11.login_signup.dto.UserDto;
+import com.perfect11.myprofile.MyContestFragment;
 import com.perfect11.myprofile.MyProfileFragment;
 import com.perfect11.myprofile.TicketSystemFragment;
 import com.perfect11.othersMenuItem.InviteFriendsFragment;
@@ -422,6 +423,15 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     ctv_ticket_system.setBackground(getResources().getDrawable(R.drawable.shaddo));
                     removeAllFragment();
                     replaceFragment(TicketSystemFragment.newInstance(), false, TicketSystemFragment.class.getName());
+                    slideMenu.closeMenu();
+                }
+                break;
+            case R.id.ll_my_contests:
+                if (isOpenSlide) {
+                    setDefaultBG();
+                    ctv_my_contests.setBackground(getResources().getDrawable(R.drawable.shaddo));
+                    removeAllFragment();
+                    replaceFragment(MyContestFragment.newInstance(), false, MyContestFragment.class.getName());
                     slideMenu.closeMenu();
                 }
                 break;

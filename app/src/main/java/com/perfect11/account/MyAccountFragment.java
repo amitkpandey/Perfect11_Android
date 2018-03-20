@@ -15,15 +15,9 @@ import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
-import com.perfect11.contest.MyTransactionsFragment;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.payment.PaymentFragment;
-import com.perfect11.team_create.dto.PlayerDto;
-import com.perfect11.team_create.wrapper.PlayerWrapper;
-import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,10 +90,10 @@ public class MyAccountFragment extends BaseFragment {
         super.onButtonClick(view);
     switch(view.getId()){
         case R.id.btn_transactions:
-            ((BaseHeaderActivity)getActivity()).addFragment(MyTransactionsFragment.newInstance(),false,MyTransactionsFragment.class.getName());
+            ((BaseHeaderActivity)getActivity()).addFragment(MyTransactionsFragment.newInstance(),true,MyTransactionsFragment.class.getName());
             break;
         case R.id.btn_add_cash:
-            ((BaseHeaderActivity)getActivity()).addFragment(PaymentFragment.newInstance(),false,PaymentFragment.class.getName());
+            ((BaseHeaderActivity)getActivity()).addFragment(PaymentFragment.newInstance(),true,PaymentFragment.class.getName());
             break;
 
     }

@@ -96,7 +96,7 @@ private ApiInterface apiInterface;
         mProgressDialog.show();
         apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
 
-        Call<InviteDto> call = apiInterface.inviteCall(userDto.member_id, ticket.getText().toString().trim());
+        Call<InviteDto> call = apiInterface.ticketSaveCall(userDto.member_id, ticket.getText().toString().trim());
         call.enqueue(new Callback<InviteDto>() {
             @Override
             public void onResponse(Call<InviteDto> call, Response<InviteDto> response) {

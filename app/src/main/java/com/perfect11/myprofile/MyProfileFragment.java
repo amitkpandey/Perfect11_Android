@@ -136,6 +136,13 @@ public class MyProfileFragment extends BaseFragment {
                 inviteFriendsFragment.setArguments(bundle1);
                 ((BaseHeaderActivity) getActivity()).addFragment(inviteFriendsFragment, true, InviteFriendsFragment.class.getName());
                 break;
+            case R.id.rl_contest_payed:
+                MyContestFragment myContestFragment = new MyContestFragment();
+                Bundle bundle2 = new Bundle();
+                bundle2.putBoolean("flag", true);
+                myContestFragment.setArguments(bundle2);
+                ((BaseHeaderActivity) getActivity()).addFragment(myContestFragment, true, MyContestFragment.class.getName());
+                break;
         }
     }
 

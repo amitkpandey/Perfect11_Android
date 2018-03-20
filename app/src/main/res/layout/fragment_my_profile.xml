@@ -132,6 +132,7 @@
                 android:background="@color/off_white"
                 android:orientation="vertical">
                 <RelativeLayout
+                    android:id="@+id/rl_contest_payed"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
@@ -141,6 +142,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
+                    android:onClick="onButtonClick"
                     >
                     <ImageView
                         android:id="@+id/left_img"

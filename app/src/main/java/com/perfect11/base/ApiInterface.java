@@ -1,6 +1,7 @@
 package com.perfect11.base;
 
 import com.perfect11.account.wrapper.MyAccountWrapper;
+import com.perfect11.account.wrapper.MyTransectionWrapper;
 import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
@@ -100,6 +101,15 @@ public interface ApiInterface {
     Call<InviteDto> inviteCall(@Field("user_id") String member_id,@Field("invite_code") String invite_code);
 
     @FormUrlEncoded
-    @POST("api/inviteCode")
+    @POST("api/ticketSystem")
     Call<InviteDto> ticketSaveCall(@Field("user_id") String member_id,@Field("ticket_number") String ticket_number);
+
+    @FormUrlEncoded
+    @POST("api/joinContestByContestName")
+    Call<InviteDto> joinContestByContestCode(@Field("user_id") String member_id,@Field("contestcode") String contestcode);
+
+    @FormUrlEncoded
+    @POST("api/myTransactionList")
+    Call<MyTransectionWrapper> myTransactionList(@Field("user_id") String member_id, @Field("pageno") int pageno, @Field("perpage") int perpage);
+
 }

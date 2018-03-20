@@ -25,11 +25,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:text="Date"
             android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            style="@android:style/TextAppearance.DeviceDefault.Small.Inverse"
+            android:textStyle="bold"/>
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_amount"
@@ -38,10 +39,13 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
             android:text="Amount"
             android:textAllCaps="false"
+            android:textStyle="bold"
+            style="@android:style/TextAppearance.DeviceDefault.Small.Inverse"
+
             android:textColor="@android:color/white" />
 
     </RelativeLayout>
@@ -52,6 +56,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_01"
         android:layout_margin="5dp">
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_transactions"
@@ -66,6 +71,12 @@
             android:overScrollMode="never"
             android:scrollbarStyle="outsideOverlay"
             android:visibility="visible" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/progress"/>
     </RelativeLayout>
 
 </RelativeLayout>

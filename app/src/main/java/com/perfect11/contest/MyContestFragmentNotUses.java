@@ -15,12 +15,12 @@ import com.perfect11.contest.dto.JoinedContestDto;
 
 import java.util.ArrayList;
 
-public class MyContestFragment extends BaseFragment {
+public class MyContestFragmentNotUses extends BaseFragment {
     private RecyclerView rv_contests;
     private ArrayList<JoinedContestDto> joinedContestDto;
 
-    public static MyContestFragment newInstance() {
-        return new MyContestFragment();
+    public static MyContestFragmentNotUses newInstance() {
+        return new MyContestFragmentNotUses();
     }
 
     @Override
