@@ -33,6 +33,7 @@ import com.perfect11.home.HomeFragment;
 import com.perfect11.login_signup.IntroScreen;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.myprofile.MyProfileFragment;
+import com.perfect11.myprofile.TicketSystemFragment;
 import com.perfect11.othersMenuItem.InviteFriendsFragment;
 import com.perfect11.point_system.PointSystemFragment;
 import com.perfect11.team_create.dto.ContestDto;
@@ -65,7 +66,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
     private GoogleApiClient mGoogleApiClient;
 
     //Menu Items
-    private CustomTextView ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout;
+    private CustomTextView ctv_ticket_system,ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout;
 
     public String activityName = "";
 
@@ -141,6 +142,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
         ctv_help = leftMenu.findViewById(R.id.ctv_help);
         ctv_contest_invited_code = leftMenu.findViewById(R.id.ctv_contest_invited_code);
         ctv_logout = leftMenu.findViewById(R.id.ctv_logout);
+        ctv_ticket_system=leftMenu.findViewById(R.id.ctv_ticket_system);
     }
 
     private void setDefaultBG() {
@@ -154,6 +156,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
         ctv_help.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
         ctv_contest_invited_code.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
         ctv_logout.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
+        ctv_ticket_system.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
     }
 
 
@@ -411,6 +414,15 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                     PreferenceUtility.saveObjectInAppPreference(this, null, PreferenceUtility.APP_PREFERENCE_NAME);
                     ActivityController.startNextActivity(this, IntroScreen.class, true);
+                }
+                break;
+            case R.id.ll_ticket_system:
+                if (isOpenSlide) {
+                    setDefaultBG();
+                    ctv_ticket_system.setBackground(getResources().getDrawable(R.drawable.shaddo));
+                    removeAllFragment();
+                    replaceFragment(TicketSystemFragment.newInstance(), false, TicketSystemFragment.class.getName());
+                    slideMenu.closeMenu();
                 }
                 break;
         }

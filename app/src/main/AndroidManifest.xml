@@ -43,6 +43,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".login_signup.InviteActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".login_signup.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />

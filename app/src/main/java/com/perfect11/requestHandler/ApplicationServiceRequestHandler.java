@@ -247,9 +247,9 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                     e.printStackTrace();
                 }
                 userWrapper = MyApplication.gson.fromJson(response, UserDetailsWrapper.class);
-                PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
+                //PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
                 if (mActivity instanceof RegisterActivity) {
-                    ((RegisterActivity) mActivity).serviceCallbackSignUP(message);
+                    ((RegisterActivity) mActivity).serviceCallbackSignUP(message,userWrapper.data.member_id);
                 }
                 break;
             case CHANGE_MY_PICTURE:

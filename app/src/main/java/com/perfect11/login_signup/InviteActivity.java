@@ -42,8 +42,7 @@ public class InviteActivity extends AppCompatActivity {
     private boolean flag = false;
     private ArrayList<PlayerDto> selectedTeam;
     private UpComingMatchesDto upComingMatchesDto;
-
-    private UserDto userDto;
+private String member_id;
 private ApiInterface apiInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +54,13 @@ private ApiInterface apiInterface;
     }
 
     private void readFromBundle() {
-        userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(this, PreferenceUtility.APP_PREFERENCE_NAME);
-        try {
+         try {
             flag = getIntent().getExtras().getBoolean("flag");
             contestDto = (ContestDto) getIntent().getExtras().getSerializable("contestDto");
             selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
+            member_id=getIntent().getExtras().getString("member_id");
             upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
-//            System.out.println(contestDto.toString() + " Flag:" + flag);
+            System.out.println(contestDto.toString() + " Flag:" + flag +member_id);
 //            Log.e("Login:", contestDto.toString() + upComingMatchesDto.toString() + selectedTeam.size() + flag);
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,7 +123,7 @@ private ApiInterface apiInterface;
         mProgressDialog.show();
         apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
 
-        Call<InviteDto> call = apiInterface.InviteCall(userDto.member_id, invite.getText().toString().trim());
+        Call<InviteDto> call = apiInterface.inviteCall(member_id, invite.getText().toString().trim());
         call.enqueue(new Callback<InviteDto>() {
             @Override
             public void onResponse(Call<InviteDto> call, Response<InviteDto> response) {

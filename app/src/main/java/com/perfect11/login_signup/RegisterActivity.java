@@ -144,11 +144,11 @@ public class RegisterActivity extends AppCompatActivity {
                 "Loading...", ApplicationServiceRequestHandler.SIGN_UP, Constants.BASE_URL);
     }
 
-    public void serviceCallbackSignUP(String message) {
+    public void serviceCallbackSignUP(String message, final String member_id) {
         DialogUtility.showMessageOkWithCallback(message, this, new AlertDialogCallBack() {
             @Override
             public void onSubmit() {
-                gotoInviteCode();
+                gotoInviteCode(member_id);
             }
 
             @Override
@@ -170,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
         ActivityController.startNextActivity(RegisterActivity.this, LoginActivity.class, bundle, true);
     }
 
-    private void gotoInviteCode() {
+    private void gotoInviteCode(String member_id) {
         Bundle bundle = new Bundle();
         Log.e("flag", "" + flag);
         if (flag) {
@@ -179,6 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
             bundle.putSerializable("contestDto", contestDto);
         }
         bundle.putBoolean("flag", flag);
+        bundle.putString("member_id",member_id);
         ActivityController.startNextActivity(RegisterActivity.this, InviteActivity.class, bundle, true);
     }
 }

@@ -95,6 +95,11 @@ public interface ApiInterface {
     @GET("api/bannerlist")
     Call<PictureWrapper> getPictureList();
 
-    @GET("api/inviteCode")
-    Call<InviteDto> InviteCall(@Field("user_id") String member_id,@Field("invite_code") String invite_code);
+    @FormUrlEncoded
+    @POST("api/inviteCode")
+    Call<InviteDto> inviteCall(@Field("user_id") String member_id,@Field("invite_code") String invite_code);
+
+    @FormUrlEncoded
+    @POST("api/inviteCode")
+    Call<InviteDto> ticketSaveCall(@Field("user_id") String member_id,@Field("ticket_number") String ticket_number);
 }

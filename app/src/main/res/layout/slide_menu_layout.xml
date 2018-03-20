@@ -273,6 +273,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_ticket_system"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:onClick="onButtonClick"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/ctv_ticket_system"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.7"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Ticket System"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:drawableRight="@drawable/ic_action_right_arrow"
+                    android:drawableLeft="@drawable/point_system_menu_icon"
+                    android:background="@drawable/shaddo_black"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/ll_help"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"

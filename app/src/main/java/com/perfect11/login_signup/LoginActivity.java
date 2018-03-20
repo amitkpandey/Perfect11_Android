@@ -322,7 +322,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 onBackPressed();
                 break;
             case R.id.ll_register:
-                ActivityController.startNextActivity(this, RegisterActivity.class, false);
+                Bundle bundle=getIntent().getExtras();
+                ActivityController.startNextActivity(this, RegisterActivity.class, bundle,false);
                 finish();
                 break;
             case R.id.ctv_forgot_password:
