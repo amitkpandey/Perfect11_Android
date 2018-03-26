@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="#FFF4F4F4"
     android:orientation="vertical"
     tools:context="com.perfect11.team_create.CreateTeamActivity">
 
@@ -40,13 +40,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="330dp"
-        android:paddingBottom="20dp">
+        android:paddingBottom="10dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/create_team_bg" />
+            android:src="@drawable/create_team_bg2" />
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_header"

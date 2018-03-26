@@ -80,6 +80,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_home"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -110,6 +111,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_profile"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -139,11 +141,12 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_account"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
                     android:layout_height="match_parent"
-                    android:text="My Account"
+                    android:text="My Wallet"
                     android:textColor="@android:color/white"
                     android:gravity="center_vertical"
                     style="@android:style/TextAppearance.DeviceDefault.Small"
@@ -169,6 +172,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_my_contests"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -228,6 +232,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_invite_friends"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -256,6 +261,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_point_system"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -283,6 +289,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_ticket_system"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -310,6 +317,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_help"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -339,6 +347,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_contest_invited_code"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"
@@ -381,6 +390,7 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_logout"
+                    android:onClick="onButtonClick"
                     android:layout_width="0dp"
                     android:layout_weight="1.7"
                     android:textStyle="bold"

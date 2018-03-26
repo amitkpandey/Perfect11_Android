@@ -631,7 +631,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 keeper = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedplayerType, keeper);
             }
@@ -646,7 +646,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 batsman = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedplayerType, batsman);
             }
@@ -661,7 +661,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 allrounder = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedplayerType, allrounder);
             }
@@ -675,7 +675,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 bowler = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedplayerType, bowler);
             }

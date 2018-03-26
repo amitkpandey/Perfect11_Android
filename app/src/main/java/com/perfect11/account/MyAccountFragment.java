@@ -33,7 +33,7 @@ public class MyAccountFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_myaccount, container, false);
-        setHeader("My Account");
+        setHeader("My Wallet");
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
 
         initView();
@@ -95,7 +95,6 @@ public class MyAccountFragment extends BaseFragment {
         case R.id.btn_add_cash:
             ((BaseHeaderActivity)getActivity()).addFragment(PaymentFragment.newInstance(),true,PaymentFragment.class.getName());
             break;
-
     }
     }
 }

@@ -651,7 +651,7 @@ public class SelectPlayersFragment extends BaseFragment {
                     totalPlayers++;
                 }
             }
-            tv_header.setText("" + totalPoints + "/1000\nCredit Left");
+            tv_header.setText("" + totalPoints + "/1000\nCredits Left");
             tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
         }
         return playerDtoArrayList;
@@ -702,7 +702,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 keeper = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, keeper);
             }
@@ -717,7 +717,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 batsman = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, batsman);
             }
@@ -732,7 +732,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 allrounder = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, allrounder);
             }
@@ -746,7 +746,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 bowler = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredit Left");
+                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
                 tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, bowler);
             }

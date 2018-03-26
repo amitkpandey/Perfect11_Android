@@ -16,12 +16,13 @@ import com.utility.customView.CustomTextView;
 
 import java.util.ArrayList;
 
-public class ContestWinnerAdapter extends BaseAdapter {
+public class ContestWinner2Adapter extends BaseAdapter {
     private Activity mActivity;
+    private ViewHolder viewHolder;
     private ArrayList<ContestWinnerDto> contestWinnerDtoArrayList;
     private OnButtonListener onButtonListener;
 private float total_amount=0;
-    public ContestWinnerAdapter(Activity activity, ArrayList<ContestWinnerDto> contestWinnerDtoArrayList,float total_amount) {
+    public ContestWinner2Adapter(Activity activity, ArrayList<ContestWinnerDto> contestWinnerDtoArrayList, float total_amount) {
         this.mActivity = activity;
         this.contestWinnerDtoArrayList = contestWinnerDtoArrayList;
         this.total_amount=total_amount;
@@ -43,11 +44,11 @@ private float total_amount=0;
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view,final ViewGroup viewGroup) {
         LayoutInflater layoutInflater = mActivity.getLayoutInflater();
        /* if (view == null) {*/
             view = layoutInflater.inflate(R.layout.contest_winner_row, viewGroup, false);
-        final ViewHolder viewHolder = new ViewHolder(view);
+            viewHolder = new ViewHolder(view);
           /*  view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -79,7 +80,6 @@ private float total_amount=0;
                     if(contestWinnerDtoArrayList.get(position-1).percentage< percentage)
                     {
                         Toast.makeText(mActivity, "Wrong input", Toast.LENGTH_SHORT).show();
-                        viewHolder.et_percent.setText("");
                     }
                     else{
                         contestWinnerDtoArrayList.get(position).percentage=percentage;
@@ -92,33 +92,14 @@ private float total_amount=0;
                 }
 
                 viewHolder.tv_amount.setText(""+ contestWinnerDtoArrayList.get(position).amount);
-
-
-                float pecent=getPercentage(position);
-                System.out.println(pecent);
+                System.out.println(""+contestWinnerDtoArrayList.get(position).amount);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
         return view;
-    }
-
-    private float getPercentage(int position) {
-        System.out.println("position: "+position);
-        float pecent=0;
-        for (int inc=0;inc<=position;inc++)
-        {
-            System.out.println(position);
-            pecent=pecent+contestWinnerDtoArrayList.get(inc).percentage;
-        }
-        return pecent;
-    }
-
-    public ArrayList<ContestWinnerDto> getArray() {
-        return contestWinnerDtoArrayList;
     }
 
     private class ViewHolder {

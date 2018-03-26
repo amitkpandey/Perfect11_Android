@@ -83,7 +83,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.tv_name.setText(playerDtoArrayList.get(position).full_name);
-        holder.tv_point.setText(playerDtoArrayList.get(position).team_name + " | " + "-- Point");
+        holder.tv_point.setText(playerDtoArrayList.get(position).team_code + " | " + "-- Point");
         if(playerDtoArrayList.get(position).isSelected){
             holder.cb_add.setBackground(mActivity.getResources().getDrawable(R.drawable.select_player));
         }

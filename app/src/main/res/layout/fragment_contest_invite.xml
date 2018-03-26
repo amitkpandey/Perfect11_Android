@@ -54,7 +54,7 @@
             />
         </LinearLayout>
         <Button
-            android:id="@+id/btn_reset"
+            android:id="@+id/btn_share"
             style="@android:style/TextAppearance.DeviceDefault.Medium"
             android:layout_width="match_parent"
             android:layout_height="45dp"

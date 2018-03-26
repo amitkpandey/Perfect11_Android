@@ -143,6 +143,7 @@
                     android:layout_height="45dp"
                     android:padding="10dp"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     >
                     <TextView
                         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.perfect11.base;
 
 import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.account.wrapper.MyTransectionWrapper;
+import com.perfect11.contest.dto.ContestCallBackDto;
 import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
@@ -111,5 +112,20 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/myTransactionList")
     Call<MyTransectionWrapper> myTransactionList(@Field("user_id") String member_id, @Field("pageno") int pageno, @Field("perpage") int perpage);
+
+    @FormUrlEncoded
+    @POST("api/doCreateContest")
+    Call<ContestCallBackDto> createContest(@Field("contestSize")int contestSize,
+                                           @Field("customize_winning")int customize_winning,
+                                           @Field("entryfee") float entryfee,
+                                           @Field("join_multiple_item")int join_multiple_item,
+                                           @Field("matchID")String matchID,
+                                           @Field("room_name")String room_name,
+                                           @Field("win_amt")ArrayList<Float> win_amt,
+                                           @Field("win_per")ArrayList<Float> win_per,
+                                           @Field("winner_set")int winner_set,
+                                           @Field("winningAmount")int winningAmount,
+                                           @Field("user_id")String user_id,
+                                           @Field("reference_id")String reference_id);
 
 }

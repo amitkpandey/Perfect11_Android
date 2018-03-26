@@ -313,7 +313,7 @@
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/red_text_color"
-                    android:text="50"
+
                     android:gravity="center"
                     android:background="@drawable/rounded_corner_white_btn_bg"/>
             <com.utility.customView.CustomTextView
@@ -335,7 +335,6 @@
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/gray"
-                    android:text="2"
                     android:gravity="center"
                     android:background="@drawable/rounded_corner_white_btn_bg"/>
                 <com.utility.customView.CustomTextView

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/create_contest_background">
 
     <include
         android:id="@+id/include"
@@ -43,12 +44,14 @@
             android:textColor="@color/green" />
 
     </RelativeLayout>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/rl_01">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_01"
-        android:background="@drawable/create_contest_background"
         android:orientation="vertical">
 
         <LinearLayout
@@ -198,14 +201,12 @@
              android:background="@android:color/black" />-->
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
+           android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp">
 
             <com.utility.customView.CustomTextView
-                android:id="@+id/tv_allow"
                 style="@android:style/TextAppearance.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,24 +220,23 @@
                 android:textStyle="normal" />
 
             <CheckBox
-                android:id="@+id/cb_allow"
+                android:id="@+id/cb_allow_multiple_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:button="@drawable/check_box_setting_selector"
-                android:checked="false" />
+                android:checked="false"
+                />
 
         </RelativeLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
 
             <com.utility.customView.CustomTextView
                 style="@android:style/TextAppearance.Small"
@@ -245,7 +245,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
-                android:paddingLeft="15dp"
+                android:paddingLeft="5dp"
                 android:paddingRight="15dp"
                 android:text="Entry fee per team"
                 android:textColor="@android:color/black"
@@ -271,12 +271,68 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_winner_details"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:theme="@style/TextLabel"
+            android:layout_weight="1.5"
+            android:layout_marginRight="10dp">
+
+            <com.utility.customView.CustomEditText
+                android:id="@+id/et_no_winners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:hint="Set No. of Winners"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/black" />
+
+        </android.support.design.widget.TextInputLayout>
+
+            <com.utility.customView.CustomButton
+                android:id="@+id/btn_set"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rounded_corner_light_red_btn"
+                android:onClick="onButtonClick"
+                android:text="Set"
+                android:textAllCaps="false"
+                android:visibility="visible"
+                />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/lv_winner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@android:color/transparent"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            />
+
         <com.utility.customView.CustomButton
             android:id="@+id/btn_create"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_corner_light_red_btn"
             android:onClick="onButtonClick"
             android:text="Create"
@@ -284,5 +340,5 @@
             android:visibility="visible" />
 
     </LinearLayout>
-
+</ScrollView>
 </RelativeLayout>

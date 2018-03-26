@@ -92,12 +92,12 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
                 currentIteam=layoutManager.getChildCount();
                 totalIteams=layoutManager.getItemCount();
                 scrollOutIteams=layoutManager.findFirstVisibleItemPosition();
-                Log.e("Abcd",""+currentIteam+ "Scrolling");
+                Log.e("Abcd"," totalIteams: "+totalIteams+ " listcount: "+listcount);
                 if(isScrolling&&(currentIteam+scrollOutIteams==totalIteams))
                 {
                     page++;
                     isScrolling=false;
-                    if(totalIteams<=listcount)
+                    if(totalIteams<listcount)
                     {
                         callAPI(page);
                     }
@@ -113,13 +113,29 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
         /**
          * Collecting data*/
         Log.d("API", "Get Player");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        if(page==0)
+        {
+            mProgressDialog.show();
+        }else
+        {
+            progress.setVisibility(View.VISIBLE);
+        }
 
         apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
 
-        Call<MyTransectionWrapper> call = apiInterface.myTransactionList(/*userDto.member_id*/"4",page,20);
+        Call<MyTransectionWrapper> call = apiInterface.myTransactionList(userDto.member_id,page,20);
         call.enqueue(new Callback<MyTransectionWrapper>() {
             @Override
             public void onResponse(Call<MyTransectionWrapper> call, Response<MyTransectionWrapper> response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                if(progress.getVisibility()==View.VISIBLE)
+                    progress.setVisibility(View.GONE);
+
                 if(page==0) {
                     shopkeeperlist=null;
                     shopkeeperlist=response.body().data.shopkeeperlist;
@@ -141,6 +157,11 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
             @Override
             public void onFailure(Call<MyTransectionWrapper> call, Throwable t) {
 
+                if(progress.getVisibility()==View.VISIBLE)
+                    progress.setVisibility(View.GONE);
+
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
             }
         });
 

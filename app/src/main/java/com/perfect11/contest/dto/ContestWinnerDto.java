@@ -4,7 +4,16 @@ import java.io.Serializable;
 
 public class ContestWinnerDto implements Serializable {
 
-    public String poistion;
-    public String percentage;
-    public String amount;
+    public int poistion;
+    public float percentage;
+    public float amount;
+
+    @Override
+    public String toString() {
+        return "ContestWinnerDto{" +
+                "poistion=" + poistion +
+                ", percentage=" + percentage +
+                ", amount=" + amount +
+                '}';
+    }
 }

@@ -206,6 +206,7 @@ public class MyProfileFragment extends BaseFragment {
     public void serviceChangeProfileCallback(String message) {
         DialogUtility.showMessageWithOk(message, getActivity());
         ctv_name.setVisibility(View.VISIBLE);
+        userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         ctv_name.setText(userDto.first_name + " " + userDto.last_name);
         name.setVisibility(View.GONE);
         btn_edit.setBackground(getActivity().getResources().getDrawable(R.drawable.edit_profile_icon));

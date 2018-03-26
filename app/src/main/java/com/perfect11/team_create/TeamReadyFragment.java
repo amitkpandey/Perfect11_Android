@@ -274,17 +274,17 @@ public class TeamReadyFragment extends BaseFragment {
             switch (playerDto.seasonal_role) {
                 case "bowler":
                     bowler++;
-                    setVisibleBowler(bowler, playerDto.isC, playerDto.isCV);
+                    setVisibleBowler(bowler, playerDto.full_name,playerDto.isC, playerDto.isCV);
                     bowlerList.add(playerDto.short_name);
                     break;
                 case "batsman":
                     batsman++;
-                    setVisibleBatsman(batsman, playerDto.isC, playerDto.isCV);
+                    setVisibleBatsman(batsman, playerDto.full_name, playerDto.isC, playerDto.isCV);
                     batsmanList.add(playerDto.short_name);
                     break;
                 case "allrounder":
                     allrounder++;
-                    setVisibleAllRounder(allrounder, playerDto.isC, playerDto.isCV);
+                    setVisibleAllRounder(allrounder, playerDto.full_name, playerDto.isC, playerDto.isCV);
                     allRounderList.add(playerDto.short_name);
                     break;
                 case "keeper":
@@ -307,23 +307,27 @@ public class TeamReadyFragment extends BaseFragment {
         }
     }
 
-    private void setVisibleAllRounder(int allRounder, boolean isC, boolean isVC) {
+    private void setVisibleAllRounder(int allRounder, String full_name, boolean isC, boolean isVC) {
 
         switch (allRounder) {
             case 1:
                 rl_ar1.setVisibility(View.VISIBLE);
+                tv_ar1_name.setText(full_name);
                 setImageAllRounder(iv_ar1, isC, isVC);
                 break;
             case 2:
                 rl_ar2.setVisibility(View.VISIBLE);
+                tv_ar2_name.setText(full_name);
                 setImageAllRounder(iv_ar2, isC, isVC);
                 break;
             case 3:
                 rl_ar3.setVisibility(View.VISIBLE);
+                tv_ar3_name.setText(full_name);
                 setImageAllRounder(iv_ar3, isC, isVC);
                 break;
             case 4:
                 rl_ar4.setVisibility(View.VISIBLE);
+                tv_ar4_name.setText(full_name);
                 setImageAllRounder(iv_ar4, isC, isVC);
                 break;
         }
@@ -332,30 +336,36 @@ public class TeamReadyFragment extends BaseFragment {
     /**
      * Visible Batsman
      */
-    private void setVisibleBatsman(int batsman, boolean isC, boolean isVC) {
+    private void setVisibleBatsman(int batsman, String full_name, boolean isC, boolean isVC) {
         switch (batsman) {
             case 1:
                 rl_bat1.setVisibility(View.VISIBLE);
+                tv_bat1_name.setText(full_name);
                 setImageBatsman(iv_bat1, isC, isVC);
                 break;
             case 2:
                 rl_bat2.setVisibility(View.VISIBLE);
+                tv_bat2_name.setText(full_name);
                 setImageBatsman(iv_bat2, isC, isVC);
                 break;
             case 3:
                 rl_bat3.setVisibility(View.VISIBLE);
+                tv_bat3_name.setText(full_name);
                 setImageBatsman(iv_bat3, isC, isVC);
                 break;
             case 4:
                 rl_bat4.setVisibility(View.VISIBLE);
+                tv_bat4_name.setText(full_name);
                 setImageBatsman(iv_bat4, isC, isVC);
                 break;
             case 5:
                 rl_bat5.setVisibility(View.VISIBLE);
+                tv_bat5_name.setText(full_name);
                 setImageBatsman(iv_bat5, isC, isVC);
                 break;
             case 6:
                 rl_bat6.setVisibility(View.VISIBLE);
+                tv_bat6_name.setText(full_name);
                 setImageBatsman(iv_bat6, isC, isVC);
                 break;
         }
@@ -364,34 +374,42 @@ public class TeamReadyFragment extends BaseFragment {
     /**
      * Visible Bowler
      */
-    private void setVisibleBowler(int bowler, boolean isC, boolean isVC) {
+    private void setVisibleBowler(int bowler, String full_name, boolean isC, boolean isVC) {
         switch (bowler) {
             case 1:
                 rl_bowler1.setVisibility(View.VISIBLE);
+                tv_bowler1_name.setText(full_name);
                 setImageBowler(iv_bowler1, isC, isVC);
                 break;
             case 2:
                 rl_bowler2.setVisibility(View.VISIBLE);
+                tv_bowler2_name.setText(full_name);
                 setImageBowler(iv_bowler2, isC, isVC);
                 break;
             case 3:
                 rl_bowler3.setVisibility(View.VISIBLE);
+                tv_bowler3_name.setText(full_name);
                 setImageBowler(iv_bowler3, isC, isVC);
                 break;
             case 4:
                 rl_bowler4.setVisibility(View.VISIBLE);
+                tv_bowler4_name.setText(full_name);
                 setImageBowler(iv_bowler4, isC, isVC);
                 break;
             case 5:
                 rl_bowler5.setVisibility(View.VISIBLE);
+                tv_bowler5_name.setText(full_name);
                 setImageBowler(iv_bowler5, isC, isVC);
                 break;
             case 6:
                 rl_bowler6.setVisibility(View.VISIBLE);
+                tv_bowler6_name.setText(full_name);
                 setImageBowler(iv_bowler6, isC, isVC);
                 break;
         }
     }
+
+
 
 
     private void setImageWK(ImageView iv_bowler1, boolean isC, boolean isVC) {

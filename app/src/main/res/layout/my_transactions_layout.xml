@@ -39,8 +39,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:text="Amount"
             android:textAllCaps="false"
             android:textStyle="bold"
@@ -71,12 +71,15 @@
             android:overScrollMode="never"
             android:scrollbarStyle="outsideOverlay"
             android:visibility="visible" />
+
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/progress"
+            style="@style/LargeProgressBarStyle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/progress"/>
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </RelativeLayout>

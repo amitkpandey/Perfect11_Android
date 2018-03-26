@@ -43,7 +43,7 @@ public class ContestFragment extends BaseFragment {
     private JoinedContestWrapper joinedContestWrapper;
     private TeamWrapper teamWrapper;
     private CustomButton btn_my_team, btn_join_contest;
-
+private int team_size=0;
     public static ContestFragment newInstance() {
         return new ContestFragment();
     }
@@ -152,6 +152,7 @@ public class ContestFragment extends BaseFragment {
             @Override
             public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
                 teamWrapper = response.body();
+                team_size=teamWrapper.data.size();
 
 //                Log.e("UpcomingMatchesAPI", joinedContestWrapper.toString());
                 setAdapter(contestWrapper.data);
@@ -225,12 +226,16 @@ public class ContestFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_create_contest:
-                bundle = new Bundle();
-                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
-                CreateContestFragment createContestFragment = CreateContestFragment.newInstance();
-                createContestFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(createContestFragment, true, CreateContestFragment.class.getName());
+//                if(team_size==0){
+//                    DialogUtility.showMessageWithOk("To Create a contest, you have to create a team",getActivity());
+//                }else {
+                    bundle = new Bundle();
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                    bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
+                    CreateContestFragment createContestFragment = CreateContestFragment.newInstance();
+                    createContestFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(createContestFragment, true, CreateContestFragment.class.getName());
+//                }
                 break;
             case R.id.btn_join_contest:
                 if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0) {
@@ -256,6 +261,14 @@ public class ContestFragment extends BaseFragment {
                     CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
                     createTeamFragment.setArguments(bundle);
                     ((BaseHeaderActivity) getActivity()).addFragment(createTeamFragment, true, CreateTeamFragment.class.getName());
+                }else
+                {
+                    SelectPlayersFragment selectPlayersFragment = new SelectPlayersFragment();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                    selectPlayersFragment.setArguments(bundle1);
+                    ((BaseHeaderActivity) getActivity()).addFragment(selectPlayersFragment, true, SelectPlayersFragment.class.getName());
+
                 }
                 break;
         }

@@ -20,6 +20,8 @@ import com.perfect11.contest.JoinContestFragment;
 import com.perfect11.home.adapter.LiveMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
+import com.utility.customView.CustomTextView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +36,7 @@ public class LiveFragment extends BaseFragment {
     private ApiInterface apiInterface;
     private UpComingMatchesWrapper liveMatchesWrapper;
     private LiveMatchesAdapter liveMatchesAdapter;
-
+private CustomTextView ctv_display;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class LiveFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(layoutManager);
-
+        ctv_display=view.findViewById(R.id.ctv_display);
         /*liveMatchesAdapter.setOnButtonListener(new LiveMatchesAdapter.OnButtonListener() {
             @Override
             public void onButtonClick(int position) {
@@ -75,20 +77,28 @@ public class LiveFragment extends BaseFragment {
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
-                liveMatchesAdapter = new LiveMatchesAdapter(liveMatchesWrapper.data, getActivity());
-                rv_list.setAdapter(liveMatchesAdapter);
+                if(liveMatchesWrapper.data.size()==0)
+                {
+                    rv_list.setVisibility(View.GONE);
+                    ctv_display.setVisibility(View.VISIBLE);
+                }else {
+                    rv_list.setVisibility(View.VISIBLE);
+                    ctv_display.setVisibility(View.GONE);
+                    liveMatchesAdapter = new LiveMatchesAdapter(liveMatchesWrapper.data, getActivity());
+                    rv_list.setAdapter(liveMatchesAdapter);
 
-                liveMatchesAdapter.setOnButtonListener(new LiveMatchesAdapter.OnButtonListener() {
-                    @Override
-                    public void onButtonClick(int position) {
-                        Bundle bundle = new Bundle();
-                        UpComingMatchesDto upComingMatchesDto = liveMatchesWrapper.data.get(position);
-                        bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                        JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();
-                        joinContestFragment.setArguments(bundle);
-                        ((BaseHeaderActivity) getActivity()).addFragment(joinContestFragment, true, JoinContestFragment.class.getName());
-                    }
-                });
+                    liveMatchesAdapter.setOnButtonListener(new LiveMatchesAdapter.OnButtonListener() {
+                        @Override
+                        public void onButtonClick(int position) {
+                            Bundle bundle = new Bundle();
+                            UpComingMatchesDto upComingMatchesDto = liveMatchesWrapper.data.get(position);
+                            bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                            JoinContestFragment joinContestFragment = JoinContestFragment.newInstance();
+                            joinContestFragment.setArguments(bundle);
+                            ((BaseHeaderActivity) getActivity()).addFragment(joinContestFragment, true, JoinContestFragment.class.getName());
+                        }
+                    });
+                }
             }
 
             @Override

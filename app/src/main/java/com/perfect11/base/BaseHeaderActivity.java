@@ -331,7 +331,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     ((BaseFragment) mFragmentManager.findFragmentById(R.id.fl_container)).slidingMenuToggle();
                 }
                 break;
-            case R.id.ll_home:
+            case R.id.ctv_home:
                 if (isOpenSlide) {
                     if (!AppConstant.HOME_SCREEN.equals(activityName)) {
                         setDefaultBG();
@@ -342,7 +342,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_profile:
+            case R.id.ctv_profile:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_profile.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -352,7 +352,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_help:
+            case R.id.ctv_help:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_help.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -361,7 +361,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_point_system:
+            case R.id.ctv_point_system:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_point_system.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -370,7 +370,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_invite_friends:
+            case R.id.ctv_invite_friends:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_invite_friends.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -379,7 +379,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_contest_invited_code:
+            case R.id.ctv_contest_invited_code:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_contest_invited_code.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -388,7 +388,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_account:
+            case R.id.ctv_account:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_account.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -397,7 +397,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_leader_board:
+            case R.id.ctv_leader_board:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_leader_board.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -406,7 +406,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_logout:
+            case R.id.ctv_logout:
                 if (isOpenSlide) {
                     setDefaultBG();
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient);
@@ -417,7 +417,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     ActivityController.startNextActivity(this, IntroScreen.class, true);
                 }
                 break;
-            case R.id.ll_ticket_system:
+            case R.id.ctv_ticket_system:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_ticket_system.setBackground(getResources().getDrawable(R.drawable.shaddo));
@@ -426,7 +426,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.ll_my_contests:
+            case R.id.ctv_my_contests:
                 if (isOpenSlide) {
                     setDefaultBG();
                     ctv_my_contests.setBackground(getResources().getDrawable(R.drawable.shaddo));
