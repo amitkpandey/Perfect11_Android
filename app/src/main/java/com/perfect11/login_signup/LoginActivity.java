@@ -41,6 +41,7 @@ import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.ActivityController;
 import com.utility.CommonUtility;
 import com.utility.Constants;
+import com.utility.PreferenceUtility;
 import com.utility.facebook.FacebookLoginListener;
 import com.utility.facebook.FacebookUtil;
 import com.utility.facebook.UserInfo;
@@ -380,7 +381,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void callServiceForSocialLogin(Object object) {
-//        String device_token = PreferenceUtility.getStringFromPreference(this, PreferenceUtility.DEVICE_TOKEN);
+        String device_token = PreferenceUtility.getStringFromPreference(this, PreferenceUtility.DEVICE_TOKEN);
         if (object instanceof UserInfo) {
             new ApplicationServiceRequestHandler(this, new String[]{"oauth_type", "oauth_uid", "first_name", "email", "device_type", "device_token",
                     "weblink"}, new Object[]{"facebook", ((UserInfo) object).getFacebookUserId(), ((UserInfo) object).getFirstName() + " " +
@@ -392,6 +393,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     ((GoogleSignInAccount) object).getFamilyName(), ((GoogleSignInAccount) object).getEmail(), "Android", "test", "perfect11"},
                     Constants.LOADING_MESSAGE, ApplicationServiceRequestHandler.SOCIAL_LOGIN, Constants.BASE_URL);
         }
+//        new ApplicationServiceRequestHandler(this, new String[]{"username", "email", "firstname", "lastname", "password", "dob", "location", "phone"},
+//                new Object[]{"abcd@yopmail.com", "abcd@yopmail.com", "hello", "hi","qwerty", "02/08/1992", "kolkata", "8637379971"},
+//                "Loading...", ApplicationServiceRequestHandler.GET_USER_LOGIN_DETAIL, "http://s2wdemo.com/clients/wordpress/groom_final/wp-json/addPosts/v2");
     }
 
 

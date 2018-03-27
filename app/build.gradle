@@ -24,6 +24,10 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -50,4 +54,6 @@ dependencies {
 
     compile project(path: ':ResideMenu')
     implementation project(':StickyListHeadersListView')
+
+    compile('com.razorpay:checkout:1.4.7')
 }
