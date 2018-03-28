@@ -20,4 +20,13 @@ public class JoinedContestDto implements Serializable {
     public String paymentstatus;
     public String room_name;
     public String room_id;
+    public String id;
+    public String tournament;
+    public String entryfee;
+    public String winningAmount;
+    public String contestSize;
+    public String matchid;
+    public String status;
+    public String created_by;
+    public String addedfor;
 }

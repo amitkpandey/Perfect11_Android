@@ -159,7 +159,7 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
 
         switch (index) {
             case GET_USER_LOGIN_DETAIL:
-                return "";
+                return "login";
             case FORGET_PASSWORD:
                 return "forgot_password";
             case SIGN_UP:

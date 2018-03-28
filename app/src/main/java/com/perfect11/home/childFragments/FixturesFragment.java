@@ -16,9 +16,11 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.ContestFragment;
+import com.perfect11.upcoming_matches.UpcomingMatchesActivity;
 import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
+import com.utility.DialogUtility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -115,6 +117,9 @@ public class FixturesFragment extends BaseFragment {
                                 ContestFragment contestFragment = ContestFragment.newInstance();
                                 contestFragment.setArguments(bundle);
                                 ((BaseHeaderActivity) getActivity()).addFragment(contestFragment, true, ContestFragment.class.getName());
+                            }else
+                            {
+                                DialogUtility.showMessageWithOk("Match Closed",getActivity());
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();

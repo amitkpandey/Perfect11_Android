@@ -5,6 +5,7 @@ import com.perfect11.account.wrapper.MyTransectionWrapper;
 import com.perfect11.contest.dto.ContestCallBackDto;
 import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
+import com.perfect11.contest.wrapper.MyContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
@@ -33,7 +34,7 @@ public interface ApiInterface {
     @GET("api/getSchedule/0/0/notstarted")
     Call<UpComingMatchesWrapper> getUpcomingMatches();
 
-    @GET("api/getSchedule/0/0/completed")
+   @GET("api/getSchedule/0/0/completed")
     Call<UpComingMatchesWrapper> getCompletedMatches();
 
     @GET("api/getSchedule/0/0/started")
@@ -128,4 +129,6 @@ public interface ApiInterface {
                                            @Field("user_id")String user_id,
                                            @Field("reference_id")String reference_id);
 
+ @GET("api/getMyContests/0/{userid}")
+ Call<MyContestWrapper> getMyContest(@Path("userid")String userid);
 }

@@ -18,7 +18,7 @@
         android:text="There is no match currently going on."
         android:gravity="center"
         android:textColor="@color/red_text_color"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        style="@android:style/TextAppearance.DeviceDefault.Small"
         android:visibility="gone"
         />
 </LinearLayout>

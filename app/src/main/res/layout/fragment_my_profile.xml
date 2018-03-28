@@ -58,17 +58,23 @@
     android:orientation="vertical"
     android:paddingLeft="60dp"
     android:paddingRight="60dp">
-
+<LinearLayout
+    android:id="@+id/ll_myname"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="3.5">
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_marginRight="10dp"
+       >
         <AutoCompleteTextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/name_drawable_icon"
-            android:hint="@string/prompt_name"
+            android:hint="First Name"
             android:inputType="text"
             android:maxLines="1"
             android:imeOptions="actionNext"
@@ -78,6 +84,26 @@
             android:visibility="visible"/>
 
     </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5">
+
+        <AutoCompleteTextView
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:drawablePadding="10dp"
+            android:singleLine="true"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:visibility="visible"/>
+
+    </android.support.design.widget.TextInputLayout>
+</LinearLayout>
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_name"
         android:layout_width="match_parent"

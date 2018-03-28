@@ -86,7 +86,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
             ctv_title.setText(item.season + " " + item.format);
             ctv_country1.setText(item.teama);
             ctv_country2.setText(item.teamb);
-//        holder.ctv_timer.setText(millToMins(mdata.get(position).timeRemaining) + " mins remaining");
+
             Picasso.with(mactivity).load(getPictureURL(item.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
             Picasso.with(mactivity).load(getPictureURL(item.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
             ll_root.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +95,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
                     onButtonListener.onButtonClick(position);
                 }
             });
-//            updateTimeRemaining(System.currentTimeMillis());
-        }
+            }
 
         private void updateTimeRemaining(long currentTime) {
             try {
@@ -136,36 +135,6 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.setData(mdata.get(position), position);
 
-//        holder.ctv_title.setText(mdata.get(position).season + " " + mdata.get(position).format);
-//        holder.ctv_country1.setText(mdata.get(position).teama);
-//        holder.ctv_country2.setText(mdata.get(position).teamb);
-////        holder.ctv_timer.setText(millToMins(mdata.get(position).timeRemaining) + " mins remaining");
-//        Picasso.with(mactivity).load(getPictureURL(mdata.get(position).teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(holder.cimg_country1);
-//        Picasso.with(mactivity).load(getPictureURL(mdata.get(position).teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(holder.cimg_country2);
-//        holder.ll_root.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onButtonListener.onButtonClick(position);
-//            }
-//        });
-//        updateTimeRemaining(mdata.get(position), holder.ctv_timer, System.currentTimeMillis());
-
-//        try {
-//            // String myDate = "2018/02/26 18:19:45";
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-//            Date date;
-//            date = sdf.parse(mdata.get(position).start_date);
-//            long millis = date.getTime();
-//            long countdown = millis - System.currentTimeMillis();
-//            long hours = TimeUnit.MILLISECONDS.toHours(countdown);
-//            long min = TimeUnit.MILLISECONDS.toMinutes((countdown - TimeUnit.HOURS.toMillis(hours)));
-//            long sec = TimeUnit.MILLISECONDS.toSeconds((countdown - (TimeUnit.HOURS.toMillis(hours) + TimeUnit.MINUTES.toMillis(min))));
-//
-////            System.out.println(" Abcd " + (millis - System.currentTimeMillis()) + " h:" + hours + " m:" + min + " s:" + sec);
-//            holder.ctv_timer.setText(hours + " hr " + min + " min " + sec + " sec");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
     }
 
 

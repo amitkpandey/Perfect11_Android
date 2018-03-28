@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.imageCaptured.VideoSelectionDialog;
@@ -46,7 +47,7 @@ import retrofit2.Response;
 public class MyProfileFragment extends BaseFragment {
     private CustomTextView ctv_name, ctv_phone, ctv_mail;
     private UserDto userDto;
-    private AutoCompleteTextView name;
+    private AutoCompleteTextView name,last_name;
     private CircleImageView image;
     public final static int STILL_IMAGE = 1;
     public final static int IMAGE1 = 1;
@@ -54,7 +55,7 @@ public class MyProfileFragment extends BaseFragment {
     private ApiInterface apiInterface;
     private MyContestInfoWrapper myContestInfoWrapper;
     private Button btn_edit;
-
+private LinearLayout ll_myname;
     private TextView tv_contest_played, tv_contest_won;
 
     @Override
@@ -77,11 +78,13 @@ public class MyProfileFragment extends BaseFragment {
         ctv_mail = view.findViewById(R.id.ctv_mail);
         image = view.findViewById(R.id.image);
         name = view.findViewById(R.id.name);
-        name.setVisibility(View.GONE);
+        last_name = view.findViewById(R.id.last_name);
+
 
         tv_contest_played = view.findViewById(R.id.tv_contest_played);
         tv_contest_won = view.findViewById(R.id.tv_contest_won);
-
+        ll_myname=view.findViewById(R.id.ll_myname);
+        ll_myname.setVisibility(View.GONE);
         setValue();
     }
 
@@ -111,8 +114,11 @@ public class MyProfileFragment extends BaseFragment {
             case R.id.btn_edit:
                 //((BaseHeaderActivity)getActivity()).addFragment(new ChangeProfileFragment(),true,ChangeProfileFragment.class.getName());
                 if (ctv_name.getVisibility() == View.VISIBLE) {
-                    name.setVisibility(View.VISIBLE);
-                    name.setText(userDto.first_name + " " + userDto.last_name);
+                    //name.setVisibility(View.VISIBLE);
+                    ll_myname.setVisibility(View.VISIBLE);
+                    name.setText(userDto.first_name);
+                    last_name.setText(userDto.last_name);
+
                     ctv_name.setVisibility(View.GONE);
                     btn_edit.setBackground(getActivity().getResources().getDrawable(R.drawable.save_profile_icon));
                 } else {
@@ -183,17 +189,20 @@ public class MyProfileFragment extends BaseFragment {
 
     private void callChangeProfileAPI() {
         //API
-        String str[] = name.getText().toString().trim().split(" ");
         new ApplicationServiceRequestHandler(getActivity(), this, new String[]{"member_id", "first_name", "last_name", "weblink", "address"
                 , "country", "state", "city", "gender", "zipcode"},
-                new Object[]{userDto.member_id, str[0], (str.length >= 2) ? str[1] : "", "perfect11", "", "", "", "", "", ""},
+                new Object[]{userDto.member_id, name.getText().toString().trim(),last_name.getText().toString().trim(), "perfect11", "", "", "", "", "", ""},
                 "Loading...", ApplicationServiceRequestHandler.EDIT_PROFILE, Constants.BASE_URL);
     }
 
     private boolean isValid() {
         if (name.getText().toString().trim().length() == 0) {
             name.requestFocus();
-            name.setError("Enter your name");
+            name.setError("Enter your First name");
+            return false;
+        }else if (last_name.getText().toString().trim().length() == 0) {
+            last_name.requestFocus();
+            last_name.setError("Enter your Last name");
             return false;
         }
         return true;
@@ -208,7 +217,7 @@ public class MyProfileFragment extends BaseFragment {
         ctv_name.setVisibility(View.VISIBLE);
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         ctv_name.setText(userDto.first_name + " " + userDto.last_name);
-        name.setVisibility(View.GONE);
+        ll_myname.setVisibility(View.GONE);
         btn_edit.setBackground(getActivity().getResources().getDrawable(R.drawable.edit_profile_icon));
     }
 

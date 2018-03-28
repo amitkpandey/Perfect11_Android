@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.team_create.dto.PlayerDto;
+import com.squareup.picasso.Picasso;
 import com.utility.customView.CustomTextView;
 
 import java.util.ArrayList;
@@ -26,38 +27,38 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
     private OnButtonListener onButtonListener;
     private Activity mActivity;
     private ArrayList<PlayerDto> playerDtoArrayList;
-    private int mtype,mtotalPlayers;
+    private int mtype, mtotalPlayers;
     private float totalPoints;
-    private String teamName1,teamName2;
+    private String teamName1, teamName2;
 
-/**
- * Type
- * ------
- * 0 = Keeper
- * 1 = Batman
- * 2 = All Rounder
- * 3=  Bowler
- * */
-    public WkAdapter(Activity activity, ArrayList<PlayerDto> playerDtoArrayList, int type,float totalPoints,int totalPlayers,String ateam,String bteam) {
+    /**
+     * Type
+     * ------
+     * 0 = Keeper
+     * 1 = Batman
+     * 2 = All Rounder
+     * 3=  Bowler
+     */
+    public WkAdapter(Activity activity, ArrayList<PlayerDto> playerDtoArrayList, int type, float totalPoints, int totalPlayers, String ateam, String bteam) {
         this.mActivity = activity;
         this.playerDtoArrayList = playerDtoArrayList;
         this.mtype = type;
-        this.totalPoints=totalPoints;
-        this.mtotalPlayers=totalPlayers;
-        teamName1=ateam;
-        teamName2=bteam;
+        this.totalPoints = totalPoints;
+        this.mtotalPlayers = totalPlayers;
+        teamName1 = ateam;
+        teamName2 = bteam;
     }
 
-    public void updateTotalPoints(float totalPoints,int totalPlayers) {
+    public void updateTotalPoints(float totalPoints, int totalPlayers) {
         this.totalPoints = totalPoints;
-        this.mtotalPlayers=totalPlayers;
+        this.mtotalPlayers = totalPlayers;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout rl_root;
         private Button cb_add;
         private CustomTextView tv_name, tv_point, tv_score;
-        private ImageView iv_rentImage2,iv_rentImage;
+        private ImageView iv_rentImage2, iv_rentImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -81,48 +82,43 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
         holder.tv_name.setText(playerDtoArrayList.get(position).full_name);
         holder.tv_point.setText(playerDtoArrayList.get(position).team_code + " | " + "-- Point");
-        if(playerDtoArrayList.get(position).isSelected){
+        if (playerDtoArrayList.get(position).isSelected) {
             holder.cb_add.setBackground(mActivity.getResources().getDrawable(R.drawable.select_player));
-        }
-        else
-        {
+        } else {
             holder.cb_add.setBackground(mActivity.getResources().getDrawable(R.drawable.not_select_player));
         }
 
-        if(teamName1.equals(playerDtoArrayList.get(position).team_name))
-        {
+        if (teamName1.equals(playerDtoArrayList.get(position).team_name)) {
             holder.iv_rentImage2.setVisibility(View.VISIBLE);
+            setPicture(holder.iv_rentImage2, playerDtoArrayList.get(position).team_code);
             holder.iv_rentImage.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             holder.iv_rentImage2.setVisibility(View.GONE);
             holder.iv_rentImage.setVisibility(View.VISIBLE);
+            setPicture(holder.iv_rentImage, playerDtoArrayList.get(position).team_code);
         }
         holder.tv_score.setText(playerDtoArrayList.get(position).credit);
         holder.cb_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(playerDtoArrayList.get(position).isSelected) {
+                if (playerDtoArrayList.get(position).isSelected) {
                     playerDtoArrayList.get(position).isSelected = false;
-                    totalPoints= totalPoints-Float.parseFloat(playerDtoArrayList.get(position).credit);
+                    totalPoints = totalPoints - Float.parseFloat(playerDtoArrayList.get(position).credit);
                     mtotalPlayers--;
                     if (onButtonListener != null)
-                        onButtonListener.onButtonClick(playerDtoArrayList,totalPoints,mtotalPlayers);
+                        onButtonListener.onButtonClick(playerDtoArrayList, totalPoints, mtotalPlayers);
 
                     holder.cb_add.setBackground(mActivity.getResources().getDrawable(R.drawable.not_select_player));
-                }else
-                {
-                    if(isValid(totalPoints+Float.parseFloat(playerDtoArrayList.get(position).credit)))
-                    {
+                } else {
+                    if (isValid(totalPoints + Float.parseFloat(playerDtoArrayList.get(position).credit))) {
                         playerDtoArrayList.get(position).isSelected = true;
-                        totalPoints= totalPoints+Float.parseFloat(playerDtoArrayList.get(position).credit);
+                        totalPoints = totalPoints + Float.parseFloat(playerDtoArrayList.get(position).credit);
                         mtotalPlayers++;
                         if (onButtonListener != null)
-                            onButtonListener.onButtonClick(playerDtoArrayList,totalPoints,mtotalPlayers);
+                            onButtonListener.onButtonClick(playerDtoArrayList, totalPoints, mtotalPlayers);
 
                         holder.cb_add.setBackground(mActivity.getResources().getDrawable(R.drawable.select_player));
                     }
@@ -132,46 +128,76 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
 
     }
 
+    private void setPicture(ImageView iv_rentImage2, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "";
+                break;
+            case "KXIP":
+                url = "";
+                break;
+            case "MI":
+                url = "";
+                break;
+            case "DD":
+                url = "";
+                break;
+            case "KKR":
+                url = "";
+                break;
+            case "RCB":
+                url = "";
+                break;
+            case "SRH":
+                url = "";
+                break;
+            case "RR":
+                url = "";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(mActivity).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_rentImage2);
+        }
+    }
+
     private boolean isValid(float v) {
-        int number_selected=getNoOfSelectedPlayers();;
-        switch (mtype)
-        {
+        int number_selected = getNoOfSelectedPlayers();
+        ;
+        switch (mtype) {
             case 0:
-                if(number_selected>0)
-                {
+                if (number_selected > 0) {
                     Toast.makeText(mActivity, "You have selected maximum Keeper", Toast.LENGTH_SHORT).show();
-                return false;
+                    return false;
                 }
                 break;
             case 1:
-                if(number_selected>5)
-                {
+                if (number_selected > 5) {
                     Toast.makeText(mActivity, "You have selected maximum  Batsman", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 break;
             case 2:
-                if(number_selected>3)
-                {
+                if (number_selected > 3) {
                     Toast.makeText(mActivity, "You have selected maximum  Rounder", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 break;
             case 3:
-                if(number_selected>5)
-                {
+                if (number_selected > 5) {
                     Toast.makeText(mActivity, "You have selected maximum Bowlers", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 break;
         }
-        if(v>=1000)
-        {
+        if (v >= 1000) {
             Toast.makeText(mActivity, "You have used maximum points.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mtotalPlayers>10)
-        {
+        if (mtotalPlayers > 10) {
             Toast.makeText(mActivity, "You have selected maximum player.", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -180,11 +206,9 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
 
 
     private int getNoOfSelectedPlayers() {
-        int i=0;
-        for(PlayerDto playerDto:playerDtoArrayList)
-        {
-            if(playerDto.isSelected)
-            {
+        int i = 0;
+        for (PlayerDto playerDto : playerDtoArrayList) {
+            if (playerDto.isSelected) {
                 i++;
             }
         }
@@ -201,6 +225,6 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
     }
 
     public interface OnButtonListener {
-        void onButtonClick(ArrayList<PlayerDto> playerDtoArrayList,float totalPoints,int totalPlayers);
+        void onButtonClick(ArrayList<PlayerDto> playerDtoArrayList, float totalPoints, int totalPlayers);
     }
 }

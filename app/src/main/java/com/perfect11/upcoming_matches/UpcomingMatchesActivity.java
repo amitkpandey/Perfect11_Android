@@ -16,6 +16,7 @@ import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
 import com.utility.ActivityController;
+import com.utility.DialogUtility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,6 +94,9 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
                                 bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                                 ActivityController.startNextActivity(UpcomingMatchesActivity.this, CreateTeamActivity.class, bundle,
                                         false);
+                            }else
+                            {
+                                DialogUtility.showMessageWithOk("Match Closed",UpcomingMatchesActivity.this);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();

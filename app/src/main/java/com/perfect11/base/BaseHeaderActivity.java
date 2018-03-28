@@ -28,6 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.perfect11.R;
 import com.perfect11.account.MyAccountFragment;
 import com.perfect11.contest.InviteCodeFragment;
+import com.perfect11.contest.MyContestFragmentNotUses;
 import com.perfect11.help.HelpFragment;
 import com.perfect11.home.HomeFragment;
 import com.perfect11.login_signup.IntroScreen;
@@ -431,7 +432,8 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     setDefaultBG();
                     ctv_my_contests.setBackground(getResources().getDrawable(R.drawable.shaddo));
                     removeAllFragment();
-                    replaceFragment(MyContestFragment.newInstance(), false, MyContestFragment.class.getName());
+                    //replaceFragment(MyContestFragment.newInstance(), false, MyContestFragment.class.getName());
+                    replaceFragment(MyContestFragmentNotUses.newInstance(), false, MyContestFragmentNotUses.class.getName());
                     slideMenu.closeMenu();
                 }
                 break;

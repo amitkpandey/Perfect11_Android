@@ -23,6 +23,18 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <com.utility.customView.CustomTextView
+                android:id="@+id/ctv_title"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Title"
+                android:textColor="@android:color/black"
+                android:visibility="gone"
+                />
+
             <RelativeLayout
                 android:id="@+id/rl_contest_details"
                 android:layout_width="match_parent"
