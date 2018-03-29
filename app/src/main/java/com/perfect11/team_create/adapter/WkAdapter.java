@@ -130,28 +130,28 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
         String url = "";
         switch (team_code) {
             case "CSK":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-csk.png";
                 break;
             case "KXIP":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-kxip.png";
                 break;
             case "MI":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-mi.png";
                 break;
             case "DD":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-dd.png";
                 break;
             case "KKR":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-kkr.png";
                 break;
             case "RCB":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-rcb.png";
                 break;
             case "SRH":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-srh.png";
                 break;
             case "RR":
-                url = "";
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-rr.png";
                 break;
             default:
                 url = "";

@@ -78,6 +78,12 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
     private ImageView iv_wkt, iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6, iv_ar1, iv_ar2, iv_ar3, iv_ar4, iv_bowler1, iv_bowler2, iv_bowler3,
             iv_bowler4, iv_bowler5, iv_bowler6;
 
+
+    private ImageView iv_wkt_c;
+    private ImageView iv_bat1_c, iv_bat2_c, iv_bat3_c, iv_bat4_c, iv_bat5_c, iv_bat6_c;
+    private ImageView iv_ar1_c, iv_ar2_c, iv_ar3_c, iv_ar4_c;
+    private ImageView iv_bowler1_c, iv_bowler2_c, iv_bowler3_c, iv_bowler4_c, iv_bowler5_c, iv_bowler6_c;
+
     private CustomTextView tv_wkt_name, tv_bat1_name, tv_bat2_name, tv_bat3_name, tv_bat4_name,
             tv_bat5_name, tv_bat6_name, tv_ar1_name, tv_ar2_name, tv_ar3_name, tv_ar4_name, tv_bowler1_name, tv_bowler2_name, tv_bowler3_name,
             tv_bowler4_name, tv_bowler5_name, tv_bowler6_name;
@@ -167,6 +173,27 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         iv_bowler5 = view.findViewById(R.id.iv_bowler5);
         iv_bowler6 = view.findViewById(R.id.iv_bowler6);
 
+        iv_wkt_c = view.findViewById(R.id.iv_wkt_c);
+
+        iv_bat1_c = view.findViewById(R.id.iv_bat1_c);
+        iv_bat2_c = view.findViewById(R.id.iv_bat2_c);
+        iv_bat3_c = view.findViewById(R.id.iv_bat3_c);
+        iv_bat4_c = view.findViewById(R.id.iv_bat4_c);
+        iv_bat5_c = view.findViewById(R.id.iv_bat5_c);
+        iv_bat6_c = view.findViewById(R.id.iv_bat6_c);
+
+        iv_ar1_c = view.findViewById(R.id.iv_ar1_c);
+        iv_ar2_c = view.findViewById(R.id.iv_ar2_c);
+        iv_ar3_c = view.findViewById(R.id.iv_ar3_c);
+        iv_ar4_c = view.findViewById(R.id.iv_ar4_c);
+
+        iv_bowler1_c = view.findViewById(R.id.iv_bowler1_c);
+        iv_bowler2_c = view.findViewById(R.id.iv_bowler2_c);
+        iv_bowler3_c = view.findViewById(R.id.iv_bowler3_c);
+        iv_bowler4_c = view.findViewById(R.id.iv_bowler4_c);
+        iv_bowler5_c = view.findViewById(R.id.iv_bowler5_c);
+        iv_bowler6_c = view.findViewById(R.id.iv_bowler6_c);
+
         btn_save = view.findViewById(R.id.btn_save);
         if (selectedMatchDto.isEditing)
             btn_save.setText("Update Team");
@@ -219,6 +246,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         String team2 = team[2];
         ctv_country1.setText(team1);
         ctv_country2.setText(team2);
+        tv_team1.setText(team1);
+        tv_team2.setText(team2);
 
         setPlayerVisibilityGone();
         setTeam();
@@ -259,8 +288,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 total_team2++;
             }
         }
-        tv_team1.setText(selectedMatchDto.teamName1);
-        tv_team2.setText(selectedMatchDto.teamName2);
+
         Picasso.with(getActivity()).load(getPictureURL(selectedMatchDto.teamName1)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
                 into(cimg_country1);
         Picasso.with(getActivity()).load(getPictureURL(selectedMatchDto.teamName2)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
@@ -309,28 +337,28 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             switch (playerDto.seasonal_role) {
                 case "bowler":
                     bowler++;
-                    setVisibleBowler(bowler, playerDto.full_name, playerDto.isC, playerDto.isCV);
+                    setVisibleBowler(bowler,playerDto.full_name,playerDto.team_code, playerDto.isC, playerDto.isCV);
                     bowlerList.add(playerDto.short_name);
                     break;
                 case "batsman":
                     batsman++;
-                    setVisibleBatsman(batsman, playerDto.full_name, playerDto.isC, playerDto.isCV);
+                    setVisibleBatsman(batsman,playerDto.full_name,playerDto.team_code, playerDto.isC, playerDto.isCV);
                     batsmanList.add(playerDto.short_name);
                     break;
                 case "allrounder":
                     allrounder++;
-                    setVisibleAllRounder(allrounder, playerDto.full_name, playerDto.isC, playerDto.isCV);
+                    setVisibleAllRounder(allrounder,playerDto.full_name,playerDto.team_code, playerDto.isC, playerDto.isCV);
                     allRounderList.add(playerDto.short_name);
                     break;
                 case "keeper":
                     iv_wkt.setVisibility(View.VISIBLE);
                     tv_wkt_name.setVisibility(View.VISIBLE);
                     tv_wkt_name.setText(playerDto.full_name);
-                    setImageWK(iv_wkt, playerDto.isC, playerDto.isCV);
+                    setCImageWK(iv_wkt_c, playerDto.isC, playerDto.isCV);
+                    setKeeperImage(iv_wkt,playerDto.team_code);
                     keeperList.add(playerDto.short_name);
                     break;
             }
-
             player_amount_count = player_amount_count + Float.parseFloat(playerDto.credit);
 
             if (playerDto.isC) {
@@ -342,28 +370,173 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         }
     }
 
-    private void setVisibleAllRounder(int allRounder, String full_name, boolean isC, boolean isVC) {
+    private void setKeeperImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+    private void setAllrounderImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/fielder-cks.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/fielder-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/fielder-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/fielder-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/fielder-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/fielder-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/fielder-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/fielder-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+    private void setBatsmanImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/batsman-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/batsman-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/batsman-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/batsman-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/batsman-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/batsman-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/batsman-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/batsman-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+    private void setBowlerImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/bowler-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/bowler-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/bowler-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/bowler-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/bowler-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/bowler-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/bowler-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/bowler-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+
+    private void setVisibleAllRounder(int allRounder, String full_name, String team_code, boolean isC, boolean isVC) {
 
         switch (allRounder) {
             case 1:
                 rl_ar1.setVisibility(View.VISIBLE);
                 tv_ar1_name.setText(full_name);
-                setImageAllRounder(iv_ar1, isC, isVC);
+                setCImageAllrounder(iv_ar1_c, isC, isVC);
+                setAllrounderImage(iv_ar1,team_code);
                 break;
             case 2:
                 rl_ar2.setVisibility(View.VISIBLE);
                 tv_ar2_name.setText(full_name);
-                setImageAllRounder(iv_ar2, isC, isVC);
+                setCImageAllrounder(iv_ar2_c, isC, isVC);
+                setAllrounderImage(iv_ar2,team_code);
                 break;
             case 3:
                 rl_ar3.setVisibility(View.VISIBLE);
                 tv_ar3_name.setText(full_name);
-                setImageAllRounder(iv_ar3, isC, isVC);
+                setCImageAllrounder(iv_ar3_c, isC, isVC);
+                setAllrounderImage(iv_ar3,team_code);
                 break;
             case 4:
                 rl_ar4.setVisibility(View.VISIBLE);
                 tv_ar4_name.setText(full_name);
-                setImageAllRounder(iv_ar4, isC, isVC);
+                setCImageAllrounder(iv_ar4_c, isC, isVC);
+                setAllrounderImage(iv_ar4,team_code);
                 break;
         }
     }
@@ -371,37 +544,43 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
     /**
      * Visible Batsman
      */
-    private void setVisibleBatsman(int batsman, String full_name, boolean isC, boolean isVC) {
+    private void setVisibleBatsman(int batsman, String full_name, String team_code, boolean isC, boolean isVC) {
         switch (batsman) {
             case 1:
                 rl_bat1.setVisibility(View.VISIBLE);
                 tv_bat1_name.setText(full_name);
-                setImageBatsman(iv_bat1, isC, isVC);
+                setCImageBatsman(iv_bat1_c, isC, isVC);
+                setBatsmanImage(iv_bat1,team_code);
                 break;
             case 2:
                 rl_bat2.setVisibility(View.VISIBLE);
                 tv_bat2_name.setText(full_name);
-                setImageBatsman(iv_bat2, isC, isVC);
+                setCImageBatsman(iv_bat2_c, isC, isVC);
+                setBatsmanImage(iv_bat2,team_code);
                 break;
             case 3:
                 rl_bat3.setVisibility(View.VISIBLE);
                 tv_bat3_name.setText(full_name);
-                setImageBatsman(iv_bat3, isC, isVC);
+                setCImageBatsman(iv_bat3_c, isC, isVC);
+                setBatsmanImage(iv_bat3,team_code);
                 break;
             case 4:
                 rl_bat4.setVisibility(View.VISIBLE);
                 tv_bat4_name.setText(full_name);
-                setImageBatsman(iv_bat4, isC, isVC);
+                setCImageBatsman(iv_bat4_c, isC, isVC);
+                setBatsmanImage(iv_bat4,team_code);
                 break;
             case 5:
                 rl_bat5.setVisibility(View.VISIBLE);
                 tv_bat5_name.setText(full_name);
-                setImageBatsman(iv_bat5, isC, isVC);
+                setCImageBatsman(iv_bat5_c, isC, isVC);
+                setBatsmanImage(iv_bat5,team_code);
                 break;
             case 6:
                 rl_bat6.setVisibility(View.VISIBLE);
                 tv_bat6_name.setText(full_name);
-                setImageBatsman(iv_bat6, isC, isVC);
+                setCImageBatsman(iv_bat6_c, isC, isVC);
+                setBatsmanImage(iv_bat6,team_code);
                 break;
         }
     }
@@ -409,71 +588,87 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
     /**
      * Visible Bowler
      */
-    private void setVisibleBowler(int bowler, String full_name, boolean isC, boolean isVC) {
+    private void setVisibleBowler(int bowler, String full_name, String team_code, boolean isC, boolean isVC) {
         switch (bowler) {
             case 1:
                 rl_bowler1.setVisibility(View.VISIBLE);
                 tv_bowler1_name.setText(full_name);
-                setImageBowler(iv_bowler1, isC, isVC);
+                setCImageBowler(iv_bowler1_c, isC, isVC);
+                setBowlerImage(iv_bowler1,team_code);
                 break;
             case 2:
                 rl_bowler2.setVisibility(View.VISIBLE);
                 tv_bowler2_name.setText(full_name);
-                setImageBowler(iv_bowler2, isC, isVC);
+                setCImageBowler(iv_bowler2_c, isC, isVC);
+                setBowlerImage(iv_bowler2,team_code);
                 break;
             case 3:
                 rl_bowler3.setVisibility(View.VISIBLE);
                 tv_bowler3_name.setText(full_name);
-                setImageBowler(iv_bowler3, isC, isVC);
+                setCImageBowler(iv_bowler3_c, isC, isVC);
+                setBowlerImage(iv_bowler3,team_code);
                 break;
             case 4:
                 rl_bowler4.setVisibility(View.VISIBLE);
                 tv_bowler4_name.setText(full_name);
-                setImageBowler(iv_bowler4, isC, isVC);
+                setCImageBowler(iv_bowler4_c, isC, isVC);
+                setBowlerImage(iv_bowler4,team_code);
                 break;
             case 5:
                 rl_bowler5.setVisibility(View.VISIBLE);
                 tv_bowler5_name.setText(full_name);
-                setImageBowler(iv_bowler5, isC, isVC);
+                setCImageBowler(iv_bowler5_c, isC, isVC);
+                setBowlerImage(iv_bowler5,team_code);
                 break;
             case 6:
                 rl_bowler6.setVisibility(View.VISIBLE);
                 tv_bowler6_name.setText(full_name);
-                setImageBowler(iv_bowler6, isC, isVC);
+                setCImageBowler(iv_bowler6_c, isC, isVC);
+                setBowlerImage(iv_bowler6,team_code);
                 break;
         }
     }
 
 
-    private void setImageWK(ImageView iv_bowler1, boolean isC, boolean isVC) {
+
+
+    private void setCImageWK(ImageView iv_bowler1, boolean isC, boolean isVC) {
         if (isC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w1));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.c));
         } else if (isVC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.w2));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.vc));
         }
     }
 
-    private void setImageAllRounder(ImageView iv_bowler1, boolean isC, boolean isVC) {
+    private void setCImageAllrounder(ImageView iv_bowler1, boolean isC, boolean isVC) {
         if (isC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar1));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.c));
         } else if (isVC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.ar2));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.vc));
         }
     }
 
-    private void setImageBowler(ImageView iv_bowler1, boolean isC, boolean isVC) {
+    private void setCImageBowler(ImageView iv_bowler1, boolean isC, boolean isVC) {
         if (isC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b1));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.c));
         } else if (isVC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.b2));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.vc));
         }
     }
 
-    private void setImageBatsman(ImageView iv_bowler1, boolean isC, boolean isVC) {
+    private void setCImageBatsman(ImageView iv_bowler1, boolean isC, boolean isVC) {
         if (isC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat1));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.c));
         } else if (isVC) {
-            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.bat2));
+            iv_bowler1.setVisibility(View.VISIBLE);
+            iv_bowler1.setImageDrawable(getResources().getDrawable(R.drawable.vc));
         }
     }
 

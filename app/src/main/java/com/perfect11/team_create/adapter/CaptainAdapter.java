@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.team_create.dto.PlayerDto;
+import com.squareup.picasso.Picasso;
 import com.utility.customView.CustomTextView;
 
 import java.util.ArrayList;
@@ -93,9 +94,11 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
         if (teamName1.equals(selectedPlayer.get(position).team_name)) {
             holder.iv_rentImage2.setVisibility(View.VISIBLE);
             holder.iv_rentImage.setVisibility(View.GONE);
+            setPicture(holder.iv_rentImage2,selectedPlayer.get(position).team_code);
         } else {
             holder.iv_rentImage2.setVisibility(View.GONE);
             holder.iv_rentImage.setVisibility(View.VISIBLE);
+            setPicture(holder.iv_rentImage,selectedPlayer.get(position).team_code);
         }
 
 //check the radio button if both position and selectedPosition matches
@@ -178,5 +181,39 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
         }
         return true;
     }
-
+    private void setPicture(ImageView iv_rentImage2, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/jersey/jersey-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(activity).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_rentImage2);
+        }
+    }
 }

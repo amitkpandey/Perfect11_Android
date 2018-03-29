@@ -120,8 +120,9 @@ public class SelectPlayersFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.activity_select_players, container, false);
         readFromBundle();
-        initView();
         initViewPreview();
+        initView();
+
         startUpdateTimer();
         callAPI();
         return view;
@@ -181,6 +182,8 @@ public class SelectPlayersFragment extends BaseFragment {
         String team2 = team[2];
         ctv_country1.setText(team1);
         ctv_country2.setText(team2);
+        tv_team1.setText(team1);
+        tv_team2.setText(team2);
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity());
         layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
@@ -267,8 +270,6 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private void setTeam() {
         setPlayerVisibilityGone();
-        tv_team1.setText(upComingMatchesDto.teama);
-        tv_team2.setText(upComingMatchesDto.teamb);
         System.out.println("getPictureURL(upComingMatchesDto.teama) " + getPictureURL(upComingMatchesDto.teama));
         System.out.println("getPictureURL(upComingMatchesDto.teamb) " + getPictureURL(upComingMatchesDto.teamb));
         Picasso.with(getActivity()).load(getPictureURL(upComingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
@@ -278,7 +279,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private void setPlayerVisibilityGone() {
         iv_wkt.setVisibility(View.INVISIBLE);
-        tv_wkt_name.setVisibility(View.INVISIBLE);
+       tv_wkt_name.setVisibility(View.INVISIBLE);
 
         rl_bat1.setVisibility(View.INVISIBLE);
         rl_bat2.setVisibility(View.INVISIBLE);
@@ -308,7 +309,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : bowler) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + i);
-                setVisibleBowler(i, playerDto.full_name);
+                setVisibleBowler(i,playerDto.full_name,playerDto.team_code);
                 i++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -322,7 +323,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : batsman) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + j);
-                setVisibleBatsman(j, playerDto.full_name);
+                setVisibleBatsman(j,playerDto.full_name,playerDto.team_code);
                 j++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -338,7 +339,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : allrounder) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + k);
-                setVisibleAllrounder(k, playerDto.full_name);
+                setVisibleAllrounder(k,playerDto.full_name,playerDto.team_code);
                 k++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -355,7 +356,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 iv_wkt.setVisibility(View.VISIBLE);
                 tv_wkt_name.setVisibility(View.VISIBLE);
                 tv_wkt_name.setText(playerDto.full_name);
-
+                setKeeperImage(iv_wkt,playerDto.team_code,playerDto.team_code);
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
                     total_team1++;
                 } else {
@@ -370,24 +371,170 @@ public class SelectPlayersFragment extends BaseFragment {
         tv_team_count2.setText("" + total_team2 + "/7");
     }
 
-    private void setVisibleAllrounder(int allrounder, String full_name) {
+
+    private void setKeeperImage(ImageView iv_wkt, String team_code, String teamCode) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+    private void setAllrounderImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/fielder-cks.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/fielder-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/fielder-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/fielder-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/fielder-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/fielder-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/fielder-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/fielder-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+    private void setBatsmanImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/batsman-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/batsman-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/batsman-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/batsman-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/batsman-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/batsman-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/batsman-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/batsman-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+    private void setBowlerImage(ImageView iv_wkt, String team_code) {
+        String url = "";
+        switch (team_code) {
+            case "CSK":
+                url = "http://52.15.50.179/public/images/app/players/bowler-csk.png";
+                break;
+            case "KXIP":
+                url = "http://52.15.50.179/public/images/app/players/bowler-kxip.png";
+                break;
+            case "MI":
+                url = "http://52.15.50.179/public/images/app/players/bowler-mi.png";
+                break;
+            case "DD":
+                url = "http://52.15.50.179/public/images/app/players/bowler-dd.png";
+                break;
+            case "KKR":
+                url = "http://52.15.50.179/public/images/app/players/bowler-kkr.png";
+                break;
+            case "RCB":
+                url = "http://52.15.50.179/public/images/app/players/bowler-rcb.png";
+                break;
+            case "SRH":
+                url = "http://52.15.50.179/public/images/app/players/bowler-srh.png";
+                break;
+            case "RR":
+                url = "http://52.15.50.179/public/images/app/players/bowler-rr.png";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        if (!url.trim().equals("")) {
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(iv_wkt);
+        }
+    }
+
+    private void setVisibleAllrounder(int allrounder, String full_name, String team_code) {
 
         switch (allrounder) {
             case 1:
                 rl_ar1.setVisibility(View.VISIBLE);
                 tv_ar1_name.setText(full_name);
+                setAllrounderImage(iv_ar1,team_code);
                 break;
             case 2:
                 rl_ar2.setVisibility(View.VISIBLE);
                 tv_ar2_name.setText(full_name);
+                setAllrounderImage(iv_ar2,team_code);
                 break;
             case 3:
                 rl_ar3.setVisibility(View.VISIBLE);
                 tv_ar3_name.setText(full_name);
+                setAllrounderImage(iv_ar3,team_code);
                 break;
             case 4:
                 rl_ar4.setVisibility(View.VISIBLE);
                 tv_ar4_name.setText(full_name);
+                setAllrounderImage(iv_ar4,team_code);
                 break;
         }
     }
@@ -395,31 +542,37 @@ public class SelectPlayersFragment extends BaseFragment {
     /**
      * Visible Batsman
      */
-    private void setVisibleBatsman(int batsman, String full_name) {
+    private void setVisibleBatsman(int batsman, String full_name, String team_code) {
         switch (batsman) {
             case 1:
                 rl_bat1.setVisibility(View.VISIBLE);
                 tv_bat1_name.setText(full_name);
+                setBatsmanImage(iv_bat1,team_code);
                 break;
             case 2:
                 rl_bat2.setVisibility(View.VISIBLE);
                 tv_bat2_name.setText(full_name);
+                setBatsmanImage(iv_bat2,team_code);
                 break;
             case 3:
                 rl_bat3.setVisibility(View.VISIBLE);
                 tv_bat3_name.setText(full_name);
+                setBatsmanImage(iv_bat3,team_code);
                 break;
             case 4:
                 rl_bat4.setVisibility(View.VISIBLE);
                 tv_bat4_name.setText(full_name);
+                setBatsmanImage(iv_bat4,team_code);
                 break;
             case 5:
                 rl_bat5.setVisibility(View.VISIBLE);
                 tv_bat5_name.setText(full_name);
+                setBatsmanImage(iv_bat5,team_code);
                 break;
             case 6:
                 rl_bat6.setVisibility(View.VISIBLE);
                 tv_bat6_name.setText(full_name);
+                setBatsmanImage(iv_bat6,team_code);
                 break;
         }
     }
@@ -427,31 +580,37 @@ public class SelectPlayersFragment extends BaseFragment {
     /**
      * Visible Bowler
      */
-    private void setVisibleBowler(int bowler, String full_name) {
+    private void setVisibleBowler(int bowler, String full_name, String team_code) {
         switch (bowler) {
             case 1:
                 rl_bowler1.setVisibility(View.VISIBLE);
                 tv_bowler1_name.setText(full_name);
+                setBowlerImage(iv_bowler1,team_code);
                 break;
             case 2:
                 rl_bowler2.setVisibility(View.VISIBLE);
                 tv_bowler2_name.setText(full_name);
+                setBowlerImage(iv_bowler2,team_code);
                 break;
             case 3:
                 rl_bowler3.setVisibility(View.VISIBLE);
                 tv_bowler3_name.setText(full_name);
+                setBowlerImage(iv_bowler3,team_code);
                 break;
             case 4:
                 rl_bowler4.setVisibility(View.VISIBLE);
                 tv_bowler4_name.setText(full_name);
+                setBowlerImage(iv_bowler4,team_code);
                 break;
             case 5:
                 rl_bowler5.setVisibility(View.VISIBLE);
                 tv_bowler5_name.setText(full_name);
+                setBowlerImage(iv_bowler5,team_code);
                 break;
             case 6:
                 rl_bowler6.setVisibility(View.VISIBLE);
                 tv_bowler6_name.setText(full_name);
+                setBowlerImage(iv_bowler6,team_code);
                 break;
         }
     }
