@@ -19,27 +19,28 @@ import java.util.ArrayList;
 
 public class MyTransactionsAdapter extends RecyclerView.Adapter<MyTransactionsAdapter.ViewHolder> {
     private OnButtonListener onButtonListener;
-private ArrayList<MyTransectionDto> mshopkeeperlist;
-private FragmentActivity mactivity;
+    private ArrayList<MyTransectionDto> mshopkeeperlist;
+    private FragmentActivity mactivity;
+
     public MyTransactionsAdapter(ArrayList<MyTransectionDto> shopkeeperlist, FragmentActivity activity) {
-        mshopkeeperlist=shopkeeperlist;
-        mactivity=activity;
+        mshopkeeperlist = shopkeeperlist;
+        mactivity = activity;
     }
 
     public void setData(ArrayList<MyTransectionDto> shopkeeperlist) {
-        mshopkeeperlist=shopkeeperlist;
+        mshopkeeperlist = shopkeeperlist;
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout rl_01;
-        private CustomTextView tv_date,tv_amount;
+        private CustomTextView tv_date, tv_amount;
 
         public ViewHolder(View itemView) {
             super(itemView);
             rl_01 = itemView.findViewById(R.id.rl_01);
-            tv_date=itemView.findViewById(R.id.tv_date);
-            tv_amount=itemView.findViewById(R.id.tv_amount);
+            tv_date = itemView.findViewById(R.id.tv_date);
+            tv_amount = itemView.findViewById(R.id.tv_amount);
         }
     }
 

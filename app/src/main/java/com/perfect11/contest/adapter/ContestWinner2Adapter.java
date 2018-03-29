@@ -21,11 +21,12 @@ public class ContestWinner2Adapter extends BaseAdapter {
     private ViewHolder viewHolder;
     private ArrayList<ContestWinnerDto> contestWinnerDtoArrayList;
     private OnButtonListener onButtonListener;
-private float total_amount=0;
+    private float total_amount = 0;
+
     public ContestWinner2Adapter(Activity activity, ArrayList<ContestWinnerDto> contestWinnerDtoArrayList, float total_amount) {
         this.mActivity = activity;
         this.contestWinnerDtoArrayList = contestWinnerDtoArrayList;
-        this.total_amount=total_amount;
+        this.total_amount = total_amount;
     }
 
     @Override
@@ -44,19 +45,19 @@ private float total_amount=0;
     }
 
     @Override
-    public View getView(final int position, View view,final ViewGroup viewGroup) {
+    public View getView(final int position, View view, final ViewGroup viewGroup) {
         LayoutInflater layoutInflater = mActivity.getLayoutInflater();
        /* if (view == null) {*/
-            view = layoutInflater.inflate(R.layout.contest_winner_row, viewGroup, false);
-            viewHolder = new ViewHolder(view);
+        view = layoutInflater.inflate(R.layout.contest_winner_row, viewGroup, false);
+        viewHolder = new ViewHolder(view);
           /*  view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }*/
         ContestWinnerDto contestWinnerDto = contestWinnerDtoArrayList.get(position);
-        viewHolder.et_percent.setText(""+contestWinnerDto.percentage);
-        viewHolder.tv_amount.setText(""+contestWinnerDto.amount);
-        viewHolder.tv_position.setText(""+contestWinnerDto.poistion);
+        viewHolder.et_percent.setText("" + contestWinnerDto.percentage);
+        viewHolder.tv_amount.setText("" + contestWinnerDto.amount);
+        viewHolder.tv_position.setText("" + contestWinnerDto.position);
 
         viewHolder.et_percent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -65,34 +66,30 @@ private float total_amount=0;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                System.out.println("percentage: "+s);
+                System.out.println("percentage: " + s);
 
-                float percentage= 0;
+                float percentage = 0;
                 try {
                     percentage = Float.parseFloat(s.toString());
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    percentage =0;
+                    percentage = 0;
                 }
-                System.out.println("percentage: "+s);
-                if(position!=0)
-                {
-                    if(contestWinnerDtoArrayList.get(position-1).percentage< percentage)
-                    {
+                System.out.println("percentage: " + s);
+                if (position != 0) {
+                    if (contestWinnerDtoArrayList.get(position - 1).percentage < percentage) {
                         Toast.makeText(mActivity, "Wrong input", Toast.LENGTH_SHORT).show();
+                    } else {
+                        contestWinnerDtoArrayList.get(position).percentage = percentage;
+                        contestWinnerDtoArrayList.get(position).amount = total_amount * (percentage / 100);
                     }
-                    else{
-                        contestWinnerDtoArrayList.get(position).percentage=percentage;
-                        contestWinnerDtoArrayList.get(position).amount=total_amount * (percentage / 100);
-                    }
-                }else
-                {
-                    contestWinnerDtoArrayList.get(position).percentage=percentage;
-                    contestWinnerDtoArrayList.get(position).amount=total_amount * (percentage / 100);
+                } else {
+                    contestWinnerDtoArrayList.get(position).percentage = percentage;
+                    contestWinnerDtoArrayList.get(position).amount = total_amount * (percentage / 100);
                 }
 
-                viewHolder.tv_amount.setText(""+ contestWinnerDtoArrayList.get(position).amount);
-                System.out.println(""+contestWinnerDtoArrayList.get(position).amount);
+                viewHolder.tv_amount.setText("" + contestWinnerDtoArrayList.get(position).amount);
+                System.out.println("" + contestWinnerDtoArrayList.get(position).amount);
             }
 
             @Override

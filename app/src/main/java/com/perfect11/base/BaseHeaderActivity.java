@@ -323,7 +323,6 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
     public void onButtonClick(View view) {
         setValueOnSideMenu();
         hideKeyboard();
-        Bundle bundle;
         switch (view.getId()) {
             case R.id.btn_menu:
                 System.out.println("is here");

@@ -36,8 +36,7 @@ import java.util.List;
 /**
  * The Class DropDownViewForXML.
  */
-public class DropDownViewForXML extends AppCompatTextView implements OnClickListener, OnItemClickListener,
-        OnDismissListener, OnItemSelectedListener {
+public class DropDownViewForXML extends AppCompatTextView implements OnClickListener, OnItemClickListener, OnDismissListener, OnItemSelectedListener {
 
     /**
      * The pw.
@@ -583,86 +582,87 @@ public class DropDownViewForXML extends AppCompatTextView implements OnClickList
             setAdapter(adapter);
         }
     }
-   /* public void setItemsWithFood(ArrayList<FoodDto> foodDtos) {
-        if (foodDtos == null)
-            throw new NullPointerException("Items Array is null.");
-        if (list == null)
-            list = new ArrayList<>();
-        list.clear();
-        for (FoodDto foodDto: foodDtos) {
-            DropMenuItem menuItem = new DropMenuItem();
-            if (foodDto != null) {
-                menuItem.setItemTitle(String.valueOf(Html.fromHtml(foodDto.type)));
-                list.add(menuItem);
-            }
-        }
-        adapter = new PopupListItemAdapter(getContext(), list);
-        setAdapter(adapter);
-    }
-    public void setItemsWithCulture(ArrayList<CultureDto> cultureDtos) {
-        if (cultureDtos == null)
-            throw new NullPointerException("Items Array is null.");
-        if (list == null)
-            list = new ArrayList<>();
-        list.clear();
-        for (CultureDto cultureDto: cultureDtos) {
-            DropMenuItem menuItem = new DropMenuItem();
-            if (cultureDto != null) {
-                menuItem.setItemTitle(String.valueOf(Html.fromHtml(cultureDto.type)));
-                list.add(menuItem);
-            }
-        }
-        adapter = new PopupListItemAdapter(getContext(), list);
-        setAdapter(adapter);
-    }
-    public void setItemsWithCountry(ArrayList<CountryDto> countryDtos) {
-        if (countryDtos == null)
-            throw new NullPointerException("Items Array is null.");
-        if (list == null)
-            list = new ArrayList<>();
-        list.clear();
-        for (CountryDto countryDto: countryDtos) {
-            DropMenuItem menuItem = new DropMenuItem();
-            if (countryDto != null) {
-                menuItem.setItemTitle(String.valueOf(Html.fromHtml(countryDto.name)));
-                list.add(menuItem);
-            }
-        }
-        adapter = new PopupListItemAdapter(getContext(), list);
-        setAdapter(adapter);
-    }
-    public void setItemsWithState(ArrayList<StateDto> stateDtos) {
-        if (stateDtos == null)
-            throw new NullPointerException("Items Array is null.");
-        if (list == null)
-            list = new ArrayList<>();
-        list.clear();
-        for (StateDto stateDto: stateDtos) {
-            DropMenuItem menuItem = new DropMenuItem();
-            if (stateDto != null) {
-                menuItem.setItemTitle(String.valueOf(Html.fromHtml(stateDto.name)));
-                list.add(menuItem);
-            }
-        }
-        adapter = new PopupListItemAdapter(getContext(), list);
-        setAdapter(adapter);
-    }
-    public void setItemsWithCity(ArrayList<CityDto> cityDtos) {
-        if (cityDtos == null)
-            throw new NullPointerException("Items Array is null.");
-        if (list == null)
-            list = new ArrayList<>();
-        list.clear();
-        for (CityDto cityDto: cityDtos) {
-            DropMenuItem menuItem = new DropMenuItem();
-            if (cityDto != null) {
-                menuItem.setItemTitle(String.valueOf(Html.fromHtml(cityDto.name)));
-                list.add(menuItem);
-            }
-        }
-        adapter = new PopupListItemAdapter(getContext(), list);
-        setAdapter(adapter);
-    }*/
+
+    /* public void setItemsWithFood(ArrayList<FoodDto> foodDtos) {
+         if (foodDtos == null)
+             throw new NullPointerException("Items Array is null.");
+         if (list == null)
+             list = new ArrayList<>();
+         list.clear();
+         for (FoodDto foodDto: foodDtos) {
+             DropMenuItem menuItem = new DropMenuItem();
+             if (foodDto != null) {
+                 menuItem.setItemTitle(String.valueOf(Html.fromHtml(foodDto.type)));
+                 list.add(menuItem);
+             }
+         }
+         adapter = new PopupListItemAdapter(getContext(), list);
+         setAdapter(adapter);
+     }
+     public void setItemsWithCulture(ArrayList<CultureDto> cultureDtos) {
+         if (cultureDtos == null)
+             throw new NullPointerException("Items Array is null.");
+         if (list == null)
+             list = new ArrayList<>();
+         list.clear();
+         for (CultureDto cultureDto: cultureDtos) {
+             DropMenuItem menuItem = new DropMenuItem();
+             if (cultureDto != null) {
+                 menuItem.setItemTitle(String.valueOf(Html.fromHtml(cultureDto.type)));
+                 list.add(menuItem);
+             }
+         }
+         adapter = new PopupListItemAdapter(getContext(), list);
+         setAdapter(adapter);
+     }
+     public void setItemsWithCountry(ArrayList<CountryDto> countryDtos) {
+         if (countryDtos == null)
+             throw new NullPointerException("Items Array is null.");
+         if (list == null)
+             list = new ArrayList<>();
+         list.clear();
+         for (CountryDto countryDto: countryDtos) {
+             DropMenuItem menuItem = new DropMenuItem();
+             if (countryDto != null) {
+                 menuItem.setItemTitle(String.valueOf(Html.fromHtml(countryDto.name)));
+                 list.add(menuItem);
+             }
+         }
+         adapter = new PopupListItemAdapter(getContext(), list);
+         setAdapter(adapter);
+     }
+     public void setItemsWithState(ArrayList<StateDto> stateDtos) {
+         if (stateDtos == null)
+             throw new NullPointerException("Items Array is null.");
+         if (list == null)
+             list = new ArrayList<>();
+         list.clear();
+         for (StateDto stateDto: stateDtos) {
+             DropMenuItem menuItem = new DropMenuItem();
+             if (stateDto != null) {
+                 menuItem.setItemTitle(String.valueOf(Html.fromHtml(stateDto.name)));
+                 list.add(menuItem);
+             }
+         }
+         adapter = new PopupListItemAdapter(getContext(), list);
+         setAdapter(adapter);
+     }
+     public void setItemsWithCity(ArrayList<CityDto> cityDtos) {
+         if (cityDtos == null)
+             throw new NullPointerException("Items Array is null.");
+         if (list == null)
+             list = new ArrayList<>();
+         list.clear();
+         for (CityDto cityDto: cityDtos) {
+             DropMenuItem menuItem = new DropMenuItem();
+             if (cityDto != null) {
+                 menuItem.setItemTitle(String.valueOf(Html.fromHtml(cityDto.name)));
+                 list.add(menuItem);
+             }
+         }
+         adapter = new PopupListItemAdapter(getContext(), list);
+         setAdapter(adapter);
+     }*/
    /* public void setItemsWithWhatsfor(ArrayList<WhatsforDto> whatsfor) {
         if (whatsfor == null)
             throw new NullPointerException("Items Array is null.");

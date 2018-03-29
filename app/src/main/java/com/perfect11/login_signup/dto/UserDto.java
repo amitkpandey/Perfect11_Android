@@ -33,6 +33,7 @@ public class UserDto implements Serializable {
     public String state_name;
     public String city_name;
     public String reference_id;
+    public String total_balance;
 
     @Override
     public String toString() {

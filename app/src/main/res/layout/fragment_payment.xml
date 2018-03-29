@@ -99,34 +99,32 @@
                 android:weightSum="3">
 
                 <com.utility.DropDownViewForXML
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:hint="MM"
-                    style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:background="@drawable/drop_down_icon"
-                    android:layout_marginRight="10dp"
-                    />
+                    android:hint="MM" />
 
                 <com.utility.DropDownViewForXML
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:hint="YY"
-                    android:layout_marginRight="10dp"
-                    style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:background="@drawable/drop_down_icon"
-                    />
+                    android:hint="YY" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1">
 
                     <AutoCompleteTextView
                         android:id="@+id/cvv"
@@ -144,13 +142,13 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginTop="50dp">
-
+                android:weightSum="2">
 
 
                 <Button
@@ -158,26 +156,27 @@
                     style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_corner_dark_red_btn_bg"
+                    android:onClick="onButtonClick"
                     android:text="Save Card"
                     android:textAllCaps="false"
-                    android:onClick="onButtonClick"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_marginRight="10dp"/>
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btn_submit"
                     style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_corner_white_btn_bg"
+                    android:onClick="onButtonClick"
                     android:text="Submit"
                     android:textAllCaps="false"
-                    android:onClick="onButtonClick"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:layout_weight="1"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

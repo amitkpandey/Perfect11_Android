@@ -39,6 +39,7 @@ dependencies {
     compile files('libs/isoparser-1.0.6.jar')
     compile files('libs/httpmime-4.2.jar')
     compile files('libs/httpclient-4.5.2.jar')
+    compile files('libs/PGSDK_V2.1.jar')
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.code.gson:gson:2.8.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'

@@ -149,7 +149,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private void initView() {
 
-        /**
+        /*
          * Preview Section
          * */
 
@@ -278,7 +278,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private void setPlayerVisibilityGone() {
         iv_wkt.setVisibility(View.INVISIBLE);
-       tv_wkt_name.setVisibility(View.INVISIBLE);
+        tv_wkt_name.setVisibility(View.INVISIBLE);
 
         rl_bat1.setVisibility(View.INVISIBLE);
         rl_bat2.setVisibility(View.INVISIBLE);
@@ -308,7 +308,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : bowler) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + i);
-                setVisibleBowler(i,playerDto.full_name);
+                setVisibleBowler(i, playerDto.full_name);
                 i++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -322,7 +322,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : batsman) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + j);
-                setVisibleBatsman(j,playerDto.full_name);
+                setVisibleBatsman(j, playerDto.full_name);
                 j++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -338,7 +338,7 @@ public class SelectPlayersFragment extends BaseFragment {
         for (PlayerDto playerDto : allrounder) {
             if (playerDto.isSelected) {
                 System.out.println("Count:" + k);
-                setVisibleAllrounder(k,playerDto.full_name);
+                setVisibleAllrounder(k, playerDto.full_name);
                 k++;
 
                 if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
@@ -519,6 +519,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                     bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                    bundle.putSerializable("contestDto", contestDto);
                     System.out.println("teamName1:" + upComingMatchesDto.teama + "   teamName2:" + upComingMatchesDto.teamb);
                     ChooseCaptainFragment chooseCaptainFragment = new ChooseCaptainFragment();
                     chooseCaptainFragment.setArguments(bundle);

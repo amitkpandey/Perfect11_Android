@@ -1,4 +1,4 @@
-package com.perfect11.base;
+package com.perfect11.payment.razorpay;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
-public class PaymentRezorpayActivity extends Activity implements PaymentResultListener {
-    private static final String TAG = PaymentRezorpayActivity.class.getSimpleName();
+public class PaymentRazorPayActivity extends Activity implements PaymentResultListener {
+    private static final String TAG = PaymentRazorPayActivity.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

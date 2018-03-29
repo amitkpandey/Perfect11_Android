@@ -12,6 +12,7 @@ import com.perfect11.R;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.team_create.adapter.CaptainAdapter;
+import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
@@ -34,6 +35,7 @@ public class ChooseCaptainFragment extends BaseFragment {
     private UpComingMatchesDto upComingMatchesDto;
     private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, ctv_time;
     private CustomButton btn_save;
+    private ContestDto contestDto;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -57,6 +59,7 @@ public class ChooseCaptainFragment extends BaseFragment {
         selectedPlayer = (ArrayList<PlayerDto>) getArguments().getSerializable("selectedPlayer");
         selectedMatchDto = (SelectedMatchDto) getArguments().getSerializable("selectedMatchDto");
         upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
+        contestDto = (ContestDto) getArguments().getSerializable("contestDto");
 //        System.out.println("upComingMatchesDto:" + upComingMatchesDto.toString());
     }
 
@@ -126,6 +129,7 @@ public class ChooseCaptainFragment extends BaseFragment {
                     bundle.putSerializable("selectedTeam", selectedTeam);
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);
                     bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                    bundle.putSerializable("contestDto", contestDto);
                     TeamReadyFragment teamReadyFragment = new TeamReadyFragment();
                     teamReadyFragment.setArguments(bundle);
                     ((BaseHeaderActivity) getActivity()).addFragment(teamReadyFragment, true, TeamReadyFragment.class.getName());

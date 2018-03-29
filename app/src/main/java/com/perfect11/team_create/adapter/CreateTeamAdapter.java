@@ -28,13 +28,13 @@ public class CreateTeamAdapter extends RecyclerView.Adapter<CreateTeamAdapter.Vi
     public CreateTeamAdapter(Activity context, ArrayList<TeamDto> teamDtoArrayList, boolean isJoiningContest) {
         this.activity = context;
         this.teamDtoArrayList = teamDtoArrayList;
-        this.isJoiningContest=isJoiningContest;
+        this.isJoiningContest = isJoiningContest;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout rl_01;
         private CustomTextView tv_team, tv_captain_name, tv_vice_captain_name, tv_wicket, tv_bat, tv_all, tv_bowl;
-        private CustomButton btn_edit, btn_preview,btn_join;
+        private CustomButton btn_edit, btn_preview, btn_join;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -48,12 +48,10 @@ public class CreateTeamAdapter extends RecyclerView.Adapter<CreateTeamAdapter.Vi
             tv_bowl = itemView.findViewById(R.id.tv_bowl);
             btn_edit = itemView.findViewById(R.id.btn_edit);
             btn_preview = itemView.findViewById(R.id.btn_preview);
-            btn_join=itemView.findViewById(R.id.btn_join);
-            if(isJoiningContest)
-            {
+            btn_join = itemView.findViewById(R.id.btn_join);
+            if (isJoiningContest) {
                 btn_join.setVisibility(View.VISIBLE);
-            }else
-            {
+            } else {
                 btn_join.setVisibility(View.GONE);
             }
         }
@@ -126,7 +124,9 @@ public class CreateTeamAdapter extends RecyclerView.Adapter<CreateTeamAdapter.Vi
 
     public interface OnButtonListener {
         void onEditClick(int position);
+
         void onPreviewClick(int position);
+
         void onJoinClick(int position);
     }
 }

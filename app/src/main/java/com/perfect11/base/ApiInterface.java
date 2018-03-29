@@ -71,7 +71,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/makeJoinContest")
     Call<JoinContestCallBackDto> joinContest(@Field("join_id") String join_id, @Field("reference_id") String reference_id, @Field("user_id")
-            String user_id, @Field("matchID") String matchID);
+            String user_id, @Field("matchID") String matchID, @Field("team_id") String team_id);
 
     @GET("api/getMyContests/{matchkey}/{userid}")
     Call<JoinedContestWrapper> getJoinedContestList(@Path("matchkey") String matchkey, @Path("userid") String userid);
@@ -100,15 +100,15 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/inviteCode")
-    Call<InviteDto> inviteCall(@Field("user_id") String member_id,@Field("invite_code") String invite_code);
+    Call<InviteDto> inviteCall(@Field("user_id") String member_id, @Field("invite_code") String invite_code);
 
     @FormUrlEncoded
     @POST("api/ticketSystem")
-    Call<InviteDto> ticketSaveCall(@Field("user_id") String member_id,@Field("ticket_number") String ticket_number);
+    Call<InviteDto> ticketSaveCall(@Field("user_id") String member_id, @Field("ticket_number") String ticket_number);
 
     @FormUrlEncoded
     @POST("api/joinContestByContestName")
-    Call<InviteDto> joinContestByContestCode(@Field("user_id") String member_id,@Field("contestcode") String contestcode);
+    Call<InviteDto> joinContestByContestCode(@Field("user_id") String member_id, @Field("contestcode") String contestcode);
 
     @FormUrlEncoded
     @POST("api/myTransactionList")
@@ -116,18 +116,18 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/doCreateContest")
-    Call<ContestCallBackDto> createContest(@Field("contestSize")int contestSize,
-                                           @Field("customize_winning")int customize_winning,
+    Call<ContestCallBackDto> createContest(@Field("contestSize") int contestSize,
+                                           @Field("customize_winning") int customize_winning,
                                            @Field("entryfee") float entryfee,
-                                           @Field("join_multiple_item")int join_multiple_item,
-                                           @Field("matchID")String matchID,
-                                           @Field("room_name")String room_name,
-                                           @Field("win_amt")ArrayList<Float> win_amt,
-                                           @Field("win_per")ArrayList<Float> win_per,
-                                           @Field("winner_set")int winner_set,
-                                           @Field("winningAmount")int winningAmount,
-                                           @Field("user_id")String user_id,
-                                           @Field("reference_id")String reference_id);
+                                           @Field("join_multiple_item") int join_multiple_item,
+                                           @Field("matchID") String matchID,
+                                           @Field("room_name") String room_name,
+                                           @Field("win_amt") ArrayList<Float> win_amt,
+                                           @Field("win_per") ArrayList<Float> win_per,
+                                           @Field("winner_set") int winner_set,
+                                           @Field("winningAmount") int winningAmount,
+                                           @Field("user_id") String user_id,
+                                           @Field("reference_id") String reference_id);
 
  @GET("api/getMyContests/0/{userid}")
  Call<MyContestWrapper> getMyContest(@Path("userid")String userid);

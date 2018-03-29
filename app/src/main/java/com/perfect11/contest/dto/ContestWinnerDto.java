@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class ContestWinnerDto implements Serializable {
 
-    public int poistion;
+    public int position;
     public float percentage;
     public float amount;
 
     @Override
     public String toString() {
         return "ContestWinnerDto{" +
-                "poistion=" + poistion +
+                "position=" + position +
                 ", percentage=" + percentage +
                 ", amount=" + amount +
                 '}';

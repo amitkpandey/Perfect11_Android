@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.perfect11.R;
-import com.perfect11.team_create.ChooseCaptainActivity;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.utility.customView.CustomTextView;
 
@@ -33,10 +31,10 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
 
         for (int i = 0; i < selectedPlayer.size(); i++) {
             if (selectedPlayer.get(i).isC) {
-                selectedCapten=i;
+                selectedCapten = i;
             }
             if (selectedPlayer.get(i).isCV) {
-                selectedVCapten=i;
+                selectedVCapten = i;
             }
         }
     }

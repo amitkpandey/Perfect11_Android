@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_root"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    >
+    android:layout_height="60dp">
 
 
     <RelativeLayout
@@ -33,6 +32,7 @@
                 android:onClick="onButtonClick"
                 android:scaleType="fitXY"
                 android:src="@drawable/jersey" />
+
             <ImageView
                 android:id="@+id/iv_rentImage2"
                 android:layout_width="match_parent"
@@ -42,6 +42,7 @@
                 android:onClick="onButtonClick"
                 android:scaleType="fitXY"
                 android:src="@drawable/jersey2" />
+
             <ProgressBar
                 android:id="@+id/progress"
                 style="@style/SmallProgressBarStyle"
@@ -53,6 +54,7 @@
                 android:indeterminate="false"
                 android:visibility="gone" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,8 +109,7 @@
                 android:maxLines="1"
                 android:text="9.0"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/cb_add"
@@ -116,16 +117,17 @@
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/not_select_player"
-                android:layout_marginLeft="5dp"/>
+                android:background="@drawable/not_select_player" />
 
         </RelativeLayout>
 
     </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="#aa9d9e9e"
-    android:layout_alignParentBottom="true"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#aa9d9e9e"></LinearLayout>
 </RelativeLayout>
