@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="320dp"
-    android:layout_height="350dp"
+    android:layout_height="380dp"
     android:layout_gravity="center"
     android:background="@drawable/scoring_rules"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/rl_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone">
+
+        <com.utility.customView.CustomEditText
+            android:id="@+id/et_ticket"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/rounded_corner_white_btn_bg"
+            android:gravity="center_vertical"
+            android:hint="Ticket Code"
+            android:inputType="textCapCharacters"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/gray"
+            android:textCursorDrawable="@drawable/cursor" />
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_apply"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/et_ticket"
+            android:background="@drawable/rounded_corner_white_btn_bg"
+            android:onClick="onButtonClick"
+            android:text="Apply"
+            android:textAllCaps="false"
+            android:textColor="@color/red_text_color" />
+
+    </RelativeLayout>
+
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_ticket"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -26,30 +67,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ctv_title"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <RadioButton
             android:id="@+id/rb_paytm"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:buttonTint="@color/colorPrimary"
-            android:paddingLeft="10dp"
-            android:text="Paytm" />
+            android:drawableLeft="@drawable/paytm_drawable" />
 
         <RadioButton
             android:id="@+id/rb_razorpay"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:buttonTint="@color/colorPrimary"
-            android:paddingLeft="10dp"
-            android:text="Razorpay" />
+            android:drawableLeft="@drawable/razorpay_drawable" />
     </RadioGroup>
 
     <com.utility.customView.CustomEditText
@@ -61,13 +99,15 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:inputType="number"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_corner_white_btn_bg"
         android:gravity="center_vertical"
         android:hint="Amount"
+        android:inputType="number"
         android:padding="10dp"
         android:textColor="@android:color/black"
-        android:textColorHint="@android:color/black"
+        android:textColorHint="@color/gray"
+        android:textCursorDrawable="@drawable/cursor"
         android:visibility="gone" />
 
     <com.utility.customView.CustomButton
@@ -76,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_corner_white_btn_bg"
         android:onClick="onButtonClick"
         android:text="OK"

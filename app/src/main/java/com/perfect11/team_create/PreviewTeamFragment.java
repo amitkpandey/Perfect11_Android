@@ -17,7 +17,7 @@ import com.utility.customView.CustomTextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class PreviewTeamFragment extends BaseFragment {
+public class  PreviewTeamFragment extends BaseFragment {
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, tv_wkt_name, tv_bat1_name, tv_bat2_name, tv_bat3_name, tv_bat4_name,
             tv_bat5_name, tv_bat6_name, tv_ar1_name, tv_ar2_name, tv_ar3_name, tv_ar4_name, tv_bowler1_name, tv_bowler2_name, tv_bowler3_name,
             tv_bowler4_name, tv_bowler5_name, tv_bowler6_name;

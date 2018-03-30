@@ -12,24 +12,23 @@ import com.perfect11.base.BaseFragment;
 public class ConfirmFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
-        view=inflater.inflate(R.layout.fragment_confirm,container,false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_confirm, container, false);
         setInnerHeader("Payment");
-         return view;
+        return view;
     }
 
     @Override
     public void onButtonClick(View view) {
         super.onButtonClick(view);
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.img_back:
-            getActivity().onBackPressed();
-            break;
+                getActivity().onBackPressed();
+                break;
         }
     }
 
     public static Fragment newInstance() {
-    return new ConfirmFragment();
+        return new ConfirmFragment();
     }
 }

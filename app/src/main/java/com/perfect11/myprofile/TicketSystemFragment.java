@@ -26,13 +26,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TicketSystemFragment extends BaseFragment {
-private AutoCompleteTextView ticket;
-private UserDto userDto;
-private ApiInterface apiInterface;
+    private AutoCompleteTextView ticket;
+    private UserDto userDto;
+    private ApiInterface apiInterface;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
-        view=inflater.inflate(R.layout.fragment_ticket_system,container,false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_ticket_system, container, false);
 
         initView();
         setHeader("Ticket System");
@@ -41,7 +42,7 @@ private ApiInterface apiInterface;
 
     private void initView() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
-        ticket=view.findViewById(R.id.ticket);
+        ticket = view.findViewById(R.id.ticket);
         ticket.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -55,26 +56,23 @@ private ApiInterface apiInterface;
     }
 
     private void attempt() {
-        if(isValid())
-        {
+        if (isValid()) {
             callAPI();
         }
     }
 
     private boolean isValid() {
-        System.out.println("invite:"+ticket.length());
-    if(ticket.getText().toString().trim().length()==0)
-    {
-        ticket.requestFocus();
-        ticket.setError("Enter Your Ticket");
-        return false;
-    }
+//        System.out.println("invite:" + ticket.length());
+        if (ticket.getText().toString().trim().length() == 0) {
+            ticket.requestFocus();
+            ticket.setError("Enter Your Ticket");
+            return false;
+        }
         return true;
     }
 
     public void onButtonClick(View view) {
-        switch(view.getId())
-        {
+        switch (view.getId()) {
             case R.id.img_back:
                 getActivity().onBackPressed();
                 break;
@@ -100,7 +98,7 @@ private ApiInterface apiInterface;
         call.enqueue(new Callback<InviteDto>() {
             @Override
             public void onResponse(Call<InviteDto> call, Response<InviteDto> response) {
-                DialogUtility.showMessageWithOk(response.body().message,getActivity());
+                DialogUtility.showMessageWithOk(response.body().message, getActivity());
 
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
@@ -117,6 +115,6 @@ private ApiInterface apiInterface;
 
 
     public static Fragment newInstance() {
-    return new TicketSystemFragment();
+        return new TicketSystemFragment();
     }
 }

@@ -12,4 +12,7 @@ public class JoinContestCallBackDto implements Serializable {
     public int error;
     public boolean status;
     public String payment_required;
+    public int amount_to_paid;
+    public String contest_id;
+    public String msg;
 }

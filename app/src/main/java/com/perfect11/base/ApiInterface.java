@@ -12,6 +12,8 @@ import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
 import com.perfect11.login_signup.dto.InviteDto;
 import com.perfect11.login_signup.wrapper.PictureWrapper;
 import com.perfect11.myprofile.wrapper.MyContestInfoWrapper;
+import com.perfect11.payment.wrapper.TransactionWrapper;
+import com.perfect11.payment.wrapper.WalletWrapper;
 import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
@@ -34,7 +36,7 @@ public interface ApiInterface {
     @GET("api/getSchedule/0/0/notstarted")
     Call<UpComingMatchesWrapper> getUpcomingMatches();
 
-   @GET("api/getSchedule/0/0/completed")
+    @GET("api/getSchedule/0/0/completed")
     Call<UpComingMatchesWrapper> getCompletedMatches();
 
     @GET("api/getSchedule/0/0/started")
@@ -116,19 +118,28 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/doCreateContest")
-    Call<ContestCallBackDto> createContest(@Field("contestSize") int contestSize,
-                                           @Field("customize_winning") int customize_winning,
-                                           @Field("entryfee") float entryfee,
-                                           @Field("join_multiple_item") int join_multiple_item,
-                                           @Field("matchID") String matchID,
-                                           @Field("room_name") String room_name,
-                                           @Field("win_amt") ArrayList<Float> win_amt,
-                                           @Field("win_per") ArrayList<Float> win_per,
-                                           @Field("winner_set") int winner_set,
-                                           @Field("winningAmount") int winningAmount,
-                                           @Field("user_id") String user_id,
-                                           @Field("reference_id") String reference_id);
+    Call<ContestCallBackDto> createContest(@Field("contestSize") int contestSize, @Field("customize_winning") int customize_winning,
+                                           @Field("entryfee") float entryfee, @Field("join_multiple_item") int join_multiple_item,
+                                           @Field("matchID") String matchID, @Field("room_name") String room_name,
+                                           @Field("win_amt") ArrayList<Float> win_amt, @Field("win_per") ArrayList<Float> win_per,
+                                           @Field("winner_set") int winner_set, @Field("winningAmount") int winningAmount,
+                                           @Field("user_id") String user_id, @Field("reference_id") String reference_id);
 
- @GET("api/getMyContests/0/{userid}")
- Call<MyContestWrapper> getMyContest(@Path("userid")String userid);
+    @GET("api/getMyContests/0/{userid}")
+    Call<MyContestWrapper> getMyContest(@Path("userid") String userid);
+
+    @FormUrlEncoded
+    @POST("api/addWallet")
+    Call<WalletWrapper> addwallet(@Field("paymentId") String transactionId, @Field("amount") String amount, @Field("payment_from") String type,
+                                  @Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("api/paymentForJoinContest")
+    Call<TransactionWrapper> paymentForJoinContest(@Field("contest_id") String contest_id, @Field("user_id") String user_id, @Field("payment_id") String paymentId,
+                                                   @Field("payment_from") String type, @Field("payment_status") String status, @Field("payment_amount") String amount);
+
+    @FormUrlEncoded
+    @POST("api/paymentForCreateContest")
+    Call<TransactionWrapper> paymentForCreateContest(@Field("join_id") String contest_id, @Field("user_id") String user_id, @Field("payment_id") String paymentId,
+                                                   @Field("payment_from") String type, @Field("payment_status") String status, @Field("payment_amount") String amount);
 }

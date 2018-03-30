@@ -11,4 +11,5 @@ public class ContestCallBackDto implements Serializable {
     public boolean status;
     public String contest_code;
     public String contestId;
+    public int amount_to_paid;
 }

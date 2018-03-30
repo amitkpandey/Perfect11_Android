@@ -39,11 +39,13 @@ import com.perfect11.payment.paytm.Api;
 import com.perfect11.payment.paytm.Checksum;
 import com.perfect11.payment.paytm.Constants;
 import com.perfect11.payment.paytm.Paytm;
+import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
+import com.utility.AlertDialogCallBack;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 
@@ -84,12 +86,11 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
 //    private String allrounder = "";
 //    private String keeper = "";
 
-    private String captain;
-    private String vcaptain;
+    private String captain, vcaptain, contestId, amount;
     private UserDto userDto;
-    public static HttpLoggingInterceptor interceptor = null;
-    public static OkHttpClient client = null;
-    public static Gson gson;
+    public HttpLoggingInterceptor interceptor = null;
+    public OkHttpClient client = null;
+    public Gson gson;
     private TeamIDDto teamIDDto;
     private String paymentGateway;
 
@@ -199,77 +200,77 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 Log.e("CreateTeamCallBack", callBackDto.toString());
                 if (callBackDto.status) {
                     Log.e("CreateTeamCallBack", callBackDto.message);
-                    if (!userDto.total_balance.equalsIgnoreCase("0.00")) {
-                        callAPIJoinContest(teamIDDto.team_id);
-                    } else if (userDto.total_balance.equalsIgnoreCase("0.00")) {
-                        final Dialog dialog = new Dialog(getActivity());
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog.setCancelable(false);
-                        dialog.setContentView(R.layout.custom_dialog_payment);
-                        dialog.show();
-                        final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-                        rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                switch (checkedId) {
-                                    case R.id.rb_paytm:
-                                        paymentGateway = "Paytm";
-                                        break;
-                                    case R.id.rb_razorpay:
-                                        paymentGateway = "Razorpay";
-                                        break;
-                                }
-                            }
-                        });
-                        Button btn_ok = dialog.findViewById(R.id.btn_ok);
-                        btn_ok.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
-                                    generateCheckSum(contestDto.entryfee);
-                                } else {
-                                    startPayment(contestDto.entryfee);
-//                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-                                }
-                                dialog.dismiss();
-                            }
-                        });
-                    } else if (Integer.parseInt(userDto.total_balance) < Integer.parseInt(contestDto.entryfee)) {
-                        final String amount = String.valueOf(Integer.parseInt(contestDto.entryfee) - Integer.parseInt(userDto.total_balance));
-                        final Dialog dialog = new Dialog(getActivity());
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog.setCancelable(false);
-                        dialog.setContentView(R.layout.custom_dialog_payment);
-                        dialog.show();
-                        final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-                        rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                switch (checkedId) {
-                                    case R.id.rb_paytm:
-                                        paymentGateway = "Paytm";
-                                        break;
-                                    case R.id.rb_razorpay:
-                                        paymentGateway = "Razorpay";
-                                        break;
-                                }
-                            }
-                        });
-                        Button btn_ok = dialog.findViewById(R.id.btn_ok);
-                        btn_ok.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
-                                    generateCheckSum(amount);
-                                } else {
-                                    startPayment(amount);
-//                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-                                }
-                                dialog.dismiss();
-                            }
-                        });
-                    }
-//                    callAPIJoinContest(teamIDDto.team_id);
+//                    if (!userDto.total_balance.equalsIgnoreCase("0.00")) {
+//                        callAPIJoinContest(teamIDDto.team_id);
+//                    } else if (userDto.total_balance.equalsIgnoreCase("0.00")) {
+//                        final Dialog dialog = new Dialog(getActivity());
+//                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                        dialog.setCancelable(false);
+//                        dialog.setContentView(R.layout.custom_dialog_payment);
+//                        dialog.show();
+//                        final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
+//                        rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                            @Override
+//                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                                switch (checkedId) {
+//                                    case R.id.rb_paytm:
+//                                        paymentGateway = "Paytm";
+//                                        break;
+//                                    case R.id.rb_razorpay:
+//                                        paymentGateway = "Razorpay";
+//                                        break;
+//                                }
+//                            }
+//                        });
+//                        Button btn_ok = dialog.findViewById(R.id.btn_ok);
+//                        btn_ok.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
+//                                    generateCheckSum(contestDto.entryfee);
+//                                } else {
+//                                    startPayment(contestDto.entryfee);
+////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
+//                                }
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                    } else if (Integer.parseInt(userDto.total_balance) < Integer.parseInt(contestDto.entryfee)) {
+//                        final String amount = String.valueOf(Integer.parseInt(contestDto.entryfee) - Integer.parseInt(userDto.total_balance));
+//                        final Dialog dialog = new Dialog(getActivity());
+//                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                        dialog.setCancelable(false);
+//                        dialog.setContentView(R.layout.custom_dialog_payment);
+//                        dialog.show();
+//                        final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
+//                        rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                            @Override
+//                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                                switch (checkedId) {
+//                                    case R.id.rb_paytm:
+//                                        paymentGateway = "Paytm";
+//                                        break;
+//                                    case R.id.rb_razorpay:
+//                                        paymentGateway = "Razorpay";
+//                                        break;
+//                                }
+//                            }
+//                        });
+//                        Button btn_ok = dialog.findViewById(R.id.btn_ok);
+//                        btn_ok.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
+//                                    generateCheckSum(amount);
+//                                } else {
+//                                    startPayment(amount);
+////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
+//                                }
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                    }
+                    callAPIJoinContest(teamIDDto.team_id);
                 } else {
                     DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
                 }
@@ -300,15 +301,64 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         call.enqueue(new Callback<JoinContestCallBackDto>() {
             @Override
             public void onResponse(Call<JoinContestCallBackDto> call, Response<JoinContestCallBackDto> response) {
-                JoinContestCallBackDto callBackDto = response.body();
+                final JoinContestCallBackDto callBackDto = response.body();
 
                 Log.e("UpcomingMatchesAPI", callBackDto.toString());
-                if (callBackDto.status) {
-                    Log.e("UpcomingMatchesAPI", callBackDto.message);
-                    DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+
+                contestId = callBackDto.contest_id;
+                amount = String.valueOf(callBackDto.amount_to_paid);
+                if (callBackDto.amount_to_paid == 0) {
+                    DialogUtility.showMessageOkWithCallback(callBackDto.msg, getActivity(), new AlertDialogCallBack() {
+                        @Override
+                        public void onSubmit() {
+                            DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
                 } else {
-                    DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+                    final Dialog dialog = new Dialog(getActivity());
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.custom_dialog_payment);
+                    dialog.show();
+                    final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
+                    rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            switch (checkedId) {
+                                case R.id.rb_paytm:
+                                    paymentGateway = "Paytm";
+                                    break;
+                                case R.id.rb_razorpay:
+                                    paymentGateway = "Razorpay";
+                                    break;
+                            }
+                        }
+                    });
+                    Button btn_ok = dialog.findViewById(R.id.btn_ok);
+                    btn_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (paymentGateway.equalsIgnoreCase("Paytm")) {
+                                generateCheckSum(String.valueOf(callBackDto.amount_to_paid));
+                            } else {
+                                startPayment(String.valueOf(callBackDto.amount_to_paid));
+//                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
+                            }
+                            dialog.dismiss();
+                        }
+                    });
                 }
+//                if (callBackDto.status) {
+//                    Log.e("UpcomingMatchesAPI", callBackDto.message);
+//                    DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+//                } else {
+//                    DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+//                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -331,7 +381,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
 
         for (PlayerDto playerDto : data) {
             player_amount_count = player_amount_count + Float.parseFloat(playerDto.credit);
-            /** Divided  players*/
+            /* Divided  players*/
             switch (playerDto.seasonal_role) {
                 case "bowler":
                     bowler[bowler_i] = playerDto.short_name;
@@ -458,7 +508,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", amount);
+            options.put("amount", Float.valueOf(amount) * 100);
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -561,9 +611,9 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
     //all these overriden method is to detect the payment result accordingly
     @Override
     public void onTransactionResponse(Bundle bundle) {
-        callAPIJoinContest(teamIDDto.team_id);
         String transactionId = bundle.getString("TXNID");
         String bankTransactionId = bundle.getString("BANKTXNID");
+        callAPITransactionJoinContest(transactionId, amount, "paytm", "success");
         System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
 //        Toast.makeText(getActivity(), bundle.toString(), Toast.LENGTH_LONG).show();
     }
@@ -595,6 +645,8 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
 
     @Override
     public void onTransactionCancel(String s, Bundle bundle) {
+        String transactionId = bundle.getString("TXNID");
+        callAPITransactionJoinContest(transactionId, amount, "paytm", "failure");
         Toast.makeText(getActivity(), s + bundle.toString(), Toast.LENGTH_LONG).show();
     }
 
@@ -606,7 +658,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
-            callAPIJoinContest(teamIDDto.team_id);
+            callAPITransactionJoinContest(razorpayPaymentID, amount, "razorpay", "success");
             Toast.makeText(getActivity(), "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
@@ -625,6 +677,45 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
+    }
+
+    private void callAPITransactionJoinContest(String paymentId, String amount, String type, String status) {
+        //API
+        Log.d("API", "Join Contest");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TransactionWrapper> call = apiInterface.paymentForJoinContest(contestId, userDto.member_id, paymentId, type, status, amount);
+        call.enqueue(new Callback<TransactionWrapper>() {
+            @Override
+            public void onResponse(Call<TransactionWrapper> call, Response<TransactionWrapper> response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                final TransactionWrapper callBackDto = response.body();
+                Log.e("UpcomingMatchesAPI", callBackDto.toString());
+                DialogUtility.showMessageOkWithCallback(callBackDto.message, getActivity(), new AlertDialogCallBack() {
+                    @Override
+                    public void onSubmit() {
+                        DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<TransactionWrapper> call, Throwable t) {
+                Log.e("TAG", t.toString());
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
     }
 
 }
