@@ -91,6 +91,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
     private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
             rl_bowler4, rl_bowler5, rl_bowler6;
 
+    private String team1,team2;
+
     private CustomButton btn_save;
 
     private int bowler = 0, batsman = 0, allrounder = 0, keeper = 0;
@@ -242,8 +244,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         rl_bowler6 = view.findViewById(R.id.rl_bowler6);
 
         String[] team = upComingMatchesDto.short_name.split(" ");
-        String team1 = team[0];
-        String team2 = team[2];
+         team1 = team[0].trim();
+         team2 = team[2].trim();
         ctv_country1.setText(team1);
         ctv_country2.setText(team2);
         tv_team1.setText(team1);
@@ -399,6 +401,11 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man33));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man3));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -434,6 +441,11 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man22));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man2));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -469,6 +481,11 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man44));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man4));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -504,6 +521,11 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man11));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man1));
+                }
                 break;
         }
         if (!url.trim().equals("")) {

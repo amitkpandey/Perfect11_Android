@@ -219,8 +219,8 @@ public class ContestFragment extends BaseFragment {
         super.onButtonClick(view);
         Bundle bundle;
         String[] team = upComingMatchesDto.short_name.split(" ");
-        String team1 = team[0];
-        String team2 = team[2];
+        String team1 = team[0].trim();
+        String team2 = team[2].trim();
 
         switch (view.getId()) {
             case R.id.img_back:

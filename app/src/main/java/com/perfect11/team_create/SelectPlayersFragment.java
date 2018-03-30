@@ -98,6 +98,8 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
             rl_bowler4, rl_bowler5, rl_bowler6;
+
+    private String team1,team2;
     /**
      * Ground View End
      */
@@ -178,8 +180,8 @@ public class SelectPlayersFragment extends BaseFragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_section.setLayoutManager(layoutManager);
         String[] team = upComingMatchesDto.short_name.split(" ");
-        String team1 = team[0];
-        String team2 = team[2];
+         team1 = team[0].trim();
+         team2 = team[2].trim();
         ctv_country1.setText(team1);
         ctv_country2.setText(team2);
         tv_team1.setText(team1);
@@ -312,7 +314,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 setVisibleBowler(i,playerDto.full_name,playerDto.team_code);
                 i++;
 
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -326,7 +328,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 setVisibleBatsman(j,playerDto.full_name,playerDto.team_code);
                 j++;
 
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -342,7 +344,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 setVisibleAllrounder(k,playerDto.full_name,playerDto.team_code);
                 k++;
 
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -356,8 +358,8 @@ public class SelectPlayersFragment extends BaseFragment {
                 iv_wkt.setVisibility(View.VISIBLE);
                 tv_wkt_name.setVisibility(View.VISIBLE);
                 tv_wkt_name.setText(playerDto.full_name);
-                setKeeperImage(iv_wkt,playerDto.team_code,playerDto.team_code);
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                setKeeperImage(iv_wkt,playerDto.team_code);
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -372,7 +374,7 @@ public class SelectPlayersFragment extends BaseFragment {
     }
 
 
-    private void setKeeperImage(ImageView iv_wkt, String team_code, String teamCode) {
+    private void setKeeperImage(ImageView iv_wkt, String team_code) {
         String url = "";
         switch (team_code) {
             case "CSK":
@@ -401,6 +403,11 @@ public class SelectPlayersFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man33));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man3));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -436,6 +443,11 @@ public class SelectPlayersFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man22));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man2));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -471,6 +483,11 @@ public class SelectPlayersFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man44));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man4));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -506,6 +523,11 @@ public class SelectPlayersFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man11));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man1));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -974,8 +996,8 @@ public class SelectPlayersFragment extends BaseFragment {
         } else if (total_allrounder < 1) {
             Toast.makeText(getActivity(), "You have to select minimum 1  All Rounder", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (total_bowler < 2) {
-            Toast.makeText(getActivity(), "You have to select minimum 2  Bowlers", Toast.LENGTH_SHORT).show();
+        } else if (total_bowler < 3) {
+            Toast.makeText(getActivity(), "You have to select minimum 3  Bowlers", Toast.LENGTH_SHORT).show();
             return false;
         } else if (tottal_player < 11) {
             Toast.makeText(getActivity(), "You have to select 11 Players", Toast.LENGTH_SHORT).show();
@@ -991,7 +1013,7 @@ public class SelectPlayersFragment extends BaseFragment {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
-            if (playerDto.team_name.equals(upComingMatchesDto.teama)) {
+            if (playerDto.team_code.equals(team1)) {
                 no_ateam++;
             } else {
                 no_bteam++;

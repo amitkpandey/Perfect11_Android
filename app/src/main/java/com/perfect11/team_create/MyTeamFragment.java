@@ -478,6 +478,11 @@ public class MyTeamFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man33));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man3));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -513,6 +518,11 @@ public class MyTeamFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man22));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man2));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -548,6 +558,11 @@ public class MyTeamFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man44));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man4));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -583,6 +598,11 @@ public class MyTeamFragment extends BaseFragment {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man11));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man1));
+                }
                 break;
         }
         if (!url.trim().equals("")) {

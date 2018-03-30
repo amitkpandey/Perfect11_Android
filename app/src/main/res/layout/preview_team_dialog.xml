@@ -109,7 +109,7 @@
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@null"
                 android:onClick="onButtonClick"
-                android:src="@drawable/aus" />
+                android:src="@drawable/ind" />
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/tv_team2"

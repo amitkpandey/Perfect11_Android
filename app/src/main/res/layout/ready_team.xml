@@ -175,7 +175,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:onClick="onButtonClick"
-                    android:src="@drawable/aus" />
+                    android:src="@drawable/ind" />
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_team2"

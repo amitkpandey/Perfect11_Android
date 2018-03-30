@@ -88,6 +88,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
 
     private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
             rl_bowler4, rl_bowler5, rl_bowler6;
+    private String team1,team2;
     /**
      * Ground View End
      */
@@ -150,8 +151,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
         rv_list.setLayoutManager(layoutManager1);
 
         String[] team = upComingMatchesDto.short_name.split(" ");
-        String team1 = team[0];
-        String team2 = team[2];
+         team1 = team[0].trim();
+         team2 = team[2].trim();
         ctv_country1.setText(team1);
         ctv_country2.setText(team2);
         tv_team1.setText(team1);
@@ -279,7 +280,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 setVisibleBowler(i,playerDto.full_name,playerDto.team_code);
                 i++;
 
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -293,7 +294,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 setVisibleBatsman(j,playerDto.full_name,playerDto.team_code);
                 j++;
 
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
@@ -309,8 +310,9 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 setVisibleAllrounder(k,playerDto.full_name,playerDto.team_code);
                 k++;
 
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
+
                 } else {
                     total_team2++;
                 }
@@ -323,12 +325,14 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 iv_wkt.setVisibility(View.VISIBLE);
                 tv_wkt_name.setVisibility(View.VISIBLE);
                 tv_wkt_name.setText(playerDto.full_name);
-                setKeeperImage(iv_wkt,playerDto.team_code);
-                if (playerDto.team_name.trim().equals(upComingMatchesDto.teama)) {
+
+                if (playerDto.team_code.trim().equals(team1)) {
                     total_team1++;
                 } else {
                     total_team2++;
                 }
+
+                setKeeperImage(iv_wkt,playerDto.team_code);
             }
         }
 
@@ -367,6 +371,11 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man33));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man3));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -402,6 +411,11 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man22));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man2));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -437,6 +451,11 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man44));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man4));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -472,6 +491,11 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 break;
             default:
                 url = "";
+                if (team_code.trim().equals(team1)) {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man11));
+                } else {
+                    iv_wkt.setImageDrawable(getResources().getDrawable(R.drawable.man1));
+                }
                 break;
         }
         if (!url.trim().equals("")) {
@@ -900,8 +924,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
         } else if (total_allrounder < 1) {
             Toast.makeText(this, "You have to select minimum 1  All Rounder", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (total_bowler < 2) {
-            Toast.makeText(this, "You have to select minimum 2  Bowlers", Toast.LENGTH_SHORT).show();
+        } else if (total_bowler < 3) {
+            Toast.makeText(this, "You have to select minimum 3  Bowlers", Toast.LENGTH_SHORT).show();
             return false;
         } else if (tottal_player < 11) {
             Toast.makeText(this, "You have to select 11 Players", Toast.LENGTH_SHORT).show();
@@ -917,7 +941,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
-            if (playerDto.team_name.equals(upComingMatchesDto.teama)) {
+            if (playerDto.team_code.equals(team1)) {
                 no_ateam++;
             } else {
                 no_bteam++;
