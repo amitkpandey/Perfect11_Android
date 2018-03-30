@@ -713,7 +713,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TransactionWrapper> call = apiInterface.paymentForJoinContest(contestId, userDto.member_id, paymentId, type, status, amount);
+        Call<TransactionWrapper> call = apiInterface.paymentForCreateContest(contestId, userDto.member_id, paymentId, type, status, amount);
         call.enqueue(new Callback<TransactionWrapper>() {
             @Override
             public void onResponse(Call<TransactionWrapper> call, Response<TransactionWrapper> response) {
