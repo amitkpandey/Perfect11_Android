@@ -431,6 +431,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onResponse(Call<WalletWrapper> call, Response<WalletWrapper> response) {
                 DialogUtility.showMessageWithOk(response.body().message, getActivity());
+                tv_total_balance.setText(response.body().data.balanceavailable);
 
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();

@@ -439,7 +439,8 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                 } else {
                     final Dialog dialog = new Dialog(getActivity());
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setCancelable(false);
+                    dialog.setCancelable(true);
+                    dialog.setCanceledOnTouchOutside(true);
                     dialog.setContentView(R.layout.custom_dialog_payment);
                     dialog.show();
                     final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
@@ -460,13 +461,17 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                     btn_ok.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (paymentGateway.equalsIgnoreCase("Paytm")) {
-                                generateCheckSum(String.valueOf(totalAmount));
+                            if (rg_01.getCheckedRadioButtonId() == -1) {
+                                DialogUtility.showMessageWithOk("Please select any one payment gateway", getActivity());
                             } else {
-                                startPayment(String.valueOf(totalAmount));
+                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
+                                    generateCheckSum(String.valueOf(totalAmount));
+                                } else {
+                                    startPayment(String.valueOf(totalAmount));
 //                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
+                                }
+                                dialog.dismiss();
                             }
-                            dialog.dismiss();
                         }
                     });
                 }
