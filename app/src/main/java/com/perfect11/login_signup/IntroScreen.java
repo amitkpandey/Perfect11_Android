@@ -17,7 +17,10 @@ import com.perfect11.login_signup.wrapper.PictureWrapper;
 import com.perfect11.upcoming_matches.UpcomingMatchesActivity;
 import com.squareup.picasso.Picasso;
 import com.utility.ActivityController;
+import com.utility.CommonUtility;
+import com.utility.DialogUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -100,7 +103,14 @@ private ArrayList<PictureDto> pictureDtoArrayList=null;
 
             @Override
             public void onFailure(Call<PictureWrapper> call, Throwable t) {
-
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(IntroScreen.this);
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(IntroScreen.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
             }
         });
     }
@@ -123,7 +133,11 @@ private ArrayList<PictureDto> pictureDtoArrayList=null;
                 ActivityController.startNextActivity(this,RegisterActivity.class,false);
                 break;
             case R.id.ctv_skip:
-                ActivityController.startNextActivity(this, UpcomingMatchesActivity.class,false);
+                if(CommonUtility.checkConnectivity(this)) {
+                    ActivityController.startNextActivity(this, UpcomingMatchesActivity.class,false);
+                }else{
+                    DialogUtility.showConnectionErrorDialogWithOk(this);
+                }
                 break;
         }
     }

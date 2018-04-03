@@ -31,7 +31,8 @@
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Usable Balance: Rs. 0/-"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:visibility="gone"/>
 
     <com.utility.customView.CustomTextView
         android:id="@+id/ctv_joining_amount"
@@ -39,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ctv_useable_balance"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"

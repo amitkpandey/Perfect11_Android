@@ -207,7 +207,8 @@ public class TaskManager implements IServerResponse {
                 RestServiceClient restServiceClient = new RestServiceClient(this, values, keys, url, activity, loadingMessage);
                 restServiceClient.execute();
             } else {
-                DialogUtility.showMessageWithOk(activity.getResources().getString(R.string.network_unavailable), activity);
+                //DialogUtility.showMessageWithOk(activity.getResources().getString(R.string.network_unavailable), activity);
+                DialogUtility.showConnectionErrorDialogWithOk(activity);
             }
         }
     }

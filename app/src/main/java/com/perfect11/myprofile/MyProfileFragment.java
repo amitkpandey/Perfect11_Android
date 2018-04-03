@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.imageCaptured.VideoSelectionDialog;
 import com.perfect11.R;
+import com.perfect11.account.MyAccountFragment;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.AppConstant;
@@ -37,6 +39,7 @@ import com.utility.PreferenceUtility;
 import com.utility.customView.CustomTextView;
 
 import java.io.File;
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -142,12 +145,19 @@ private LinearLayout ll_myname;
                 inviteFriendsFragment.setArguments(bundle1);
                 ((BaseHeaderActivity) getActivity()).addFragment(inviteFriendsFragment, true, InviteFriendsFragment.class.getName());
                 break;
-            case R.id.rl_contest_payed:
+            /*case R.id.rl_contest_payed:
                 MyContestFragment myContestFragment = new MyContestFragment();
                 Bundle bundle2 = new Bundle();
                 bundle2.putBoolean("flag", true);
                 myContestFragment.setArguments(bundle2);
                 ((BaseHeaderActivity) getActivity()).addFragment(myContestFragment, true, MyContestFragment.class.getName());
+                break;*/
+            case R.id.rl_my_wallet:
+                MyAccountFragment myAccountFragment = new MyAccountFragment();
+                Bundle bundle3 = new Bundle();
+                bundle3.putBoolean("flag", true);
+                myAccountFragment.setArguments(bundle3);
+                ((BaseHeaderActivity) getActivity()).addFragment(myAccountFragment, true, MyAccountFragment.class.getName());
                 break;
         }
     }
@@ -246,6 +256,14 @@ private LinearLayout ll_myname;
             @Override
             public void onFailure(Call<MyContestInfoWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import com.perfect11.R;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.squareup.picasso.Picasso;
+import com.utility.CommonUtility;
+import com.utility.DialogUtility;
 import com.utility.customView.CustomTextView;
 
 import java.text.ParseException;
@@ -92,7 +94,14 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
             ll_root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onButtonListener.onButtonClick(position);
+                    if(CommonUtility.checkConnectivity(mactivity))
+                    {
+                        onButtonListener.onButtonClick(position);
+                    }else
+                    {
+                        DialogUtility.showConnectionErrorDialogWithOk(mactivity);
+                    }
+
                 }
             });
             }

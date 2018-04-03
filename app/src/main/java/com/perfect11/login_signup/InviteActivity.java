@@ -30,6 +30,7 @@ import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -136,6 +137,14 @@ private ApiInterface apiInterface;
             @Override
             public void onFailure(Call<InviteDto> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(InviteActivity.this);
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(InviteActivity.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

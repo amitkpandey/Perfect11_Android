@@ -49,6 +49,7 @@ public class PointSystemFragment extends BaseFragment {
 
     private void initView() {
          myWebView = (WebView)view.findViewById(R.id.webview);
+        ((BaseHeaderActivity)getActivity()).slideMenu.addIgnoredView(myWebView);
       setValues();
       /*  viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         ((BaseHeaderActivity)getActivity()).slideMenu.addIgnoredView(viewPager);

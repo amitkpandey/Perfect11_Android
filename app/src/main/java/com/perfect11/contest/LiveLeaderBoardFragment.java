@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient2;
@@ -25,10 +26,12 @@ import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.home.service.BackgroundPointsUpdateService;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.team_create.MyTeamFragment;
+import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -52,7 +55,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     private String userTeamId;
     private Intent intent;
     private ArrayList<LiveLeaderboardDto> liveLeaderBoardDtoArrayList;
-
+private boolean isFixture=false;
     public static LiveLeaderBoardFragment newInstance() {
         return new LiveLeaderBoardFragment();
     }
@@ -107,6 +110,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         teamA = getArguments().getString("teamA");
         teamB = getArguments().getString("teamB");
         matchStatus = getArguments().getString("matchStatus");
+        isFixture=getArguments().getBoolean("isFixture");
     }
 
     private void initView() {
@@ -186,6 +190,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
                     if (userDto.reference_id.equalsIgnoreCase(liveLeaderboardDto.reference_id)) {
                         rl_footer.setVisibility(View.VISIBLE);
                         userTeamId = "" + liveLeaderboardDto.team_id;
+                        break;
                     } else {
                         rl_footer.setVisibility(View.GONE);
                     }
@@ -199,6 +204,14 @@ public class LiveLeaderBoardFragment extends BaseFragment {
             @Override
             public void onFailure(Call<ArrayList<LiveLeaderboardDto>> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -223,8 +236,10 @@ public class LiveLeaderBoardFragment extends BaseFragment {
 
                 MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
                 myTeamFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
-            }
+                if(!isFixture) {
+                    ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
+                }
+                }
         });
     }
 }

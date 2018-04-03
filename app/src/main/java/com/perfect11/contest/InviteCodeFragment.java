@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient3;
@@ -29,6 +30,7 @@ import com.utility.CommonUtility;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -66,7 +68,11 @@ private UserDto userDto;
     private void attemptInvite() {
         if(isValid())
         {
-            callAPI();
+            if(CommonUtility.checkConnectivity(getActivity())) {
+                callAPI();
+            }else{
+                 DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+            }
         }
     }
 
@@ -117,8 +123,15 @@ private UserDto userDto;
 
             @Override
             public void onFailure(Call<InviteDto> call, Throwable t) {
-                DialogUtility.showMessageWithOk(t.getMessage(), getActivity());
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (progressDialog.isShowing())
                     progressDialog.dismiss();
             }

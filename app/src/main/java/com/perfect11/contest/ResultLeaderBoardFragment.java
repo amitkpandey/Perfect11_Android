@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.perfect11.R;
+import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiClient2;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
@@ -18,12 +20,16 @@ import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.adapter.PracticeContestAdapter;
 import com.perfect11.contest.dto.JoinedContestDto;
 import com.perfect11.contest.dto.LiveLeaderboardDto;
+import com.perfect11.contest.dto.TeamDto;
+import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.team_create.ResultTeamFragment;
+import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -57,18 +63,17 @@ public class ResultLeaderBoardFragment extends BaseFragment {
         readFromBundle();
         setInnerHeader(joinedContestDto.room_name);
         initView();
-        setValues();
-        callAPI();
+        callTeamApi();
         return view;
     }
 
     private void readFromBundle() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         joinedContestDto = (JoinedContestDto) getArguments().getSerializable("joinedContestDto");
-        team1 = getArguments().getString("team1");
-        team2 = getArguments().getString("team2");
-        teamA = getArguments().getString("teamA");
-        teamB = getArguments().getString("teamB");
+//        team1 = getArguments().getString("team1");
+//        team2 = getArguments().getString("team2");
+//        teamA = getArguments().getString("teamA");
+//        teamB = getArguments().getString("teamB");
         matchStatus = getArguments().getString("matchStatus");
     }
 
@@ -116,6 +121,49 @@ public class ResultLeaderBoardFragment extends BaseFragment {
         }
     }
 
+    private void callTeamApi() {
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TeamWrapper> call = apiInterface.getPlayerLiveScore(joinedContestDto.team_id, joinedContestDto.matchID);
+        call.enqueue(new Callback<TeamWrapper>() {
+            @Override
+            public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+                TeamWrapper teamWrapper = response.body();
+                if (teamWrapper != null && teamWrapper.data != null && teamWrapper.data.size() > 0) {
+//                    team1 = teamWrapper.d
+                    TeamDto teamDto = teamWrapper.data.get(0);
+                    String[] team = teamDto.short_name.split(" ");
+                    team1 = team[0];
+                    team2 = team[2];
+                    teamA = teamDto.teama;
+                    teamB = teamDto.teamb;
+                    setValues();
+                    callAPI();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TeamWrapper> call, Throwable t) {
+                Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
     private void callAPI() {
         //API
         /*
@@ -132,9 +180,12 @@ public class ResultLeaderBoardFragment extends BaseFragment {
             @Override
             public void onResponse(Call<ArrayList<LiveLeaderboardDto>> call, Response<ArrayList<LiveLeaderboardDto>> response) {
                 for (LiveLeaderboardDto liveLeaderboardDto : response.body()) {
-                    if (userDto.reference_id.equalsIgnoreCase(liveLeaderboardDto.reference_id)) {
+//                    System.out.println("userDto.reference_id " + userDto.reference_id);
+                    if (userDto.reference_id.trim().toLowerCase().equalsIgnoreCase(liveLeaderboardDto.reference_id.trim().toLowerCase())) {
+                        System.out.println("userDto.reference_id " + userDto.reference_id);
                         rl_footer.setVisibility(View.VISIBLE);
                         userTeamId = "" + liveLeaderboardDto.team_id;
+                        break;
                     } else {
                         rl_footer.setVisibility(View.GONE);
                     }
@@ -147,6 +198,14 @@ public class ResultLeaderBoardFragment extends BaseFragment {
             @Override
             public void onFailure(Call<ArrayList<LiveLeaderboardDto>> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

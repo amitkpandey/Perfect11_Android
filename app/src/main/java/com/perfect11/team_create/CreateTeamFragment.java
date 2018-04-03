@@ -46,6 +46,7 @@ import com.utility.customView.CustomTextView;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -266,6 +267,16 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
             @Override
             public void onFailure(Call<JoinContestCallBackDto> call, Throwable t) {
                 Log.e("TAG", t.toString());
+
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -286,6 +297,7 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.parseFloat(amount) * 100);
+            options.put("theme",new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -492,6 +504,14 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
             @Override
             public void onFailure(Call<TransactionWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

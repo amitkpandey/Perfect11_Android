@@ -59,7 +59,7 @@ public interface ApiInterface {
                                                   @Field("bowlerdata[]") ArrayList<String> bowlerList, @Field("keeperdata[]") ArrayList<String> keeperList,
                                                   @Field("captain") String captain, @Field("player_amount_count") float player_amount_count,
                                                   @Field("team_id") String team_id, @Field("vice_captain") String vice_captain,
-                                                  @Field("user_id") String user_id);
+                                                  @Field("user_id") String user_id, @Field("team_name") String team_name);
 
     @FormUrlEncoded
     @POST("api/setTeam/{team_id}")
@@ -123,7 +123,8 @@ public interface ApiInterface {
                                            @Field("matchID") String matchID, @Field("room_name") String room_name,
                                            @Field("win_amt") ArrayList<Float> win_amt, @Field("win_per") ArrayList<Float> win_per,
                                            @Field("winner_set") int winner_set, @Field("winningAmount") int winningAmount,
-                                           @Field("user_id") String user_id, @Field("reference_id") String reference_id);
+                                           @Field("user_id") String user_id, @Field("reference_id") String reference_id,
+                                           @Field("team_id") String team_id);
 
     @GET("api/getMyContests/0/{userid}")
     Call<MyContestWrapper> getMyContest(@Path("userid") String userid);

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.account.dto.MyTransectionDto;
@@ -29,6 +30,7 @@ import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -159,7 +161,14 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
 
                 if(progress.getVisibility()==View.VISIBLE)
                     progress.setVisibility(View.GONE);
-
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

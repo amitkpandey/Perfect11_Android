@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
@@ -22,6 +23,7 @@ import com.utility.ActivityController;
 import com.utility.DialogUtility;
 import com.utility.customView.CustomTextView;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -155,6 +157,14 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
             @Override
             public void onFailure(Call<ContestWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(ChooseContestActivity.this);
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(ChooseContestActivity.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

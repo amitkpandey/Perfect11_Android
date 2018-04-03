@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
@@ -24,8 +25,11 @@ import com.perfect11.contest.wrapper.TeamWrapper;
 import com.perfect11.home.service.BackgroundScoreUpdateService;
 import com.perfect11.login_signup.dto.UserDto;
 import com.squareup.picasso.Picasso;
+import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomTextView;
+
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -277,6 +281,14 @@ public class MyTeamFragment extends BaseFragment {
             @Override
             public void onFailure(Call<TeamWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

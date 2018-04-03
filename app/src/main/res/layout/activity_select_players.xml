@@ -173,7 +173,7 @@
                                 android:drawableRight="@drawable/droup_down_arrow"
                                 android:gravity="center"
                                 android:padding="3dp"
-                                android:text="CRADITS"
+                                android:text="CREDITS"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="11sp"
                                 android:textStyle="bold" />

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
@@ -20,8 +21,10 @@ import com.perfect11.upcoming_matches.UpcomingMatchesActivity;
 import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
+import com.utility.CommonUtility;
 import com.utility.DialogUtility;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,9 +50,19 @@ public class FixturesFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.viewpager_fixtures, container, false);
         initView();
-        callAPI();
+            callAPI();
         return view;
     }
+
+    /*@Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        System.out.println("setUserVisibleHint");
+        if (isVisibleToUser && getView() != null){
+            //callAPI();
+        }
+
+    }*/
 
     private void initView() {
         rv_list = view.findViewById(R.id.rv_list);
@@ -133,7 +146,14 @@ public class FixturesFragment extends BaseFragment {
             @Override
             public void onFailure(Call<UpComingMatchesWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
-                //DialogUtility.showMessageWithOk(t.toString(),UpcomingMatchesActivity.this);
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -93,6 +94,56 @@ public class DialogUtility {
 
     }
 
+    public static void showConnectionErrorDialogWithOk(final Activity mActivity)
+    {
+        final Dialog dialog = new Dialog(mActivity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.error_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Button cbtn_ok = dialog.findViewById(R.id.btn_ok);
+
+        cbtn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+//        dialog.show();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        });
+
+    }
+
+    public static void showConnectionErrorDialogWithOkCallback(final Activity mActivity,final AlertDialogCallBack callback)
+    {
+        final Dialog dialog = new Dialog(mActivity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.error_dialog);
+
+        Button cbtn_ok = dialog.findViewById(R.id.btn_ok);
+
+        cbtn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                callback.onSubmit();
+            }
+        });
+//        dialog.show();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        });
+
+    }
 
     public static void showMessageOkWithCallback(String message, Activity mContext, final AlertDialogCallBack callback) {
         if (mContext == null)

@@ -25,7 +25,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ind" />
+                android:src="@drawable/ind"
+                />
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/ctv_country1"
@@ -86,7 +87,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ind" />
+                android:src="@drawable/ind"
+               />
 
             <com.utility.customView.CustomTextView
                 android:id="@+id/ctv_country2"

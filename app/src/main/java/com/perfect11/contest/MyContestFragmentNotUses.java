@@ -9,24 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
-import com.perfect11.contest.adapter.JoinContestAdapter;
 import com.perfect11.contest.adapter.MyContestAdapter;
 import com.perfect11.contest.dto.JoinedContestDto;
-import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.MyContestWrapper;
 import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,10 +33,11 @@ import retrofit2.Response;
 public class MyContestFragmentNotUses extends BaseFragment {
     private RecyclerView rv_contests;
     private ArrayList<JoinedContestDto> joinedContestDto;
-private RelativeLayout rl_01;
-private UserDto userDto;
-private ApiInterface apiInterface;
-private MyContestAdapter myContestAdapter;
+    private RelativeLayout rl_01;
+    private UserDto userDto;
+    private ApiInterface apiInterface;
+    private MyContestAdapter myContestAdapter;
+
     public static MyContestFragmentNotUses newInstance() {
         return new MyContestFragmentNotUses();
     }
@@ -85,6 +84,14 @@ private MyContestAdapter myContestAdapter;
             @Override
             public void onFailure(Call<MyContestWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -100,15 +107,23 @@ private MyContestAdapter myContestAdapter;
             public void onButtonClick(int position) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("joinedContestDto", data.get(position));
-                String str[]=data.get(position).room_name.split(" ");
-                bundle.putString("team1", str[0]);
-                bundle.putString("team2", str[2]);
-                bundle.putString("teamA", str[0]);
-                bundle.putString("teamB", str[2]);
-               bundle.putString("matchStatus",data.get(position).matchid);
-                    ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
-                    resultLeaderBoardFragment.setArguments(bundle);
-                    ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
+                try {
+                    String str[] = data.get(position).room_name.split(" ");
+                    bundle.putString("team1", str[0]);
+                    bundle.putString("team2", str[2]);
+                    bundle.putString("teamA", str[0]);
+                    bundle.putString("teamB", str[2]);
+                } catch (Exception e) {
+                    bundle.putString("team1", "");
+                    bundle.putString("team2", "");
+                    bundle.putString("teamA", "");
+                    bundle.putString("teamB", "");
+                    e.printStackTrace();
+                }
+                bundle.putString("matchStatus", data.get(position).matchid);
+                ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
+                resultLeaderBoardFragment.setArguments(bundle);
+                ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
 
             }
         });
@@ -116,7 +131,7 @@ private MyContestAdapter myContestAdapter;
     }
 
     private void initView() {
-        rl_01=view.findViewById(R.id.rl_01);
+        rl_01 = view.findViewById(R.id.rl_01);
         rl_01.setVisibility(View.GONE);
         rv_contests = view.findViewById(R.id.rv_contests);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -131,9 +146,11 @@ private MyContestAdapter myContestAdapter;
             }
         });*/
     }
+
     private void readFromBundle() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
     }
+
     @Override
     public void onButtonClick(View view) {
         super.onButtonClick(view);

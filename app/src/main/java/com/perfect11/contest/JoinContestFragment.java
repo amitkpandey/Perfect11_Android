@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
@@ -23,6 +24,7 @@ import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomTextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -38,6 +40,7 @@ public class JoinContestFragment extends BaseFragment {
     private JoinContestAdapter joinContestAdapter;
     private UserDto userDto;
     private String team1, teamA, team2, teamB, matchStatus;
+    private boolean isFixture=false;
 
     public static JoinContestFragment newInstance() {
         return new JoinContestFragment();
@@ -67,6 +70,7 @@ public class JoinContestFragment extends BaseFragment {
             team2 = getArguments().getString("team2");
             teamA = getArguments().getString("teamA");
             teamB = getArguments().getString("teamB");
+            isFixture=getArguments().getBoolean("isFixture");
             matchStatus = getArguments().getString("matchStatus");
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +124,8 @@ public class JoinContestFragment extends BaseFragment {
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<JoinedContestWrapper> call = apiInterface.getJoinedContestList(upComingMatchesDto.key_name, userDto.member_id);
+        Call<JoinedContestWrapper> call = apiInterface.getJoinedContestList(upComingMatchesDto.key_name,
+                userDto.member_id);
         call.enqueue(new Callback<JoinedContestWrapper>() {
             @Override
             public void onResponse(Call<JoinedContestWrapper> call, Response<JoinedContestWrapper> response) {
@@ -140,6 +145,14 @@ public class JoinContestFragment extends BaseFragment {
             @Override
             public void onFailure(Call<JoinedContestWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -159,6 +172,7 @@ public class JoinContestFragment extends BaseFragment {
                 bundle.putString("team2", team2);
                 bundle.putString("teamA", teamA);
                 bundle.putString("teamB", teamB);
+                bundle.putBoolean("isFixture",isFixture);
                 if (upComingMatchesDto != null && upComingMatchesDto.matchstatus.equalsIgnoreCase("completed")) {
                     ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
                     resultLeaderBoardFragment.setArguments(bundle);

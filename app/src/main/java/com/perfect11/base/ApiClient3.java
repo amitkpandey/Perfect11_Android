@@ -1,5 +1,6 @@
 package com.perfect11.base;
 
+import android.app.Activity;
 import android.util.Log;
 
 import okhttp3.OkHttpClient;
@@ -17,7 +18,6 @@ public class ApiClient3 {
      * ThiS Class Will Give an Instance of Retrofit
      */
     public static Retrofit getApiClient() {
-
         if (interceptor == null) {
             interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

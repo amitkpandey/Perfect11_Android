@@ -48,9 +48,11 @@ import com.razorpay.PaymentResultListener;
 import com.utility.AlertDialogCallBack;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
+import com.utility.customView.CustomTextView;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,11 +133,19 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             dialog.show();
             TextView header = dialog.findViewById(R.id.ctv_title);
             TextView content = dialog.findViewById(R.id.ctv_body);
+
+            CustomTextView ctv_joining_amount =dialog.findViewById(R.id.ctv_joining_amount);
+            ctv_joining_amount.setText("Joining Amount: Rs. "+contestDto.entryfee);
+
+            CustomTextView ctv_body =dialog.findViewById(R.id.ctv_body);
+            ctv_body.setText("Contest Name: "+contestDto.room_name);
+
             Button cbtn_join = dialog.findViewById(R.id.cbtn_join);
             Button cbtn_cancel = dialog.findViewById(R.id.cbtn_cancel);
             cbtn_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    flag=false;
                     dialog.dismiss();
                 }
             });
@@ -145,6 +155,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 public void onClick(View v) {
                     apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
                     callCreateTeamAPI();
+                    flag=false;
                     dialog.dismiss();
                 }
             });
@@ -189,7 +200,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             keeperList.add(keeper);
         }
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id);
+                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id,"Abcd");
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
@@ -281,7 +292,14 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             @Override
             public void onFailure(Call<CreateTeamCallBackWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
-                DialogUtility.showMessageWithOk(t.toString(), getActivity());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -371,6 +389,15 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             @Override
             public void onFailure(Call<JoinContestCallBackDto> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -514,6 +541,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
+            options.put("theme",new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -717,6 +745,14 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             @Override
             public void onFailure(Call<TransactionWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

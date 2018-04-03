@@ -43,6 +43,9 @@ import com.utility.customView.CustomEditText;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +56,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Url;
 
 import static com.utility.Constants.TAG;
 
@@ -66,6 +70,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
     private HttpLoggingInterceptor interceptor = null;
     private OkHttpClient client = null;
     private Gson gson;
+    private boolean flag=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,8 +79,21 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         setHeader("My Wallet");
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
         initView();
+        readFromBundle();
         callAPI();
         return view;
+    }
+
+    private void readFromBundle() {
+        try {
+            flag=getArguments().getBoolean("flag");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(flag)
+        {
+            setInnerHeader("My Wallet");
+        }
     }
 
     private void callAPI() {
@@ -108,6 +126,16 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<MyAccountWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -130,6 +158,9 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         switch (view.getId()) {
             case R.id.btn_transactions:
                 ((BaseHeaderActivity) getActivity()).addFragment(MyTransactionsFragment.newInstance(), true, MyTransactionsFragment.class.getName());
+                break;
+            case R.id.img_back:
+                getActivity().onBackPressed();
                 break;
             case R.id.btn_add_cash:
                 final Dialog dialog = new Dialog(getActivity());
@@ -227,6 +258,14 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<InviteDto> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -247,7 +286,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
-
+            options.put("theme",new JSONObject("{color: '#E93D29'}"));
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
             preFill.put("contact", "9876543210");
@@ -351,6 +390,12 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
     public void onTransactionResponse(Bundle bundle) {
         String transactionId = bundle.getString("TXNID");
         String bankTransactionId = bundle.getString("BANKTXNID");
+
+        String MID=bundle.getString("MID");
+        String ORDERID=bundle.getString("ORDERID");
+        String CHECKSUMHASH= URLEncoder.encode(bundle.getString("CHECKSUMHASH"));
+//            URL myURL = new URL(CHECKSUMHASH);
+        System.out.println("CHECKSUMHASH:"+CHECKSUMHASH);
         System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
         callAddWalletAPI(transactionId, amount, "paytm");
 //        Toast.makeText(getActivity(), bundle.toString(), Toast.LENGTH_LONG).show();
@@ -440,6 +485,15 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<WalletWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

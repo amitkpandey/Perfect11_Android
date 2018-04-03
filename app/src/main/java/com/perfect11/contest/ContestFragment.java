@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
@@ -25,6 +26,7 @@ import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -104,6 +106,14 @@ public class ContestFragment extends BaseFragment {
             @Override
             public void onFailure(Call<ContestWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -134,6 +144,14 @@ public class ContestFragment extends BaseFragment {
             @Override
             public void onFailure(Call<JoinedContestWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -173,6 +191,14 @@ public class ContestFragment extends BaseFragment {
             @Override
             public void onFailure(Call<TeamWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -227,20 +253,21 @@ public class ContestFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_create_contest:
-//                if(team_size==0){
-//                    DialogUtility.showMessageWithOk("To Create a contest, you have to create a team",getActivity());
-//                }else {
-                bundle = new Bundle();
-                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
-                CreateContestFragment createContestFragment = CreateContestFragment.newInstance();
-                createContestFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(createContestFragment, true, CreateContestFragment.class.getName());
-//                }
+                if (team_size == 0) {
+                    DialogUtility.showMessageWithOk("To Create a contest, you have to create a team", getActivity());
+                } else {
+                    bundle = new Bundle();
+                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                    bundle.putSerializable("joinedContestDto", joinedContestWrapper.data);
+                    CreateContestFragment createContestFragment = CreateContestFragment.newInstance();
+                    createContestFragment.setArguments(bundle);
+                    ((BaseHeaderActivity) getActivity()).addFragment(createContestFragment, true, CreateContestFragment.class.getName());
+                }
                 break;
             case R.id.btn_join_contest:
                 if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0) {
                     bundle = new Bundle();
+                    bundle.putBoolean("isFixture", true);
                     bundle.putString("team1", team1);
                     bundle.putString("team2", team2);
                     bundle.putString("teamA", upComingMatchesDto.teama);

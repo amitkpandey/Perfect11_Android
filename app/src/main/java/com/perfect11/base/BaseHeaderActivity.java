@@ -437,6 +437,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                 }
                 break;
         }
+//        slideMenu.closeMenu();
         if (mFragmentManager.findFragmentById(R.id.fl_container) != null) {
             ((BaseFragment) mFragmentManager.findFragmentById(R.id.fl_container)).onButtonClick(view);
         }

@@ -14,6 +14,9 @@ public class TeamDto implements Serializable {
     public String addedon;
     public String modifedon;
     public String status;
+    public String teama;
+    public String teamb;
+    public String short_name;
     public ArrayList<TeamPlayerDto> team_player;
 
     @Override

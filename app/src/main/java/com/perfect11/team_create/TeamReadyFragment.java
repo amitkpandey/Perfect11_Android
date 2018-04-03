@@ -50,6 +50,7 @@ import com.utility.customView.CustomTextView;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -733,7 +734,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 
 
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id);
+                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id,"Abcd");
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
@@ -831,7 +832,14 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<CreateTeamCallBackWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
-                DialogUtility.showMessageWithOk(t.toString(), getActivity());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -919,6 +927,14 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<JoinContestCallBackDto> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -1035,7 +1051,14 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<CreateTeamCallBackWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
-                DialogUtility.showMessageWithOk(t.toString(), getActivity());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -1071,6 +1094,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
+            options.put("theme",new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -1274,6 +1298,14 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<TransactionWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

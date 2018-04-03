@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void serviceCallbackSignUP(String message, final String member_id) {
-        DialogUtility.showMessageOkWithCallback(message, this, new AlertDialogCallBack() {
+        DialogUtility.showMessageOkWithCallback("Registration Successful", this, new AlertDialogCallBack() {
             @Override
             public void onSubmit() {
                 gotoInviteCode(member_id);
