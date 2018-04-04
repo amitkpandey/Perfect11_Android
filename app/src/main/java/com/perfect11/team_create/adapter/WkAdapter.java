@@ -28,6 +28,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
     private int mtype, mtotalPlayers;
     private float totalPoints;
     private String teamName1, teamName2;
+    private int setMaxPlayer;
 
     /**
      * Type
@@ -37,7 +38,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
      * 2 = All Rounder
      * 3=  Bowler
      */
-    public WkAdapter(Activity activity, ArrayList<PlayerDto> playerDtoArrayList, int type, float totalPoints, int totalPlayers, String ateam, String bteam) {
+    public WkAdapter(Activity activity, ArrayList<PlayerDto> playerDtoArrayList, int type, float totalPoints, int totalPlayers, String ateam, String bteam,int maxPlayer) {
         this.mActivity = activity;
         this.playerDtoArrayList = playerDtoArrayList;
         this.mtype = type;
@@ -45,6 +46,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
         this.mtotalPlayers = totalPlayers;
         teamName1 = ateam;
         teamName2 = bteam;
+        this.setMaxPlayer=maxPlayer;
     }
 
     public void updateTotalPoints(float totalPoints, int totalPlayers) {
@@ -191,11 +193,11 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
                 }
                 break;
         }
-        if (v >= 1000) {
-            Toast.makeText(mActivity, "You have used maximum points.", Toast.LENGTH_SHORT).show();
+        if (v >= 100) {
+            Toast.makeText(mActivity, "Your point has been exhausted.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (mtotalPlayers > 10) {
+        if (mtotalPlayers > (setMaxPlayer-1)) {
             Toast.makeText(mActivity, "You have selected maximum player.", Toast.LENGTH_SHORT).show();
             return false;
         }

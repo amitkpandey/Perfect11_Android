@@ -24,6 +24,59 @@
             android:layout_marginRight="20dp"
             android:orientation="vertical">
 
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/squrecorner_account_bg"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Unutilized:"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                <TextView
+                    android:id="@+id/tv_unutilized"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs: 0/-"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/squrecorner_account_bg"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Your Winnings:"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tv_winnings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:text="Rs: 0/-"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
@@ -51,152 +104,12 @@
                     android:textColor="@android:color/white" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/squrecorner_account_bg"
-                android:orientation="vertical">
-                <!-- <RelativeLayout
-                     android:layout_width="wrap_content"
-                     android:layout_height="45dp"
-                     android:padding="10dp"
-                     android:gravity="center_vertical"
-                     >
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:text="Unutilized:"
-                         android:textColor="@android:color/white"
-                         android:layout_alignParentLeft="true"
-                         android:layout_marginLeft="10dp"
-                         style="@android:style/TextAppearance.DeviceDefault.Small"/>
-
-                     <TextView
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:text="Rs: 0/-"
-                         android:textColor="@android:color/white"
-                         android:layout_alignParentRight="true"
-                         android:layout_marginRight="20dp"/>
-                 </RelativeLayout>-->
-                <!--    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
-                        android:gravity="center_vertical"
-                        >
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Amount to Expire:"
-                            android:textColor="@android:color/white"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="10dp"
-                            style="@android:style/TextAppearance.DeviceDefault.Small"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rs: 0/-"
-                            android:textColor="@android:color/white"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="20dp"/>
-                    </RelativeLayout>-->
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/squrecorner_account_bg"
-                android:gravity="center_vertical"
-                android:padding="10dp">
-
-                <TextView
-                    style="@android:style/TextAppearance.DeviceDefault.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="Your Winnings:"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:id="@+id/tv_winnings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:text="Rs: 0/-"
-                    android:textColor="@android:color/white" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/squrecorner_account_bg"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:visibility="gone">
-
-                    <TextView
-                        style="@android:style/TextAppearance.DeviceDefault.Small"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="Unutilized:"
-                        android:textColor="@android:color/white" />
-
-                    <TextView
-                        android:id="@+id/tv_unutilized"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
-                        android:text="Rs: 0/-"
-                        android:textColor="@android:color/white" />
-                </RelativeLayout>
-                <!--<RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp"
-                    android:gravity="center_vertical"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Bonus to Expire:"
-                        android:textColor="@android:color/white"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        style="@android:style/TextAppearance.DeviceDefault.Small"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rs: 0/-"
-                        android:textColor="@android:color/white"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"/>
-                </RelativeLayout>-->
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -228,6 +141,51 @@
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/squrecorner_account_bg"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Withdrawable:"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    style="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                <TextView
+                    android:id="@+id/iv_withdrawable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs: 0/-"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_withdraw"
+                style="@android:style/TextAppearance.DeviceDefault.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_green_btn_bg"
+                android:onClick="onButtonClick"
+                android:text="Withdraw"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                />
 
         </LinearLayout>
     </ScrollView>

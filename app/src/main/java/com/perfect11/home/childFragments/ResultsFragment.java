@@ -53,6 +53,8 @@ public class ResultsFragment extends BaseFragment {
        // callAPI();
         return view;
     }
+
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

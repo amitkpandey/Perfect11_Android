@@ -75,7 +75,7 @@ import static com.utility.Constants.TAG;
 public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTransactionCallback, PaymentResultListener {
     private ArrayList<PlayerDto> selectedTeam;
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time, ctv_country1, ctv_country2;
-    private CircleImageView cimg_country1, cimg_country2;
+    private ImageView cimg_country1, cimg_country2;
 
     private ImageView iv_wkt, iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6, iv_ar1, iv_ar2, iv_ar3, iv_ar4, iv_bowler1, iv_bowler2, iv_bowler3,
             iv_bowler4, iv_bowler5, iv_bowler6;
@@ -293,9 +293,9 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             }
         }
 
-        Picasso.with(getActivity()).load(getPictureURL(selectedMatchDto.teamName1)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
+        Picasso.with(getActivity()).load(getPictureURL(selectedMatchDto.teamName1)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).
                 into(cimg_country1);
-        Picasso.with(getActivity()).load(getPictureURL(selectedMatchDto.teamName2)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).
+        Picasso.with(getActivity()).load(getPictureURL(selectedMatchDto.teamName2)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face2).
                 into(cimg_country2);
         tv_team_count1.setText("" + total_team1 + "/7");
         tv_team_count2.setText("" + total_team2 + "/7");
@@ -719,7 +719,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        return "http://52.15.50.179/public/images/app/country/" + country + ".png";
     }
 
 
@@ -734,7 +734,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 
 
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id,"Abcd");
+                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id,upComingMatchesDto.my_team_name);
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {

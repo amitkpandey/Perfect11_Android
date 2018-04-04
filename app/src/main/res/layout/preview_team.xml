@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_team1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -74,7 +74,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_team2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -118,10 +118,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="90dp"
             android:background="@drawable/pitch"
             android:gravity="center"
             android:orientation="vertical"
@@ -130,7 +130,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".8"
+                android:layout_weight=".7"
                 android:gravity="bottom">
 
                 <ImageView
@@ -167,12 +167,14 @@
                     android:padding="5dp"
                     android:text="M S Dhoni"
                     android:textColor="@android:color/white"
-                    android:textSize="8sp" />
+                    android:textSize="8sp"
+                    android:ellipsize="end"
+                    android:maxLength="10"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.2">
+                android:layout_weight="1.3">
                 <LinearLayout
                     android:id="@+id/rl_batsman"
                     android:layout_width="match_parent"
@@ -219,7 +221,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -261,7 +265,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -302,7 +308,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -345,7 +353,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -387,7 +397,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -430,7 +442,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -477,7 +491,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -520,7 +536,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -563,7 +581,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -607,7 +627,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
@@ -659,7 +681,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
 
@@ -702,7 +726,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -743,7 +769,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -785,7 +813,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -826,7 +856,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -868,7 +900,9 @@
                             android:padding="5dp"
                             android:text="M S Dhoni"
                             android:textColor="@android:color/white"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:ellipsize="end"
+                            android:maxLength="10"/>
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>

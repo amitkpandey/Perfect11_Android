@@ -20,7 +20,7 @@
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/cimg_country1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -82,7 +82,7 @@
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/cimg_country2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

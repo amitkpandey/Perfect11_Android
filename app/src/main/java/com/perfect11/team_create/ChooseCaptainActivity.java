@@ -1,13 +1,22 @@
 package com.perfect11.team_create;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.perfect11.R;
+import com.perfect11.base.ApiClient;
+import com.perfect11.base.ApiInterface;
 import com.perfect11.team_create.adapter.CaptainAdapter;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
@@ -32,6 +41,7 @@ public class ChooseCaptainActivity extends Activity {
     private UpComingMatchesDto upComingMatchesDto;
     private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, ctv_time;
     private CustomButton btn_save;
+    private String team_Name="";
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -48,6 +58,32 @@ public class ChooseCaptainActivity extends Activity {
         readFromBundle();
         initView();
         startUpdateTimer();
+        setTeamName();
+    }
+
+    private void setTeamName() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_set_teamname);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+        final EditText team_name=dialog.findViewById(R.id.team_name);
+
+        Button btn_set = dialog.findViewById(R.id.btn_set);
+
+        btn_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!team_name.getText().toString().trim().equals("")) {
+                    team_Name=team_name.getText().toString().trim();
+                    dialog.dismiss();
+                }else
+                {
+                    Toast.makeText(ChooseCaptainActivity.this, "Enter Your Team Name", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void readFromBundle() {
@@ -119,6 +155,7 @@ public class ChooseCaptainActivity extends Activity {
 //                    for (PlayerDto playerDto : selectedTeam) {
 //                        System.out.println(playerDto.full_name + "  " + playerDto.isC + "  " + playerDto.isCV);
 //                    }
+                    upComingMatchesDto.my_team_name=team_Name;
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("selectedTeam", selectedTeam);
                     bundle.putSerializable("selectedMatchDto", selectedMatchDto);

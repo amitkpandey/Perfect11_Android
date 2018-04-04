@@ -1,5 +1,7 @@
 package com.perfect11.base;
 
+import com.google.gson.JsonObject;
+import com.perfect11.account.dto.WithdrawlStatusDto;
 import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.account.wrapper.MyTransectionWrapper;
 import com.perfect11.contest.dto.ContestCallBackDto;
@@ -15,6 +17,7 @@ import com.perfect11.myprofile.wrapper.MyContestInfoWrapper;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.payment.wrapper.WalletWrapper;
 import com.perfect11.team_create.wrapper.ContestWrapper;
+import com.perfect11.team_create.wrapper.PlayerSettingWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
 
@@ -129,6 +132,12 @@ public interface ApiInterface {
     @GET("api/getMyContests/0/{userid}")
     Call<MyContestWrapper> getMyContest(@Path("userid") String userid);
 
+    @GET("http://52.15.50.179/api/getMyCanceledContests/{userid}")
+    Call<MyContestWrapper> getMyCanceledContests(@Path("userid") String userid);
+
+    @GET("api/getTeamSelectionSetting")
+    Call<PlayerSettingWrapper> getTeamSelectionSetting();
+
     @FormUrlEncoded
     @POST("api/addWallet")
     Call<WalletWrapper> addwallet(@Field("paymentId") String transactionId, @Field("amount") String amount, @Field("payment_from") String type,
@@ -143,4 +152,9 @@ public interface ApiInterface {
     @POST("api/paymentForCreateContest")
     Call<TransactionWrapper> paymentForCreateContest(@Field("join_id") String contest_id, @Field("user_id") String user_id, @Field("payment_id") String paymentId,
                                                    @Field("payment_from") String type, @Field("payment_status") String status, @Field("payment_amount") String amount);
+    @FormUrlEncoded
+    @POST("api/withdrawMoneyRequest")
+    Call<WithdrawlStatusDto> withdrawMoneyRequest(@Field("user_id")String user_id,@Field("amount")float amount);
+
+
 }

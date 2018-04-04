@@ -200,7 +200,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             keeperList.add(keeper);
         }
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id,"Abcd");
+                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id,upComingMatchesDto.my_team_name);
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {

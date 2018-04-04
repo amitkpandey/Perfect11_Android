@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.perfect11.R;
+import com.utility.customView.CustomButton;
 
 
 public class DialogUtility {
@@ -119,6 +120,67 @@ public class DialogUtility {
 
     }
 
+    public static void showCustomMessageOk(final Activity mActivity,String msg)
+    {
+        final Dialog dialog = new Dialog(mActivity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_show_message);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Button cbtn_ok = dialog.findViewById(R.id.btn_ok);
+
+        TextView message=dialog.findViewById(R.id.tv_message);
+        message.setText(msg);
+        cbtn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+//        dialog.show();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        });
+
+    }
+
+    public static void showCustomConformationYesNO(final Activity mActivity,String msg,final AlertDialogCallBack callback)
+    {
+        final Dialog dialog = new Dialog(mActivity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_ask_conformation);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        CustomButton cbtn_yes = dialog.findViewById(R.id.cbtn_yes);
+        CustomButton cbtn_no = dialog.findViewById(R.id.cbtn_no);
+
+        TextView message=dialog.findViewById(R.id.tv_message);
+        message.setText(msg);
+        cbtn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                callback.onSubmit();
+            }
+        });
+        cbtn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                callback.onCancel();
+            }
+        });
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        });
+
+    }
     public static void showConnectionErrorDialogWithOkCallback(final Activity mActivity,final AlertDialogCallBack callback)
     {
         final Dialog dialog = new Dialog(mActivity);

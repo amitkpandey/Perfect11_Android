@@ -19,6 +19,7 @@ public class UpComingMatchesDto implements Serializable {
     public String teamb;
     public long timeRemaining;
 
+    public String my_team_name="";
     @Override
     public String toString() {
         return "UpCommingMatchesDto{" +

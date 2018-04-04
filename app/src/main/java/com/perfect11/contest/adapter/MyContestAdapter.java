@@ -55,7 +55,7 @@ public class MyContestAdapter extends RecyclerView.Adapter<MyContestAdapter.View
             holder.tv_price.setText("Winner takes all the glory");
         } else {
             holder.tv_practice.setText("Paid Contest");
-            holder.tv_price.setText("Rs. " + mdata.get(position).winingamount + "/-");
+            holder.tv_price.setText("Winning Amount Rs. " + mdata.get(position).winningAmount + "/-");
         }
         holder.tv_entry_fee.setText("Rs. " + mdata.get(position).amount + "/-");
         holder.tv_joined_count.setText("Team 1");

@@ -20,6 +20,7 @@ import com.perfect11.team_create.adapter.PlayerTypeAdapter;
 import com.perfect11.team_create.adapter.WkAdapter;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
+import com.perfect11.team_create.wrapper.PlayerSettingWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.squareup.picasso.Picasso;
@@ -76,7 +77,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
      * Preview Section Start
      * Ground View Start
      */
-    private CircleImageView cimg_country1, cimg_country2;
+    private ImageView cimg_country1, cimg_country2;
 
     private ImageView iv_wkt;
     private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
@@ -90,6 +91,11 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private RelativeLayout rl_bat1, rl_bat2, rl_bat3, rl_bat4, rl_bat5, rl_bat6, rl_ar1, rl_ar2, rl_ar3, rl_ar4, rl_bowler1, rl_bowler2, rl_bowler3,
             rl_bowler4, rl_bowler5, rl_bowler6;
     private String team1,team2;
+
+    /**Player Setting*/
+    private int player_count_no = 11;
+    private int team_a_no = 7;
+    private int team_b_no = 4;
     /**
      * Ground View End
      */
@@ -114,13 +120,55 @@ public class SelectPlayersActivity extends AppCompatActivity {
         initViewPreview();
         initView();
         startUpdateTimer();
-        callAPI();
+        callTeamSettingAPI();
     }
 
     private void readFromBundle() {
         upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
     }
 
+    private void callTeamSettingAPI() {
+        //API
+        Log.d("API", "Get PlayerSetting");
+        final ProgressDialog mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<PlayerSettingWrapper> call = apiInterface.getTeamSelectionSetting();
+        call.enqueue(new Callback<PlayerSettingWrapper>() {
+            @Override
+            public void onResponse(Call<PlayerSettingWrapper> call, Response<PlayerSettingWrapper> response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                PlayerSettingWrapper playerSettingWrapper = response.body();
+
+                /**
+                 * Set Player Setting Parameter*/
+                player_count_no = Integer.parseInt(playerSettingWrapper.data.player_count);
+                team_a_no = Integer.parseInt(playerSettingWrapper.data.team_a);
+                team_b_no = Integer.parseInt(playerSettingWrapper.data.team_b);
+
+                callAPI();
+            }
+
+            @Override
+            public void onFailure(Call<PlayerSettingWrapper> call, Throwable t) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(SelectPlayersActivity.this);
+                    // logging probably not necessary
+                } else {
+                    Toast.makeText(SelectPlayersActivity.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+            }
+        });
+    }
     private void initView() {
         ctv_country1 = findViewById(R.id.ctv_country1);
         ctv_country2 = findViewById(R.id.ctv_country2);
@@ -241,8 +289,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
         setPlayerVisibilityGone();
         System.out.println("getPictureURL(upComingMatchesDto.teama) " + getPictureURL(upComingMatchesDto.teama));
         System.out.println("getPictureURL(upComingMatchesDto.teamb) " + getPictureURL(upComingMatchesDto.teamb));
-        Picasso.with(this).load(getPictureURL(upComingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
-        Picasso.with(this).load(getPictureURL(upComingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+        Picasso.with(this).load(getPictureURL(upComingMatchesDto.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).into(cimg_country1);
+        Picasso.with(this).load(getPictureURL(upComingMatchesDto.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face2).into(cimg_country2);
         arrangePlayerOnField();
     }
 
@@ -608,7 +656,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        String url = "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        String url = "http://52.15.50.179/public/images/app/country/" + country + ".png";
         return url;
     }
 
@@ -747,7 +795,6 @@ public class SelectPlayersActivity extends AppCompatActivity {
             public void onResponse(Call<PlayerWrapper> call, Response<PlayerWrapper> response) {
                 playerWrapper = response.body();
 
-                Log.e("UpcomingMatchesAPI", playerWrapper.toString());
                 if (playerWrapper.data.size() != 0) {
                     selectPlayerList(playerWrapper.data);
                 } else {
@@ -813,7 +860,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         /** Set Adapter Players*/
 
         /**Wicket Keeper*/
-        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
+        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -828,7 +875,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**BatsMan*/
-        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
+        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -843,7 +890,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**AllRounder*/
-        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
+        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -857,7 +904,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
             }
         });
         /**AllRounder*/
-        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb);
+        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -936,17 +983,17 @@ public class SelectPlayersActivity extends AppCompatActivity {
         } else if (total_bowler < 3) {
             Toast.makeText(this, "You have to select minimum 3  Bowlers", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (tottal_player < 11) {
+        } else if (tottal_player < player_count_no) {
             Toast.makeText(this, "You have to select 11 Players", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (isMoreThen()) {
-            Toast.makeText(this, "You can't select more then 7 player from a team.", Toast.LENGTH_SHORT).show();
+        } else if (!checkPlayerSetting()) {
+            Toast.makeText(this, "You can select either "+team_a_no+" or "+team_b_no+" player from a team.", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
-    private boolean isMoreThen() {
+    private boolean checkPlayerSetting() {
         int no_ateam = 0, no_bteam = 0;
         selectedPlayer = getSelectedPlayers();
         for (PlayerDto playerDto : selectedPlayer) {
@@ -958,7 +1005,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         }
         Log.e("Team A:", "" + no_ateam);
         Log.e("Team B:", "" + no_bteam);
-        if (no_ateam > 7 || no_bteam > 7) {
+        if ((no_ateam == team_a_no || no_bteam == team_b_no)||(no_ateam == team_b_no || no_bteam == team_a_no)) {
             System.out.println("return true");
             return true;
         }

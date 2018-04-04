@@ -29,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TeamReadyActivity extends Activity {
     private ArrayList<PlayerDto> selectedTeam;
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time, ctv_country1, ctv_country2;
-    private CircleImageView cimg_country1, cimg_country2;
+    private ImageView cimg_country1, cimg_country2;
 
     private ImageView iv_wkt;
     private ImageView iv_bat1, iv_bat2, iv_bat3, iv_bat4, iv_bat5, iv_bat6;
@@ -257,8 +257,8 @@ public class TeamReadyActivity extends Activity {
         tv_team1.setText(team1);
         tv_team2.setText(team2);
 
-        Picasso.with(this).load(getPictureURL(selectedMatchDto.teamName1)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
-        Picasso.with(this).load(getPictureURL(selectedMatchDto.teamName2)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+        Picasso.with(this).load(getPictureURL(selectedMatchDto.teamName1)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).into(cimg_country1);
+        Picasso.with(this).load(getPictureURL(selectedMatchDto.teamName2)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face2).into(cimg_country2);
         tv_team_count1.setText("" + total_team1 + "/7");
         tv_team_count2.setText("" + total_team2 + "/7");
         arrangePlayerOnField();
@@ -629,6 +629,6 @@ public class TeamReadyActivity extends Activity {
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        return "http://52.15.50.179/public/images/app/country/" + country + ".png";
     }
 }

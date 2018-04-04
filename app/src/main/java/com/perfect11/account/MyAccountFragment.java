@@ -22,6 +22,7 @@ import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.perfect11.R;
+import com.perfect11.account.dto.WithdrawlStatusDto;
 import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiClient3;
@@ -37,6 +38,7 @@ import com.perfect11.payment.paytm.Paytm;
 import com.perfect11.payment.wrapper.WalletWrapper;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
+import com.utility.AlertDialogCallBack;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomEditText;
@@ -62,7 +64,7 @@ import static com.utility.Constants.TAG;
 
 
 public class MyAccountFragment extends BaseFragment implements PaytmPaymentTransactionCallback, PaymentResultListener {
-    private TextView tv_total_balance, tv_unutilized, tv_winnings;
+    private TextView tv_total_balance, tv_unutilized, tv_winnings, iv_withdrawable;
     private MyAccountWrapper myAccountWrapper;
     private ApiInterface apiInterface;
     private UserDto userDto;
@@ -70,7 +72,8 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
     private HttpLoggingInterceptor interceptor = null;
     private OkHttpClient client = null;
     private Gson gson;
-    private boolean flag=false;
+    private boolean flag = false;
+    private float withdrawl_amount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,12 +89,11 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
 
     private void readFromBundle() {
         try {
-            flag=getArguments().getBoolean("flag");
+            flag = getArguments().getBoolean("flag");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(flag)
-        {
+        if (flag) {
             setInnerHeader("My Wallet");
         }
     }
@@ -114,11 +116,13 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 myAccountWrapper = response.body();
 
                 Log.e("UpcomingMatchesAPI", myAccountWrapper.toString());
-                tv_total_balance.setText(myAccountWrapper.data.total_balance);
+                tv_total_balance.setText("Rs." + myAccountWrapper.data.total_balance + "/-");
                 userDto.total_balance = myAccountWrapper.data.total_balance;
                 PreferenceUtility.saveObjectInAppPreference(getActivity(), userDto, PreferenceUtility.APP_PREFERENCE_NAME);
-                tv_unutilized.setText(myAccountWrapper.data.cash_bonus);
-                tv_winnings.setText(myAccountWrapper.data.winnings);
+                tv_unutilized.setText("Rs." + (Float.parseFloat(myAccountWrapper.data.total_balance) - Float.parseFloat(myAccountWrapper.data.winnings)) + "/-");
+                tv_winnings.setText("Rs." + myAccountWrapper.data.winnings + "/-");
+                withdrawl_amount = Float.parseFloat(myAccountWrapper.data.withdraw_amount);
+                iv_withdrawable.setText("Rs." + myAccountWrapper.data.withdraw_amount + "/-");
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -130,8 +134,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -146,6 +149,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         tv_total_balance = view.findViewById(R.id.tv_total_balance);
         tv_unutilized = view.findViewById(R.id.tv_unutilized);
         tv_winnings = view.findViewById(R.id.tv_winnings);
+        iv_withdrawable = view.findViewById(R.id.iv_withdrawable);
     }
 
     public static Fragment newInstance() {
@@ -161,6 +165,26 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 break;
             case R.id.img_back:
                 getActivity().onBackPressed();
+                break;
+            case R.id.btn_withdraw:
+                System.out.println("withdrawl_amount:"+withdrawl_amount);
+                if(withdrawl_amount!=0.0) {
+                    DialogUtility.showCustomConformationYesNO(getActivity(), "Are you sure that you want to withdraw money?", new AlertDialogCallBack() {
+                        @Override
+                        public void onSubmit() {
+                            call_Withdrawl_API();
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+
+                }else
+                {
+                    Toast.makeText(getActivity(), "Your account has no money to withdraw.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btn_add_cash:
                 final Dialog dialog = new Dialog(getActivity());
@@ -235,6 +259,46 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         }
     }
 
+    private void call_Withdrawl_API() {
+        /*
+         * Collecting data*/
+        Log.d("API", "Get Player");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+
+        Call<WithdrawlStatusDto> call = apiInterface.withdrawMoneyRequest(userDto.member_id, withdrawl_amount);
+        call.enqueue(new Callback<WithdrawlStatusDto>() {
+            @Override
+            public void onResponse(Call<WithdrawlStatusDto> call, Response<WithdrawlStatusDto> response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                 if (response.body().error == 1)
+                    DialogUtility.showCustomMessageOk(getActivity(), "Dear " + userDto.first_name + " " + userDto.last_name + " please verify your account info and KYC from website perfect11.in first,then you will be eligible to withdraw wining amount from app");
+                 else
+                     DialogUtility.showCustomMessageOk(getActivity(), response.body().message);
+
+            }
+
+            @Override
+            public void onFailure(Call<WithdrawlStatusDto> call, Throwable t) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                } else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+            }
+        });
+    }
+
     private void callTicketApi(String ticket) {
         /*
          * Collecting data*/
@@ -261,8 +325,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -286,7 +349,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
-            options.put("theme",new JSONObject("{color: '#E93D29'}"));
+            options.put("theme", new JSONObject("{color: '#E93D29'}"));
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
             preFill.put("contact", "9876543210");
@@ -391,11 +454,11 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         String transactionId = bundle.getString("TXNID");
         String bankTransactionId = bundle.getString("BANKTXNID");
 
-        String MID=bundle.getString("MID");
-        String ORDERID=bundle.getString("ORDERID");
-        String CHECKSUMHASH= URLEncoder.encode(bundle.getString("CHECKSUMHASH"));
+        String MID = bundle.getString("MID");
+        String ORDERID = bundle.getString("ORDERID");
+        String CHECKSUMHASH = URLEncoder.encode(bundle.getString("CHECKSUMHASH"));
 //            URL myURL = new URL(CHECKSUMHASH);
-        System.out.println("CHECKSUMHASH:"+CHECKSUMHASH);
+        System.out.println("CHECKSUMHASH:" + CHECKSUMHASH);
         System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
         callAddWalletAPI(transactionId, amount, "paytm");
 //        Toast.makeText(getActivity(), bundle.toString(), Toast.LENGTH_LONG).show();
@@ -488,8 +551,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }

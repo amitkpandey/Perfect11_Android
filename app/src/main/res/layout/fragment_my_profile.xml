@@ -293,7 +293,7 @@
                         android:layout_width="@android:dimen/app_icon_size"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/refer_a_friend_icon"
+                        android:src="@drawable/invite_fnd"
 
                         />
 
@@ -333,7 +333,7 @@
                         android:layout_width="@android:dimen/app_icon_size"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/refer_a_friend_icon"
+                        android:src="@drawable/change_pw"
 
                         />
 

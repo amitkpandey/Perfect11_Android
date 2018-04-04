@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.perfect11.R;
@@ -68,7 +69,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
     public class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout ll_root;
         private CustomTextView ctv_title, ctv_country1, ctv_country2, ctv_timer;
-        private CircleImageView cimg_country1, cimg_country2;
+        private ImageView cimg_country1, cimg_country2;
         private UpComingMatchesDto upComingMatchesDto;
 
 
@@ -89,8 +90,8 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
             ctv_country1.setText(item.teama);
             ctv_country2.setText(item.teamb);
 
-            Picasso.with(mactivity).load(getPictureURL(item.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country1);
-            Picasso.with(mactivity).load(getPictureURL(item.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(cimg_country2);
+            Picasso.with(mactivity).load(getPictureURL(item.teama)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).into(cimg_country1);
+            Picasso.with(mactivity).load(getPictureURL(item.teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face2).into(cimg_country2);
             ll_root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -149,7 +150,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        return "http://52.15.50.179/public/images/app/country/" + country + ".png";
     }
 
     @Override

@@ -30,7 +30,7 @@ public class  PreviewTeamFragment extends BaseFragment {
     private ImageView iv_ar1_c, iv_ar2_c, iv_ar3_c, iv_ar4_c;
     private ImageView iv_bowler1_c, iv_bowler2_c, iv_bowler3_c, iv_bowler4_c, iv_bowler5_c, iv_bowler6_c;
 
-    private CircleImageView iv_team1, iv_team2;
+    private ImageView iv_team1, iv_team2;
 
     private int bowler = 0, batsman = 0, allrounder = 0, keeper = 0;
 
@@ -195,8 +195,8 @@ public class  PreviewTeamFragment extends BaseFragment {
         }
         tv_team1.setText(team1);
         tv_team2.setText(team2);
-        Picasso.with(getActivity()).load(getPictureURL(teamA)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(iv_team1);
-        Picasso.with(getActivity()).load(getPictureURL(teamB)).placeholder(R.drawable.progress_animation).error(R.drawable.no_team).into(iv_team2);
+        Picasso.with(getActivity()).load(getPictureURL(teamA)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).into(iv_team1);
+        Picasso.with(getActivity()).load(getPictureURL(teamB)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face2).into(iv_team2);
         tv_team_count1.setText("" + total_team1 + "/7");
         tv_team_count2.setText("" + total_team2 + "/7");
         arrangePlayerOnField();
@@ -536,7 +536,7 @@ public class  PreviewTeamFragment extends BaseFragment {
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        return "http://52.15.50.179/public/images/team/flag-of-" + country + ".png";
+        return "http://52.15.50.179/public/images/app/country/" + country + ".png";
     }
 
     @Override

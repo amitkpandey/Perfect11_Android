@@ -21,6 +21,8 @@ import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
+import com.perfect11.contest.MyContestCancelFragmentChild;
+import com.perfect11.contest.MyContestFragmentChild;
 import com.perfect11.home.childFragments.FixturesFragment;
 import com.perfect11.home.childFragments.LiveFragment;
 import com.perfect11.home.childFragments.ResultsFragment;
@@ -42,6 +44,7 @@ import retrofit2.Response;
 
 public class MyContestFragment extends BaseFragment {
     private ViewPager viewPager;
+    private TabLayout tabLayout;
     private boolean flag = false;
     private UserDto userDto;
 
@@ -86,12 +89,15 @@ public class MyContestFragment extends BaseFragment {
     private void initView() {
         viewPager = view.findViewById(R.id.view_pager);
         ((BaseHeaderActivity) getActivity()).slideMenu.addIgnoredView(viewPager);
+        tabLayout = view.findViewById(R.id.tabs);
         setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new ResultsFragment(), "Results");
+        adapter.addFragment(new MyContestFragmentChild(), "Joined");
+        adapter.addFragment(new MyContestCancelFragmentChild(), "Canceled");
         viewPager.setAdapter(adapter);
     }
 

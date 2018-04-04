@@ -10,4 +10,5 @@ public class MyAccountDto implements Serializable {
     public String total_balance;
     public String winnings;
     public String cash_bonus;
+    public String withdraw_amount;
 }
