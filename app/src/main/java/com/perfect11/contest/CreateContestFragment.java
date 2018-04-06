@@ -600,10 +600,10 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     private void initializePaytmPayment(String checksumHash, Paytm paytm) {
 
         //getting paytm service
-        PaytmPGService Service = PaytmPGService.getStagingService();
+//        PaytmPGService Service = PaytmPGService.getStagingService();
 
         //use this when using for production
-        //PaytmPGService Service = PaytmPGService.getProductionService();
+        PaytmPGService Service = PaytmPGService.getProductionService();
 
         //creating a hashmap and adding all the values required
         Map<String, String> paramMap = new HashMap<>();
@@ -758,7 +758,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 
         Call<Transaction> call = apiInterface.getStatus(orderId);
         call.enqueue(new Callback<Transaction>() {

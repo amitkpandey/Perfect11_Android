@@ -48,6 +48,7 @@ public class Paytm {
 
         Log.d("orderId", orderId);
         Log.d("customerId", custId);
+        Log.d("callBackUrl", callBackUrl);
     }
 
     public String getmId() {

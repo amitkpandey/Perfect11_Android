@@ -538,7 +538,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 
         Call<Transaction> call = apiInterface.getStatus(orderId);
         call.enqueue(new Callback<Transaction>() {
