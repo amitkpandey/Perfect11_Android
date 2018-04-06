@@ -35,7 +35,7 @@
         <activity
             android:name=".payment.razorpay.PaymentRazorPayActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.imageCaptured.VideoSelectionDialog"
             android:label="@string/app_name"

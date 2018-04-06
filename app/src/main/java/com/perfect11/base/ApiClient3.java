@@ -1,6 +1,5 @@
 package com.perfect11.base;
 
-import android.app.Activity;
 import android.util.Log;
 
 import okhttp3.OkHttpClient;
@@ -9,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient3 {
-    public static final String BASE_URL_RETROFIT = "http://perfect11.in/";
+    public static final String BASE_URL_RETROFIT = "https://pguat.paytm.com/oltp/HANDLER_INTERNAL/";
     public static Retrofit retrofit = null;
     public static HttpLoggingInterceptor interceptor = null;
     public static OkHttpClient client = null;

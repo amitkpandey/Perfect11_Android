@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.perfect11.R;
-import com.perfect11.base.ApiClient3;
+import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.login_signup.dto.InviteDto;
@@ -95,7 +95,7 @@ public class TicketSystemFragment extends BaseFragment {
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
-        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<InviteDto> call = apiInterface.ticketSaveCall(userDto.member_id, ticket.getText().toString().trim());
         call.enqueue(new Callback<InviteDto>() {
@@ -113,8 +113,7 @@ public class TicketSystemFragment extends BaseFragment {
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }

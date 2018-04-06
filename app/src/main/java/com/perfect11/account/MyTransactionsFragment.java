@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.perfect11.R;
 import com.perfect11.account.dto.MyTransectionDto;
 import com.perfect11.account.wrapper.MyTransectionWrapper;
-import com.perfect11.base.ApiClient3;
+import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
@@ -91,7 +91,7 @@ public class MyTransactionsFragment extends BaseFragment {
                 currentIteam = layoutManager.getChildCount();
                 totalIteams = layoutManager.getItemCount();
                 scrollOutIteams = layoutManager.findFirstVisibleItemPosition();
-                Log.e("Abcd", "currentIteam:"+currentIteam+" totalIteams: " + totalIteams + " listcount: " + listcount);
+                Log.e("Abcd", "currentIteam:" + currentIteam + " totalIteams: " + totalIteams + " listcount: " + listcount);
                 if (isScrolling && (currentIteam + scrollOutIteams == totalIteams)) {
                     page++;
                     isScrolling = false;
@@ -119,7 +119,7 @@ public class MyTransactionsFragment extends BaseFragment {
             progress.setVisibility(View.VISIBLE);
         }
 
-        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<MyTransectionWrapper> call = apiInterface.myTransactionList(userDto.member_id, page, 20);
         call.enqueue(new Callback<MyTransectionWrapper>() {

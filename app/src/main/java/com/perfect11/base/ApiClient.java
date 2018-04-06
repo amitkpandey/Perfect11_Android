@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    public static final String BASE_URL_RETROFIT = "http://52.15.50.179/";
+    public static final String BASE_URL_RETROFIT = "http://perfect11.in/";
     public static Retrofit retrofit = null;
     public static HttpLoggingInterceptor interceptor = null;
     public static OkHttpClient client = null;

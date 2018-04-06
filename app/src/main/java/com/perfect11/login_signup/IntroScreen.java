@@ -1,16 +1,14 @@
 package com.perfect11.login_signup;
 
-import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.perfect11.R;
-import com.perfect11.account.wrapper.MyAccountWrapper;
-import com.perfect11.base.ApiClient3;
+import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.login_signup.dto.PictureDto;
 import com.perfect11.login_signup.wrapper.PictureWrapper;
@@ -28,15 +26,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class IntroScreen extends AppCompatActivity {
-private ImageView iv_image1,iv_image2,iv_image3,iv_image4;
-private ApiInterface apiInterface;
-private ArrayList<PictureDto> pictureDtoArrayList=null;
+    private ImageView iv_image1, iv_image2, iv_image3, iv_image4;
+    private ApiInterface apiInterface;
+    private ArrayList<PictureDto> pictureDtoArrayList = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_screen);
-    initView();
-    callAPI();
+        initView();
+        callAPI();
     }
 
     private void callAPI() {
@@ -49,20 +48,17 @@ private ArrayList<PictureDto> pictureDtoArrayList=null;
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();*/
 
-        apiInterface= ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<PictureWrapper> call = apiInterface.getPictureList();
 
         call.enqueue(new Callback<PictureWrapper>() {
             @Override
             public void onResponse(Call<PictureWrapper> call, Response<PictureWrapper> response) {
-                pictureDtoArrayList=response.body().data;
-                if(pictureDtoArrayList!=null)
-                {
-                    int i=0;
-                    for(PictureDto pictureDto:pictureDtoArrayList)
-                    {
-                        switch(i)
-                        {
+                pictureDtoArrayList = response.body().data;
+                if (pictureDtoArrayList != null) {
+                    int i = 0;
+                    for (PictureDto pictureDto : pictureDtoArrayList) {
+                        switch (i) {
                             case 0:
                                 if (!pictureDto.picture.equals("")) {
                                     Picasso.with(IntroScreen.this).load(pictureDto.picture)
@@ -106,8 +102,7 @@ private ArrayList<PictureDto> pictureDtoArrayList=null;
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(IntroScreen.this);
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(IntroScreen.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -117,25 +112,24 @@ private ArrayList<PictureDto> pictureDtoArrayList=null;
 
     private void initView() {
         //4 Image of Intro Screen
-        iv_image1=findViewById(R.id.iv_image1);
-        iv_image2=findViewById(R.id.iv_image2);
-        iv_image3=findViewById(R.id.iv_image3);
-        iv_image4=findViewById(R.id.iv_image4);
+        iv_image1 = findViewById(R.id.iv_image1);
+        iv_image2 = findViewById(R.id.iv_image2);
+        iv_image3 = findViewById(R.id.iv_image3);
+        iv_image4 = findViewById(R.id.iv_image4);
     }
 
     public void onButtonClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.btn_login:
-                ActivityController.startNextActivity(IntroScreen.this,LoginActivity.class,false);
+                ActivityController.startNextActivity(IntroScreen.this, LoginActivity.class, false);
                 break;
             case R.id.btn_register:
-                ActivityController.startNextActivity(this,RegisterActivity.class,false);
+                ActivityController.startNextActivity(this, RegisterActivity.class, false);
                 break;
             case R.id.ctv_skip:
-                if(CommonUtility.checkConnectivity(this)) {
-                    ActivityController.startNextActivity(this, UpcomingMatchesActivity.class,false);
-                }else{
+                if (CommonUtility.checkConnectivity(this)) {
+                    ActivityController.startNextActivity(this, UpcomingMatchesActivity.class, false);
+                } else {
                     DialogUtility.showConnectionErrorDialogWithOk(this);
                 }
                 break;

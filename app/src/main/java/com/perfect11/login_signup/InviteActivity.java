@@ -8,27 +8,19 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
-import com.perfect11.base.ApiClient3;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.login_signup.dto.InviteDto;
-import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.requestHandler.ApplicationServiceRequestHandler;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
-import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.ActivityController;
 import com.utility.AlertDialogCallBack;
-import com.utility.CommonUtility;
-import com.utility.Constants;
 import com.utility.DialogUtility;
-import com.utility.PreferenceUtility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,8 +35,9 @@ public class InviteActivity extends AppCompatActivity {
     private boolean flag = false;
     private ArrayList<PlayerDto> selectedTeam;
     private UpComingMatchesDto upComingMatchesDto;
-private String member_id;
-private ApiInterface apiInterface;
+    private String member_id;
+    private ApiInterface apiInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +48,13 @@ private ApiInterface apiInterface;
     }
 
     private void readFromBundle() {
-         try {
+        try {
             flag = getIntent().getExtras().getBoolean("flag");
             contestDto = (ContestDto) getIntent().getExtras().getSerializable("contestDto");
             selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
-            member_id=getIntent().getExtras().getString("member_id");
+            member_id = getIntent().getExtras().getString("member_id");
             upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
-            System.out.println(contestDto.toString() + " Flag:" + flag +member_id);
+            System.out.println(contestDto.toString() + " Flag:" + flag + member_id);
 //            Log.e("Login:", contestDto.toString() + upComingMatchesDto.toString() + selectedTeam.size() + flag);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +115,7 @@ private ApiInterface apiInterface;
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
-        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<InviteDto> call = apiInterface.inviteCall(member_id, invite.getText().toString().trim());
         call.enqueue(new Callback<InviteDto>() {
@@ -140,8 +133,7 @@ private ApiInterface apiInterface;
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(InviteActivity.this);
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(InviteActivity.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -155,8 +147,8 @@ private ApiInterface apiInterface;
         DialogUtility.showMessageOkWithCallback(body.message, this, new AlertDialogCallBack() {
             @Override
             public void onSubmit() {
-                if(body.status)
-                gotoLogin();
+                if (body.status)
+                    gotoLogin();
             }
 
             @Override

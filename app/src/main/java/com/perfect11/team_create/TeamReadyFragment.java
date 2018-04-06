@@ -16,12 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
+import com.perfect11.base.ApiClient4;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
@@ -30,9 +30,7 @@ import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.dto.TeamIDDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
 import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.payment.paytm.Api;
 import com.perfect11.payment.paytm.Checksum;
-import com.perfect11.payment.paytm.Constants;
 import com.perfect11.payment.paytm.Paytm;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.team_create.dto.ContestDto;
@@ -43,6 +41,7 @@ import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.squareup.picasso.Picasso;
 import com.utility.AlertDialogCallBack;
+import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
@@ -67,8 +66,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.utility.Constants.TAG;
 
@@ -1112,37 +1109,20 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 
     private void generateCheckSum(String amount) {
         //getting the tax amount first.
-
-        if (interceptor == null) {
-            interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }
-        if (client == null) {
-            client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-        }
-
-        if (gson == null) {
-            gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-        }
-
-        //creating a retrofit object.
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
 
         //creating the retrofit api service
-        Api apiService = retrofit.create(Api.class);
+        apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 
         //creating paytm object
         //containing all the values required
         final Paytm paytm = new Paytm(Constants.M_ID, Constants.CHANNEL_ID, amount, Constants.WEBSITE, Constants.CALLBACK_URL, Constants.INDUSTRY_TYPE_ID);
 
         //creating a call object from the apiService
-        Call<Checksum> call = apiService.getChecksum(paytm.getmId(), paytm.getOrderId(), paytm.getCustId(), paytm.getChannelId(), paytm.getTxnAmount(),
+        Call<Checksum> call = apiInterface.getChecksum(paytm.getmId(), paytm.getOrderId(), paytm.getCustId(), paytm.getChannelId(), paytm.getTxnAmount(),
                 paytm.getWebsite(), paytm.getCallBackUrl(), paytm.getIndustryTypeId());
 
         //making the call to generate checksum
@@ -1153,10 +1133,14 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 //once we get the checksum we will initiailize the payment.
                 //the method is taking the checksum we got and the paytm object as the parameter
                 initializePaytmPayment(response.body().getChecksumHash(), paytm);
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Checksum> call, Throwable t) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
 
             }
         });

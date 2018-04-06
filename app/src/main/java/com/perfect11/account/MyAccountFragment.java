@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
@@ -26,19 +25,20 @@ import com.perfect11.account.dto.WithdrawlStatusDto;
 import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiClient3;
+import com.perfect11.base.ApiClient4;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.login_signup.dto.InviteDto;
 import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.payment.paytm.Api;
 import com.perfect11.payment.paytm.Checksum;
-import com.perfect11.payment.paytm.Constants;
 import com.perfect11.payment.paytm.Paytm;
+import com.perfect11.payment.paytm.Transaction;
 import com.perfect11.payment.wrapper.WalletWrapper;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.utility.AlertDialogCallBack;
+import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomEditText;
@@ -46,8 +46,6 @@ import com.utility.customView.CustomEditText;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,21 +54,16 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Url;
 
 import static com.utility.Constants.TAG;
 
 
 public class MyAccountFragment extends BaseFragment implements PaytmPaymentTransactionCallback, PaymentResultListener {
-    private TextView tv_total_balance, tv_unutilized, tv_winnings, iv_withdrawable;
+    private TextView tv_total_balance, tv_unutilized, tv_winnings, tv_withdrawable;
     private MyAccountWrapper myAccountWrapper;
     private ApiInterface apiInterface;
     private UserDto userDto;
     private String paymentGateway, amount;
-    private HttpLoggingInterceptor interceptor = null;
-    private OkHttpClient client = null;
     private Gson gson;
     private boolean flag = false;
     private float withdrawl_amount;
@@ -122,7 +115,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 tv_unutilized.setText("Rs." + (Float.parseFloat(myAccountWrapper.data.total_balance) - Float.parseFloat(myAccountWrapper.data.winnings)) + "/-");
                 tv_winnings.setText("Rs." + myAccountWrapper.data.winnings + "/-");
                 withdrawl_amount = Float.parseFloat(myAccountWrapper.data.withdraw_amount);
-                iv_withdrawable.setText("Rs." + myAccountWrapper.data.withdraw_amount + "/-");
+                tv_withdrawable.setText("Rs." + myAccountWrapper.data.withdraw_amount + "/-");
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
@@ -149,7 +142,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         tv_total_balance = view.findViewById(R.id.tv_total_balance);
         tv_unutilized = view.findViewById(R.id.tv_unutilized);
         tv_winnings = view.findViewById(R.id.tv_winnings);
-        iv_withdrawable = view.findViewById(R.id.iv_withdrawable);
+        tv_withdrawable = view.findViewById(R.id.tv_withdrawable);
     }
 
     public static Fragment newInstance() {
@@ -167,8 +160,8 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_withdraw:
-                System.out.println("withdrawl_amount:"+withdrawl_amount);
-                if(withdrawl_amount!=0.0) {
+                System.out.println("withdrawl_amount:" + withdrawl_amount);
+                if (withdrawl_amount != 0.0) {
                     DialogUtility.showCustomConformationYesNO(getActivity(), "Are you sure that you want to withdraw money?", new AlertDialogCallBack() {
                         @Override
                         public void onSubmit() {
@@ -181,8 +174,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                         }
                     });
 
-                }else
-                {
+                } else {
                     Toast.makeText(getActivity(), "Your account has no money to withdraw.", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -276,10 +268,10 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
-                 if (response.body().error == 1)
+                if (response.body().error == 1)
                     DialogUtility.showCustomMessageOk(getActivity(), "Dear " + userDto.first_name + " " + userDto.last_name + " please verify your account info and KYC from website perfect11.in first,then you will be eligible to withdraw wining amount from app");
-                 else
-                     DialogUtility.showCustomMessageOk(getActivity(), response.body().message);
+                else
+                    DialogUtility.showCustomMessageOk(getActivity(), response.body().message);
 
             }
 
@@ -307,7 +299,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
-        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<InviteDto> call = apiInterface.ticketSaveCall(userDto.member_id, ticket);
         call.enqueue(new Callback<InviteDto>() {
@@ -367,36 +359,18 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
     private void generateCheckSum(String amount) {
         //getting the tax amount first.
 
-        if (interceptor == null) {
-            interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }
-        if (client == null) {
-            client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-        }
-
-        if (gson == null) {
-            gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-        }
-
-        //creating a retrofit object.
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        //creating the retrofit api service
-        Api apiService = retrofit.create(Api.class);
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 
         //creating paytm object
         //containing all the values required
         final Paytm paytm = new Paytm(Constants.M_ID, Constants.CHANNEL_ID, amount, Constants.WEBSITE, Constants.CALLBACK_URL, Constants.INDUSTRY_TYPE_ID);
 
         //creating a call object from the apiService
-        Call<Checksum> call = apiService.getChecksum(paytm.getmId(), paytm.getOrderId(), paytm.getCustId(), paytm.getChannelId(), paytm.getTxnAmount(),
+        Call<Checksum> call = apiInterface.getChecksum(paytm.getmId(), paytm.getOrderId(), paytm.getCustId(), paytm.getChannelId(), paytm.getTxnAmount(),
                 paytm.getWebsite(), paytm.getCallBackUrl(), paytm.getIndustryTypeId());
 
         //making the call to generate checksum
@@ -407,10 +381,14 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 //once we get the checksum we will initiailize the payment.
                 //the method is taking the checksum we got and the paytm object as the parameter
                 initializePaytmPayment(response.body().getChecksumHash(), paytm);
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Checksum> call, Throwable t) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
 
             }
         });
@@ -422,7 +400,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         PaytmPGService Service = PaytmPGService.getStagingService();
 
         //use this when using for production
-        //PaytmPGService Service = PaytmPGService.getProductionService();
+//        PaytmPGService Service = PaytmPGService.getProductionService();
 
         //creating a hashmap and adding all the values required
         Map<String, String> paramMap = new HashMap<>();
@@ -435,6 +413,8 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         paramMap.put("CALLBACK_URL", paytm.getCallBackUrl());
         paramMap.put("CHECKSUMHASH", checksumHash);
         paramMap.put("INDUSTRY_TYPE_ID", paytm.getIndustryTypeId());
+//        paramMap.put("MOBILE_NO", "9830063231");
+//        paramMap.put("EMAIL_ID", userDto.email);
 
 
         //creating a paytm order object using the hashmap
@@ -451,17 +431,8 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
     //all these overriden method is to detect the payment result accordingly
     @Override
     public void onTransactionResponse(Bundle bundle) {
-        String transactionId = bundle.getString("TXNID");
-        String bankTransactionId = bundle.getString("BANKTXNID");
-
-        String MID = bundle.getString("MID");
-        String ORDERID = bundle.getString("ORDERID");
-        String CHECKSUMHASH = URLEncoder.encode(bundle.getString("CHECKSUMHASH"));
-//            URL myURL = new URL(CHECKSUMHASH);
-        System.out.println("CHECKSUMHASH:" + CHECKSUMHASH);
-        System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
-        callAddWalletAPI(transactionId, amount, "paytm");
-//        Toast.makeText(getActivity(), bundle.toString(), Toast.LENGTH_LONG).show();
+        String orderId = bundle.getString("ORDERID");
+        callTransactionAPI(orderId);
     }
 
     @Override
@@ -532,7 +503,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
-        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<WalletWrapper> call = apiInterface.addwallet(transactionId, amount, type, userDto.member_id);
         call.enqueue(new Callback<WalletWrapper>() {
@@ -548,6 +519,8 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<WalletWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
+
+
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
@@ -555,7 +528,47 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
 
+    private void callTransactionAPI(String orderId) {
+        Log.d("API", "Get Player");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<Transaction> call = apiInterface.getStatus(orderId);
+        call.enqueue(new Callback<Transaction>() {
+            @Override
+            public void onResponse(Call<Transaction> call, final Response<Transaction> response) {
+                if (response.body().sTATUS.equalsIgnoreCase("TXN_SUCCESS")) {
+                    DialogUtility.showMessageOkWithCallback("Payment Successful", getActivity(), new AlertDialogCallBack() {
+                        @Override
+                        public void onSubmit() {
+                            callAddWalletAPI(response.body().tXNID, response.body().tXNAMOUNT, "paytm");
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                } else {
+                    DialogUtility.showMessageWithOk("Payment Failure", getActivity());
+                }
+
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Transaction> call, Throwable t) {
+                Log.e("TAG", t.toString());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

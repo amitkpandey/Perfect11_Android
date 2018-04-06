@@ -19,12 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
+import com.perfect11.base.ApiClient4;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
@@ -35,9 +35,7 @@ import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.dto.TeamIDDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
 import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.payment.paytm.Api;
 import com.perfect11.payment.paytm.Checksum;
-import com.perfect11.payment.paytm.Constants;
 import com.perfect11.payment.paytm.Paytm;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.team_create.dto.ContestDto;
@@ -46,6 +44,7 @@ import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.utility.AlertDialogCallBack;
+import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomTextView;
@@ -63,8 +62,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.utility.Constants.TAG;
 
@@ -134,18 +131,18 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             TextView header = dialog.findViewById(R.id.ctv_title);
             TextView content = dialog.findViewById(R.id.ctv_body);
 
-            CustomTextView ctv_joining_amount =dialog.findViewById(R.id.ctv_joining_amount);
-            ctv_joining_amount.setText("Joining Amount: Rs. "+contestDto.entryfee);
+            CustomTextView ctv_joining_amount = dialog.findViewById(R.id.ctv_joining_amount);
+            ctv_joining_amount.setText("Joining Amount: Rs. " + contestDto.entryfee);
 
-            CustomTextView ctv_body =dialog.findViewById(R.id.ctv_body);
-            ctv_body.setText("Contest Name: "+contestDto.room_name);
+            CustomTextView ctv_body = dialog.findViewById(R.id.ctv_body);
+            ctv_body.setText("Contest Name: " + contestDto.room_name);
 
             Button cbtn_join = dialog.findViewById(R.id.cbtn_join);
             Button cbtn_cancel = dialog.findViewById(R.id.cbtn_cancel);
             cbtn_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    flag=false;
+                    flag = false;
                     dialog.dismiss();
                 }
             });
@@ -155,7 +152,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 public void onClick(View v) {
                     apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
                     callCreateTeamAPI();
-                    flag=false;
+                    flag = false;
                     dialog.dismiss();
                 }
             });
@@ -200,7 +197,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             keeperList.add(keeper);
         }
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id,upComingMatchesDto.my_team_name);
+                player_amount_count, upComingMatchesDto.key_name, vcaptain, userDto.member_id, upComingMatchesDto.my_team_name);
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
@@ -295,8 +292,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -392,8 +388,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -541,7 +536,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
-            options.put("theme",new JSONObject("{color: '#E93D29'}"));
+            options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -559,37 +554,20 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
 
     private void generateCheckSum(String amount) {
         //getting the tax amount first.
-
-        if (interceptor == null) {
-            interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }
-        if (client == null) {
-            client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-        }
-
-        if (gson == null) {
-            gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-        }
-
-        //creating a retrofit object.
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
 
         //creating the retrofit api service
-        Api apiService = retrofit.create(Api.class);
+        apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 
         //creating paytm object
         //containing all the values required
         final Paytm paytm = new Paytm(Constants.M_ID, Constants.CHANNEL_ID, amount, Constants.WEBSITE, Constants.CALLBACK_URL, Constants.INDUSTRY_TYPE_ID);
 
         //creating a call object from the apiService
-        Call<Checksum> call = apiService.getChecksum(paytm.getmId(), paytm.getOrderId(), paytm.getCustId(), paytm.getChannelId(), paytm.getTxnAmount(),
+        Call<Checksum> call = apiInterface.getChecksum(paytm.getmId(), paytm.getOrderId(), paytm.getCustId(), paytm.getChannelId(), paytm.getTxnAmount(),
                 paytm.getWebsite(), paytm.getCallBackUrl(), paytm.getIndustryTypeId());
 
         //making the call to generate checksum
@@ -600,11 +578,14 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 //once we get the checksum we will initiailize the payment.
                 //the method is taking the checksum we got and the paytm object as the parameter
                 initializePaytmPayment(response.body().getChecksumHash(), paytm);
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Checksum> call, Throwable t) {
-
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
             }
         });
     }
@@ -748,8 +729,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }

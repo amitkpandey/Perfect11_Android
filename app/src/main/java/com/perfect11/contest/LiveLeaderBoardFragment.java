@@ -55,7 +55,8 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     private String userTeamId;
     private Intent intent;
     private ArrayList<LiveLeaderboardDto> liveLeaderBoardDtoArrayList;
-private boolean isFixture=false;
+    private boolean isFixture = false;
+
     public static LiveLeaderBoardFragment newInstance() {
         return new LiveLeaderBoardFragment();
     }
@@ -110,7 +111,7 @@ private boolean isFixture=false;
         teamA = getArguments().getString("teamA");
         teamB = getArguments().getString("teamB");
         matchStatus = getArguments().getString("matchStatus");
-        isFixture=getArguments().getBoolean("isFixture");
+        isFixture = getArguments().getBoolean("isFixture");
     }
 
     private void initView() {
@@ -207,8 +208,7 @@ private boolean isFixture=false;
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -236,10 +236,10 @@ private boolean isFixture=false;
 
                 MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
                 myTeamFragment.setArguments(bundle);
-                if(!isFixture) {
+                if (!isFixture) {
                     ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
                 }
-                }
+            }
         });
     }
 }

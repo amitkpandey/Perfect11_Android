@@ -1,4 +1,4 @@
-package com.perfect11.payment.paytm;
+package com.perfect11.base;
 
 import android.util.Log;
 
@@ -14,9 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Developer on 23-02-2018.
  */
 
-public class ApiClient {
+public class ApiClient4 {
   //  String BASE_URL = "http://52.15.50.179/paytm/";
-    public static final String BASE_URL_RETROFIT ="http://52.15.50.179/paytm/";
+    public static final String BASE_URL_RETROFIT ="http://perfect11.in/paytm/";
     public static Retrofit retrofit = null;
     public static HttpLoggingInterceptor interceptor = null;
     public static OkHttpClient client = null;

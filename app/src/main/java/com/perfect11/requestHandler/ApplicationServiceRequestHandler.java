@@ -20,6 +20,7 @@ import com.webservice.TaskManager;
 
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -45,6 +46,7 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
     public static final int EDIT_PROFILE = 7;
     public static final int GET_LIVE_SCORE = 8;
     public static final int SOCIAL_LOGIN = 9;
+    public static final int PAYTM_TRANSACTION_STATUS = 10;
 
     public ApplicationServiceRequestHandler(Activity activity, Fragment fragment, String[] keys, Object[] values,
                                             String loadingMessage, int index, String baseURL) {
@@ -141,7 +143,7 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
         this.mFragment = fragment;
         this.message = loadingMessage;
         this.baseURL = baseURL;
-        this.url = url;
+        this.url = URLEncoder.encode(url);
         this.index = index;
         callServiceForGet();
     }
@@ -176,6 +178,8 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 return "players/playerspoint/" + url;
             case SOCIAL_LOGIN:
                 return "socialLoginApi";
+            case PAYTM_TRANSACTION_STATUS:
+                return url;
         }
         return "";
     }
@@ -249,7 +253,7 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
                 userWrapper = MyApplication.gson.fromJson(response, UserDetailsWrapper.class);
                 //PreferenceUtility.saveObjectInAppPreference(mActivity, userWrapper.data, PreferenceUtility.APP_PREFERENCE_NAME);
                 if (mActivity instanceof RegisterActivity) {
-                    ((RegisterActivity) mActivity).serviceCallbackSignUP(message,userWrapper.data.member_id);
+                    ((RegisterActivity) mActivity).serviceCallbackSignUP(message, userWrapper.data.member_id);
                 }
                 break;
             case CHANGE_MY_PICTURE:

@@ -127,8 +127,7 @@ public class TaskManager implements IServerResponse {
      * @param video_path_key  the video_path_key
      * @param loadingMessage  the loadingMessage
      */
-    public void callService(String[] still_path, String still_image_key, String videoPath, String video_path_key,
-                            String loadingMessage) {
+    public void callService(String[] still_path, String still_image_key, String videoPath, String video_path_key, String loadingMessage) {
         if (CommonUtilities.checkConnectivity(activity)) {
             String[] keys = iRequestCaller.getKeys();
             Object[] values = iRequestCaller.getValues();
@@ -152,8 +151,7 @@ public class TaskManager implements IServerResponse {
      * @param video_path_key  the video_path_key
      * @param loadingMessage  the loadingMessage
      */
-    public void callServiceContext(String[] still_path, String still_image_key, String videoPath, String video_path_key,
-                                   String loadingMessage) {
+    public void callServiceContext(String[] still_path, String still_image_key, String videoPath, String video_path_key, String loadingMessage) {
         if (CommonUtilities.checkConnectivity(context)) {
             String[] keys = iRequestCaller.getKeys();
             Object[] values = iRequestCaller.getValues();
@@ -276,8 +274,8 @@ public class TaskManager implements IServerResponse {
             String url = baseURL + iRequestCaller.getWebServiceMethod();
             RestServiceClient restServiceClient = new RestServiceClient(this, url, activity, loadingMessage);
             restServiceClient.execute();
-//        } else {
-//            DialogUtility.showMessageWithOk(activity.getResources().getString(R.string.network_unavailable), activity);
+        } else {
+            DialogUtility.showMessageWithOk(activity.getResources().getString(R.string.network_unavailable), activity);
         }
     }
 

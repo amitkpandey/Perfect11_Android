@@ -17,7 +17,6 @@ import com.perfect11.upcoming_matches.adapter.UpcomingMatchesAdapter;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.perfect11.upcoming_matches.wrapper.UpComingMatchesWrapper;
 import com.utility.ActivityController;
-import com.utility.CommonUtility;
 import com.utility.DialogUtility;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_matches);
         initView();
-            callAPI();
+        callAPI();
     }
 
     private void initView() {
@@ -97,9 +96,8 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
                                 bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
                                 ActivityController.startNextActivity(UpcomingMatchesActivity.this, CreateTeamActivity.class, bundle,
                                         false);
-                            }else
-                            {
-                                DialogUtility.showMessageWithOk("Match Closed",UpcomingMatchesActivity.this);
+                            } else {
+                                DialogUtility.showMessageWithOk("Match Closed", UpcomingMatchesActivity.this);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -117,8 +115,7 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(UpcomingMatchesActivity.this);
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(UpcomingMatchesActivity.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
