@@ -4,7 +4,8 @@
     android:id="@+id/rl_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp">
+    android:paddingBottom="10dp"
+    android:background="@android:drawable/picture_frame">
 
     <RelativeLayout
         android:id="@+id/rl_header"
@@ -58,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_type"
-        android:background="@android:color/white"
+
         android:padding="10dp">
 
         <RelativeLayout
@@ -91,7 +92,8 @@
                     android:maxLines="1"
                     android:text="Rs 50000/-"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12dp"/>
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_spot_left"
@@ -109,32 +111,32 @@
                 android:id="@+id/donut_progress"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
-                android:layout_toLeftOf="@+id/ll_winner_details"
-                android:layout_toStartOf="@+id/ll_winner_details"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+
                 custom:donut_finished_color="@color/red_text_color"
                 custom:donut_prefix_text="Teams"
-                android:layout_marginRight="15dp"
-                android:layout_marginEnd="15dp"
                 custom:donut_progress="60"
                 custom:donut_suffix_text="hello"
                 custom:donut_text="dsd"
                 custom:donut_text_color="@android:color/black"
-                custom:donut_text_size="11sp" />
+                custom:donut_text_size="11sp"
+                android:layout_centerInParent="true"/>
 
 
             <LinearLayout
                 android:id="@+id/ll_winner_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/ll_entry"
+                android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/ll_entry"
+                android:layout_toStartOf="@+id/ll_entry"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <com.utility.customView.CustomTextView
-                    style="@android:style/TextAppearance.Medium"
+                    style="@android:style/TextAppearance.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -152,7 +154,7 @@
                     android:maxLines="1"
                     android:text="100"
                     android:textColor="@android:color/black"
-                    android:textSize="13sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -168,14 +170,14 @@
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_entry"
-                    style="@android:style/TextAppearance.Medium"
+                    style="@android:style/TextAppearance.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="Entry Fee"
                     android:textColor="@android:color/black"
-                    android:textSize="13sp" />
+                    />
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_entry_fee"
@@ -185,6 +187,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Rs 10/-"
+                    android:textSize="11sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 

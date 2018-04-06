@@ -44,7 +44,6 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,6 +105,7 @@ public class SelectPlayersFragment extends BaseFragment {
     private int player_count_no = 11;
     private int team_a_no = 7;
     private int team_b_no = 4;
+    private int total_cedit_point=100;
 
     private PlayerSettingWrapper playerSettingWrapper = null;
     /**
@@ -162,7 +162,7 @@ public class SelectPlayersFragment extends BaseFragment {
                 player_count_no = Integer.parseInt(playerSettingWrapper.data.player_count);
                 team_a_no = Integer.parseInt(playerSettingWrapper.data.team_a);
                 team_b_no = Integer.parseInt(playerSettingWrapper.data.team_b);
-
+                total_cedit_point=playerSettingWrapper.data.total_credit;
                 callAPI();
             }
 
@@ -938,7 +938,7 @@ public class SelectPlayersFragment extends BaseFragment {
         /* Set Adapter Players*/
 
         /*Wicket Keeper*/
-        wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
+        wkAdapter = new WkAdapter(getActivity(), keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -946,14 +946,14 @@ public class SelectPlayersFragment extends BaseFragment {
                 keeper = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
-                tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
+                tv_header.setText("" + totalPlayerpoint + "/"+total_cedit_point+"\nCredits Left");
+                tv_player_count.setText("" + totalPlayers + "/"+player_count_no+"\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, keeper);
             }
         });
 
         /*BatsMan*/
-        batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
+        batAdapter = new WkAdapter(getActivity(), batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -961,14 +961,14 @@ public class SelectPlayersFragment extends BaseFragment {
                 batsman = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
-                tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
+                tv_header.setText("" + totalPlayerpoint + "/"+total_cedit_point+"\nCredits Left");
+                tv_player_count.setText("" + totalPlayers + "/"+player_count_no+"\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, batsman);
             }
         });
 
         /*AllRounder*/
-        arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
+        arAdapter = new WkAdapter(getActivity(), allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -976,13 +976,13 @@ public class SelectPlayersFragment extends BaseFragment {
                 allrounder = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
-                tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
+                tv_header.setText("" + totalPlayerpoint + "/"+total_cedit_point+"\nCredits Left");
+                tv_player_count.setText("" + totalPlayers + "/"+player_count_no+"\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, allrounder);
             }
         });
         /*AllRounder*/
-        bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no);
+        bowlAdapter = new WkAdapter(getActivity(), bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -990,8 +990,8 @@ public class SelectPlayersFragment extends BaseFragment {
                 bowler = playerDtoArrayList;
                 totalPoints = totalPlayerpoint;
                 totalPlayers = totalPlayer;
-                tv_header.setText("" + totalPlayerpoint + "/1000\nCredits Left");
-                tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
+                tv_header.setText("" + totalPlayerpoint + "/"+total_cedit_point+"\nCredits Left");
+                tv_player_count.setText("" + totalPlayers + "/"+player_count_no+"\nPlayers");
                 playerTypeAdapter.updateView(selectedPlayerType, bowler);
             }
         });

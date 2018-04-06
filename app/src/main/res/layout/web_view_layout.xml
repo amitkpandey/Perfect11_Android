@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="top"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Terms &amp; Conditions"
+            android:textColor="@android:color/white"
+            android:textSize="19sp" />
+
+        <com.utility.customView.CustomButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_action_back"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_action_back"
+            android:onClick="onButtonClick"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/wv_01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

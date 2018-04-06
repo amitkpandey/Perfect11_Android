@@ -15,7 +15,7 @@
     <color name="gray">#383838</color>
     <color name="off_white">#F4F4F4</color>
     <color name="light_gray">#2A2A2A</color>
-
+    <color name="light_green">#37881E</color>
     <!--Circle-->
     <color name="start">#ffff00</color>
     <color name="end">#455a64</color>

@@ -50,17 +50,17 @@ public class ResultsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.viewpager_fixtures, container, false);
         initView();
-       // callAPI();
+        callAPI();
         return view;
     }
 
 
-    @Override
+   /* @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && getView() != null)
             callAPI();
-    }
+    }*/
     private void initView() {
         rv_list = view.findViewById(R.id.rv_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

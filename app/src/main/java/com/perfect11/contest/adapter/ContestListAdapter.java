@@ -1,14 +1,18 @@
 package com.perfect11.contest.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -17,6 +21,7 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.perfect11.R;
 import com.perfect11.team_create.dialog.FilterDialog;
 import com.perfect11.team_create.dto.ContestDto;
+import com.perfect11.team_create.dto.ContestSubDto;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
 
@@ -87,8 +92,9 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
         viewHolder.rl_row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showCustomMessageOk(activity,mdata.get(position).sub_data);
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position);
+                    onItemClickListener.onItemClick(mdata.get(position).sub_data);
                 }
             }
         });
@@ -111,6 +117,8 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
 //                ActivityController.startNextActivity(activity, FilterDialog.class, false);
             }
         });
+
+
         return view;
     }
 
@@ -214,8 +222,37 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
 
         void onJoinClick(ContestDto contestDto);
+
+        void onItemClick(ArrayList<ContestSubDto> sub_data);
+    }
+
+    public static void showCustomMessageOk(final Activity mActivity, ArrayList<ContestSubDto> sub_data)
+    {
+        final Dialog dialog = new Dialog(mActivity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_winner_list);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        Button btn_ok = dialog.findViewById(R.id.btn_ok);
+        ListView lv_winner=dialog.findViewById(R.id.lv_winner);
+        RankAdapter rankAdapter=new RankAdapter(mActivity,sub_data);
+        lv_winner.setAdapter(rankAdapter);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+//        dialog.show();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        });
+
     }
 }

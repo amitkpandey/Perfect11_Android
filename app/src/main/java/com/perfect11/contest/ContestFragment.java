@@ -20,6 +20,7 @@ import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.team_create.CreateTeamFragment;
 import com.perfect11.team_create.SelectPlayersFragment;
 import com.perfect11.team_create.dto.ContestDto;
+import com.perfect11.team_create.dto.ContestSubDto;
 import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.utility.DialogUtility;
@@ -46,7 +47,7 @@ public class ContestFragment extends BaseFragment {
     private TeamWrapper teamWrapper;
     private CustomButton btn_my_team, btn_join_contest;
     private int team_size = 0;
-
+private ProgressDialog mProgressDialog;
     public static ContestFragment newInstance() {
         return new ContestFragment();
     }
@@ -70,22 +71,25 @@ public class ContestFragment extends BaseFragment {
 
     private void readFromBundle() {
         upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
-//        System.out.println("upComingMatchesDto:" + upComingMatchesDto.toString());
+
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+
         callAPI();
     }
 
     private void callAPI() {
         //API
-        /*
-         * Collecting data*/
-        Log.d("API", "Get Player");
-        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        /**Collecting data*/
 
+        Log.d("API", "Get Player");
+
+        mProgressDialog.show();
+
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<ContestWrapper> call = apiInterface.getContestList(upComingMatchesDto.key_name, "all", "all", "all");
+
         call.enqueue(new Callback<ContestWrapper>() {
             @Override
             public void onResponse(Call<ContestWrapper> call, Response<ContestWrapper> response) {
@@ -98,9 +102,10 @@ public class ContestFragment extends BaseFragment {
 //                    setAdapter(contestWrapper.data);
                 } else {
                     DialogUtility.showMessageWithOk(contestWrapper.message, getActivity());
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
                 }
-                if (mProgressDialog.isShowing())
-                    mProgressDialog.dismiss();
             }
 
             @Override
@@ -122,11 +127,8 @@ public class ContestFragment extends BaseFragment {
     }
 
     private void callMyJoinedContestApi() {
-        Log.d("API", "Get Player");
-        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
+        Log.d("API", "MyJoinedContestApi");
+
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<JoinedContestWrapper> call = apiInterface.getUserContest(upComingMatchesDto.key_name, userDto.member_id);
@@ -135,10 +137,6 @@ public class ContestFragment extends BaseFragment {
             public void onResponse(Call<JoinedContestWrapper> call, Response<JoinedContestWrapper> response) {
                 joinedContestWrapper = response.body();
                 callMyJoinedTeamApi();
-//                Log.e("UpcomingMatchesAPI", joinedContestWrapper.toString());
-
-                if (mProgressDialog.isShowing())
-                    mProgressDialog.dismiss();
             }
 
             @Override
@@ -159,14 +157,11 @@ public class ContestFragment extends BaseFragment {
     }
 
     private void callMyJoinedTeamApi() {
-        Log.d("API", "Get Player");
-        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Log.d("API", "Get MyJoinedTeamApi");
 
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<TeamWrapper> teamWrapperCall = apiInterface.getTeamList(upComingMatchesDto.key_name, userDto.member_id);
+
         teamWrapperCall.enqueue(new Callback<TeamWrapper>() {
             @Override
             public void onResponse(Call<TeamWrapper> call, Response<TeamWrapper> response) {
@@ -193,11 +188,9 @@ public class ContestFragment extends BaseFragment {
                 Log.e("TAG", t.toString());
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
-                    // logging probably not necessary
                 }
                 else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
                 }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
@@ -210,7 +203,7 @@ public class ContestFragment extends BaseFragment {
         lv_contests.setAdapter(contestListAdapter);
         contestListAdapter.setOnItemClickListener(new ContestListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(ArrayList<ContestSubDto> sub_data) {
 
             }
 

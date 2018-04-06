@@ -1,0 +1,113 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/off_white">
+
+    <include
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_link1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="About Us"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:onClick="onButtonClick"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_corner_white_transparent_btn_bg"/>
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_link2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_corner_white_transparent_btn_bg"
+            android:gravity="center"
+            android:onClick="onButtonClick"
+            android:padding="10dp"
+            android:text="How to Play"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_link3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="Privacy Policy"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:onClick="onButtonClick"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_corner_white_transparent_btn_bg"/>
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_link4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_corner_white_transparent_btn_bg"
+            android:gravity="center"
+            android:onClick="onButtonClick"
+            android:padding="10dp"
+            android:text="Legality"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_link5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_corner_white_transparent_btn_bg"
+            android:gravity="center"
+            android:onClick="onButtonClick"
+            android:padding="10dp"
+            android:text="Refund Policy"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_link6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_corner_white_transparent_btn_bg"
+            android:gravity="center"
+            android:onClick="onButtonClick"
+            android:padding="10dp"
+            android:text="FAQ"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</LinearLayout>

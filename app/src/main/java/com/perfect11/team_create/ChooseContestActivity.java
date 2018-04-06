@@ -15,6 +15,7 @@ import com.perfect11.base.ApiInterface;
 import com.perfect11.contest.adapter.ContestListAdapter;
 import com.perfect11.login_signup.RegisterActivity;
 import com.perfect11.team_create.dto.ContestDto;
+import com.perfect11.team_create.dto.ContestSubDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.team_create.wrapper.ContestWrapper;
@@ -172,26 +173,12 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
     }
 
     private void setAdapter(ArrayList<ContestDto> data) {
-//        if (data != null && data.size() > 0) {
-//            ContestListAdapter contestListAdapter = new ContestListAdapter(this, data);
-//            lv_contests.setVisibility(View.VISIBLE);
-//            lv_contests.setAdapter(contestListAdapter);
-//            lv_contests.setOnItemClickListener(this);
-//            lv_contests.setOnHeaderClickListener(this);
-//            lv_contests.setOnStickyHeaderChangedListener(this);
-//            lv_contests.setOnStickyHeaderOffsetChangedListener(this);
-//            lv_contests.setDrawingListUnderStickyHeader(true);
-//            lv_contests.setFastScrollEnabled(true);
-//            lv_contests.setAreHeadersSticky(true);
-//            lv_contests.setStickyHeaderTopOffset(-20);
-//        } else {
-//            lv_contests.setVisibility(View.GONE);
-//        }
+
         contestListAdapter = new ContestListAdapter(this, data);
         lv_contests.setAdapter(contestListAdapter);
         contestListAdapter.setOnItemClickListener(new ContestListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(ArrayList<ContestSubDto> sub_data) {
 
             }
 

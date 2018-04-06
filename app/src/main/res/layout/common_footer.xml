@@ -54,7 +54,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:text="0/1000\n Credits Left"
+            android:text="0/100\n Credits Left"
             android:textSize="14sp"
             android:visibility="gone"/>
     </RelativeLayout>

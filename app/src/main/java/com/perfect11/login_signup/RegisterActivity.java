@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.perfect11.R;
-import com.perfect11.contest.InviteCodeFragment;
 import com.perfect11.requestHandler.ApplicationServiceRequestHandler;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
@@ -21,14 +20,17 @@ import com.utility.ActivityController;
 import com.utility.AlertDialogCallBack;
 import com.utility.CommonUtility;
 import com.utility.Constants;
+import com.utility.DatePickerUtility;
+import com.utility.DateUtility;
 import com.utility.DialogUtility;
 
 import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText confirm_password, password;
-    private AutoCompleteTextView name, email;
+    private AutoCompleteTextView name, email, phone, zipcode;
     private ContestDto contestDto = null;
+    private TextView dob;
     private boolean flag = false;
     private ArrayList<PlayerDto> selectedTeam;
     private UpComingMatchesDto upComingMatchesDto;
@@ -59,6 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
     private void initView() {
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
+        phone = findViewById(R.id.phone);
+        dob = findViewById(R.id.dob);
+        zipcode = findViewById(R.id.zipcode);
         password = findViewById(R.id.password);
         confirm_password = findViewById(R.id.confirm_password);
         confirm_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -91,6 +96,18 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (CommonUtility.validateEmail(email.getText().toString().trim())) {
             email.requestFocus();
             email.setError("Enter a valid email");
+            return false;
+        } else if (phone.getText().toString().trim().length() != 10) {
+            phone.requestFocus();
+            phone.setError("Enter a valid Phone Number");
+            return false;
+        } else if (dob.getText().toString().trim().length() == 0) {
+            dob.requestFocus();
+            dob.setError("Enter a Date of Birth");
+            return false;
+        } else if (zipcode.getText().toString().trim().length() != 6) {
+            zipcode.requestFocus();
+            zipcode.setError("Enter a valid Zip Code");
             return false;
         } else if (password.getText().toString().length() == 0) {
             password.requestFocus();
@@ -133,14 +150,22 @@ public class RegisterActivity extends AppCompatActivity {
             case R.id.img_fb:
                 Toast.makeText(this, "Facebook", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.rl_dob:
+            case R.id.dob:
+                System.out.println("dob");
+                DatePickerUtility.createDatePickerDialog(RegisterActivity.this, dob, false).show();
+                break;
+            case R.id.tv_terms:
+                ActivityController.startNextActivity(this, TermsConditionsActivity.class, false);
+                break;
         }
     }
 
     private void callRegisterAPI() {
         //API
         String str[] = name.getText().toString().trim().split(" ");
-        new ApplicationServiceRequestHandler(this, new String[]{"phone", "email", "password", "first_name", "last_name", "weblink", "device_type"},
-                new Object[]{"", email.getText().toString().trim(), password.getText().toString().trim(), str[0], (str.length >= 2) ? str[1] : "", "perfect11", "android"},
+        new ApplicationServiceRequestHandler(this, new String[]{"phone", "email", "password", "first_name", "last_name", "weblink", "device_type", "phone", "dob", "zipcode"},
+                new Object[]{"", email.getText().toString().trim(), password.getText().toString().trim(), str[0], (str.length >= 2) ? str[1] : "", "perfect11", "android", phone.getText().toString().trim(), DateUtility.convertDataToGivitDateFormatForMyAccount(dob.getText().toString().trim()), zipcode.getText().toString().trim()},
                 "Loading...", ApplicationServiceRequestHandler.SIGN_UP, Constants.BASE_URL);
     }
 
@@ -179,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity {
             bundle.putSerializable("contestDto", contestDto);
         }
         bundle.putBoolean("flag", flag);
-        bundle.putString("member_id",member_id);
+        bundle.putString("member_id", member_id);
         ActivityController.startNextActivity(RegisterActivity.this, InviteActivity.class, bundle, true);
     }
 }

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.LogPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import com.perfect11.R;
 import com.perfect11.account.dto.MyTransectionDto;
 import com.perfect11.account.wrapper.MyTransectionWrapper;
-import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiClient3;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
@@ -25,8 +23,6 @@ import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.ContestFragment;
 import com.perfect11.contest.adapter.MyTransactionsAdapter;
 import com.perfect11.login_signup.dto.UserDto;
-import com.perfect11.team_create.SelectPlayersActivity;
-import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 
@@ -42,23 +38,25 @@ public class MyTransactionsFragment extends BaseFragment {
     public static MyTransactionsFragment newInstance() {
         return new MyTransactionsFragment();
     }
+
     private RecyclerView rv_transactions;
     private LinearLayoutManager layoutManager;
     private ApiInterface apiInterface;
-private UserDto userDto;
-private  MyTransactionsAdapter myTransactionsAdapter;
-private boolean isScrolling=false;
-private int currentIteam,totalIteams,scrollOutIteams,page,listcount=0;
+    private UserDto userDto;
+    private MyTransactionsAdapter myTransactionsAdapter;
+    private boolean isScrolling = false;
+    private int currentIteam, totalIteams, scrollOutIteams, page, listcount = 0;
 
-private ProgressBar progress;
-private ArrayList<MyTransectionDto> shopkeeperlist;
+    private ProgressBar progress;
+    private ArrayList<MyTransectionDto> shopkeeperlist;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.my_transactions_layout, container, false);
         setInnerHeader("My Transactions");
         initView();
-        page=0;
+        page = 0;
         callAPI(page);
         return view;
     }
@@ -67,7 +65,7 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
     private void initView() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
 
-        progress=view.findViewById(R.id.progress);
+        progress = view.findViewById(R.id.progress);
         rv_transactions = view.findViewById(R.id.rv_transactions);
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -81,26 +79,23 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.e("Abcd","Scrolling");
-                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
-                {
-                    isScrolling=true;
+                Log.e("Abcd", "Scrolling");
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
                 }
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                currentIteam=layoutManager.getChildCount();
-                totalIteams=layoutManager.getItemCount();
-                scrollOutIteams=layoutManager.findFirstVisibleItemPosition();
-                Log.e("Abcd"," totalIteams: "+totalIteams+ " listcount: "+listcount);
-                if(isScrolling&&(currentIteam+scrollOutIteams==totalIteams))
-                {
+                currentIteam = layoutManager.getChildCount();
+                totalIteams = layoutManager.getItemCount();
+                scrollOutIteams = layoutManager.findFirstVisibleItemPosition();
+                Log.e("Abcd", "currentIteam:"+currentIteam+" totalIteams: " + totalIteams + " listcount: " + listcount);
+                if (isScrolling && (currentIteam + scrollOutIteams == totalIteams)) {
                     page++;
-                    isScrolling=false;
-                    if(totalIteams<listcount)
-                    {
+                    isScrolling = false;
+                    if (totalIteams < listcount) {
                         callAPI(page);
                     }
 
@@ -118,30 +113,28 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
-        if(page==0)
-        {
+        if (page == 0) {
             mProgressDialog.show();
-        }else
-        {
+        } else {
             progress.setVisibility(View.VISIBLE);
         }
 
         apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
 
-        Call<MyTransectionWrapper> call = apiInterface.myTransactionList(userDto.member_id,page,20);
+        Call<MyTransectionWrapper> call = apiInterface.myTransactionList(userDto.member_id, page, 20);
         call.enqueue(new Callback<MyTransectionWrapper>() {
             @Override
             public void onResponse(Call<MyTransectionWrapper> call, Response<MyTransectionWrapper> response) {
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
-                if(progress.getVisibility()==View.VISIBLE)
+                if (progress.getVisibility() == View.VISIBLE)
                     progress.setVisibility(View.GONE);
 
-                if(page==0) {
-                    shopkeeperlist=null;
-                    shopkeeperlist=response.body().data.shopkeeperlist;
-                    listcount=response.body().data.listcount;
+                if (page == 0) {
+                    shopkeeperlist = null;
+                    shopkeeperlist = response.body().data.shopkeeperlist;
+                    listcount = response.body().data.listcount;
                     myTransactionsAdapter = new MyTransactionsAdapter(shopkeeperlist, getActivity());
                     rv_transactions.setAdapter(myTransactionsAdapter);
                     myTransactionsAdapter.setOnButtonListener(new MyTransactionsAdapter.OnButtonListener() {
@@ -150,22 +143,21 @@ private ArrayList<MyTransectionDto> shopkeeperlist;
                             ((BaseHeaderActivity) getActivity()).addFragment(ContestFragment.newInstance(), true, ContestFragment.class.getName());
                         }
                     });
-                }else
-                {
+                } else {
                     shopkeeperlist.addAll(response.body().data.shopkeeperlist);
                     myTransactionsAdapter.setData(shopkeeperlist);
                 }
             }
+
             @Override
             public void onFailure(Call<MyTransectionWrapper> call, Throwable t) {
 
-                if(progress.getVisibility()==View.VISIBLE)
+                if (progress.getVisibility() == View.VISIBLE)
                     progress.setVisibility(View.GONE);
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }

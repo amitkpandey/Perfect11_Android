@@ -37,6 +37,7 @@ import com.perfect11.myprofile.MyContestFragment;
 import com.perfect11.myprofile.MyProfileFragment;
 import com.perfect11.myprofile.TicketSystemFragment;
 import com.perfect11.othersMenuItem.InviteFriendsFragment;
+import com.perfect11.point_system.InfoFragment;
 import com.perfect11.point_system.PointSystemFragment;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
@@ -68,7 +69,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
     private GoogleApiClient mGoogleApiClient;
 
     //Menu Items
-    private CustomTextView ctv_ticket_system,ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout;
+    private CustomTextView ctv_ticket_system,ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout,ctv_info;
 
     public String activityName = "";
 
@@ -145,6 +146,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
         ctv_contest_invited_code = leftMenu.findViewById(R.id.ctv_contest_invited_code);
         ctv_logout = leftMenu.findViewById(R.id.ctv_logout);
         ctv_ticket_system=leftMenu.findViewById(R.id.ctv_ticket_system);
+        ctv_info=leftMenu.findViewById(R.id.ctv_info);
     }
 
     private void setDefaultBG() {
@@ -159,6 +161,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
         ctv_contest_invited_code.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
         ctv_logout.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
         ctv_ticket_system.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
+        ctv_info.setBackground(getResources().getDrawable(R.drawable.shaddo_black));
     }
 
 
@@ -433,6 +436,15 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
                     removeAllFragment();
                     //replaceFragment(MyContestFragment.newInstance(), false, MyContestFragment.class.getName());
                     replaceFragment(MyContestFragment.newInstance(), false, MyContestFragment.class.getName());
+                    slideMenu.closeMenu();
+                }
+                break;
+            case R.id.ctv_info:
+                if (isOpenSlide) {
+                    setDefaultBG();
+                    ctv_info.setBackground(getResources().getDrawable(R.drawable.shaddo));
+                    removeAllFragment();
+                    replaceFragment(InfoFragment.newInstance(), false, InfoFragment.class.getName());
                     slideMenu.closeMenu();
                 }
                 break;

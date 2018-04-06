@@ -9,13 +9,20 @@ import java.util.ArrayList;
  */
 
 public class ContestDto implements Serializable {
+    public String addedfor;
     public String addedon;
     public String contestSize;
+    public String createdby;
+    public String created_by;
     public String entryfee;
     public String id;
     public String join_size;
     public String matchid;
+    public String paid;
+    public String payment_id;
     public String room_name;
+    public String status;
+    public String tournament;
     public String winningAmount;
     public ArrayList<ContestSubDto> sub_data;
 

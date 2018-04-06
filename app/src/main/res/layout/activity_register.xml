@@ -17,18 +17,19 @@
             android:id="@+id/img_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_action_back"
-            android:onClick="onButtonClick"/>
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_action_back" />
+
         <com.utility.customView.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Register"
+            android:layout_centerInParent="true"
             android:gravity="center"
+            android:text="Register"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/min_text_size"
-            android:layout_centerInParent="true"/>
+            android:textSize="@dimen/min_text_size" />
     </RelativeLayout>
-     Register progress
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -55,6 +56,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="40dp"
                 android:src="@drawable/login_banner" />
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -64,14 +66,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/name_drawable_icon"
+                    android:drawablePadding="10dp"
                     android:hint="@string/prompt_name"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:imeOptions="actionNext"
-                    android:drawablePadding="10dp"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -83,9 +86,75 @@
                     android:drawableLeft="@drawable/email_drawable_icon"
                     android:drawablePadding="10dp"
                     android:hint="@string/prompt_email"
+                    android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/phone_drawable_icon"
+                    android:drawablePadding="10dp"
+                    android:hint="Phone No"
                     android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick">
+
+                <TextView
+                    android:id="@+id/dob"
+                    style="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/dob_drawable_icon"
+                    android:drawablePadding="10dp"
+                    android:enabled="false"
+                    android:hint="Date Of Birth"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="20dp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#C1CBCD" />
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/zipcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/zip_drawable_icon"
+                    android:drawablePadding="10dp"
+                    android:hint="Zip Code / Pin Code"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -106,6 +175,7 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -125,6 +195,38 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="By creating an account you agree"
+                android:textColor="@color/red_text_color"
+                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="to the "
+                    android:textColor="@color/red_text_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onButtonClick"
+                    android:text="Terms of Use"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/email_register_button"
                 style="?android:textAppearanceMedium"
@@ -132,9 +234,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/rounded_corner_dark_red_btn_bg"
+                android:onClick="onButtonClick"
                 android:text="@string/action_register"
                 android:textAllCaps="false"
-                android:onClick="onButtonClick"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
@@ -148,7 +250,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/mid_text_size"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -173,6 +275,7 @@
                     android:onClick="onButtonClick"
                     android:src="@drawable/google" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_login"
                 android:layout_width="match_parent"
@@ -181,22 +284,22 @@
                 android:layout_margin="15dp"
                 android:gravity="center"
                 android:onClick="onButtonClick">
-            <com.utility.customView.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already have an account? "
-                android:textSize="@dimen/min_text_size"
 
-                android:textColor="@android:color/white"
-                />
-            <com.utility.customView.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:textSize="@dimen/min_text_size"
-                android:layout_gravity="center"
-                android:textColor="@color/red_text_color"
-                />
+                <com.utility.customView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account? "
+                    android:textColor="@android:color/white"
+
+                    android:textSize="@dimen/min_text_size" />
+
+                <com.utility.customView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Login"
+                    android:textColor="@color/red_text_color"
+                    android:textSize="@dimen/min_text_size" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -9,4 +9,5 @@ public class PlayerSettingDto implements Serializable {
     public String player_count;
     public String team_a;
     public String team_b;
+    public int total_credit;
 }

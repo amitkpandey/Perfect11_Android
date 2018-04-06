@@ -28,7 +28,8 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
     private int mtype, mtotalPlayers;
     private float totalPoints;
     private String teamName1, teamName2;
-    private int setMaxPlayer;
+    private int setMaxPlayer=11;
+    private int total_cedit_point=100;
 
     /**
      * Type
@@ -38,7 +39,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
      * 2 = All Rounder
      * 3=  Bowler
      */
-    public WkAdapter(Activity activity, ArrayList<PlayerDto> playerDtoArrayList, int type, float totalPoints, int totalPlayers, String ateam, String bteam,int maxPlayer) {
+    public WkAdapter(Activity activity, ArrayList<PlayerDto> playerDtoArrayList, int type, float totalPoints, int totalPlayers, String ateam, String bteam, int maxPlayer, int total_cedit_point) {
         this.mActivity = activity;
         this.playerDtoArrayList = playerDtoArrayList;
         this.mtype = type;
@@ -47,6 +48,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
         teamName1 = ateam;
         teamName2 = bteam;
         this.setMaxPlayer=maxPlayer;
+        this.total_cedit_point=total_cedit_point;
     }
 
     public void updateTotalPoints(float totalPoints, int totalPlayers) {
@@ -193,7 +195,7 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
                 }
                 break;
         }
-        if (v >= 100) {
+        if (v > total_cedit_point) {
             Toast.makeText(mActivity, "Your point has been exhausted.", Toast.LENGTH_SHORT).show();
             return false;
         }

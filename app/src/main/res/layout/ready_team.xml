@@ -250,15 +250,14 @@
 
                     <com.utility.customView.CustomTextView
                         android:id="@+id/tv_wkt_name"
-                        android:layout_width="100dp"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_wkt"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="2dp"
-                        android:maxLines="1"
                         android:background="@color/light_red"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="2dp"
                         android:text="M S Dhonicvcvvcvdsdsdsdc"
                         android:textColor="@android:color/white"
                         android:textSize="8sp"
@@ -305,18 +304,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bat1_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bat1"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -349,18 +348,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bat2_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bat2"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -392,18 +391,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bat3_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bat3"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -437,18 +436,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bat4_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bat4"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -481,18 +480,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bat5_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bat5"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -526,18 +525,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bat6_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bat6"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -575,18 +574,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_ar1_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_ar1"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                                />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -620,18 +619,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_ar2_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_ar2"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -665,18 +664,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_ar3_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_ar3"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                                />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -711,18 +710,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_ar4_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_ar4"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                                />
                         </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -765,18 +764,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bowler1_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bowler1"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                                />
                         </RelativeLayout>
 
 
@@ -810,18 +809,18 @@
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bowler2_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bowler2"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -853,18 +852,18 @@ android:layout_below="@+id/iv_bowler3_c"
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bowler3_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bowler3"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                                />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -897,18 +896,18 @@ android:layout_below="@+id/iv_bowler3_c"
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bowler4_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bowler4"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                                />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -940,18 +939,18 @@ android:layout_below="@+id/iv_bowler3_c"
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bowler5_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bowler5"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -984,18 +983,18 @@ android:layout_below="@+id/iv_bowler3_c"
 
                             <com.utility.customView.CustomTextView
                                 android:id="@+id/tv_bowler6_name"
-                                android:layout_width="wrap_content"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/iv_bowler6"
                                 android:layout_marginTop="2dp"
                                 android:background="@color/light_red"
                                 android:gravity="center"
-                                android:padding="5dp"
+                                android:padding="2dp"
                                 android:text="M S Dhoni"
                                 android:textColor="@android:color/white"
                                 android:textSize="8sp"
                                 android:ellipsize="end"
-                                android:maxLength="10"/>
+                               />
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>

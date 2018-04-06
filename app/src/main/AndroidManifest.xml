@@ -70,6 +70,10 @@
             android:label="@string/base_header_activity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".login_signup.TermsConditionsActivity"
+            android:label="@string/base_header_activity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".team_create.CreateTeamActivity"
             android:label="@string/create_team_activity"
             android:screenOrientation="portrait" />

@@ -40,14 +40,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="340dp"
         android:paddingBottom="10dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/create_team_bg2" />
+            android:src="@drawable/create_team_bg" />
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_header"
