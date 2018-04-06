@@ -66,7 +66,8 @@ public class LiveMatchesAdapter extends RecyclerView.Adapter<LiveMatchesAdapter.
         holder.ctv_title.setText(mdata.get(position).season + " " + mdata.get(position).format);
         holder.ctv_country1.setText(mdata.get(position).teama);
         holder.ctv_country2.setText(mdata.get(position).teamb);
-        Picasso.with(mactivity).load(getPictureURL(mdata.get(position).teama)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).into(holder.cimg_country1);
+        Picasso.with(mactivity).load(getPictureURL(mdata.get(position).teama)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face1).
+                into(holder.cimg_country1);
         Picasso.with(mactivity).load(getPictureURL(mdata.get(position).teamb)).placeholder(R.drawable.progress_animation).error(R.drawable.team_face2).into(holder.cimg_country2);
     }
 

@@ -33,6 +33,7 @@ import com.perfect11.contest.dto.ContestWinnerDto;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.payment.paytm.Checksum;
 import com.perfect11.payment.paytm.Paytm;
+import com.perfect11.payment.paytm.Transaction;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
@@ -78,7 +79,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     public HttpLoggingInterceptor interceptor = null;
     public OkHttpClient client = null;
     public Gson gson;
-    private String paymentGateway, contestId, amount,team_id;
+    private String paymentGateway, contestId, amount, team_id;
     private ContestCallBackDto contestCallBackDto;
 
     public static CreateContestFragment newInstance() {
@@ -101,7 +102,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
 
     private void readFromBundle() {
         upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
-        team_id=getArguments().getString("team_id");
+        team_id = getArguments().getString("team_id");
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
     }
 
@@ -391,7 +392,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
-            options.put("theme",new JSONObject("{color: '#E93D29'}"));
+            options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -420,7 +421,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         Call<ContestCallBackDto> call = apiInterface.createContest(Integer.parseInt(et_contest_size.getText().toString()), 1,
                 totalAmount, cb_allow_multiple_team.isChecked() ? 1 : 0, upComingMatchesDto.key_name, et_name.getText().toString(), winnerAmount,
                 winnerPercent, Integer.parseInt(et_no_winners.getText().toString()), Integer.parseInt(et_winning_amount.getText().toString().trim()),
-                userDto.member_id, userDto.reference_id,team_id
+                userDto.member_id, userDto.reference_id, team_id
         );
         call.enqueue(new Callback<ContestCallBackDto>() {
             @Override
@@ -486,8 +487,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -632,10 +632,12 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     //all these overriden method is to detect the payment result accordingly
     @Override
     public void onTransactionResponse(Bundle bundle) {
-        String transactionId = bundle.getString("TXNID");
-        String bankTransactionId = bundle.getString("BANKTXNID");
-        callAPITransactionCreateContest(transactionId, amount, "paytm", "success");
-        System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
+        String orderId = bundle.getString("ORDERID");
+        callTransactionAPI(orderId);
+//        String transactionId = bundle.getString("TXNID");
+//        String bankTransactionId = bundle.getString("BANKTXNID");
+//        callAPITransactionCreateContest(transactionId, amount, "paytm", "success");
+//        System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
 //        Toast.makeText(getActivity(), bundle.toString(), Toast.LENGTH_LONG).show();
     }
 
@@ -740,11 +742,51 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
+    private void callTransactionAPI(String orderId) {
+        Log.d("API", "Get Player");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<Transaction> call = apiInterface.getStatus(orderId);
+        call.enqueue(new Callback<Transaction>() {
+            @Override
+            public void onResponse(Call<Transaction> call, final Response<Transaction> response) {
+                if (response.body().sTATUS.equalsIgnoreCase("TXN_SUCCESS")) {
+                    DialogUtility.showMessageOkWithCallback("Payment Successful", getActivity(), new AlertDialogCallBack() {
+                        @Override
+                        public void onSubmit() {
+                            callAPITransactionCreateContest(response.body().tXNID, response.body().tXNAMOUNT, "paytm", "success");
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                } else {
+                    DialogUtility.showMessageWithOk("Payment Failure", getActivity());
+                }
+
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Transaction> call, Throwable t) {
+                Log.e("TAG", t.toString());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }

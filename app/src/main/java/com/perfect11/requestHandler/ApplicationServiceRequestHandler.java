@@ -13,7 +13,6 @@ import com.perfect11.login_signup.RegisterActivity;
 import com.perfect11.login_signup.wrapper.UserDetailsWrapper;
 import com.perfect11.myprofile.ChangePasswordFragment;
 import com.perfect11.myprofile.MyProfileFragment;
-import com.utility.Constants;
 import com.utility.PreferenceUtility;
 import com.webservice.RequestHandler;
 import com.webservice.TaskManager;
@@ -206,13 +205,13 @@ public class ApplicationServiceRequestHandler extends RequestHandler {
             taskManager.callService(message, true, baseURL);
     }
 
-    public void callServiceForParfect11() {
-        TaskManager taskManager = new TaskManager(this, this, mActivity);
-        if (!isLandingScreen)
-            taskManager.callService(message, false, Constants.BASE_URL1);
-        else
-            taskManager.callService(message, true, Constants.BASE_URL1);
-    }
+//    public void callServiceForParfect11() {
+//        TaskManager taskManager = new TaskManager(this, this, mActivity);
+//        if (!isLandingScreen)
+//            taskManager.callService(message, false, Constants.BASE_URL1);
+//        else
+//            taskManager.callService(message, true, Constants.BASE_URL1);
+//    }
 
     public void callService(boolean isArray) {
         TaskManager taskManager = new TaskManager(this, this, mActivity);

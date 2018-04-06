@@ -60,6 +60,7 @@
     <string name="create_team_activity">Create Team</string>
     <string name="team_count">10 teams</string>
     <string name="facebook_app_id">435723486862034</string>
+    <string name="fb_login_protocol_scheme">fb435723486862034</string>
     <!--<string name="google_app_id">AIzaSyAhfsNgce8X5FWPqZwzB_7_ms_XHOzSNgM</string>-->
     <string name="google_app_id">AIzaSyAYihsYFnh5hTltyLWkbD0mVKxafGYlgKA</string>
 </resources>

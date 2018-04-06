@@ -32,6 +32,7 @@ import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.payment.paytm.Checksum;
 import com.perfect11.payment.paytm.Paytm;
+import com.perfect11.payment.paytm.Transaction;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
@@ -60,7 +61,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -731,7 +731,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 
 
         Call<CreateTeamCallBackWrapper> call = apiInterface.createTeamAPI(batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id,upComingMatchesDto.my_team_name);
+                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id, upComingMatchesDto.my_team_name);
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
@@ -832,8 +832,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -927,8 +926,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -1051,8 +1049,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -1091,7 +1088,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
             options.put("amount", Float.valueOf(amount) * 100);
-            options.put("theme",new JSONObject("{color: '#E93D29'}"));
+            options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -1181,9 +1178,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
     //all these overriden method is to detect the payment result accordingly
     @Override
     public void onTransactionResponse(Bundle bundle) {
-        String transactionId = bundle.getString("TXNID");
-//        String bankTransactionId = bundle.getString("BANKTXNID");
-        callAPITransactionJoinContest(transactionId, amount, "paytm", "success");
+        String orderId = bundle.getString("ORDERID");
+        callTransactionAPI(orderId);
 //        System.out.println("transactionId " + transactionId + " bankTransactionId " + bankTransactionId);
 //        Toast.makeText(getActivity(), bundle.toString(), Toast.LENGTH_LONG).show();
     }
@@ -1285,11 +1281,51 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
+    private void callTransactionAPI(String orderId) {
+        Log.d("API", "Get Player");
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<Transaction> call = apiInterface.getStatus(orderId);
+        call.enqueue(new Callback<Transaction>() {
+            @Override
+            public void onResponse(Call<Transaction> call, final Response<Transaction> response) {
+                if (response.body().sTATUS.equalsIgnoreCase("TXN_SUCCESS")) {
+                    DialogUtility.showMessageOkWithCallback("Payment Successful", getActivity(), new AlertDialogCallBack() {
+                        @Override
+                        public void onSubmit() {
+                            callAPITransactionJoinContest(response.body().tXNID, response.body().tXNAMOUNT, "paytm", "success");
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                } else {
+                    DialogUtility.showMessageWithOk("Payment Failure", getActivity());
+                }
+
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Transaction> call, Throwable t) {
+                Log.e("TAG", t.toString());
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
