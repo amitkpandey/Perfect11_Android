@@ -296,28 +296,28 @@ public class TeamReadyActivity extends Activity {
         String url = "";
         switch (team_code) {
             case "CSK":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-csk.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-csk.png";
                 break;
             case "KXIP":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-kxip.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-kxip.png";
                 break;
             case "MI":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-mi.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-mi.png";
                 break;
             case "DD":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-dd.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-dd.png";
                 break;
             case "KKR":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-kkr.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-kkr.png";
                 break;
             case "RCB":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-rcb.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-rcb.png";
                 break;
             case "SRH":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-srh.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-srh.png";
                 break;
             case "RR":
-                url = "http://52.15.50.179/public/images/app/players/wicket-keeper-rr.png";
+                url = "https://perfect11.in/public/images/app/players/wicket-keeper-rr.png";
                 break;
             default:
                 url = "";
@@ -336,28 +336,28 @@ public class TeamReadyActivity extends Activity {
         String url = "";
         switch (team_code) {
             case "CSK":
-                url = "http://52.15.50.179/public/images/app/players/fielder-cks.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-cks.png";
                 break;
             case "KXIP":
-                url = "http://52.15.50.179/public/images/app/players/fielder-kxip.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-kxip.png";
                 break;
             case "MI":
-                url = "http://52.15.50.179/public/images/app/players/fielder-mi.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-mi.png";
                 break;
             case "DD":
-                url = "http://52.15.50.179/public/images/app/players/fielder-dd.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-dd.png";
                 break;
             case "KKR":
-                url = "http://52.15.50.179/public/images/app/players/fielder-kkr.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-kkr.png";
                 break;
             case "RCB":
-                url = "http://52.15.50.179/public/images/app/players/fielder-rcb.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-rcb.png";
                 break;
             case "SRH":
-                url = "http://52.15.50.179/public/images/app/players/fielder-srh.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-srh.png";
                 break;
             case "RR":
-                url = "http://52.15.50.179/public/images/app/players/fielder-rr.png";
+                url = "https://perfect11.in/public/images/app/players/fielder-rr.png";
                 break;
             default:
                 url = "";
@@ -376,28 +376,28 @@ public class TeamReadyActivity extends Activity {
         String url = "";
         switch (team_code) {
             case "CSK":
-                url = "http://52.15.50.179/public/images/app/players/batsman-csk.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-csk.png";
                 break;
             case "KXIP":
-                url = "http://52.15.50.179/public/images/app/players/batsman-kxip.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-kxip.png";
                 break;
             case "MI":
-                url = "http://52.15.50.179/public/images/app/players/batsman-mi.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-mi.png";
                 break;
             case "DD":
-                url = "http://52.15.50.179/public/images/app/players/batsman-dd.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-dd.png";
                 break;
             case "KKR":
-                url = "http://52.15.50.179/public/images/app/players/batsman-kkr.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-kkr.png";
                 break;
             case "RCB":
-                url = "http://52.15.50.179/public/images/app/players/batsman-rcb.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-rcb.png";
                 break;
             case "SRH":
-                url = "http://52.15.50.179/public/images/app/players/batsman-srh.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-srh.png";
                 break;
             case "RR":
-                url = "http://52.15.50.179/public/images/app/players/batsman-rr.png";
+                url = "https://perfect11.in/public/images/app/players/batsman-rr.png";
                 break;
             default:
                 url = "";
@@ -416,28 +416,28 @@ public class TeamReadyActivity extends Activity {
         String url = "";
         switch (team_code) {
             case "CSK":
-                url = "http://52.15.50.179/public/images/app/players/bowler-csk.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-csk.png";
                 break;
             case "KXIP":
-                url = "http://52.15.50.179/public/images/app/players/bowler-kxip.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-kxip.png";
                 break;
             case "MI":
-                url = "http://52.15.50.179/public/images/app/players/bowler-mi.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-mi.png";
                 break;
             case "DD":
-                url = "http://52.15.50.179/public/images/app/players/bowler-dd.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-dd.png";
                 break;
             case "KKR":
-                url = "http://52.15.50.179/public/images/app/players/bowler-kkr.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-kkr.png";
                 break;
             case "RCB":
-                url = "http://52.15.50.179/public/images/app/players/bowler-rcb.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-rcb.png";
                 break;
             case "SRH":
-                url = "http://52.15.50.179/public/images/app/players/bowler-srh.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-srh.png";
                 break;
             case "RR":
-                url = "http://52.15.50.179/public/images/app/players/bowler-rr.png";
+                url = "https://perfect11.in/public/images/app/players/bowler-rr.png";
                 break;
             default:
                 url = "";
@@ -629,6 +629,6 @@ public class TeamReadyActivity extends Activity {
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        return "http://52.15.50.179/public/images/app/country/" + country + ".png";
+        return "https://perfect11.in/public/images/app/country/" + country + ".png";
     }
 }

@@ -4,7 +4,7 @@ public class Constants {
     public static final String TAG = "Perfect11";
     public static final String LOADING_MESSAGE = "Loading";
     public static final String BASE_URL = "http://stake4win.com/stake4winglobal/api/";
-    public static final String BASE_URL1 = "http://52.15.50.179/";
+    public static final String BASE_URL1 = "https://perfect11.in/";
 //    public static final String BASE_URL2 = "https://pguat.paytm.com/oltp/HANDLER_INTERNAL/getTxnStatus?JsonData=";
 
     public static final String M_ID = "STAKE432537659723028"; //Paytm Merchand Id we got it in paytm credentials

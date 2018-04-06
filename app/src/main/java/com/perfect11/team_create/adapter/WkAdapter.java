@@ -134,28 +134,28 @@ public class WkAdapter extends RecyclerView.Adapter<WkAdapter.ViewHolder> {
         String url = "";
         switch (team_code) {
             case "CSK":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-csk.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-csk.png";
                 break;
             case "KXIP":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-kxip.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-kxip.png";
                 break;
             case "MI":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-mi.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-mi.png";
                 break;
             case "DD":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-dd.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-dd.png";
                 break;
             case "KKR":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-kkr.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-kkr.png";
                 break;
             case "RCB":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-rcb.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-rcb.png";
                 break;
             case "SRH":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-srh.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-srh.png";
                 break;
             case "RR":
-                url = "http://52.15.50.179/public/images/app/jersey/jersey-rr.png";
+                url = "https://perfect11.in/public/images/app/jersey/jersey-rr.png";
                 break;
             default:
                 url = "";

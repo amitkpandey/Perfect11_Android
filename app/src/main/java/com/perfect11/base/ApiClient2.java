@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient2 {
-    public static final String BASE_URL_RETROFIT = "http://perfect11.in:4201/";
+    public static final String BASE_URL_RETROFIT = "https://perfect11.in:4201/";
     public static Retrofit retrofit = null;
     public static HttpLoggingInterceptor interceptor = null;
     public static OkHttpClient client = null;
