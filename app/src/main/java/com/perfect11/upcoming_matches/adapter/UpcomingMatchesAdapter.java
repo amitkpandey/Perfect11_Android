@@ -150,7 +150,7 @@ public class UpcomingMatchesAdapter extends RecyclerView.Adapter<UpcomingMatches
 
     private String getPictureURL(String teama) {
         String country = teama.trim().replace(" ", "-");
-        return "http://52.15.50.179/public/images/app/country/" + country + ".png";
+        return "https://perfect11.in/public/images/app/country/" + country + ".png";
     }
 
     @Override

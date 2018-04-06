@@ -17,6 +17,7 @@ import com.perfect11.payment.paytm.Checksum;
 import com.perfect11.payment.paytm.Transaction;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.payment.wrapper.WalletWrapper;
+import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.wrapper.ContestWrapper;
 import com.perfect11.team_create.wrapper.PlayerSettingWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
@@ -52,10 +53,9 @@ public interface ApiInterface {
     @GET("api/getMyContests/{matchkey}/{userid}")
     Call<JoinedContestWrapper> getUserContest(@Path("matchkey") String matchkey, @Path("userid") String userid);
 
-    @FormUrlEncoded
-    @POST("api/getAllContest/{matchkey}")
-    Call<ContestWrapper> getContestList(@Path("matchkey") String matchkey, @Field("paySearch") String paySearch, @Field("sizeSearch") String sizeSearch,
-                                        @Field("winSearch") String winSearch);
+
+    @GET("action/getAllContest/{matchkey}")
+    Call<ArrayList<ContestDto>> getContestList(@Path("matchkey") String matchkey);
 
     @FormUrlEncoded
     @POST("api/setTeam")
@@ -133,7 +133,7 @@ public interface ApiInterface {
     @GET("api/getMyContests/0/{userid}")
     Call<MyContestWrapper> getMyContest(@Path("userid") String userid);
 
-    @GET("http://52.15.50.179/api/getMyCanceledContests/{userid}")
+    @GET("api/getMyCanceledContests/{userid}")
     Call<MyContestWrapper> getMyCanceledContests(@Path("userid") String userid);
 
     @GET("api/getTeamSelectionSetting")

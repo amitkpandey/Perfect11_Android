@@ -4,14 +4,25 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
+import com.perfect11.base.BaseHeaderActivity;
+import com.perfect11.contest.ChildFragment.AllContestFragment;
+import com.perfect11.contest.ChildFragment.AllContestFragmentForActivity;
+import com.perfect11.contest.ContestFragment;
 import com.perfect11.contest.adapter.ContestListAdapter;
 import com.perfect11.login_signup.RegisterActivity;
 import com.perfect11.team_create.dto.ContestDto;
@@ -29,6 +40,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,16 +50,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-public class ChooseContestActivity extends Activity implements AdapterView.OnItemClickListener, StickyListHeadersListView.OnHeaderClickListener,
-        StickyListHeadersListView.OnStickyHeaderOffsetChangedListener, StickyListHeadersListView.OnStickyHeaderChangedListener {
+public class ChooseContestActivity extends AppCompatActivity {
 
-    private StickyListHeadersListView lv_contests;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+
     private ArrayList<PlayerDto> selectedTeam;
     private SelectedMatchDto selectedMatchDto;
     private UpComingMatchesDto upComingMatchesDto;
-
     private ApiInterface apiInterface;
-    private ContestListAdapter contestListAdapter;
+
+    //Delete
+    //private ContestListAdapter contestListAdapter;
+
     private CustomTextView ctv_time, ctv_country1, ctv_country2;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
@@ -72,11 +87,9 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
         selectedTeam = (ArrayList<PlayerDto>) getIntent().getExtras().getSerializable("selectedTeam");
         selectedMatchDto = (SelectedMatchDto) getIntent().getExtras().getSerializable("selectedMatchDto");
         upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
-//        System.out.println("upComingMatchesDto:" + upComingMatchesDto.toString() + selectedTeam.size());
     }
 
     private void initView() {
-        lv_contests = findViewById(R.id.lv_contests);
         ctv_country1 = findViewById(R.id.ctv_country1);
         ctv_country2 = findViewById(R.id.ctv_country2);
         ctv_time = findViewById(R.id.ctv_time);
@@ -85,6 +98,10 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
         String team2 = team[2];
         ctv_country1.setText(team1);
         ctv_country2.setText(team2);
+
+        viewPager = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void startUpdateTimer() {
@@ -136,33 +153,28 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<ContestWrapper> call = apiInterface.getContestList(upComingMatchesDto.key_name, "all", "all", "all");
-        call.enqueue(new Callback<ContestWrapper>() {
+        Call<ArrayList<ContestDto>> call = apiInterface.getContestList(upComingMatchesDto.key_name);
+        call.enqueue(new Callback<ArrayList<ContestDto>>() {
             @Override
-            public void onResponse(Call<ContestWrapper> call, Response<ContestWrapper> response) {
-                ContestWrapper contestWrapper = response.body();
+            public void onResponse(Call<ArrayList<ContestDto>> call, Response<ArrayList<ContestDto>> response) {
+                ArrayList<ContestDto> contestDtoArrayList = response.body();
+                setupViewPager(viewPager,contestDtoArrayList);
 
-                Log.e("UpcomingMatchesAPI", contestWrapper.toString());
-                if (contestWrapper.status) {
-                    System.out.println(contestWrapper.data.size());
-                    setAdapter(contestWrapper.data);
-                } else {
-                    DialogUtility.showMessageWithOk(contestWrapper.message, ChooseContestActivity.this);
-                }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<ContestWrapper> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ContestDto>> call, Throwable t) {
                 Log.e("TAG", t.toString());
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(ChooseContestActivity.this);
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(ChooseContestActivity.this, "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -172,45 +184,76 @@ public class ChooseContestActivity extends Activity implements AdapterView.OnIte
         });
     }
 
-    private void setAdapter(ArrayList<ContestDto> data) {
-
-        contestListAdapter = new ContestListAdapter(this, data);
-        lv_contests.setAdapter(contestListAdapter);
-        contestListAdapter.setOnItemClickListener(new ContestListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(ArrayList<ContestSubDto> sub_data) {
-
+    private void setupViewPager(ViewPager viewPager, ArrayList<ContestDto> contestDtoArrayList) {
+        System.out.println("List");
+        ArrayList<ContestDto> my_Contest = new ArrayList<>(),
+                public_Contest = new ArrayList<>(),
+                hattrick_Contest = new ArrayList<>(),
+                bouncer_Contest = new ArrayList<>(),
+                bowled_Contest = new ArrayList<>(),
+                practice_Contest = new ArrayList<>();
+        for(ContestDto contestDto:contestDtoArrayList)
+        {
+            switch(contestDto.tournament)
+            {
+                case "":
+                    public_Contest.add(contestDto);
+                    break;
+                case "Hattrick":
+                    hattrick_Contest.add(contestDto);
+                    break;
+                case "Bouncer":
+                    bouncer_Contest.add(contestDto);
+                    break;
+                case "Bowled":
+                    bowled_Contest.add(contestDto);
+                    break;
+                case "Practice":
+                    practice_Contest.add(contestDto);
+                    break;
             }
-
-            @Override
-            public void onJoinClick(ContestDto contestDto) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("contestDto", contestDto);
-                bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                bundle.putSerializable("selectedTeam", selectedTeam);
-                bundle.putBoolean("flag", true);
-                ActivityController.startNextActivity(ChooseContestActivity.this, RegisterActivity.class, bundle, false);
-            }
-        });
+        }
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AllContestFragmentForActivity(this,contestDtoArrayList,upComingMatchesDto,selectedTeam), "All");
+        adapter.addFragment(new AllContestFragmentForActivity(this,public_Contest,upComingMatchesDto,selectedTeam), "Public");
+        adapter.addFragment(new AllContestFragmentForActivity(this,hattrick_Contest,upComingMatchesDto,selectedTeam), "Hattrick");
+        adapter.addFragment(new AllContestFragmentForActivity(this,bouncer_Contest,upComingMatchesDto,selectedTeam), "Bouncer");
+        adapter.addFragment(new AllContestFragmentForActivity(this,bowled_Contest,upComingMatchesDto,selectedTeam), "Bowled");
+        adapter.addFragment(new AllContestFragmentForActivity(this,practice_Contest,upComingMatchesDto,selectedTeam), "Practice");
+        viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    }
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
 
-    @Override
-    public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
 
-    }
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
 
-    @Override
-    public void onStickyHeaderOffsetChanged(StickyListHeadersListView l, View header, int offset) {
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
 
-    }
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
 
-    @Override
-    public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

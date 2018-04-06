@@ -2,6 +2,13 @@ package com.perfect11.contest;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +20,18 @@ import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiInterface;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
+import com.perfect11.contest.ChildFragment.AllContestFragment;
 import com.perfect11.contest.adapter.ContestListAdapter;
 import com.perfect11.contest.wrapper.JoinedContestWrapper;
 import com.perfect11.contest.wrapper.TeamWrapper;
+import com.perfect11.home.HomeFragment;
+import com.perfect11.home.childFragments.FixturesFragment;
+import com.perfect11.home.childFragments.LiveFragment;
+import com.perfect11.home.childFragments.ResultsFragment;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.team_create.CreateTeamFragment;
 import com.perfect11.team_create.SelectPlayersFragment;
+import com.perfect11.team_create.adapter.ContestAdapter;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.ContestSubDto;
 import com.perfect11.team_create.wrapper.ContestWrapper;
@@ -29,6 +42,7 @@ import com.utility.customView.CustomButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,17 +51,24 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class ContestFragment extends BaseFragment {
 
-    private StickyListHeadersListView lv_contests;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+
     private ApiInterface apiInterface;
     private UpComingMatchesDto upComingMatchesDto;
-    private ContestListAdapter contestListAdapter;
+
+
     private UserDto userDto;
-    private ContestWrapper contestWrapper;
+
+    private ArrayList<ContestDto> contestDtoArrayList;
     private JoinedContestWrapper joinedContestWrapper;
     private TeamWrapper teamWrapper;
+
     private CustomButton btn_my_team, btn_join_contest;
     private int team_size = 0;
-private ProgressDialog mProgressDialog;
+
+    private ProgressDialog mProgressDialog;
+
     public static ContestFragment newInstance() {
         return new ContestFragment();
     }
@@ -64,9 +85,13 @@ private ProgressDialog mProgressDialog;
     }
 
     private void initView() {
-        lv_contests = view.findViewById(R.id.lv_contests);
         btn_join_contest = view.findViewById(R.id.btn_join_contest);
         btn_my_team = view.findViewById(R.id.btn_my_team);
+
+        viewPager = view.findViewById(R.id.view_pager);
+        ((BaseHeaderActivity) getActivity()).slideMenu.addIgnoredView(viewPager);
+       tabLayout = view.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void readFromBundle() {
@@ -75,41 +100,25 @@ private ProgressDialog mProgressDialog;
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
-
         callAPI();
     }
 
     private void callAPI() {
-        //API
-        /**Collecting data*/
-
-        Log.d("API", "Get Player");
-
         mProgressDialog.show();
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<ContestWrapper> call = apiInterface.getContestList(upComingMatchesDto.key_name, "all", "all", "all");
+        Call<ArrayList<ContestDto>> call = apiInterface.getContestList(upComingMatchesDto.key_name);
 
-        call.enqueue(new Callback<ContestWrapper>() {
+        call.enqueue(new Callback<ArrayList<ContestDto>>() {
             @Override
-            public void onResponse(Call<ContestWrapper> call, Response<ContestWrapper> response) {
-                contestWrapper = response.body();
-
-                Log.e("UpcomingMatchesAPI", contestWrapper.toString());
-                if (contestWrapper.status) {
+            public void onResponse(Call<ArrayList<ContestDto>> call, Response<ArrayList<ContestDto>> response) {
+                contestDtoArrayList = response.body();
+                Log.e("UpcomingMatchesAPI", contestDtoArrayList.toString());
                     callMyJoinedContestApi();
-//                    System.out.println(contestWrapper.data.size());
-//                    setAdapter(contestWrapper.data);
-                } else {
-                    DialogUtility.showMessageWithOk(contestWrapper.message, getActivity());
-
-                    if (mProgressDialog.isShowing())
-                        mProgressDialog.dismiss();
-                }
             }
 
             @Override
-            public void onFailure(Call<ContestWrapper> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ContestDto>> call, Throwable t) {
                 Log.e("TAG", t.toString());
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
@@ -168,8 +177,9 @@ private ProgressDialog mProgressDialog;
                 teamWrapper = response.body();
                 team_size = teamWrapper.data.size();
 
-//                Log.e("UpcomingMatchesAPI", joinedContestWrapper.toString());
-                setAdapter(contestWrapper.data);
+
+               // setAdapter(contestDtoArrayList);
+                setupViewPager(viewPager,contestDtoArrayList);
                 if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0)
                     btn_join_contest.setText("Joined Contests (" + joinedContestWrapper.data.size() + ")");
                 else
@@ -194,42 +204,6 @@ private ProgressDialog mProgressDialog;
                 }
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
-            }
-        });
-    }
-
-    private void setAdapter(ArrayList<ContestDto> data) {
-        contestListAdapter = new ContestListAdapter(getActivity(), data);
-        lv_contests.setAdapter(contestListAdapter);
-        contestListAdapter.setOnItemClickListener(new ContestListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(ArrayList<ContestSubDto> sub_data) {
-
-            }
-
-            @Override
-            public void onJoinClick(ContestDto contestDto) {
-                String[] team = upComingMatchesDto.short_name.split(" ");
-                String team1 = team[0];
-                String team2 = team[2];
-                Bundle bundle = new Bundle();
-                if (teamWrapper.data != null && teamWrapper.data.size() > 0) {
-                    bundle.putString("team1", team1);
-                    bundle.putString("team2", team2);
-                    bundle.putSerializable("contestDto", contestDto);
-                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                    bundle.putSerializable("teamDto", teamWrapper.data);
-                    CreateTeamFragment createTeamFragment = CreateTeamFragment.newInstance();
-                    createTeamFragment.setArguments(bundle);
-                    ((BaseHeaderActivity) getActivity()).addFragment(createTeamFragment, true, CreateTeamFragment.class.getName());
-                } else {
-                    bundle.putSerializable("contestDto", contestDto);
-                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                    SelectPlayersFragment selectPlayersFragment = new SelectPlayersFragment();
-                    selectPlayersFragment.setArguments(bundle);
-                    ((BaseHeaderActivity) getActivity()).addFragment(selectPlayersFragment, true, SelectPlayersFragment.class.getName());
-
-                }
             }
         });
     }
@@ -291,6 +265,85 @@ private ProgressDialog mProgressDialog;
 
                 }
                 break;
+        }
+    }
+
+
+    private void setupViewPager(ViewPager viewPager, ArrayList<ContestDto> contestDtoArrayList) {
+        System.out.println("List");
+        ArrayList<ContestDto> my_Contest = new ArrayList<>(),
+                public_Contest = new ArrayList<>(),
+                hattrick_Contest = new ArrayList<>(),
+                bouncer_Contest = new ArrayList<>(),
+                bowled_Contest = new ArrayList<>(),
+                practice_Contest = new ArrayList<>();
+        for(ContestDto contestDto:contestDtoArrayList)
+        {
+            if(contestDto.created_by.trim().equals(userDto.member_id.trim()))
+            {
+                my_Contest.add(contestDto);
+            }
+            switch(contestDto.tournament)
+            {
+                case "":
+                    public_Contest.add(contestDto);
+                    break;
+                case "Hattrick":
+                    hattrick_Contest.add(contestDto);
+                    break;
+                case "Bouncer":
+                    bouncer_Contest.add(contestDto);
+                    break;
+                case "Bowled":
+                    bowled_Contest.add(contestDto);
+                    break;
+                case "Practice":
+                    practice_Contest.add(contestDto);
+                    break;
+            }
+        }
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new AllContestFragment(getActivity(),contestDtoArrayList,upComingMatchesDto,teamWrapper), "All");
+        adapter.addFragment(new AllContestFragment(getActivity(),my_Contest,upComingMatchesDto,teamWrapper), "My Contest");
+        adapter.addFragment(new AllContestFragment(getActivity(),public_Contest,upComingMatchesDto,teamWrapper), "Public");
+        adapter.addFragment(new AllContestFragment(getActivity(),hattrick_Contest,upComingMatchesDto,teamWrapper), "Hattrick");
+        adapter.addFragment(new AllContestFragment(getActivity(),bouncer_Contest,upComingMatchesDto,teamWrapper), "Bouncer");
+        adapter.addFragment(new AllContestFragment(getActivity(),bowled_Contest,upComingMatchesDto,teamWrapper), "Bowled");
+        adapter.addFragment(new AllContestFragment(getActivity(),practice_Contest,upComingMatchesDto,teamWrapper), "Practice");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
         }
     }
 }

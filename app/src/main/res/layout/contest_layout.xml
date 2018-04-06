@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -68,21 +69,22 @@
 
     </LinearLayout>
 
-    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-        android:id="@+id/lv_contests"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_below="@+id/ll_02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/red_text_color"
+        app:tabTextColor="@color/colorPrimary" />
+    <android.support.v4.view.ViewPager
+        android:layout_below="@+id/tabs"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll_02"
-
-        android:layout_marginTop="10dp"
-        android:clipToPadding="false"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="7dp"
-        android:drawSelectorOnTop="true"
-        android:fastScrollEnabled="true"
-        android:listSelector="@android:color/transparent"
-        android:overScrollMode="never"
-        android:scrollbarStyle="outsideOverlay"
-        android:visibility="visible" />
-
+        android:background="@color/off_white"
+        android:paddingTop="3dp" />
 </RelativeLayout>

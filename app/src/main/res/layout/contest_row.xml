@@ -7,52 +7,8 @@
     android:paddingBottom="10dp"
     android:background="@android:drawable/picture_frame">
 
-    <RelativeLayout
-        android:id="@+id/rl_header"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/red_text_color"
-        android:visibility="gone">
 
-        <com.utility.customView.CustomTextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Cash Contests"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
 
-        <com.utility.customView.CustomButton
-            android:id="@+id/btn_filter"
-            android:layout_width="75dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_corner_light_red_btn"
-            android:drawableLeft="@drawable/filter"
-            android:paddingLeft="10dp"
-            android:text="Filter"
-            android:textAllCaps="false" />
-
-    </RelativeLayout>
-
-    <com.utility.customView.CustomTextView
-        android:id="@+id/tv_type"
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_header"
-        android:gravity="center"
-        android:text="Wicket Keeper"
-        android:textColor="@color/red_text_color"
-        android:textSize="16sp"
-        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/rl_contest"

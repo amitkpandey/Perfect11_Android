@@ -108,15 +108,6 @@ public class ContestListAdapter extends ArrayAdapter<ContestDto> implements Stic
             }
         });
 
-        viewHolder.btn_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, FilterDialog.class);
-                activity.startActivity(intent);
-                activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-//                ActivityController.startNextActivity(activity, FilterDialog.class, false);
-            }
-        });
 
 
         return view;

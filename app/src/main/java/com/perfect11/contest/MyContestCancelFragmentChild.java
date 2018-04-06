@@ -69,7 +69,6 @@ public class MyContestCancelFragmentChild extends BaseFragment {
             public void onResponse(Call<MyContestWrapper> call, Response<MyContestWrapper> response) {
                 MyContestWrapper myContestWrapper = response.body();
 
-//                Log.e("JoinedContestWrapperAPI", joinedContestWrapper.toString());
                 if (myContestWrapper.status) {
                     System.out.println(myContestWrapper.data.size());
                     setAdapter(myContestWrapper.data);
