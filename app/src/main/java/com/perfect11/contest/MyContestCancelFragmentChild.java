@@ -60,6 +60,8 @@ public class MyContestCancelFragmentChild extends BaseFragment {
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 

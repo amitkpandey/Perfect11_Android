@@ -948,7 +948,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         mProgressDialog.show();
 
         Call<CreateTeamCallBackWrapper> call = apiInterface.updateTeamAPI(selectedMatchDto.team_id, batsmanList, allRounderList, bowlerList, keeperList, captain,
-                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id);
+                player_amount_count, upComingMatchesDto.key_name, vCaptain, userDto.member_id, upComingMatchesDto.my_team_name);
         call.enqueue(new Callback<CreateTeamCallBackWrapper>() {
             @Override
             public void onResponse(Call<CreateTeamCallBackWrapper> call, Response<CreateTeamCallBackWrapper> response) {
@@ -1109,6 +1109,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
         //creating the retrofit api service
@@ -1251,6 +1253,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<TransactionWrapper> call = apiInterface.paymentForJoinContest(contestId, userDto.member_id, paymentId, type, status, amount);
@@ -1296,6 +1300,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 

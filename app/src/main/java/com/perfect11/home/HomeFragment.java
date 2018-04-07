@@ -168,6 +168,8 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
         getSizeOfArray(selectedTeam);
@@ -309,6 +311,8 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
         Call<JoinContestCallBackDto> call = apiInterface.joinContest(contestDto.id, userDto.reference_id, userDto.member_id, upComingMatchesDto.key_name,
@@ -558,6 +562,8 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
         //creating the retrofit api service
@@ -698,6 +704,8 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<TransactionWrapper> call = apiInterface.paymentForJoinContest(contestId, userDto.member_id, paymentId, type, status, amount);
@@ -743,6 +751,9 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+
         mProgressDialog.show();
         apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 

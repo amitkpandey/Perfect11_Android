@@ -415,6 +415,8 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
@@ -564,6 +566,8 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         //creating the retrofit api service
         apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
@@ -708,6 +712,8 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<TransactionWrapper> call = apiInterface.paymentForCreateContest(contestId, userDto.member_id, paymentId, type, status, amount);
@@ -757,6 +763,8 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 

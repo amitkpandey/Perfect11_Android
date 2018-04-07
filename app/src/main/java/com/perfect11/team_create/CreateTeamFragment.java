@@ -315,6 +315,8 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
         //creating the retrofit api service
@@ -457,6 +459,8 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<TransactionWrapper> call = apiInterface.paymentForJoinContest(contestId, userDto.member_id, paymentId, type, status, amount);
@@ -503,6 +507,8 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient4.getApiClient().create(ApiInterface.class);
 

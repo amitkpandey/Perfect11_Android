@@ -113,6 +113,8 @@ public class MyTransactionsFragment extends BaseFragment {
         final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         if (page == 0) {
             mProgressDialog.show();
         } else {

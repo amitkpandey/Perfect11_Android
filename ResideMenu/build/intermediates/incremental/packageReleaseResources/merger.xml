@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main$Generated" generated="true"><source path="F:\Android_Project\Perfect11\ResideMenu\res"/><source path="F:\Android_Project\Perfect11\ResideMenu\build\generated\res\rs\release"/><source path="F:\Android_Project\Perfect11\ResideMenu\build\generated\res\resValues\release"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="F:\Android_Project\Perfect11\ResideMenu\res"><file name="shadow" path="F:\Android_Project\Perfect11\ResideMenu\res\drawable-hdpi\shadow.png" qualifiers="hdpi-v4" type="drawable"/><file name="residemenu_custom" path="F:\Android_Project\Perfect11\ResideMenu\res\layout\residemenu_custom.xml" qualifiers="" type="layout"/><file name="residemenu_custom_left_scrollview" path="F:\Android_Project\Perfect11\ResideMenu\res\layout\residemenu_custom_left_scrollview.xml" qualifiers="" type="layout"/><file name="residemenu_custom_right_scrollview" path="F:\Android_Project\Perfect11\ResideMenu\res\layout\residemenu_custom_right_scrollview.xml" qualifiers="" type="layout"/><file name="residemenu_item" path="F:\Android_Project\Perfect11\ResideMenu\res\layout\residemenu_item.xml" qualifiers="" type="layout"/><file path="F:\Android_Project\Perfect11\ResideMenu\res\values\slide_menu_attrs.xml" qualifiers=""><declare-styleable name="SlidingMenu">
+        <attr name="mode">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr format="reference" name="viewAbove"/>
+        <attr format="reference" name="viewBehind"/>
+        <attr format="dimension" name="behindOffset"/>
+        <attr format="dimension" name="behindWidth"/>
+        <attr format="float" name="behindScrollScale"/>
+        <attr name="touchModeAbove">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+        <attr name="touchModeBehind">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+        <attr format="reference" name="shadowDrawable"/>
+        <attr format="dimension" name="shadowWidth"/>
+        <attr format="boolean" name="fadeEnabled"/>
+        <attr format="float" name="fadeDegree"/>
+        <attr format="boolean" name="selectorEnabled"/>
+        <attr format="reference" name="selectorDrawable"/>
+    </declare-styleable></file><file path="F:\Android_Project\Perfect11\ResideMenu\res\values\slide_menu_ids.xml" qualifiers=""><item name="selected_view" type="id"/></file><file path="F:\Android_Project\Perfect11\ResideMenu\res\values\strings.xml" qualifiers=""><string name="app_name">ResideMenu</string></file></source><source path="F:\Android_Project\Perfect11\ResideMenu\build\generated\res\rs\release"/><source path="F:\Android_Project\Perfect11\ResideMenu\build\generated\res\resValues\release"/></dataSet><dataSet config="release$Generated" generated="true"><source path="F:\Android_Project\Perfect11\ResideMenu\src\release\res"/></dataSet><dataSet config="release" generated-set="release$Generated"><source path="F:\Android_Project\Perfect11\ResideMenu\src\release\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="SlidingMenu"><attr name="mode">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr><attr format="reference" name="viewAbove"/><attr format="reference" name="viewBehind"/><attr format="dimension" name="behindOffset"/><attr format="dimension" name="behindWidth"/><attr format="float" name="behindScrollScale"/><attr name="touchModeAbove">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+            <enum name="none" value="2"/>
+        </attr><attr name="touchModeBehind">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+            <enum name="none" value="2"/>
+        </attr><attr format="reference" name="shadowDrawable"/><attr format="dimension" name="shadowWidth"/><attr format="boolean" name="fadeEnabled"/><attr format="float" name="fadeDegree"/><attr format="boolean" name="selectorEnabled"/><attr format="reference" name="selectorDrawable"/></declare-styleable></configuration></mergedItems></merger>

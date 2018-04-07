@@ -66,6 +66,8 @@ public class UpcomingMatchesActivity extends AppCompatActivity {
         final ProgressDialog mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<UpComingMatchesWrapper> call = apiInterface.getUpcomingMatches();

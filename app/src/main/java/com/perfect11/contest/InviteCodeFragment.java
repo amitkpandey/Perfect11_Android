@@ -95,6 +95,8 @@ public class InviteCodeFragment extends BaseFragment {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);

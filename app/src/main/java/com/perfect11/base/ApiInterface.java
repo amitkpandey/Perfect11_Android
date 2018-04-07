@@ -72,7 +72,7 @@ public interface ApiInterface {
                                                   @Field("bowlerdata[]") ArrayList<String> bowlerList, @Field("keeperdata[]") ArrayList<String> keeperList,
                                                   @Field("captain") String captain, @Field("player_amount_count") float player_amount_count,
                                                   @Field("team_id") String team_id, @Field("vice_captain") String vice_captain,
-                                                  @Field("user_id") String user_id);
+                                                  @Field("user_id") String user_id, @Field("team_name") String team_name);
 
     @FormUrlEncoded
     @POST("api/makeJoinContest")
