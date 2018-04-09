@@ -172,6 +172,7 @@
         android:id="@+id/rl_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rl_footer"
         android:layout_below="@+id/rl_02"
         android:layout_margin="5dp">
 

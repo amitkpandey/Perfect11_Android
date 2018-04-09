@@ -1,7 +1,9 @@
 package com.perfect11.team_create;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -69,7 +71,7 @@ import retrofit2.Response;
 
 import static com.utility.Constants.TAG;
 
-public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTransactionCallback, PaymentResultListener {
+public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTransactionCallback {
     private ArrayList<PlayerDto> selectedTeam;
     private CustomTextView tv_team1, tv_team2, tv_team_count1, tv_team_count2, ctv_time, ctv_country1, ctv_country2;
     private ImageView cimg_country1, cimg_country2;
@@ -1218,32 +1220,49 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         Toast.makeText(getActivity(), s + bundle.toString(), Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * The name of the function has to be onPaymentSuccess
-     * Wrap your code in try catch, as shown, to ensure that this method runs correctly
-     */
-    @SuppressWarnings("unused")
-    @Override
-    public void onPaymentSuccess(String razorpayPaymentID) {
-        try {
-            callAPITransactionJoinContest(razorpayPaymentID, amount, "razorpay", "success");
-            Toast.makeText(getActivity(), "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in onPaymentSuccess", e);
-        }
-    }
+//    /**
+//     * The name of the function has to be onPaymentSuccess
+//     * Wrap your code in try catch, as shown, to ensure that this method runs correctly
+//     */
+//    @SuppressWarnings("unused")
+//    @Override
+//    public void onPaymentSuccess(String razorpayPaymentID) {
+//        try {
+//            callAPITransactionJoinContest(razorpayPaymentID, amount, "razorpay", "success");
+//            Toast.makeText(getActivity(), "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+//        } catch (Exception e) {
+//            Log.e(TAG, "Exception in onPaymentSuccess", e);
+//        }
+//    }
+//
+//    /**
+//     * The name of the function has to be onPaymentError
+//     * Wrap your code in try catch, as shown, to ensure that this method runs correctly
+//     */
+//    @SuppressWarnings("unused")
+//    @Override
+//    public void onPaymentError(int code, String response) {
+//        try {
+//            Toast.makeText(getActivity(), "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
+//        } catch (Exception e) {
+//            Log.e(TAG, "Exception in onPaymentError", e);
+//        }
+//    }
 
-    /**
-     * The name of the function has to be onPaymentError
-     * Wrap your code in try catch, as shown, to ensure that this method runs correctly
-     */
-    @SuppressWarnings("unused")
     @Override
-    public void onPaymentError(int code, String response) {
-        try {
-            Toast.makeText(getActivity(), "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in onPaymentError", e);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                //Toast.makeText(this,"TEST"+resultCode,Toast.LENGTH_SHORT).show();
+                if (data != null) {
+                    String razorpayPaymentID = data.getExtras().getString("razorpayPaymentID");
+                    callAPITransactionJoinContest(razorpayPaymentID, amount, "razorpay", "success");
+
+                }
+            } else {
+                Toast.makeText(getActivity(), "Payment failed", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -1309,7 +1328,8 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         call.enqueue(new Callback<Transaction>() {
             @Override
             public void onResponse(Call<Transaction> call, final Response<Transaction> response) {
-                if (response.body().sTATUS.equalsIgnoreCase("TXN_SUCCESS")) {
+                if (response.body().sTATUS.equalsIgnoreCase("TXN_SUCCESS") ||
+                        response.body().sTATUS.equalsIgnoreCase("PENDING")) {
                     DialogUtility.showMessageOkWithCallback("Payment Successful", getActivity(), new AlertDialogCallBack() {
                         @Override
                         public void onSubmit() {

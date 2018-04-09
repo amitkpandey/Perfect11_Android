@@ -184,7 +184,7 @@ public class ResultLeaderBoardFragment extends BaseFragment {
                 for (LiveLeaderboardDto liveLeaderboardDto : response.body()) {
 //                    System.out.println("userDto.reference_id " + userDto.reference_id);
                     if (userDto.reference_id.trim().toLowerCase().equalsIgnoreCase(liveLeaderboardDto.reference_id.trim().toLowerCase())) {
-                        System.out.println("userDto.reference_id " + userDto.reference_id);
+//                        System.out.println("userDto.reference_id " + userDto.reference_id);
                         rl_footer.setVisibility(View.VISIBLE);
                         userTeamId = "" + liveLeaderboardDto.team_id;
                         break;

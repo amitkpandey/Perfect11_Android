@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
@@ -42,6 +43,7 @@ import com.perfect11.point_system.PointSystemFragment;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
+import com.razorpay.PaymentResultListener;
 import com.special.ResideMenu.ResideMenu;
 import com.squareup.picasso.Picasso;
 import com.utility.ActivityController;
@@ -52,7 +54,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BaseHeaderActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {// .base.BaseHeaderActivity
+public class BaseHeaderActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, PaymentResultListener {// .base.BaseHeaderActivity
 
     public ResideMenu slideMenu;
 
@@ -69,7 +71,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
     private GoogleApiClient mGoogleApiClient;
 
     //Menu Items
-    private CustomTextView ctv_ticket_system,ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout,ctv_info;
+    private CustomTextView ctv_ticket_system, ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout, ctv_info;
 
     public String activityName = "";
 
@@ -145,8 +147,8 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
         ctv_help = leftMenu.findViewById(R.id.ctv_help);
         ctv_contest_invited_code = leftMenu.findViewById(R.id.ctv_contest_invited_code);
         ctv_logout = leftMenu.findViewById(R.id.ctv_logout);
-        ctv_ticket_system=leftMenu.findViewById(R.id.ctv_ticket_system);
-        ctv_info=leftMenu.findViewById(R.id.ctv_info);
+        ctv_ticket_system = leftMenu.findViewById(R.id.ctv_ticket_system);
+        ctv_info = leftMenu.findViewById(R.id.ctv_info);
     }
 
     private void setDefaultBG() {
@@ -530,7 +532,24 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        
+
+    }
+
+    @Override
+    public void onPaymentSuccess(String razorpayPaymentID) {
+        Intent intent = new Intent();
+        intent.putExtra("razorpayPaymentID", razorpayPaymentID);
+        onActivityResult(1, RESULT_OK, intent);
+//        Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Intent intent = new Intent();
+        intent.putExtra("razorpayPaymentID", s);
+        onActivityResult(1, RESULT_CANCELED, intent);
+        System.out.println("code " + i + " response " + s);
+        Toast.makeText(this, "Payment failed: " + i + " " + s, Toast.LENGTH_SHORT).show();
     }
 
     /**
