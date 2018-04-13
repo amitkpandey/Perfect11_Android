@@ -117,7 +117,13 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 tv_total_balance.setText("Rs." + myAccountWrapper.data.total_balance + "/-");
                 userDto.total_balance = myAccountWrapper.data.total_balance;
                 PreferenceUtility.saveObjectInAppPreference(getActivity(), userDto, PreferenceUtility.APP_PREFERENCE_NAME);
-                tv_unutilized.setText("Rs." + (Float.parseFloat(myAccountWrapper.data.total_balance) - Float.parseFloat(myAccountWrapper.data.winnings)) + "/-");
+                float unutilized=(Float.parseFloat(myAccountWrapper.data.total_balance) - Float.parseFloat(myAccountWrapper.data.winnings));
+
+                if(unutilized<0)
+                {
+                    unutilized=0;
+                }
+                tv_unutilized.setText("Rs." + unutilized + "/-");
                 tv_winnings.setText("Rs." + myAccountWrapper.data.winnings + "/-");
                 withdrawl_amount = Float.parseFloat(myAccountWrapper.data.withdraw_amount);
                 tv_withdrawable.setText("Rs." + myAccountWrapper.data.withdraw_amount + "/-");
@@ -266,7 +272,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         mProgressDialog.setCancelable(false);
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
-        apiInterface = ApiClient3.getApiClient().create(ApiInterface.class);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<WithdrawlStatusDto> call = apiInterface.withdrawMoneyRequest(userDto.member_id, withdrawl_amount);
         call.enqueue(new Callback<WithdrawlStatusDto>() {

@@ -66,7 +66,13 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.practice_contest_layout, container, false);
         readFromBundle();
-        setInnerHeader(joinedContestDto.room_name);
+
+        if(joinedContestDto.tournament==null||joinedContestDto.tournament.trim().equals(""))
+            setInnerHeader(joinedContestDto.room_name);
+        else
+            setInnerHeader(joinedContestDto.tournament);
+
+
         initView();
         setValues();
         callAPI();
@@ -130,7 +136,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     private void setValues() {
         tv_match.setText(team1 + " vs " + team2);
         tv_status.setText(matchStatus);
-        tv_total_win.setText("Rs. " + joinedContestDto.winingamount + "/-");
+        tv_total_win.setText("Rs. " + joinedContestDto.winningAmount + "/-");
         tv_entry_fee.setText("Rs. " + joinedContestDto.amount + "/-");
         btn_save.setText("My Team");
     }
@@ -236,7 +242,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
 
                 MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
                 myTeamFragment.setArguments(bundle);
-                if (!isFixture) {
+                if ((!isFixture)||userDto.reference_id.trim().equals(data.get(position).reference_id.trim())) {
                     ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
                 }
             }

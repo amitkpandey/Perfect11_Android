@@ -9,41 +9,47 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="5">
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_position"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:gravity="center"
             android:text="Type"
             android:textColor="@android:color/black" />
 
-        <com.utility.customView.CustomEditText
-            android:id="@+id/et_percent"
-            style="@android:style/TextAppearance.Small"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_corner_tranparent_red_btn"
-            android:gravity="center"
-            android:onClick="onButtonClick"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            android:inputType="number"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <com.utility.customView.CustomEditText
+                android:id="@+id/et_percent"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rounded_corner_tranparent_red_btn"
+                android:gravity="center"
+                android:onClick="onButtonClick"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:inputType="number"
+                />
+        </LinearLayout>
+
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_amount"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:gravity="center"
             android:text="ODI"
             android:textColor="@android:color/black" />

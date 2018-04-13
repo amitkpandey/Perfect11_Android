@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_corner_white_btn_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:text="Date"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawablePadding="10dp"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:text="Amount:"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_Amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="Amount"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawablePadding="10dp"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:text="Applied For:"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_Applied_For"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="Applied For"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawablePadding="10dp"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:text="Details:"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="Details"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/rounded_corner_red_btn_bg"
+            android:text="OK" />
+    </LinearLayout>
+</RelativeLayout>

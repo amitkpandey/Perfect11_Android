@@ -45,7 +45,6 @@ public class MyContestFragmentChild extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_child_my_contest, container, false);
-        //setHeader("My Contests");
         initView();
         readFromBundle();
         callAPI();
@@ -122,6 +121,11 @@ public class MyContestFragmentChild extends BaseFragment {
                     e.printStackTrace();
                 }
                 bundle.putString("matchStatus", data.get(position).matchid);
+                if (data.get(position).matchstatus.trim().equals("notstarted")) {
+                    bundle.putBoolean("isTeamNotShow", true);
+                } else{
+                    bundle.putBoolean("isTeamNotShow", false);
+                }
                 ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
                 resultLeaderBoardFragment.setArguments(bundle);
                 ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());

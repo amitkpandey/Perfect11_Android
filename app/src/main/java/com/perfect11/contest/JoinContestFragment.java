@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.perfect11.R;
@@ -40,6 +41,7 @@ public class JoinContestFragment extends BaseFragment {
     private JoinContestAdapter joinContestAdapter;
     private UserDto userDto;
     private String team1, teamA, team2, teamB, matchStatus;
+    private TextView tv_display_error;
     private boolean isFixture=false;
 
     public static JoinContestFragment newInstance() {
@@ -78,6 +80,7 @@ public class JoinContestFragment extends BaseFragment {
     }
 
     private void initView() {
+        tv_display_error = view.findViewById(R.id.tv_display_error);
         rv_contests = view.findViewById(R.id.rv_contests);
         tv_match = view.findViewById(R.id.tv_match);
         tv_status = view.findViewById(R.id.tv_status);
@@ -88,7 +91,7 @@ public class JoinContestFragment extends BaseFragment {
 
     private void setValues() {
         if (upComingMatchesDto != null) {
-            tv_match.setText(upComingMatchesDto.teama + " vs " + upComingMatchesDto.teamb);
+            tv_match.setText(upComingMatchesDto.short_name);
             tv_status.setText(upComingMatchesDto.matchstatus);
             String[] team = upComingMatchesDto.short_name.split(" ");
             team1 = team[0];
@@ -161,29 +164,39 @@ public class JoinContestFragment extends BaseFragment {
     }
 
     private void setAdapter(final ArrayList<JoinedContestDto> data) {
-        joinContestAdapter = new JoinContestAdapter(getActivity(), data);
-        rv_contests.setAdapter(joinContestAdapter);
-        joinContestAdapter.setOnButtonListener(new JoinContestAdapter.OnButtonListener() {
-            @Override
-            public void onButtonClick(int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("joinedContestDto", data.get(position));
-                bundle.putString("team1", team1);
-                bundle.putString("team2", team2);
-                bundle.putString("teamA", teamA);
-                bundle.putString("teamB", teamB);
-                bundle.putBoolean("isFixture",isFixture);
-                if (upComingMatchesDto != null && upComingMatchesDto.matchstatus.equalsIgnoreCase("completed")) {
-                    ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
-                    resultLeaderBoardFragment.setArguments(bundle);
-                    ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
-                } else {
-                    LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
-                    liveLeaderBoardFragment.setArguments(bundle);
-                    ((BaseHeaderActivity) getActivity()).addFragment(liveLeaderBoardFragment, true, LiveLeaderBoardFragment.class.getName());
+
+
+        if(data==null||data.size()==0)
+        {
+            tv_display_error.setVisibility(View.VISIBLE);
+            rv_contests.setVisibility(View.GONE);
+        }
+        else {
+            joinContestAdapter = new JoinContestAdapter(getActivity(), data);
+
+            rv_contests.setAdapter(joinContestAdapter);
+            joinContestAdapter.setOnButtonListener(new JoinContestAdapter.OnButtonListener() {
+                @Override
+                public void onButtonClick(int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("joinedContestDto", data.get(position));
+                    bundle.putString("team1", team1);
+                    bundle.putString("team2", team2);
+                    bundle.putString("teamA", teamA);
+                    bundle.putString("teamB", teamB);
+                    bundle.putBoolean("isFixture", isFixture);
+                    if (upComingMatchesDto != null && upComingMatchesDto.matchstatus.equalsIgnoreCase("completed")) {
+                        ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
+                        resultLeaderBoardFragment.setArguments(bundle);
+                        ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
+                    } else {
+                        LiveLeaderBoardFragment liveLeaderBoardFragment = LiveLeaderBoardFragment.newInstance();
+                        liveLeaderBoardFragment.setArguments(bundle);
+                        ((BaseHeaderActivity) getActivity()).addFragment(liveLeaderBoardFragment, true, LiveLeaderBoardFragment.class.getName());
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 }

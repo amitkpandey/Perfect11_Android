@@ -54,7 +54,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, FacebookLoginListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>,
+        FacebookLoginListener, GoogleApiClient.OnConnectionFailedListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -153,8 +154,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (FacebookSdk.isFacebookRequestCode(requestCode)) {
             facebookUtil.callbackManager.onActivityResult(requestCode, responseCode, data);
         } else if (requestCode == GOOGLE_SIGN_IN) {
-            System.out.println("is Google here");
+//            System.out.println("is Google here");
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            System.out.println("is Google here " + result.getStatus());
             handleSignInResult(result);
         }
     }
@@ -323,8 +325,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 onBackPressed();
                 break;
             case R.id.ll_register:
-                Bundle bundle=getIntent().getExtras();
-                ActivityController.startNextActivity(this, RegisterActivity.class, bundle,false);
+                Bundle bundle = getIntent().getExtras();
+                ActivityController.startNextActivity(this, RegisterActivity.class, bundle, false);
                 finish();
                 break;
             case R.id.ctv_forgot_password:

@@ -61,7 +61,12 @@ public class MyContestAdapter extends RecyclerView.Adapter<MyContestAdapter.View
         holder.tv_joined_count.setText("Team 1");
         holder.tv_points_count.setText(mdata.get(position).winingrank);
         holder.tv_rank_count.setText("#1");
-        holder.ctv_title.setText(mdata.get(position).room_name);
+
+        if(mdata.get(position).tournament==null||mdata.get(position).tournament.trim().equals(""))
+            holder.ctv_title.setText(mdata.get(position).room_name);
+        else
+            holder.ctv_title.setText(mdata.get(position).tournament);
+
         holder.ll_contest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

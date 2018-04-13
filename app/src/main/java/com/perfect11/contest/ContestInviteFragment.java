@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.perfect11.R;
 import com.perfect11.base.BaseFragment;
+import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.contest.dto.ContestCallBackDto;
+import com.perfect11.home.HomeFragment;
 import com.utility.customView.CustomTextView;
 
 
@@ -44,7 +46,8 @@ public class ContestInviteFragment extends BaseFragment {
         switch (view.getId())
         {
             case R.id.img_back:
-                getActivity().onBackPressed();
+                //getActivity().onBackPressed();
+                onBackPressed();
                 break;
             case R.id.btn_share:
                 Intent sendIntent = new Intent();
@@ -58,5 +61,13 @@ public class ContestInviteFragment extends BaseFragment {
 
     public static Fragment newInstance() {
         return new ContestInviteFragment();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //((BaseHeaderActivity)getActivity()).removeAllFragment();
+       // ((BaseHeaderActivity)getActivity()).replaceFragment(HomeFragment.newInstance(), false, HomeFragment.class.getName());
+        getActivity().onBackPressed();
     }
 }

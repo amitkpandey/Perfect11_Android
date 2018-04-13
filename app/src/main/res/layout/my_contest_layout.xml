@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_root"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:text="India vs Australia"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="15sp" />
 
@@ -130,7 +130,7 @@
         android:background="@android:color/white"
         android:gravity="center"
         android:padding="5dp"
-        android:text="LeaderBoard"
+        android:text="Leader Board"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 

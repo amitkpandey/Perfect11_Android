@@ -1,6 +1,8 @@
 package com.perfect11.account;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.perfect11.R;
@@ -79,7 +84,9 @@ public class MyTransactionsFragment extends BaseFragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.e("Abcd", "Scrolling");
+
+                scrollOutIteams = layoutManager.findFirstVisibleItemPosition();
+                Log.e("Abcd", "Scrolling" + scrollOutIteams);
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     isScrolling = true;
                 }
@@ -91,7 +98,7 @@ public class MyTransactionsFragment extends BaseFragment {
                 currentIteam = layoutManager.getChildCount();
                 totalIteams = layoutManager.getItemCount();
                 scrollOutIteams = layoutManager.findFirstVisibleItemPosition();
-                Log.e("Abcd", "currentIteam:" + currentIteam + " totalIteams: " + totalIteams + " listcount: " + listcount);
+                Log.e("Abcd", "currentIteam:" + currentIteam + " totalIteams: " + totalIteams + " listcount: " + listcount + " scrollOutIteams:" + scrollOutIteams);
                 if (isScrolling && (currentIteam + scrollOutIteams == totalIteams)) {
                     page++;
                     isScrolling = false;
@@ -141,8 +148,32 @@ public class MyTransactionsFragment extends BaseFragment {
                     rv_transactions.setAdapter(myTransactionsAdapter);
                     myTransactionsAdapter.setOnButtonListener(new MyTransactionsAdapter.OnButtonListener() {
                         @Override
-                        public void onButtonClick(int position) {
-                            ((BaseHeaderActivity) getActivity()).addFragment(ContestFragment.newInstance(), true, ContestFragment.class.getName());
+                        public void onButtonClick(MyTransectionDto myTransectionDto) {
+                            TextView tv_Details,tv_Applied_For,tv_Amount,tv_title;
+
+                            final Dialog dialog = new Dialog(getActivity());
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(false);
+                            dialog.setContentView(R.layout.dialog_transaction_details);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            Button cbtn_ok = dialog.findViewById(R.id.btn_ok);
+                            tv_Amount=dialog.findViewById(R.id.tv_Amount);
+                            tv_Details=dialog.findViewById(R.id.tv_Details);
+                            tv_Applied_For=dialog.findViewById(R.id.tv_Applied_For);
+                            tv_title=dialog.findViewById(R.id.tv_title);
+
+                            tv_Amount.setText(myTransectionDto.amount);
+                            tv_Details.setText(myTransectionDto.description);
+                            tv_Applied_For.setText(myTransectionDto.applied_for);
+                            tv_title.setText(myTransectionDto.created_date);
+
+                            cbtn_ok.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
                         }
                     });
                 } else {

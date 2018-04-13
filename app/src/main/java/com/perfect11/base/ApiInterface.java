@@ -1,5 +1,6 @@
 package com.perfect11.base;
 
+import com.google.gson.JsonObject;
 import com.perfect11.account.dto.WithdrawlStatusDto;
 import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.account.wrapper.MyTransectionWrapper;
@@ -125,10 +126,9 @@ public interface ApiInterface {
     Call<ContestCallBackDto> createContest(@Field("contestSize") int contestSize, @Field("customize_winning") int customize_winning,
                                            @Field("entryfee") float entryfee, @Field("join_multiple_item") int join_multiple_item,
                                            @Field("matchID") String matchID, @Field("room_name") String room_name,
-                                           @Field("win_amt") ArrayList<Float> win_amt, @Field("win_per") ArrayList<Float> win_per,
+                                           @Field("win_amt[]") ArrayList<Float> win_amt, @Field("win_per[]") ArrayList<Float> win_per,
                                            @Field("winner_set") int winner_set, @Field("winningAmount") int winningAmount,
-                                           @Field("user_id") String user_id, @Field("reference_id") String reference_id,
-                                           @Field("team_id") String team_id);
+                                           @Field("user_id") String user_id, @Field("reference_id") String reference_id);
 
     @GET("api/getMyContests/0/{userid}")
     Call<MyContestWrapper> getMyContest(@Path("userid") String userid);
@@ -167,4 +167,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("checkstatus_api.php")
     Call<Transaction> getStatus(@Field("order_id") String order_id);
+
+    @FormUrlEncoded
+    @POST("api/setversion/check")
+    Call<JsonObject> checkVersion(@Field("type") String type, @Field("version") String version);
 }

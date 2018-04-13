@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:text="India vs Australia"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="15sp" />
 
@@ -181,7 +181,7 @@
         android:background="@android:color/white"
         android:gravity="center"
         android:padding="5dp"
-        android:text="LeaderBoard"
+        android:text="Leader Board"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 
@@ -224,7 +224,7 @@
         android:id="@+id/rl_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/include1"
+        android:layout_above="@+id/rl_footer"
         android:layout_below="@+id/rl_04"
         android:layout_margin="5dp">
 

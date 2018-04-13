@@ -13,6 +13,7 @@ import com.perfect11.contest.dto.ContestWinnerDto;
 import com.utility.customView.CustomEditText;
 import com.utility.customView.CustomTextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ContestWinnerAdapter extends BaseAdapter {
@@ -54,7 +55,7 @@ public class ContestWinnerAdapter extends BaseAdapter {
         }*/
         ContestWinnerDto contestWinnerDto = contestWinnerDtoArrayList.get(position);
         viewHolder.et_percent.setText("" + contestWinnerDto.percentage);
-        viewHolder.tv_amount.setText("" + contestWinnerDto.amount);
+        viewHolder.tv_amount.setText("" + new DecimalFormat("##.##").format(contestWinnerDto.amount));
         viewHolder.tv_position.setText("" + contestWinnerDto.position);
         viewHolder.et_percent.addTextChangedListener(new TextWatcher() {
             @Override

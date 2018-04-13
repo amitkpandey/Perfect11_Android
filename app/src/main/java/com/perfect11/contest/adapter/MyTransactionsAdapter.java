@@ -58,7 +58,7 @@ public class MyTransactionsAdapter extends RecyclerView.Adapter<MyTransactionsAd
         holder.rl_01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onButtonListener.onButtonClick(position);
+                onButtonListener.onButtonClick(mshopkeeperlist.get(position));
             }
         });
     }
@@ -73,6 +73,6 @@ public class MyTransactionsAdapter extends RecyclerView.Adapter<MyTransactionsAd
     }
 
     public interface OnButtonListener {
-        void onButtonClick(int position);
+        void onButtonClick(MyTransectionDto position);
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,9 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
+import com.perfect11.BuildConfig;
 import com.perfect11.R;
 import com.perfect11.base.ApiClient;
 import com.perfect11.base.ApiClient4;
@@ -36,6 +39,7 @@ import com.perfect11.home.childFragments.ResultsFragment;
 import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.dto.TeamIDDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
+import com.perfect11.login_signup.IntroScreen;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.payment.paytm.Checksum;
 import com.perfect11.payment.paytm.Paytm;
@@ -92,6 +96,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
     public Gson gson;
     private TeamIDDto teamIDDto;
     private String paymentGateway;
+    private int versionCode;
 
     private float player_amount_count = 0;
 
@@ -100,9 +105,68 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_home, container, false);
         setHeader("All Matches");
+        userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
+        versionCode = BuildConfig.VERSION_CODE;
         initView();
-        readFromBundle();
+        callVersionCheckAPI();
         return view;
+    }
+
+    private void callVersionCheckAPI() {
+        //API
+        final ProgressDialog mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<JsonObject> call = apiInterface.checkVersion("Android", String.valueOf(versionCode));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+                boolean status = jsonObject.get("status").getAsBoolean();
+                if (!status) {
+                    DialogUtility.showMessageWithOkWithCallback("New version available",
+                            "You are using old version. Please update to get more features.",
+                            getActivity(), new AlertDialogCallBack() {
+                                @Override
+                                public void onSubmit() {
+                                    String url = "https://play.google.com/store/apps/details?id=com.perfect11";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+                            });
+                } else {
+                    readFromBundle();
+                }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                if (t instanceof IOException) {
+                    DialogUtility.showConnectionErrorDialogWithOk(getActivity());
+                    // logging probably not necessary
+                } else {
+                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
     }
 
     public static Fragment newInstance() {
@@ -110,7 +174,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
     }
 
     private void readFromBundle() {
-        userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
+        System.out.println("readFromBundle");
         try {
             flag = getArguments().getBoolean("flag");
             contestDto = (ContestDto) getArguments().getSerializable("contestDto");
@@ -135,7 +199,12 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             ctv_joining_amount.setText("Joining Amount: Rs. " + contestDto.entryfee);
 
             CustomTextView ctv_body = dialog.findViewById(R.id.ctv_body);
-            ctv_body.setText("Contest Name: " + contestDto.room_name);
+
+
+            if(contestDto.tournament==null||contestDto.tournament.trim().equals(""))
+                ctv_body.setText("Contest Name: " + contestDto.room_name);
+            else
+                ctv_body.setText("Contest Name: " + contestDto.tournament);
 
             Button cbtn_join = dialog.findViewById(R.id.cbtn_join);
             Button cbtn_cancel = dialog.findViewById(R.id.cbtn_cancel);

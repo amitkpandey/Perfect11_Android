@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 
 import com.perfect11.R;
 import com.perfect11.base.BaseFragment;
@@ -35,6 +37,10 @@ public class AllContestFragmentForActivity extends Fragment {
     private Activity activity;
     private ArrayList<PlayerDto> selectedTeam;
     private ContestAdapter contestAdapter;
+
+    private boolean isScrolling = false;
+    private int currentIteam, totalIteams, scrollOutIteams, page, listcount = 0;
+
 private UpComingMatchesDto upComingMatchesDto;
 
     private CustomTextView not_found;
@@ -58,9 +64,41 @@ private UpComingMatchesDto upComingMatchesDto;
     private void initView(View view) {
         not_found=view.findViewById(R.id.not_found);
         rv_list = view.findViewById(R.id.rv_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(layoutManager);
+        rv_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                scrollOutIteams = layoutManager.findFirstVisibleItemPosition();
+                Log.e("Abcd", "Scrolling"+scrollOutIteams);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                System.out.println("dx: "+dx+" dy:"+dy);
+                currentIteam = layoutManager.getChildCount();
+                totalIteams = layoutManager.getItemCount();
+                scrollOutIteams = layoutManager.findFirstVisibleItemPosition();
+                Log.e("Abcd", "currentIteam:" + currentIteam + " totalIteams: " + totalIteams + " listcount: " + listcount+" scrollOutIteams:"+scrollOutIteams);
+                if (isScrolling && (currentIteam + scrollOutIteams == totalIteams)) {
+                    page++;
+                    isScrolling = false;
+                    if (totalIteams < listcount) {
+                 //       callAPI(page);
+                    }
+
+                    //Fatch Data
+                }
+            }
+        });
 
         if (contestDtoArrayList.size() != 0) {
             not_found.setVisibility(View.GONE);

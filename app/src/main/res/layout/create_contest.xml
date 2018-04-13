@@ -26,7 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:text="India vs Australia"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="15sp" />
 
@@ -140,7 +140,8 @@
                     android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:maxLength="5"/>
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -227,7 +228,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:button="@drawable/check_box_setting_selector"
-                android:checked="false"
+                android:checked="true"
+                android:enabled="false"
                 />
 
         </RelativeLayout>
@@ -310,6 +312,46 @@
                 android:text="Set"
                 android:textAllCaps="false"
                 android:visibility="visible"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/rl_header"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="#e1e1e1"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="RANK"
+                android:textColor="@android:color/black"
+                android:layout_alignParentLeft="true"
+               android:gravity="center"
+                android:layout_weight="1.5"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="WINNING %	"
+                android:textColor="@android:color/black"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_weight="2"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="AMOUNT"
+                android:textColor="@android:color/black"
+                android:layout_alignParentRight="true"
+
+                android:gravity="center"
+                android:layout_weight="1.5"
                 />
         </LinearLayout>
         <ListView

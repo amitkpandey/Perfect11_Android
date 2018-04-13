@@ -52,6 +52,9 @@ public class ResultLeaderBoardFragment extends BaseFragment {
     private RelativeLayout rl_footer;
     private String userTeamId;
 
+    //Use for My contest
+    private boolean isTeamNotShow = false;
+
     public static ResultLeaderBoardFragment newInstance() {
         return new ResultLeaderBoardFragment();
     }
@@ -61,7 +64,10 @@ public class ResultLeaderBoardFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.my_contest_layout, container, false);
         readFromBundle();
-        setInnerHeader(joinedContestDto.room_name);
+        if (joinedContestDto.tournament == null || joinedContestDto.tournament.trim().equals(""))
+            setInnerHeader(joinedContestDto.room_name);
+        else
+            setInnerHeader(joinedContestDto.tournament);
         initView();
         callTeamApi();
         return view;
@@ -75,6 +81,11 @@ public class ResultLeaderBoardFragment extends BaseFragment {
 //        teamA = getArguments().getString("teamA");
 //        teamB = getArguments().getString("teamB");
         matchStatus = getArguments().getString("matchStatus");
+        try {
+            isTeamNotShow=getArguments().getBoolean("isTeamNotShow");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initView() {
@@ -92,8 +103,17 @@ public class ResultLeaderBoardFragment extends BaseFragment {
 
     private void setValues() {
         tv_match.setText(team1 + " vs " + team2);
-        tv_status.setText(matchStatus);
-        tv_total_win.setText("Rs. " + joinedContestDto.winingamount + "/-");
+        if(joinedContestDto.matchstatus==null||joinedContestDto.matchstatus.equals("")) {
+            tv_status.setText(matchStatus);
+        }else
+        {
+            if(joinedContestDto.matchstatus.equals("notstarted"))
+            tv_status.setText("Not Started");
+            else
+                tv_status.setText("Completed");
+
+        }
+        tv_total_win.setText("Rs. " + joinedContestDto.winningAmount + "/-");
         tv_entry_fee.setText("Rs. " + joinedContestDto.amount + "/-");
         btn_save.setText("My Team");
     }
@@ -155,8 +175,7 @@ public class ResultLeaderBoardFragment extends BaseFragment {
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -203,8 +222,7 @@ public class ResultLeaderBoardFragment extends BaseFragment {
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());
                     // logging probably not necessary
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
@@ -231,8 +249,10 @@ public class ResultLeaderBoardFragment extends BaseFragment {
                 bundle.putString("teamB", teamB);
                 ResultTeamFragment resultTeamFragment = ResultTeamFragment.newInstance();
                 resultTeamFragment.setArguments(bundle);
-                ((BaseHeaderActivity) getActivity()).addFragment(resultTeamFragment, true, ResultTeamFragment.class.getName());
-            }
+                if((!isTeamNotShow)||userDto.reference_id.trim().equals(data.get(position).reference_id.trim())) {
+                    ((BaseHeaderActivity) getActivity()).addFragment(resultTeamFragment, true, ResultTeamFragment.class.getName());
+                }
+                }
         });
     }
 }

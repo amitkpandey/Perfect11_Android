@@ -53,7 +53,7 @@ public class JoinContestAdapter extends RecyclerView.Adapter<JoinContestAdapter.
             holder.tv_price.setText("Winner takes all the glory");
         } else {
             holder.tv_practice.setText("Paid Contest");
-            holder.tv_price.setText("Rs. " + mdata.get(position).winingamount + "/-");
+            holder.tv_price.setText("Rs. " + mdata.get(position).winningAmount + "/-");
         }
         holder.tv_entry_fee.setText("Rs. " + mdata.get(position).amount + "/-");
         holder.tv_joined_count.setText("Team 1");

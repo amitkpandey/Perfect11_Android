@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.perfect11.R;
@@ -42,8 +43,9 @@ public class ChooseCaptainFragment extends BaseFragment {
     private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, ctv_time;
     private CustomButton btn_save;
     private ContestDto contestDto;
-    private String team_Name="";
+    private String team_Name = "";
     private Handler mHandler = new Handler();
+    private String blockCharacterSet = "~#^|$%&*!";
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
         public void run() {
@@ -59,7 +61,7 @@ public class ChooseCaptainFragment extends BaseFragment {
         readFromBundle();
         startUpdateTimer();
         initView();
-        setTeamName();
+        //setTeamName();
         return view;
     }
 
@@ -70,19 +72,29 @@ public class ChooseCaptainFragment extends BaseFragment {
         dialog.setContentView(R.layout.dialog_set_teamname);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
-        final EditText team_name=dialog.findViewById(R.id.team_name);
+        final EditText team_name = dialog.findViewById(R.id.team_name);
 
         Button btn_set = dialog.findViewById(R.id.btn_set);
-
+        ImageView iv_cross = dialog.findViewById(R.id.iv_cross);
+        iv_cross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         btn_set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!team_name.getText().toString().trim().equals("")) {
-                    team_Name=team_name.getText().toString().trim();
-                    dialog.dismiss();
-                }else
-                {
+
+                if (team_name.getText().toString().trim().equals("")) {
                     Toast.makeText(getActivity(), "Enter Your Team Name", Toast.LENGTH_SHORT).show();
+                }else if (!team_name.getText().toString().trim().matches("[a-zA-Z0-9 ]*")) {
+                    Toast.makeText(getActivity(), "Special Character are not allow", Toast.LENGTH_SHORT).show();
+                }else {
+                    team_Name = team_name.getText().toString().trim();
+                    System.out.println(" team_Name:"+team_Name);
+                    btn_save.setText("Save Team");
+                    dialog.dismiss();
                 }
             }
         });
@@ -97,6 +109,8 @@ public class ChooseCaptainFragment extends BaseFragment {
     }
 
     private void initView() {
+        btn_save= view.findViewById(R.id.btn_save);
+        btn_save.setText("Set Team Name");
         rv_team = view.findViewById(R.id.rv_team);
         ctv_country1 = view.findViewById(R.id.ctv_country1);
         ctv_country2 = view.findViewById(R.id.ctv_country2);
@@ -154,19 +168,23 @@ public class ChooseCaptainFragment extends BaseFragment {
             case R.id.btn_save:
                 ArrayList<PlayerDto> selectedTeam = captainAdapter.getSelectedCaptainAndVCaptainWithTeam();
 
-                if (selectedTeam != null) {
-                    for (PlayerDto playerDto : selectedTeam) {
+                if (team_Name.trim().equals("")) {
+                    setTeamName();
+                } else {
+                    if (selectedTeam != null) {
+                    /*for (PlayerDto playerDto : selectedTeam) {
                         System.out.println(playerDto.full_name + "  " + playerDto.isC + "  " + playerDto.isCV);
+                    }*/
+                        Bundle bundle = new Bundle();
+                        upComingMatchesDto.my_team_name = team_Name;
+                        bundle.putSerializable("selectedTeam", selectedTeam);
+                        bundle.putSerializable("selectedMatchDto", selectedMatchDto);
+                        bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
+                        bundle.putSerializable("contestDto", contestDto);
+                        TeamReadyFragment teamReadyFragment = new TeamReadyFragment();
+                        teamReadyFragment.setArguments(bundle);
+                        ((BaseHeaderActivity) getActivity()).addFragment(teamReadyFragment, true, TeamReadyFragment.class.getName());
                     }
-                    Bundle bundle = new Bundle();
-                    upComingMatchesDto.my_team_name=team_Name;
-                    bundle.putSerializable("selectedTeam", selectedTeam);
-                    bundle.putSerializable("selectedMatchDto", selectedMatchDto);
-                    bundle.putSerializable("upComingMatchesDto", upComingMatchesDto);
-                    bundle.putSerializable("contestDto", contestDto);
-                    TeamReadyFragment teamReadyFragment = new TeamReadyFragment();
-                    teamReadyFragment.setArguments(bundle);
-                    ((BaseHeaderActivity) getActivity()).addFragment(teamReadyFragment, true, TeamReadyFragment.class.getName());
                 }
                 break;
         }

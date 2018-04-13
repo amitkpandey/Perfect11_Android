@@ -105,7 +105,7 @@ public class MyContestCancelFragmentChild extends BaseFragment {
         myContestAdapter.setOnButtonListener(new MyContestAdapter.OnButtonListener() {
             @Override
             public void onButtonClick(int position) {
-                Bundle bundle = new Bundle();
+               /* Bundle bundle = new Bundle();
                 bundle.putSerializable("joinedContestDto", data.get(position));
                 try {
                     String str[] = data.get(position).room_name.split(" ");
@@ -124,7 +124,7 @@ public class MyContestCancelFragmentChild extends BaseFragment {
                 ResultLeaderBoardFragment resultLeaderBoardFragment = ResultLeaderBoardFragment.newInstance();
                 resultLeaderBoardFragment.setArguments(bundle);
                 ((BaseHeaderActivity) getActivity()).addFragment(resultLeaderBoardFragment, true, ResultLeaderBoardFragment.class.getName());
-
+*/
             }
         });
 

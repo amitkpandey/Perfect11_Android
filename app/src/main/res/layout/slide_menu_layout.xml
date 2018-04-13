@@ -70,7 +70,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:weightSum="3.5"
                 >
 
                 <com.utility.customView.CustomTextView
@@ -101,7 +101,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:weightSum="3.5"
              >
 
                 <com.utility.customView.CustomTextView
@@ -131,7 +131,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
 
                 <com.utility.customView.CustomTextView
@@ -161,7 +161,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
 
 
@@ -223,7 +223,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_invite_friends"
@@ -252,7 +252,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_point_system"
@@ -310,7 +310,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_help"
@@ -340,7 +340,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_contest_invited_code"
@@ -382,7 +382,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_info"
@@ -425,7 +425,7 @@
                 android:gravity="center_vertical"
                 android:onClick="onButtonClick"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3.5">
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/ctv_logout"

@@ -179,8 +179,6 @@ public class ContestFragment extends BaseFragment {
                 teamWrapper = response.body();
                 team_size = teamWrapper.data.size();
 
-
-               // setAdapter(contestDtoArrayList);
                 setupViewPager(viewPager,contestDtoArrayList);
                 if (joinedContestWrapper.data != null && joinedContestWrapper.data.size() > 0)
                     btn_join_contest.setText("Joined Contests (" + joinedContestWrapper.data.size() + ")");
@@ -281,8 +279,10 @@ public class ContestFragment extends BaseFragment {
                 practice_Contest = new ArrayList<>();
         for(ContestDto contestDto:contestDtoArrayList)
         {
-            if(contestDto.created_by.trim().equals(userDto.member_id.trim()))
+            System.out.println("contestDto.created_by:"+contestDto.createdby+" userDto.member_id:"+userDto.member_id);
+            if(contestDto.createdby.trim().equals(userDto.member_id.trim()))
             {
+
                 my_Contest.add(contestDto);
             }
             switch(contestDto.tournament)

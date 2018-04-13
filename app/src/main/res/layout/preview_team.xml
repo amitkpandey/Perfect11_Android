@@ -158,13 +158,13 @@
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_wkt_name"
                     android:layout_width="50dp"
+                    android:padding="2dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_wkt"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="2dp"
                     android:background="@color/light_red"
                     android:gravity="center"
-                    android:padding="2dp"
                     android:text="MS Dhoni"
                     android:textColor="@android:color/white"
                     android:textSize="8sp"
@@ -407,51 +407,6 @@
                             />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/rl_bat6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="20dp">
-
-                        <ImageView
-                            android:id="@+id/iv_bat6_c"
-                            android:layout_width="20dp"
-                            android:layout_height="15dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@null"
-                            android:onClick="onButtonClick"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/c"
-                            android:paddingLeft="8dp"
-                            android:visibility="gone"
-                            />
-                        <ImageView
-                            android:id="@+id/iv_bat6"
-                            android:layout_width="25dp"
-                            android:layout_height="30dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@null"
-                            android:onClick="onButtonClick"
-                            android:src="@drawable/man4"
-                            android:layout_below="@+id/iv_bat6_c"/>
-
-                        <com.utility.customView.CustomTextView
-                            android:id="@+id/tv_bat6_name"
-                            android:layout_width="50dp"
-
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_bat6"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/light_red"
-                            android:gravity="center"
-                            android:padding="2dp"
-                            android:text="M S Dhoni"
-                            android:textColor="@android:color/white"
-                            android:textSize="8sp"
-                            android:ellipsize="end"
-                           />
-                    </RelativeLayout>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -641,7 +596,103 @@
                             android:ellipsize="end"
                            />
                     </RelativeLayout>
+
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bowler6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentBottom="true">
+                    <ImageView
+                        android:id="@+id/iv_bowler6_c"
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/c"
+                        android:visibility="gone"
+                        android:paddingRight="5dp"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_bowler6"
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:src="@drawable/man1"
+                        android:layout_below="@+id/iv_bowler6_c"/>
+
+                    <com.utility.customView.CustomTextView
+                        android:id="@+id/tv_bowler6_name"
+                        android:layout_width="50dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_bowler6"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/light_red"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="M S Dhoni"
+                        android:textColor="@android:color/white"
+                        android:textSize="8sp"
+                        android:ellipsize="end"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_bat6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/rl_batsman"
+                    android:layout_marginRight="30dp">
+
+                    <ImageView
+                        android:id="@+id/iv_bat6_c"
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/c"
+                        android:paddingLeft="8dp"
+                        android:visibility="gone"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_bat6"
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@null"
+                        android:onClick="onButtonClick"
+                        android:src="@drawable/man4"
+                        android:layout_below="@+id/iv_bat6_c"/>
+
+                    <com.utility.customView.CustomTextView
+                        android:id="@+id/tv_bat6_name"
+                        android:layout_width="50dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_bat6"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/light_red"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="M S Dhoni"
+                        android:textColor="@android:color/white"
+                        android:textSize="8sp"
+                        android:ellipsize="end"
+                        />
+                </RelativeLayout>
+
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -876,50 +927,6 @@
                             />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/rl_bowler6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="20dp">
-                        <ImageView
-                            android:id="@+id/iv_bowler6_c"
-                            android:layout_width="20dp"
-                            android:layout_height="15dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@null"
-                            android:onClick="onButtonClick"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/c"
-                            android:visibility="gone"
-                            android:paddingRight="5dp"
-                            />
-                        <ImageView
-                            android:id="@+id/iv_bowler6"
-                            android:layout_width="25dp"
-                            android:layout_height="35dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@null"
-                            android:onClick="onButtonClick"
-                            android:src="@drawable/man1"
-                            android:layout_below="@+id/iv_bowler6_c"/>
-
-                        <com.utility.customView.CustomTextView
-                            android:id="@+id/tv_bowler6_name"
-                            android:layout_width="50dp"
-
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iv_bowler6"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/light_red"
-                            android:gravity="center"
-                            android:padding="2dp"
-                            android:text="M S Dhoni"
-                            android:textColor="@android:color/white"
-                            android:textSize="8sp"
-                            android:ellipsize="end"
-                           />
-                    </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
 

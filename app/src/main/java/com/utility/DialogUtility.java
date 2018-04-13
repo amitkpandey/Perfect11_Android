@@ -64,10 +64,33 @@ public class DialogUtility {
         });
     }
 
+    public static void showMessageWithOkWithCallback(final String title, final String message, final Activity mActivity,
+                                                     final AlertDialogCallBack callback) {
+        if (mActivity == null)
+            return;
+        mActivity.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(mActivity);
+                dialog.setMessage(message);
+                dialog.setTitle(title);
+                dialog.setCancelable(false);
+                dialog.setNeutralButton(mActivity.getResources().getString(R.string.okay), new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        callback.onSubmit();
+                    }
+                });
+                dialog.show();
+            }
+        });
+    }
 
 
-    public static void showCustomDialogWithOk( final String message, final Activity mActivity,final AlertDialogCallBack callback)
-    {
+    public static void showCustomDialogWithOk(final String message, final Activity mActivity,
+                                              final AlertDialogCallBack callback) {
         final Dialog dialog = new Dialog(mActivity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -86,7 +109,7 @@ public class DialogUtility {
             }
         });
 //        dialog.show();
-       mActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 dialog.show();
@@ -95,8 +118,7 @@ public class DialogUtility {
 
     }
 
-    public static void showConnectionErrorDialogWithOk(final Activity mActivity)
-    {
+    public static void showConnectionErrorDialogWithOk(final Activity mActivity) {
         final Dialog dialog = new Dialog(mActivity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -120,8 +142,7 @@ public class DialogUtility {
 
     }
 
-    public static void showCustomMessageOk(final Activity mActivity,String msg)
-    {
+    public static void showCustomMessageOk(final Activity mActivity, String msg) {
         final Dialog dialog = new Dialog(mActivity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -129,7 +150,7 @@ public class DialogUtility {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         Button cbtn_ok = dialog.findViewById(R.id.btn_ok);
 
-        TextView message=dialog.findViewById(R.id.tv_message);
+        TextView message = dialog.findViewById(R.id.tv_message);
         message.setText(msg);
         cbtn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,8 +168,8 @@ public class DialogUtility {
 
     }
 
-    public static void showCustomConformationYesNO(final Activity mActivity,String msg,final AlertDialogCallBack callback)
-    {
+    public static void showCustomConformationYesNO(final Activity mActivity, String msg,
+                                                   final AlertDialogCallBack callback) {
         final Dialog dialog = new Dialog(mActivity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -157,7 +178,7 @@ public class DialogUtility {
         CustomButton cbtn_yes = dialog.findViewById(R.id.cbtn_yes);
         CustomButton cbtn_no = dialog.findViewById(R.id.cbtn_no);
 
-        TextView message=dialog.findViewById(R.id.tv_message);
+        TextView message = dialog.findViewById(R.id.tv_message);
         message.setText(msg);
         cbtn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,8 +202,8 @@ public class DialogUtility {
         });
 
     }
-    public static void showConnectionErrorDialogWithOkCallback(final Activity mActivity,final AlertDialogCallBack callback)
-    {
+
+    public static void showConnectionErrorDialogWithOkCallback(final Activity mActivity, final AlertDialogCallBack callback) {
         final Dialog dialog = new Dialog(mActivity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

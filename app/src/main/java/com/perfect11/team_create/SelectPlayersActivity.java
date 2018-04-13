@@ -20,6 +20,7 @@ import com.perfect11.team_create.adapter.PlayerTypeAdapter;
 import com.perfect11.team_create.adapter.WkAdapter;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
+import com.perfect11.team_create.dto.TeamDetailForCheckingDto;
 import com.perfect11.team_create.wrapper.PlayerSettingWrapper;
 import com.perfect11.team_create.wrapper.PlayerWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
@@ -99,7 +100,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
     /**
      * Ground View End
      */
-
+private TeamDetailForCheckingDto tDFC_Dto =new TeamDetailForCheckingDto();;
     private Handler mHandler = new Handler();
     private Runnable updateRemainingTimeRunnable = new Runnable() {
         @Override
@@ -124,6 +125,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
     }
 
     private void readFromBundle() {
+
         upComingMatchesDto = (UpComingMatchesDto) getIntent().getExtras().getSerializable("upComingMatchesDto");
     }
 
@@ -152,6 +154,8 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 player_count_no = Integer.parseInt(playerSettingWrapper.data.player_count);
                 team_a_no = Integer.parseInt(playerSettingWrapper.data.team_a);
                 team_b_no = Integer.parseInt(playerSettingWrapper.data.team_b);
+                tDFC_Dto.team_a_no=team_a_no;
+                tDFC_Dto.team_b_no=team_b_no;
                 total_cedit_point=playerSettingWrapper.data.total_credit;
                 callAPI();
             }
@@ -862,9 +866,10 @@ public class SelectPlayersActivity extends AppCompatActivity {
     private void setAdapter() {
 
         /** Set Adapter Players*/
-
+        checkPlayerSetting();
+        String team[]=upComingMatchesDto.short_name.split(" ");
         /**Wicket Keeper*/
-        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no,total_cedit_point);
+        wkAdapter = new WkAdapter(SelectPlayersActivity.this, keeper, 0, totalPoints, totalPlayers, team[0], team[2],player_count_no,total_cedit_point,tDFC_Dto);
         wkAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -879,7 +884,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**BatsMan*/
-        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
+        batAdapter = new WkAdapter(SelectPlayersActivity.this, batsman, 1, totalPoints, totalPlayers,  team[0], team[2],player_count_no, total_cedit_point,tDFC_Dto);
         batAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -895,7 +900,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
         });
 
         /**AllRounder*/
-        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
+        arAdapter = new WkAdapter(SelectPlayersActivity.this, allrounder, 2, totalPoints, totalPlayers,  team[0], team[2] ,player_count_no, total_cedit_point,tDFC_Dto);
         arAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -909,7 +914,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
             }
         });
         /**AllRounder*/
-        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, upComingMatchesDto.teama, upComingMatchesDto.teamb,player_count_no, total_cedit_point);
+        bowlAdapter = new WkAdapter(SelectPlayersActivity.this, bowler, 3, totalPoints, totalPlayers, team[0], team[2],player_count_no, total_cedit_point,tDFC_Dto);
         bowlAdapter.setOnButtonListener(new WkAdapter.OnButtonListener() {
 
             @Override
@@ -936,26 +941,27 @@ public class SelectPlayersActivity extends AppCompatActivity {
             @Override
             public void onButtonClick(int position) {
                 selectedplayerType = position;
+                checkPlayerSetting();
                 switch (position) {
                     case 0:
                         rv_list.setAdapter(wkAdapter);
-                        wkAdapter.updateTotalPoints(totalPoints, totalPlayers);
+                        wkAdapter.updateTotalPoints(totalPoints, totalPlayers, tDFC_Dto);
                         playerTypeAdapter.updateView(position, keeper);
                         break;
                     case 1:
                         rv_list.setAdapter(batAdapter);
-                        batAdapter.updateTotalPoints(totalPoints, totalPlayers);
+                        batAdapter.updateTotalPoints(totalPoints, totalPlayers, tDFC_Dto);
                         playerTypeAdapter.updateView(position, batsman);
 
                         break;
                     case 2:
                         rv_list.setAdapter(arAdapter);
-                        arAdapter.updateTotalPoints(totalPoints, totalPlayers);
+                        arAdapter.updateTotalPoints(totalPoints, totalPlayers, tDFC_Dto);
                         playerTypeAdapter.updateView(position, allrounder);
                         break;
                     case 3:
                         rv_list.setAdapter(bowlAdapter);
-                        bowlAdapter.updateTotalPoints(totalPoints, totalPlayers);
+                        bowlAdapter.updateTotalPoints(totalPoints, totalPlayers, tDFC_Dto);
                         playerTypeAdapter.updateView(position, bowler);
                         break;
                 }
@@ -991,8 +997,9 @@ public class SelectPlayersActivity extends AppCompatActivity {
         } else if (tottal_player < player_count_no) {
             Toast.makeText(this, "You have to select 11 Players", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (!checkPlayerSetting()) {
-            Toast.makeText(this, "You can select either "+team_a_no+" or "+team_b_no+" player from a team.", Toast.LENGTH_SHORT).show();
+        } else if (checkPlayerSetting()) {
+          //  Toast.makeText(this, "You can select either "+team_a_no+" or "+team_b_no+" player from a team.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You can't select more then "+team_a_no+" player from a team.", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -1008,9 +1015,13 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 no_bteam++;
             }
         }
+
+        tDFC_Dto.count_teama=no_ateam;
+        tDFC_Dto.count_teamb=no_bteam;
+
         Log.e("Team A:", "" + no_ateam);
         Log.e("Team B:", "" + no_bteam);
-        if ((no_ateam == team_a_no || no_bteam == team_b_no)||(no_ateam == team_b_no || no_bteam == team_a_no)) {
+        if (no_ateam > team_a_no || no_bteam > team_a_no) {
             System.out.println("return true");
             return true;
         }
@@ -1023,6 +1034,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
 
 //ADD Keeper
         boolean isFirstKeeper = true;
+        tDFC_Dto.keeper_count=0;
         for (PlayerDto playerDto : keeper) {
             if (playerDto.isSelected) {
                 if (isFirstKeeper) {
@@ -1031,12 +1043,14 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 } else {
                     playerDto.titleHeader = "";
                 }
+                tDFC_Dto.keeper_count++;
                 selectedPalyers.add(playerDto);
             }
         }
 
 //ADD Batsman
         boolean isFirstBatsman = true;
+        tDFC_Dto.batsman_count=0;
         for (PlayerDto playerDto : batsman) {
             if (playerDto.isSelected) {
                 if (isFirstBatsman) {
@@ -1045,12 +1059,14 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 } else {
                     playerDto.titleHeader = "";
                 }
+                tDFC_Dto.batsman_count++;
                 selectedPalyers.add(playerDto);
             }
         }
 
 //ADD All-Rounder
         boolean isFirstAllrounder = true;
+        tDFC_Dto.allrounder_count=0;
         for (PlayerDto playerDto : allrounder) {
             if (playerDto.isSelected) {
                 if (isFirstAllrounder) {
@@ -1059,12 +1075,14 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 } else {
                     playerDto.titleHeader = "";
                 }
+                tDFC_Dto.allrounder_count++;
                 selectedPalyers.add(playerDto);
             }
         }
 
 //ADD Bowler
         boolean isFirstBowler = true;
+        tDFC_Dto.bowler_count=0;
         for (PlayerDto playerDto : bowler) {
             if (playerDto.isSelected) {
                 if (isFirstBowler) {
@@ -1073,6 +1091,7 @@ public class SelectPlayersActivity extends AppCompatActivity {
                 } else {
                     playerDto.titleHeader = "";
                 }
+                tDFC_Dto.bowler_count++;
                 selectedPalyers.add(playerDto);
             }
         }

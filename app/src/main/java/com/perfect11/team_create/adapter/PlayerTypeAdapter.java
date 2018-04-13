@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.perfect11.R;
 import com.perfect11.team_create.dto.PlayerDto;
+import com.perfect11.team_create.dto.TeamDetailForCheckingDto;
 import com.utility.customView.CustomTextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class PlayerTypeAdapter extends RecyclerView.Adapter<PlayerTypeAdapter.ViewHolder> {
     private int images[] = {R.drawable.select_palyer_wk, R.drawable.select_palyer_bat, R.drawable.select_palyer_ar, R.drawable.select_palyer_baller};
     private String title[] = {"WK", "BAT", "AR", "BOWL"};
+    private String details[] = {"Choose 1 WK", "Choose 3 to 6 BAT", "Choose 1 to 4 AR", "Choose 3 to 6 BOWL"};
     private Activity activity;
     private int select_position = 0;
     private OnButtonListener onButtonListener;
@@ -81,13 +83,16 @@ public class PlayerTypeAdapter extends RecyclerView.Adapter<PlayerTypeAdapter.Vi
         holder.img_player_type.setImageDrawable(activity.getResources().getDrawable(images[position]));
         holder.ctv_bat_title.setText(title[position]);
         holder.ctv_bat_total.setText(""+mtotal_player[position]);
+        holder.ctv_bat_description.setText(details[position]);
 
         if (position == select_position) {
             holder.rl_body.setBackgroundColor(activity.getResources().getColor(R.color.red_text_color));
             holder.ctv_bat_title.setTextColor(Color.WHITE);
+            holder.ctv_bat_description.setTextColor(Color.WHITE);
         } else {
             holder.rl_body.setBackgroundColor(Color.WHITE);
             holder.ctv_bat_title.setTextColor(Color.BLACK);
+            holder.ctv_bat_description.setTextColor(Color.BLACK);
         }
         holder.rl_body.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +109,7 @@ public class PlayerTypeAdapter extends RecyclerView.Adapter<PlayerTypeAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView img_player_type;
-        private CustomTextView ctv_bat_total, ctv_bat_title;
+        private CustomTextView ctv_bat_total, ctv_bat_title,ctv_bat_description;
         private RelativeLayout rl_body;
 
         public ViewHolder(View itemView) {
@@ -113,6 +118,7 @@ public class PlayerTypeAdapter extends RecyclerView.Adapter<PlayerTypeAdapter.Vi
             ctv_bat_total = itemView.findViewById(R.id.ctv_bat_total);
             ctv_bat_title = itemView.findViewById(R.id.ctv_bat_title);
             rl_body = itemView.findViewById(R.id.rl_body);
+            ctv_bat_description= itemView.findViewById(R.id.ctv_bat_description);
         }
     }
 

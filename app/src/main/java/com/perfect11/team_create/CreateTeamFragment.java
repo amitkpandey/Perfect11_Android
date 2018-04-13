@@ -38,7 +38,6 @@ import com.perfect11.team_create.adapter.CreateTeamAdapter;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
 import com.utility.AlertDialogCallBack;
 import com.utility.Constants;
 import com.utility.DialogUtility;
@@ -58,8 +57,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.utility.Constants.TAG;
 
 
 public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTransactionCallback {
@@ -166,6 +163,9 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
             }
         });
         btn_create.setText("Create Team " + (teamDtoArrayList.size() + 1));
+        if (teamDtoArrayList.size() >= 9) {
+            btn_create.setVisibility(View.GONE);
+        }
         tv_match.setText(team1 + " vs " + team2);
         tv_status.setText(matchStatus);
     }

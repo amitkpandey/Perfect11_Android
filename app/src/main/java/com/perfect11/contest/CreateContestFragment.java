@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -80,6 +81,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     public Gson gson;
     private String paymentGateway, contestId, amount, team_id;
     private ContestCallBackDto contestCallBackDto;
+private LinearLayout rl_header;
 
     public static CreateContestFragment newInstance() {
         return new CreateContestFragment();
@@ -102,10 +104,13 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     private void readFromBundle() {
         upComingMatchesDto = (UpComingMatchesDto) getArguments().getSerializable("upComingMatchesDto");
         team_id = getArguments().getString("team_id");
+        System.out.println();
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(getActivity(), PreferenceUtility.APP_PREFERENCE_NAME);
     }
 
     private void initView() {
+        rl_header= view.findViewById(R.id.rl_header);
+
         tv_match = view.findViewById(R.id.tv_match);
         tv_status = view.findViewById(R.id.tv_status);
         et_name = view.findViewById(R.id.et_name);
@@ -124,6 +129,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     }
 
     private void setAdapter(int n_winner) {
+        rl_header.setVisibility(View.VISIBLE);
         contestWinnerDtoArrayList = new ArrayList<>();
         float percentage = (100 / n_winner);
         float amount = Float.parseFloat(et_winning_amount.getText().toString().trim()) * (percentage / 100);
@@ -189,7 +195,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
     }
 
     private void setValues() {
-        tv_match.setText(upComingMatchesDto.teama + " vs " + upComingMatchesDto.teamb);
+        tv_match.setText(upComingMatchesDto.short_name);
         tv_status.setText(upComingMatchesDto.matchstatus);
 
         et_contest_size.addTextChangedListener(new TextWatcher() {
@@ -268,6 +274,9 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                 } else if (et_winning_amount.getText().toString().equalsIgnoreCase("") || Integer.parseInt(et_winning_amount.getText().toString()) < 0) {
                     Toast.makeText(getActivity(), "Enter Winning Amount", Toast.LENGTH_SHORT).show();
                     et_winning_amount.requestFocus();
+                } else if (Integer.parseInt(et_winning_amount.getText().toString()) > 25000) {
+                    Toast.makeText(getActivity(), "Winning Amount should not be more then 25000", Toast.LENGTH_SHORT).show();
+                    et_winning_amount.requestFocus();
                 } else if (et_contest_size.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Enter Contest Size", Toast.LENGTH_SHORT).show();
                     et_contest_size.requestFocus();
@@ -280,7 +289,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                 } else if (Integer.parseInt(et_no_winners.getText().toString().trim()) == 0) {
                     Toast.makeText(getActivity(), "Number of winners should not be 0", Toast.LENGTH_SHORT).show();
                     et_no_winners.requestFocus();
-                } else if (Integer.parseInt(et_no_winners.getText().toString().trim()) >= Integer.parseInt(et_contest_size.getText().toString().trim())) {
+                } else if (Integer.parseInt(et_no_winners.getText().toString().trim()) > Integer.parseInt(et_contest_size.getText().toString().trim())) {
                     Toast.makeText(getActivity(), "Number of winners should not be greater then contest size", Toast.LENGTH_SHORT).show();
                     et_no_winners.requestFocus();
                 } else if (contestWinnerAdapter == null) {
@@ -365,7 +374,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
                     } else if (Integer.parseInt(et_no_winners.getText().toString().trim()) == 0) {
                         Toast.makeText(getActivity(), "Number of winners should not be 0", Toast.LENGTH_SHORT).show();
                         et_no_winners.requestFocus();
-                    } else if (Integer.parseInt(et_no_winners.getText().toString().trim()) >= Integer.parseInt(et_contest_size.getText().toString().trim())) {
+                    } else if (Integer.parseInt(et_no_winners.getText().toString().trim()) > Integer.parseInt(et_contest_size.getText().toString().trim())) {
                         Toast.makeText(getActivity(), "Number of winners should not be greater then contest size", Toast.LENGTH_SHORT).show();
                         et_no_winners.requestFocus();
                     } else {
@@ -422,7 +431,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
         Call<ContestCallBackDto> call = apiInterface.createContest(Integer.parseInt(et_contest_size.getText().toString()), 1,
                 totalAmount, cb_allow_multiple_team.isChecked() ? 1 : 0, upComingMatchesDto.key_name, et_name.getText().toString(), winnerAmount,
                 winnerPercent, Integer.parseInt(et_no_winners.getText().toString()), Integer.parseInt(et_winning_amount.getText().toString().trim()),
-                userDto.member_id, userDto.reference_id, team_id
+                userDto.member_id, userDto.reference_id
         );
         call.enqueue(new Callback<ContestCallBackDto>() {
             @Override
@@ -510,7 +519,7 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
             amount += contestWinnerDtoArrayList.get(i).amount;
             if (i != 0) {
                 if (contestWinnerDtoArrayList.get(i).amount > contestWinnerDtoArrayList.get(i - 1).amount) {
-                    Toast.makeText(getActivity(), "Winner \"+i+\" should get more then winner " + (i + 1), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Winner "+i+" should get more then winner " + (i + 1), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -538,7 +547,11 @@ public class CreateContestFragment extends BaseFragment implements PaytmPaymentT
             Toast.makeText(getActivity(), "Enter Winning Amount", Toast.LENGTH_SHORT).show();
             et_winning_amount.requestFocus();
             return false;
-        } else if (Integer.parseInt(et_winning_amount.getText().toString()) <= 0) {
+        } else if (Integer.parseInt(et_winning_amount.getText().toString()) > 25000) {
+            Toast.makeText(getActivity(), "Winning Amount should not be more then 25000", Toast.LENGTH_SHORT).show();
+            et_winning_amount.requestFocus();
+            return false;
+        }else if (Integer.parseInt(et_winning_amount.getText().toString()) <= 0) {
             Toast.makeText(getActivity(), "Winning Amount should not be 0", Toast.LENGTH_SHORT).show();
             et_winning_amount.requestFocus();
             return false;

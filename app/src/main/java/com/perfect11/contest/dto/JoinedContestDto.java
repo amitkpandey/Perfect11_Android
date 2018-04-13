@@ -21,7 +21,7 @@ public class JoinedContestDto implements Serializable {
     public String room_name;
     public String room_id;
     public String id;
-    public String tournament;
+    public String tournament="";
     public String entryfee;
     public String winningAmount;
     public String contestSize;
@@ -29,4 +29,5 @@ public class JoinedContestDto implements Serializable {
     public String status;
     public String created_by;
     public String addedfor;
+    public String matchstatus;
 }

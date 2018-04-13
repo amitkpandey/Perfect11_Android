@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class TeamDto implements Serializable {
 
+    public String team_name;
     public String team_id;
     public String matchId;
     public String captain;
