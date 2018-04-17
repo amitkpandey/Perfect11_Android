@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.perfect11.R;
-import com.perfect11.contest.dto.JoinedContestDto;
 import com.perfect11.contest.dto.LiveLeaderboardDto;
 import com.perfect11.login_signup.dto.UserDto;
 import com.utility.PreferenceUtility;
@@ -85,7 +83,7 @@ public class PracticeContestAdapter extends RecyclerView.Adapter<PracticeContest
         holder.rl_01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onButtonListener.onButtonClick(position);
+                onButtonListener.onButtonClick(mdata.get(position));
             }
         });
 
@@ -111,6 +109,6 @@ public class PracticeContestAdapter extends RecyclerView.Adapter<PracticeContest
     }
 
     public interface OnButtonListener {
-        void onButtonClick(int position);
+        void onButtonClick(LiveLeaderboardDto mdata);
     }
 }

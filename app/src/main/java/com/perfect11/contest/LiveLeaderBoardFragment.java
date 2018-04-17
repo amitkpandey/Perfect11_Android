@@ -127,6 +127,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         tv_entry_fee = view.findViewById(R.id.tv_entry_fee);
         rv_contests = view.findViewById(R.id.rv_contests);
         rl_footer = view.findViewById(R.id.rl_footer);
+        rl_footer.setVisibility(View.GONE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_contests.setLayoutManager(layoutManager);
@@ -244,6 +245,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
             }
 
         }
+
         System.out.println("Live Leader Board");
         userLeaderboardArray.addAll(othersLeaderboardArray);
 
@@ -251,11 +253,11 @@ public class LiveLeaderBoardFragment extends BaseFragment {
         rv_contests.setAdapter(practiceContestAdapter);
         practiceContestAdapter.setOnButtonListener(new PracticeContestAdapter.OnButtonListener() {
             @Override
-            public void onButtonClick(int position) {
+            public void onButtonClick(LiveLeaderboardDto mdata) {
                 Bundle bundle = new Bundle();
                 bundle.putString("matchId", joinedContestDto.matchID);
-                bundle.putString("reference_id", data.get(position).reference_id);
-                bundle.putString("teamId", "" + data.get(position).team_id);
+                bundle.putString("reference_id", mdata.reference_id);
+                bundle.putString("teamId", "" + mdata.team_id);
                 bundle.putString("team1", team1);
                 bundle.putString("team2", team2);
                 bundle.putString("teamA", teamA);
@@ -263,7 +265,7 @@ public class LiveLeaderBoardFragment extends BaseFragment {
 
                 MyTeamFragment myTeamFragment = MyTeamFragment.newInstance();
                 myTeamFragment.setArguments(bundle);
-                if ((!isFixture)||userDto.reference_id.trim().equals(data.get(position).reference_id.trim())) {
+                if ((!isFixture)||userDto.reference_id.trim().equals(mdata.reference_id.trim())) {
                     ((BaseHeaderActivity) getActivity()).addFragment(myTeamFragment, true, MyTeamFragment.class.getName());
                 }
             }

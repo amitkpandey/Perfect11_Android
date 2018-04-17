@@ -31,8 +31,6 @@ import com.utility.customView.CustomTextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -258,18 +256,18 @@ public class ResultLeaderBoardFragment extends BaseFragment {
         rv_contests.setAdapter(practiceContestAdapter);
         practiceContestAdapter.setOnButtonListener(new PracticeContestAdapter.OnButtonListener() {
             @Override
-            public void onButtonClick(int position) {
+            public void onButtonClick(LiveLeaderboardDto mdata) {
                 Bundle bundle = new Bundle();
                 bundle.putString("matchId", joinedContestDto.matchID);
-                bundle.putString("reference_id", data.get(position).reference_id);
-                bundle.putString("teamId", "" + data.get(position).team_id);
+                bundle.putString("reference_id", mdata.reference_id);
+                bundle.putString("teamId", "" + mdata.team_id);
                 bundle.putString("team1", team1);
                 bundle.putString("team2", team2);
                 bundle.putString("teamA", teamA);
                 bundle.putString("teamB", teamB);
                 ResultTeamFragment resultTeamFragment = ResultTeamFragment.newInstance();
                 resultTeamFragment.setArguments(bundle);
-                if ((!isTeamNotShow) || userDto.reference_id.trim().equals(data.get(position).reference_id.trim())) {
+                if ((!isTeamNotShow) || userDto.reference_id.trim().equals(mdata.reference_id.trim())) {
                     ((BaseHeaderActivity) getActivity()).addFragment(resultTeamFragment, true, ResultTeamFragment.class.getName());
                 }
             }

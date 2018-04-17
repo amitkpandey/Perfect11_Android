@@ -73,7 +73,7 @@ public class ResultTeamFragment extends BaseFragment {
         if (userDto.reference_id.equalsIgnoreCase(reference_id)) {
             setInnerHeader("My Team");
         } else
-            setInnerHeader(reference_id + " Team");
+            setInnerHeader(reference_id );
         callApi();
         return view;
     }
