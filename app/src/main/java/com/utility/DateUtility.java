@@ -131,27 +131,31 @@ public class DateUtility {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         // DateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
-        DateFormat outputFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
+        DateFormat outputFormat = new SimpleDateFormat("MMM dd, hh:mm a", Locale.US);
         Date date;
         try {
             formatter.setTimeZone(TimeZone.getDefault());
             date = formatter.parse(string_date);
             c.setTime(date);
+        if(convertDateToSocialNetworkingFormat(string_date).equalsIgnoreCase(getCurrentDateTimeInGMT())){
+            day = "Today";
+        } else {
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             if (dayOfWeek == 1)
-                day = "Sunday";
+                day = "Sun";
             else if (dayOfWeek == 2)
-                day = "Monday";
+                day = "Mon";
             else if (dayOfWeek == 3)
-                day = "Tuesday";
+                day = "Tue";
             else if (dayOfWeek == 4)
-                day = "Wednesday";
+                day = "Wed";
             else if (dayOfWeek == 5)
-                day = "Thursday";
+                day = "Thu";
             else if (dayOfWeek == 6)
-                day = "Friday";
+                day = "Fri";
             else if (dayOfWeek == 7)
-                day = "Saturday";
+                day = "Sat";
+        }
             return day + ", " + outputFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -163,7 +167,7 @@ public class DateUtility {
         if (datePosted == null || datePosted.length() == 0)
             return "";
         DateFormat formatter_GMT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        DateFormat formatter_DEFAULT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        DateFormat formatter_DEFAULT = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         formatter_DEFAULT.setTimeZone(TimeZone.getDefault());
         formatter_GMT.setTimeZone(TimeZone.getTimeZone("GMT"));
         StringBuilder sBuffer = new StringBuilder("");

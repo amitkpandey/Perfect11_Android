@@ -52,6 +52,7 @@ import com.utility.customView.CustomTextView;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -88,7 +89,7 @@ private LinearLayout rl_header;
     }
 
     private UserDto userDto;
-    private int totalAmount = 0;
+    private float totalAmount = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,10 +132,10 @@ private LinearLayout rl_header;
     private void setAdapter(int n_winner) {
         rl_header.setVisibility(View.VISIBLE);
         contestWinnerDtoArrayList = new ArrayList<>();
-        float percentage = (100 / n_winner);
-        float amount = Float.parseFloat(et_winning_amount.getText().toString().trim()) * (percentage / 100);
+        float percentage = (float) (100.00 / n_winner);
+        float amount = Integer.parseInt(et_winning_amount.getText().toString().trim()) * (percentage / 100);
 
-        System.out.println(et_winning_amount.getText().toString() + "amount: " + amount);
+        System.out.println("percentage:"+percentage + "amount: " + amount);
         for (int i = 0; i < n_winner; i++) {
             ContestWinnerDto contestWinnerDto = new ContestWinnerDto();
             contestWinnerDto.amount = amount;
@@ -208,14 +209,15 @@ private LinearLayout rl_header;
                 try {
                     if (!et_contest_size.getText().toString().equalsIgnoreCase("") ||
                             !et_winning_amount.getText().toString().equalsIgnoreCase("")) {
-                        int contest = Integer.parseInt(et_contest_size.getText().toString().trim());
-                        int amount = Integer.parseInt(et_winning_amount.getText().toString().trim());
-                        int percentage = (int) (amount * 15f / 100f);
-                        int total = (amount + percentage) / contest;
+                        int contest_size = Integer.parseInt(et_contest_size.getText().toString().trim());
+                        int winning_amount = Integer.parseInt(et_winning_amount.getText().toString().trim());
+                        float percentage = (float) (winning_amount * 25f / 100f);
+                        float entry_free = (winning_amount + percentage) / contest_size;
 //                        System.out.println("percentage " + percentage);
 //                        System.out.println("total " + total);
-                        totalAmount = total;
-                        tv_amount.setText(getActivity().getResources().getString(R.string.Rs) + " " + total);
+                        totalAmount = entry_free;
+                        tv_amount.setText(getActivity().getResources().getString(R.string.Rs) + " " + new DecimalFormat("##.##").format(entry_free));
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -238,14 +240,15 @@ private LinearLayout rl_header;
                 try {
                     if (!et_contest_size.getText().toString().equalsIgnoreCase("") ||
                             !et_winning_amount.getText().toString().equalsIgnoreCase("")) {
-                        int contest = Integer.parseInt(et_contest_size.getText().toString().trim());
-                        int amount = Integer.parseInt(et_winning_amount.getText().toString().trim());
-                        int percentage = (int) (amount * 15f / 100f);
-                        int total = (amount + percentage) / contest;
+                        int contest_size = Integer.parseInt(et_contest_size.getText().toString().trim());
+                        int winning_amount = Integer.parseInt(et_winning_amount.getText().toString().trim());
+
+                        float percentage = (float) (winning_amount * 25f / 100f);
+                        float entry_free = (winning_amount + percentage) / contest_size;
 //                        System.out.println("percentage " + percentage);
 //                        System.out.println("total " + total);
-                        totalAmount = total;
-                        tv_amount.setText(getActivity().getResources().getString(R.string.Rs) + " " + total);
+                        totalAmount = entry_free;
+                        tv_amount.setText(getActivity().getResources().getString(R.string.Rs) + " " +new DecimalFormat("##.##").format(entry_free));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -531,10 +534,10 @@ private LinearLayout rl_header;
             return false;
         }
 
-        if (amount < Integer.parseInt(et_winning_amount.getText().toString())) {
+       /* if (amount < Integer.parseInt(et_winning_amount.getText().toString())) {
             Toast.makeText(getActivity(), "You did not use all amount of Winners.\n Winner amount=" + Integer.parseInt(et_winning_amount.getText().toString()) + "\n Used=" + amount, Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
         return true;
     }
 

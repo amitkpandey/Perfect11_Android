@@ -31,6 +31,8 @@ import com.utility.customView.CustomTextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,7 +84,7 @@ public class ResultLeaderBoardFragment extends BaseFragment {
 //        teamB = getArguments().getString("teamB");
         matchStatus = getArguments().getString("matchStatus");
         try {
-            isTeamNotShow=getArguments().getBoolean("isTeamNotShow");
+            isTeamNotShow = getArguments().getBoolean("isTeamNotShow");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,6 +97,7 @@ public class ResultLeaderBoardFragment extends BaseFragment {
         tv_entry_fee = view.findViewById(R.id.tv_entry_fee);
         rv_contests = view.findViewById(R.id.rv_contests);
         rl_footer = view.findViewById(R.id.rl_footer);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_contests.setLayoutManager(layoutManager);
@@ -103,12 +106,11 @@ public class ResultLeaderBoardFragment extends BaseFragment {
 
     private void setValues() {
         tv_match.setText(team1 + " vs " + team2);
-        if(joinedContestDto.matchstatus==null||joinedContestDto.matchstatus.equals("")) {
+        if (joinedContestDto.matchstatus == null || joinedContestDto.matchstatus.equals("")) {
             tv_status.setText(matchStatus);
-        }else
-        {
-            if(joinedContestDto.matchstatus.equals("notstarted"))
-            tv_status.setText("Not Started");
+        } else {
+            if (joinedContestDto.matchstatus.equals("notstarted"))
+                tv_status.setText("Not Started");
             else
                 tv_status.setText("Completed");
 
@@ -204,11 +206,11 @@ public class ResultLeaderBoardFragment extends BaseFragment {
 //                    System.out.println("userDto.reference_id " + userDto.reference_id);
                     if (userDto.reference_id.trim().toLowerCase().equalsIgnoreCase(liveLeaderboardDto.reference_id.trim().toLowerCase())) {
 //                        System.out.println("userDto.reference_id " + userDto.reference_id);
-                        rl_footer.setVisibility(View.VISIBLE);
+                        //rl_footer.setVisibility(View.VISIBLE);
                         userTeamId = "" + liveLeaderboardDto.team_id;
                         break;
                     } else {
-                        rl_footer.setVisibility(View.GONE);
+                       // rl_footer.setVisibility(View.GONE);
                     }
                 }
                 setAdapter(response.body());
@@ -234,7 +236,25 @@ public class ResultLeaderBoardFragment extends BaseFragment {
     }
 
     private void setAdapter(final ArrayList<LiveLeaderboardDto> data) {
-        practiceContestAdapter = new PracticeContestAdapter(getActivity(), data);
+        ArrayList<LiveLeaderboardDto> userLeaderboardArray=new ArrayList<>();
+        ArrayList<LiveLeaderboardDto> othersLeaderboardArray=new ArrayList<>();
+        int rank=1;
+        for(LiveLeaderboardDto liveLeaderboardDto:data)
+       {
+           liveLeaderboardDto.rank=rank;
+           rank++;
+
+           if(liveLeaderboardDto.reference_id.trim().equals(userDto.reference_id.trim()))
+           {
+               userLeaderboardArray.add(liveLeaderboardDto);
+           }else
+           {
+               othersLeaderboardArray.add(liveLeaderboardDto);
+           }
+
+       }
+        userLeaderboardArray.addAll(othersLeaderboardArray);
+        practiceContestAdapter = new PracticeContestAdapter(getActivity(), userLeaderboardArray);
         rv_contests.setAdapter(practiceContestAdapter);
         practiceContestAdapter.setOnButtonListener(new PracticeContestAdapter.OnButtonListener() {
             @Override
@@ -249,10 +269,10 @@ public class ResultLeaderBoardFragment extends BaseFragment {
                 bundle.putString("teamB", teamB);
                 ResultTeamFragment resultTeamFragment = ResultTeamFragment.newInstance();
                 resultTeamFragment.setArguments(bundle);
-                if((!isTeamNotShow)||userDto.reference_id.trim().equals(data.get(position).reference_id.trim())) {
+                if ((!isTeamNotShow) || userDto.reference_id.trim().equals(data.get(position).reference_id.trim())) {
                     ((BaseHeaderActivity) getActivity()).addFragment(resultTeamFragment, true, ResultTeamFragment.class.getName());
                 }
-                }
+            }
         });
     }
 }

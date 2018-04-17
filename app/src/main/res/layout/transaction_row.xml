@@ -2,19 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_01"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    android:elevation="2dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="2dp"
+    android:padding="10dp">
     <RelativeLayout
         android:id="@+id/rl_transactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        android:elevation="10dp">
+        android:elevation="1dp">
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_date"
-            style="@android:style/TextAppearance.Medium"
+            style="@android:style/TextAppearance.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -25,11 +33,12 @@
             android:maxLines="1"
             android:text="22 Dec, 2016"
             android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:textStyle="bold"
+           />
 
         <com.utility.customView.CustomTextView
             android:id="@+id/tv_amount"
-            style="@android:style/TextAppearance.Medium"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -40,9 +49,124 @@
             android:gravity="start"
             android:text="Rs 10/-"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textStyle="bold"
+            />
 
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_id"
+       android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="1dp">
 
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_id_text"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="ID: "
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_id"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="start"
+            android:text="456655655"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@+id/tv_id_text"
+            />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_applied_for"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:visibility="gone">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_applied_for_text"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Applied For: "
+            android:textColor="@android:color/black"
+            />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_applied_for"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="start"
+            android:text="asas"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@+id/tv_applied_for_text"
+            />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_Details"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="1dp">
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_Details_text"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Details: "
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            />
+
+        <com.utility.customView.CustomTextView
+            android:id="@+id/tv_Details"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="start"
+            android:text="456655655"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@+id/tv_Details_text"
+            />
+
+
+    </RelativeLayout>
+</LinearLayout>
 </RelativeLayout>

@@ -163,7 +163,7 @@
                                 <com.utility.customView.CustomTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:drawableRight="@drawable/droup_down_arrow"
+
                                     android:gravity="center"
                                     android:padding="3dp"
                                     android:text="CREDITS"

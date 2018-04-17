@@ -71,7 +71,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
     private GoogleApiClient mGoogleApiClient;
 
     //Menu Items
-    private CustomTextView ctv_ticket_system, ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout, ctv_info;
+    private CustomTextView ctv_ref,ctv_ticket_system, ctv_home, ctv_profile, ctv_account, ctv_my_contests, ctv_leader_board, ctv_invite_friends, ctv_point_system, ctv_help, ctv_contest_invited_code, ctv_logout, ctv_info;
 
     public String activityName = "";
 
@@ -149,6 +149,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
         ctv_logout = leftMenu.findViewById(R.id.ctv_logout);
         ctv_ticket_system = leftMenu.findViewById(R.id.ctv_ticket_system);
         ctv_info = leftMenu.findViewById(R.id.ctv_info);
+        ctv_ref=leftMenu.findViewById(R.id.ctv_ref);
     }
 
     private void setDefaultBG() {
@@ -170,7 +171,7 @@ public class BaseHeaderActivity extends FragmentActivity implements GoogleApiCli
     private void setValueOnSideMenu() {
         userDto = (UserDto) PreferenceUtility.getObjectInAppPreference(this, PreferenceUtility.APP_PREFERENCE_NAME);
         tv_name.setText(userDto.first_name + " " + userDto.last_name);
-
+        ctv_ref.setText(userDto.reference_id);
         ctv_email.setText(userDto.email);
         if (!userDto.picture.equals("")) {
             Picasso.with(this).load(userDto.picture).placeholder(R.drawable.progress_animation).error(R.drawable.myteam).into(profileImage);

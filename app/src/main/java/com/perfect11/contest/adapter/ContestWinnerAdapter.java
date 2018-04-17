@@ -54,7 +54,7 @@ public class ContestWinnerAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }*/
         ContestWinnerDto contestWinnerDto = contestWinnerDtoArrayList.get(position);
-        viewHolder.et_percent.setText("" + contestWinnerDto.percentage);
+        viewHolder.et_percent.setText("" + new DecimalFormat("##.##").format(contestWinnerDto.percentage));
         viewHolder.tv_amount.setText("" + new DecimalFormat("##.##").format(contestWinnerDto.amount));
         viewHolder.tv_position.setText("" + contestWinnerDto.position);
         viewHolder.et_percent.addTextChangedListener(new TextWatcher() {

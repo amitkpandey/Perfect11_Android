@@ -341,7 +341,7 @@ public class DatePickerUtility {
         // return ;
         // }
 
-        String timeSet = "";
+        String timeSet;
         if (hours > 12) {
             hours -= 12;
             timeSet = "PM";
@@ -353,7 +353,7 @@ public class DatePickerUtility {
         else
             timeSet = "AM";
 
-        String minutes = "";
+        String minutes;
         if (mins < 10)
             minutes = "0" + mins;
         else

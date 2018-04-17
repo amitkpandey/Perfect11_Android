@@ -88,7 +88,7 @@ public class CreateTeamAdapter extends RecyclerView.Adapter<CreateTeamAdapter.Vi
                 wicketKeeperSize++;
             }
         }
-        holder.tv_team.setText("Team " + (position + 1));
+        holder.tv_team.setText(/*"Team " + (position + 1)*/teamDto.team_name);
         holder.tv_wicket.setText("" + wicketKeeperSize);
         holder.tv_all.setText("" + allRounderSize);
         holder.tv_bowl.setText("" + bowlerSize);

@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_01"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#DEF7F3">
 
     <RelativeLayout
         android:id="@+id/rl_contests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
         >
 
         <RelativeLayout
@@ -66,7 +68,7 @@
                     android:maxLines="1"
                     android:text="Dinesh Kartik"
                     android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_team_name"
                     style="@android:style/TextAppearance.Medium"
@@ -76,7 +78,7 @@
                     android:maxLines="1"
                     android:text="Dinesh Kartik"
                     android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <com.utility.customView.CustomTextView
                     android:id="@+id/tv_point"
@@ -87,7 +89,7 @@
                     android:gravity="start"
                     android:text="340.75 Points"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -105,6 +107,47 @@
                 android:text="# 55"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
+
+            <RelativeLayout
+                android:id="@+id/ll_winner"
+                android:layout_toLeftOf="@+id/tv_rank"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="15dp"
+                    >
+                <com.utility.customView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Winner Amount"
+                    android:textColor="@color/red_text_color"
+                    android:textSize="7sp"/>
+                <com.utility.customView.CustomTextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 50.00/-"
+                    android:textColor="@android:color/black"
+                    android:textSize="9sp"/>
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/winner"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 

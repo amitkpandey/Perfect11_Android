@@ -80,7 +80,7 @@ public class CaptainAdapter extends RecyclerView.Adapter<CaptainAdapter.ViewHold
         });
 
         holder.tv_name.setText(selectedPlayer.get(position).full_name);
-        holder.tv_point.setText(selectedPlayer.get(position).team_code + " | " + "-- Point");
+        holder.tv_point.setText(selectedPlayer.get(position).team_code);
 
         //Visible Player Type
         if (selectedPlayer.get(position).titleHeader.equals("")) {

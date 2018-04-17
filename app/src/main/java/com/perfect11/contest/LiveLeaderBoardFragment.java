@@ -195,11 +195,11 @@ public class LiveLeaderBoardFragment extends BaseFragment {
             public void onResponse(Call<ArrayList<LiveLeaderboardDto>> call, Response<ArrayList<LiveLeaderboardDto>> response) {
                 for (LiveLeaderboardDto liveLeaderboardDto : response.body()) {
                     if (userDto.reference_id.equalsIgnoreCase(liveLeaderboardDto.reference_id)) {
-                        rl_footer.setVisibility(View.VISIBLE);
+                       // rl_footer.setVisibility(View.VISIBLE);
                         userTeamId = "" + liveLeaderboardDto.team_id;
                         break;
                     } else {
-                        rl_footer.setVisibility(View.GONE);
+                      //  rl_footer.setVisibility(View.GONE);
                     }
                 }
                 setAdapter(response.body());
@@ -226,7 +226,28 @@ public class LiveLeaderBoardFragment extends BaseFragment {
     }
 
     private void setAdapter(final ArrayList<LiveLeaderboardDto> data) {
-        practiceContestAdapter = new PracticeContestAdapter(getActivity(), data);
+
+        ArrayList<LiveLeaderboardDto> userLeaderboardArray=new ArrayList<>();
+        ArrayList<LiveLeaderboardDto> othersLeaderboardArray=new ArrayList<>();
+        int rank=1;
+        for(LiveLeaderboardDto liveLeaderboardDto:data)
+        {
+            liveLeaderboardDto.rank=rank;
+            rank++;
+
+            if(liveLeaderboardDto.reference_id.trim().equals(userDto.reference_id.trim()))
+            {
+                userLeaderboardArray.add(liveLeaderboardDto);
+            }else
+            {
+                othersLeaderboardArray.add(liveLeaderboardDto);
+            }
+
+        }
+        System.out.println("Live Leader Board");
+        userLeaderboardArray.addAll(othersLeaderboardArray);
+
+        practiceContestAdapter = new PracticeContestAdapter(getActivity(), userLeaderboardArray);
         rv_contests.setAdapter(practiceContestAdapter);
         practiceContestAdapter.setOnButtonListener(new PracticeContestAdapter.OnButtonListener() {
             @Override

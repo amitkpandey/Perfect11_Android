@@ -146,7 +146,7 @@ public class MyTransactionsFragment extends BaseFragment {
                     listcount = response.body().data.listcount;
                     myTransactionsAdapter = new MyTransactionsAdapter(shopkeeperlist, getActivity());
                     rv_transactions.setAdapter(myTransactionsAdapter);
-                    myTransactionsAdapter.setOnButtonListener(new MyTransactionsAdapter.OnButtonListener() {
+                   /* myTransactionsAdapter.setOnButtonListener(new MyTransactionsAdapter.OnButtonListener() {
                         @Override
                         public void onButtonClick(MyTransectionDto myTransectionDto) {
                             TextView tv_Details,tv_Applied_For,tv_Amount,tv_title;
@@ -175,7 +175,7 @@ public class MyTransactionsFragment extends BaseFragment {
                             });
                             dialog.show();
                         }
-                    });
+                    });*/
                 } else {
                     shopkeeperlist.addAll(response.body().data.shopkeeperlist);
                     myTransactionsAdapter.setData(shopkeeperlist);

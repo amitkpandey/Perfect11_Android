@@ -79,7 +79,7 @@ public class SelectPlayersFragment extends BaseFragment {
 
     private CustomTextView tv_player_count, tv_header, ctv_country1, ctv_country2, tv_team_count1, tv_team_count2, ctv_time, tv_team1, tv_team2;
     private CustomButton btn_save;
-
+private ArrayList<PlayerDto> playerDtoArrayList=null;
     /**
      * Preview Section Start
      */
@@ -134,9 +134,18 @@ public class SelectPlayersFragment extends BaseFragment {
         initViewPreview();
         initView();
 
-        startUpdateTimer();
-        callTeamSettingAPI();
+        if(playerDtoArrayList!=null)
+        { /* When We back from next page*/
+            tv_header.setText("" + totalPoints + "/"+total_cedit_point+"\nCredits Left");
+            tv_player_count.setText("" + totalPlayers + "/"+player_count_no+"\nPlayers");
 
+            setAdapter();
+        }else
+        {
+            /*Arrive first time in this page*/
+            callTeamSettingAPI();
+        }
+        startUpdateTimer();
         return view;
     }
 
@@ -850,11 +859,13 @@ public class SelectPlayersFragment extends BaseFragment {
         call.enqueue(new Callback<PlayerWrapper>() {
             @Override
             public void onResponse(Call<PlayerWrapper> call, Response<PlayerWrapper> response) {
+
                 playerWrapper = response.body();
 
                 Log.e("UpcomingMatchesAPI", playerWrapper.toString());
                 if (playerWrapper.data.size() != 0) {
-                    ArrayList<PlayerDto> playerDtoArrayList = setPlayerForEdit(playerWrapper.data);
+                    /*ArrayList<PlayerDto>*/
+                    playerDtoArrayList = setPlayerForEdit(playerWrapper.data);
                     selectPlayerList(playerDtoArrayList);
                 } else {
                     DialogUtility.showMessageWithOk("Have no player", getActivity());
@@ -919,8 +930,8 @@ public class SelectPlayersFragment extends BaseFragment {
                     totalPlayers++;
                 }
             }
-            tv_header.setText("" + totalPoints + "/1000\nCredits Left");
-            tv_player_count.setText("" + totalPlayers + "/11\nPlayers");
+            tv_header.setText("" + totalPoints + "/"+total_cedit_point+"\nCredits Left");
+            tv_player_count.setText("" + totalPlayers + "/"+player_count_no+"\nPlayers");
         }
         return playerDtoArrayList;
     }

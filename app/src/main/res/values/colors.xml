@@ -20,4 +20,8 @@
     <color name="start">#ffff00</color>
     <color name="end">#455a64</color>
     <color name="centre">#ff5722</color>
+
+    <color name="tab_color1">#DEF7F3</color>
+    <color name="tab_color2">#FADBD8</color>
+    <color name="tab_color3">#c7c7c7</color>
 </resources>
