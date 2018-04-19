@@ -14,6 +14,6 @@ public class Constants {
     public static final String WEBSITE = "STAKE4WEB";
     public static final String CALLBACK_URL = "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp";
 
-    public static final String RAZORPAY_KEY_ID = "rzp_test_a9WAr0zQvHKy9w";
-    public static final String RAZORPAY_KEY_SECRET = "KvqNqtUZ8HthAKmDVXcyJvrn";
+    public static final String RAZORPAY_KEY_ID = "rzp_live_UCzL3frPTeNeUf";
+    public static final String RAZORPAY_KEY_SECRET = "IuKaf6NOgUrbgT6jufWZOFYI";
 }
