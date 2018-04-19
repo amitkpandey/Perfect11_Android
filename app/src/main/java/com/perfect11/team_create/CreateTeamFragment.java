@@ -39,6 +39,7 @@ import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
 import com.utility.AlertDialogCallBack;
+import com.utility.CommonUtility;
 import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
@@ -154,7 +155,9 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
             @Override
             public void onJoinClick(int position) {
                 teamDto = teamDtoArrayList.get(position);
-                callAPIJoinContest(Integer.parseInt(teamDto.team_id));
+                if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+                    callAPIJoinContest(Integer.parseInt(teamDto.team_id));
+                }
 //                if (!userDto.total_balance.equalsIgnoreCase("0.00")) {
 //                    callAPIJoinContest(Integer.parseInt(teamDto.team_id));
 //                } else if (userDto.total_balance.equalsIgnoreCase("0.00")) {

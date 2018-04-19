@@ -44,6 +44,7 @@ import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.squareup.picasso.Picasso;
 import com.utility.AlertDialogCallBack;
+import com.utility.CommonUtility;
 import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
@@ -818,7 +819,13 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 //                                }
 //                            });
 //                        }
-                        callAPIJoinContest(teamIDDto.team_id);
+                        if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+                            callAPIJoinContest(teamIDDto.team_id);
+                        }else
+                        {
+                            if (mProgressDialog.isShowing())
+                                mProgressDialog.dismiss();
+                        }
                     }
 
                 } else {
@@ -1037,7 +1044,15 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
 //                                }
 //                            });
 //                        }
-                        callAPIJoinContest(teamIDDto.team_id);
+
+                        if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+                            callAPIJoinContest(teamIDDto.team_id);
+                        }else
+                        {
+                            if (mProgressDialog.isShowing())
+                                mProgressDialog.dismiss();
+                        }
+                        //callAPIJoinContest(teamIDDto.team_id);
                     }
 
                 } else {

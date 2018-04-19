@@ -50,6 +50,7 @@ import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
 import com.utility.AlertDialogCallBack;
+import com.utility.CommonUtility;
 import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
@@ -349,7 +350,13 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
 //                            }
 //                        });
 //                    }
-                    callAPIJoinContest(teamIDDto.team_id);
+                    if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+                        callAPIJoinContest(teamIDDto.team_id);
+                    }else
+                    {
+                        if (mProgressDialog.isShowing())
+                            mProgressDialog.dismiss();
+                    }
                 } else {
                     DialogUtility.showMessageWithOk(callBackDto.message, getActivity());
                 }

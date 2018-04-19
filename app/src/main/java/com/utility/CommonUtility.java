@@ -33,6 +33,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 
 import com.perfect11.R;
+import com.perfect11.upcoming_matches.UpcomingMatchesActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,6 +76,25 @@ public class CommonUtility {
         return ni != null && ni.isAvailable() && ni.isConnected();
     }
 
+    public static boolean isNotExpired(String start_date,Activity activity) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+            Date date;
+            date = sdf.parse(start_date);
+            long millis = date.getTime();
+            long hoursMillis = 60 * 60 * 1000;
+            long timeDiff = (millis - hoursMillis) - System.currentTimeMillis();
+            if (timeDiff > 0) {
+                return true;
+            } else {
+                DialogUtility.showMessageWithOk("Match Closed", activity);
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     /*
      * Checks if is login.
      *
