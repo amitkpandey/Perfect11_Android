@@ -144,7 +144,7 @@
         <!-- Add your API key here -->
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_UCzL3frPTeNeUf" />
+            android:value="rzp_test_a9WAr0zQvHKy9w" />
 
     </application>
 

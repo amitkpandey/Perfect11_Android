@@ -39,7 +39,6 @@ import com.perfect11.home.childFragments.ResultsFragment;
 import com.perfect11.home.dto.JoinContestCallBackDto;
 import com.perfect11.home.dto.TeamIDDto;
 import com.perfect11.home.wrapper.CreateTeamCallBackWrapper;
-import com.perfect11.login_signup.IntroScreen;
 import com.perfect11.login_signup.dto.UserDto;
 import com.perfect11.payment.paytm.Checksum;
 import com.perfect11.payment.paytm.Paytm;
@@ -49,6 +48,10 @@ import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
+import com.razorpay.Order;
+import com.razorpay.Payment;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import com.utility.AlertDialogCallBack;
 import com.utility.CommonUtility;
 import com.utility.Constants;
@@ -56,10 +59,12 @@ import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomTextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +105,8 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
     private int versionCode;
 
     private float player_amount_count = 0;
+
+    private RazorpayClient razorpayClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -202,7 +209,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
             CustomTextView ctv_body = dialog.findViewById(R.id.ctv_body);
 
 
-            if(contestDto.tournament==null||contestDto.tournament.trim().equals(""))
+            if (contestDto.tournament == null || contestDto.tournament.trim().equals(""))
                 ctv_body.setText("Contest Name: " + contestDto.room_name);
             else
                 ctv_body.setText("Contest Name: " + contestDto.tournament);
@@ -280,80 +287,9 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 Log.e("CreateTeamCallBack", callBackDto.toString());
                 if (callBackDto.status) {
                     Log.e("CreateTeamCallBack", callBackDto.message);
-//                    if (!userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                        callAPIJoinContest(teamIDDto.team_id);
-//                    } else if (userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                        final Dialog dialog = new Dialog(getActivity());
-//                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                        dialog.setCancelable(false);
-//                        dialog.setContentView(R.layout.custom_dialog_payment);
-//                        dialog.show();
-//                        final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                        rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                            @Override
-//                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                switch (checkedId) {
-//                                    case R.id.rb_paytm:
-//                                        paymentGateway = "Paytm";
-//                                        break;
-//                                    case R.id.rb_razorpay:
-//                                        paymentGateway = "Razorpay";
-//                                        break;
-//                                }
-//                            }
-//                        });
-//                        Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                        btn_ok.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                    generateCheckSum(contestDto.entryfee);
-//                                } else {
-//                                    startPayment(contestDto.entryfee);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                                }
-//                                dialog.dismiss();
-//                            }
-//                        });
-//                    } else if (Integer.parseInt(userDto.total_balance) < Integer.parseInt(contestDto.entryfee)) {
-//                        final String amount = String.valueOf(Integer.parseInt(contestDto.entryfee) - Integer.parseInt(userDto.total_balance));
-//                        final Dialog dialog = new Dialog(getActivity());
-//                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                        dialog.setCancelable(false);
-//                        dialog.setContentView(R.layout.custom_dialog_payment);
-//                        dialog.show();
-//                        final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                        rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                            @Override
-//                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                switch (checkedId) {
-//                                    case R.id.rb_paytm:
-//                                        paymentGateway = "Paytm";
-//                                        break;
-//                                    case R.id.rb_razorpay:
-//                                        paymentGateway = "Razorpay";
-//                                        break;
-//                                }
-//                            }
-//                        });
-//                        Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                        btn_ok.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                    generateCheckSum(amount);
-//                                } else {
-//                                    startPayment(amount);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                                }
-//                                dialog.dismiss();
-//                            }
-//                        });
-//                    }
-                    if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+                    if (CommonUtility.isNotExpired(upComingMatchesDto.start_date, getActivity())) {
                         callAPIJoinContest(teamIDDto.team_id);
-                    }else
-                    {
+                    } else {
                         if (mProgressDialog.isShowing())
                             mProgressDialog.dismiss();
                     }
@@ -444,7 +380,7 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                                 if (paymentGateway.equalsIgnoreCase("Paytm")) {
                                     generateCheckSum(String.valueOf(callBackDto.amount_to_paid));
                                 } else {
-                                    startPayment(String.valueOf(callBackDto.amount_to_paid));
+                                    getRazorPayOrderId(String.valueOf(callBackDto.amount_to_paid));
 //                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
                                 }
                                 dialog.dismiss();
@@ -602,7 +538,30 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         }
     }
 
-    private void startPayment(String amount) {
+    private void getRazorPayOrderId(String amount) {
+        try {
+            RazorpayClient razorpayClient = new RazorpayClient(Constants.RAZORPAY_KEY_ID, Constants.RAZORPAY_KEY_SECRET);
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", Float.valueOf(amount) * 100); // amount in paise
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "test_1");
+            orderRequest.put("payment_capture", true);
+
+            Order order = razorpayClient.Orders.create(orderRequest);
+//            System.out.println("order " + order.toString());
+            String orderId = order.get("id");
+            int paymentAmount = order.get("amount");
+            startPayment(paymentAmount, orderId);
+
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startPayment(int amount, String orderId) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -611,11 +570,12 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
         try {
             JSONObject options = new JSONObject();
             options.put("name", "Stake For Win");
-            options.put("description", "Create Contest");
+            options.put("description", "Join Contest");
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", Float.valueOf(amount) * 100);
+            options.put("amount", amount);
+            options.put("order_id", orderId);
             options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
@@ -781,6 +741,17 @@ public class HomeFragment extends BaseFragment implements PaytmPaymentTransactio
                 //Toast.makeText(this,"TEST"+resultCode,Toast.LENGTH_SHORT).show();
                 if (data != null) {
                     String razorpayPaymentID = data.getExtras().getString("razorpayPaymentID");
+                    try {
+                        razorpayClient = new RazorpayClient("rzp_test_a9WAr0zQvHKy9w", "KvqNqtUZ8HthAKmDVXcyJvrn");
+                        Payment payment = razorpayClient.Payments.fetch(razorpayPaymentID);
+                        // The the Entity.get("attribute_key") method has flexible return types depending on the attribute
+                        int amount = payment.get("amount");
+                        String id = payment.get("id");
+                        Date createdAt = payment.get("created_at");
+                        System.out.println("amount " + amount);
+                    } catch (RazorpayException e) {
+                        e.printStackTrace();
+                    }
                     callAPITransactionJoinContest(razorpayPaymentID, amount, "razorpay", "success");
 
                 }

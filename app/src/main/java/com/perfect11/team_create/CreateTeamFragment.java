@@ -38,6 +38,9 @@ import com.perfect11.team_create.adapter.CreateTeamAdapter;
 import com.perfect11.team_create.dto.ContestDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import com.utility.AlertDialogCallBack;
 import com.utility.CommonUtility;
 import com.utility.Constants;
@@ -46,6 +49,7 @@ import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -257,7 +261,7 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
                                 if (paymentGateway.equalsIgnoreCase("Paytm")) {
                                     generateCheckSum(String.valueOf(callBackDto.amount_to_paid));
                                 } else {
-                                    startPayment(String.valueOf(callBackDto.amount_to_paid));
+                                    getRazorPayOrderId(String.valueOf(callBackDto.amount_to_paid));
 //                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
                                 }
                                 dialog.dismiss();
@@ -285,7 +289,30 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
         });
     }
 
-    private void startPayment(String amount) {
+    private void getRazorPayOrderId(String amount) {
+        try {
+            RazorpayClient razorpayClient = new RazorpayClient(Constants.RAZORPAY_KEY_ID, Constants.RAZORPAY_KEY_SECRET);
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", Float.valueOf(amount) * 100); // amount in paise
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "test_1");
+            orderRequest.put("payment_capture", true);
+
+            Order order = razorpayClient.Orders.create(orderRequest);
+            System.out.println("order " + order.toString());
+            String orderId = order.get("id");
+            int paymentAmount = order.get("amount");
+            startPayment(paymentAmount, orderId);
+
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startPayment(int amount, String orderId) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -298,7 +325,8 @@ public class CreateTeamFragment extends BaseFragment implements PaytmPaymentTran
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", Float.parseFloat(amount) * 100);
+            options.put("amount", amount);
+            options.put("order_id", orderId);
             options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();

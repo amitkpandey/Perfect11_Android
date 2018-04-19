@@ -40,6 +40,9 @@ import com.perfect11.payment.paytm.Transaction;
 import com.perfect11.payment.wrapper.TransactionWrapper;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import com.utility.AlertDialogCallBack;
 import com.utility.CommonUtility;
 import com.utility.Constants;
@@ -49,6 +52,7 @@ import com.utility.customView.CustomButton;
 import com.utility.customView.CustomEditText;
 import com.utility.customView.CustomTextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -300,74 +304,6 @@ private LinearLayout rl_header;
                 } else if (checkArray()) {
                     callAPI();
                 }
-//                else if (userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                    final Dialog dialog = new Dialog(getActivity());
-//                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                    dialog.setCancelable(false);
-//                    dialog.setContentView(R.layout.custom_dialog_payment);
-//                    dialog.show();
-//                    final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                    rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                        @Override
-//                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                            switch (checkedId) {
-//                                case R.id.rb_paytm:
-//                                    paymentGateway = "Paytm";
-//                                    break;
-//                                case R.id.rb_razorpay:
-//                                    paymentGateway = "Razorpay";
-//                                    break;
-//                            }
-//                        }
-//                    });
-//                    Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                    btn_ok.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                generateCheckSum(String.valueOf(totalAmount));
-//                            } else {
-//                                startPayment(String.valueOf(totalAmount));
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                            }
-//                            dialog.dismiss();
-//                        }
-//                    });
-//                } else if (Integer.parseInt(userDto.total_balance) < totalAmount) {
-//                    final String amount = String.valueOf(totalAmount - Integer.parseInt(userDto.total_balance));
-//                    final Dialog dialog = new Dialog(getActivity());
-//                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                    dialog.setCancelable(false);
-//                    dialog.setContentView(R.layout.custom_dialog_payment);
-//                    dialog.show();
-//                    final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                    rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                        @Override
-//                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                            switch (checkedId){
-//                                case R.id.rb_paytm:
-//                                    paymentGateway = "Paytm";
-//                                    break;
-//                                case R.id.rb_razorpay:
-//                                    paymentGateway = "Razorpay";
-//                                    break;
-//                            }
-//                        }
-//                    });
-//                    Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                    btn_ok.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                generateCheckSum(amount);
-//                            } else {
-//                                startPayment(amount);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                            }
-//                            dialog.dismiss();
-//                        }
-//                    });
-//                }
                 break;
             case R.id.btn_set:
                 if (isValidData()) {
@@ -389,7 +325,30 @@ private LinearLayout rl_header;
         }
     }
 
-    private void startPayment(String amount) {
+    private void getRazorPayOrderId(String amount) {
+        try {
+            RazorpayClient razorpayClient = new RazorpayClient(Constants.RAZORPAY_KEY_ID, Constants.RAZORPAY_KEY_SECRET);
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", Float.valueOf(amount) * 100); // amount in paise
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "test_1");
+            orderRequest.put("payment_capture", true);
+
+            Order order = razorpayClient.Orders.create(orderRequest);
+//            System.out.println("order " + order.toString());
+            String orderId = order.get("id");
+            int paymentAmount = order.get("amount");
+            startPayment(paymentAmount, orderId);
+
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startPayment(int amount, String orderId) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -402,7 +361,8 @@ private LinearLayout rl_header;
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", Float.valueOf(amount) * 100);
+            options.put("amount", amount);
+            options.put("order_id", orderId);
             options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
@@ -481,7 +441,7 @@ private LinearLayout rl_header;
                                 if (paymentGateway.equalsIgnoreCase("Paytm")) {
                                     generateCheckSum(String.valueOf(totalAmount));
                                 } else {
-                                    startPayment(String.valueOf(totalAmount));
+                                    getRazorPayOrderId(String.valueOf(totalAmount));
 //                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
                                 }
                                 dialog.dismiss();

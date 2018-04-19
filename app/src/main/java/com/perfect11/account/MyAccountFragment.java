@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -27,10 +26,8 @@ import com.perfect11.R;
 import com.perfect11.account.dto.WithdrawlStatusDto;
 import com.perfect11.account.wrapper.MyAccountWrapper;
 import com.perfect11.base.ApiClient;
-import com.perfect11.base.ApiClient3;
 import com.perfect11.base.ApiClient4;
 import com.perfect11.base.ApiInterface;
-import com.perfect11.base.AppConstant;
 import com.perfect11.base.BaseFragment;
 import com.perfect11.base.BaseHeaderActivity;
 import com.perfect11.login_signup.dto.InviteDto;
@@ -40,14 +37,16 @@ import com.perfect11.payment.paytm.Paytm;
 import com.perfect11.payment.paytm.Transaction;
 import com.perfect11.payment.wrapper.WalletWrapper;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import com.utility.AlertDialogCallBack;
-import com.utility.CommonUtility;
 import com.utility.Constants;
 import com.utility.DialogUtility;
 import com.utility.PreferenceUtility;
 import com.utility.customView.CustomEditText;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -57,9 +56,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.utility.Constants.TAG;
-
 
 public class MyAccountFragment extends BaseFragment implements PaytmPaymentTransactionCallback {
     private TextView tv_total_balance, tv_unutilized, tv_winnings, tv_withdrawable;
@@ -117,11 +113,10 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                 tv_total_balance.setText("Rs." + myAccountWrapper.data.total_balance + "/-");
                 userDto.total_balance = myAccountWrapper.data.total_balance;
                 PreferenceUtility.saveObjectInAppPreference(getActivity(), userDto, PreferenceUtility.APP_PREFERENCE_NAME);
-                float unutilized=(Float.parseFloat(myAccountWrapper.data.total_balance) - Float.parseFloat(myAccountWrapper.data.winnings));
+                float unutilized = (Float.parseFloat(myAccountWrapper.data.total_balance) - Float.parseFloat(myAccountWrapper.data.winnings));
 
-                if(unutilized<0)
-                {
-                    unutilized=0;
+                if (unutilized < 0) {
+                    unutilized = 0;
                 }
                 tv_unutilized.setText("Rs." + unutilized + "/-");
                 tv_winnings.setText("Rs." + myAccountWrapper.data.winnings + "/-");
@@ -176,7 +171,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                     DialogUtility.showCustomConformationYesNO(getActivity(), "Are you sure that you want to withdraw money?", new AlertDialogCallBack() {
                         @Override
                         public void onSubmit() {
-                            call_Withdrawl_API();
+                            call_Withdrawal_API();
                         }
 
                         @Override
@@ -237,7 +232,10 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
                                     generateCheckSum(et_amount.getText().toString().trim());
                                 } else {
                                     amount = et_amount.getText().toString().trim();
-                                    startPayment(et_amount.getText().toString().trim());
+                                    getRazorPayOrderId(et_amount.getText().toString().trim());
+
+
+//                                    startPayment(et_amount.getText().toString().trim());
 //                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
                                 }
                                 dialog.dismiss();
@@ -262,7 +260,7 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         }
     }
 
-    private void call_Withdrawl_API() {
+    private void call_Withdrawal_API() {
         /*
          * Collecting data*/
         Log.d("API", "Get Player");
@@ -342,7 +340,30 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         });
     }
 
-    private void startPayment(String amount) {
+    private void getRazorPayOrderId(String amount) {
+        try {
+            RazorpayClient razorpayClient = new RazorpayClient(Constants.RAZORPAY_KEY_ID, Constants.RAZORPAY_KEY_SECRET);
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", Float.valueOf(amount) * 100); // amount in paise
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "test_1");
+            orderRequest.put("payment_capture", true);
+
+            Order order = razorpayClient.Orders.create(orderRequest);
+//            System.out.println("order " + order.toString());
+            String orderId = order.get("id");
+            int paymentAmount = order.get("amount");
+            startPayment(paymentAmount, orderId);
+
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startPayment(int amount, String orderId) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -355,7 +376,8 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", Float.valueOf(amount) * 100);
+            options.put("amount", amount);
+            options.put("order_id", orderId);
             options.put("theme", new JSONObject("{color: '#E93D29'}"));
            /* JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -517,14 +539,13 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                //Toast.makeText(this,"TEST"+resultCode,Toast.LENGTH_SHORT).show();
                 if (data != null) {
                     String razorpayPaymentID = data.getExtras().getString("razorpayPaymentID");
                     callAddWalletAPI(razorpayPaymentID, amount, "razorpay");
 
                 }
             } else {
-                Toast.makeText(getActivity(), "Payment failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Payment failed", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -557,7 +578,6 @@ public class MyAccountFragment extends BaseFragment implements PaytmPaymentTrans
             @Override
             public void onFailure(Call<WalletWrapper> call, Throwable t) {
                 Log.e("TAG", t.toString());
-
 
                 if (t instanceof IOException) {
                     DialogUtility.showConnectionErrorDialogWithOk(getActivity());

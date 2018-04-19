@@ -41,7 +41,9 @@ import com.perfect11.team_create.dto.PlayerDto;
 import com.perfect11.team_create.dto.SelectedMatchDto;
 import com.perfect11.upcoming_matches.dto.UpComingMatchesDto;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import com.squareup.picasso.Picasso;
 import com.utility.AlertDialogCallBack;
 import com.utility.CommonUtility;
@@ -51,6 +53,7 @@ import com.utility.PreferenceUtility;
 import com.utility.customView.CustomButton;
 import com.utility.customView.CustomTextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -69,8 +72,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.utility.Constants.TAG;
 
 public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTransactionCallback {
     private ArrayList<PlayerDto> selectedTeam;
@@ -749,80 +750,10 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                     if (selectedMatchDto.contest_id.trim().equals("")) {
                         gotoHome(callBackDto.message);
                     } else {
-//                        if (!userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                            callAPIJoinContest(teamIDDto.team_id);
-//                        } else if (userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                            final Dialog dialog = new Dialog(getActivity());
-//                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            dialog.setCancelable(false);
-//                            dialog.setContentView(R.layout.custom_dialog_payment);
-//                            dialog.show();
-//                            final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                            rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                                @Override
-//                                public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                    switch (checkedId) {
-//                                        case R.id.rb_paytm:
-//                                            paymentGateway = "Paytm";
-//                                            break;
-//                                        case R.id.rb_razorpay:
-//                                            paymentGateway = "Razorpay";
-//                                            break;
-//                                    }
-//                                }
-//                            });
-//                            Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                            btn_ok.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                        generateCheckSum(contestDto.entryfee);
-//                                    } else {
-//                                        startPayment(contestDto.entryfee);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                                    }
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                        } else if (Integer.parseInt(userDto.total_balance) < Integer.parseInt(contestDto.entryfee)) {
-//                            final String amount = String.valueOf(Integer.parseInt(contestDto.entryfee) - Integer.parseInt(userDto.total_balance));
-//                            final Dialog dialog = new Dialog(getActivity());
-//                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            dialog.setCancelable(false);
-//                            dialog.setContentView(R.layout.custom_dialog_payment);
-//                            dialog.show();
-//                            final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                            rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                                @Override
-//                                public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                    switch (checkedId) {
-//                                        case R.id.rb_paytm:
-//                                            paymentGateway = "Paytm";
-//                                            break;
-//                                        case R.id.rb_razorpay:
-//                                            paymentGateway = "Razorpay";
-//                                            break;
-//                                    }
-//                                }
-//                            });
-//                            Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                            btn_ok.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                        generateCheckSum(amount);
-//                                    } else {
-//                                        startPayment(amount);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                                    }
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                        }
-                        if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+//
+                        if (CommonUtility.isNotExpired(upComingMatchesDto.start_date, getActivity())) {
                             callAPIJoinContest(teamIDDto.team_id);
-                        }else
-                        {
+                        } else {
                             if (mProgressDialog.isShowing())
                                 mProgressDialog.dismiss();
                         }
@@ -917,7 +848,7 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                                 if (paymentGateway.equalsIgnoreCase("Paytm")) {
                                     generateCheckSum(String.valueOf(callBackDto.amount_to_paid));
                                 } else {
-                                    startPayment(String.valueOf(callBackDto.amount_to_paid));
+                                    getRazorPayOrderId(String.valueOf(callBackDto.amount_to_paid));
 //                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
                                 }
                                 dialog.dismiss();
@@ -974,81 +905,9 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
                     if (selectedMatchDto.contest_id.trim().equals("")) {
                         gotoHome("Successfully Updated.");
                     } else {
-//                        if (!userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                            callAPIJoinContest(teamIDDto.team_id);
-//                        } else if (userDto.total_balance.equalsIgnoreCase("0.00")) {
-//                            final Dialog dialog = new Dialog(getActivity());
-//                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            dialog.setCancelable(false);
-//                            dialog.setContentView(R.layout.custom_dialog_payment);
-//                            dialog.show();
-//                            final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                            rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                                @Override
-//                                public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                    switch (checkedId) {
-//                                        case R.id.rb_paytm:
-//                                            paymentGateway = "Paytm";
-//                                            break;
-//                                        case R.id.rb_razorpay:
-//                                            paymentGateway = "Razorpay";
-//                                            break;
-//                                    }
-//                                }
-//                            });
-//                            Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                            btn_ok.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                        generateCheckSum(contestDto.entryfee);
-//                                    } else {
-//                                        startPayment(contestDto.entryfee);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                                    }
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                        } else if (Integer.parseInt(userDto.total_balance) < Integer.parseInt(contestDto.entryfee)) {
-//                            final String amount = String.valueOf(Integer.parseInt(contestDto.entryfee) - Integer.parseInt(userDto.total_balance));
-//                            final Dialog dialog = new Dialog(getActivity());
-//                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            dialog.setCancelable(false);
-//                            dialog.setContentView(R.layout.custom_dialog_payment);
-//                            dialog.show();
-//                            final RadioGroup rg_01 = dialog.findViewById(R.id.rg_01);
-//                            rg_01.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                                @Override
-//                                public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                    switch (checkedId) {
-//                                        case R.id.rb_paytm:
-//                                            paymentGateway = "Paytm";
-//                                            break;
-//                                        case R.id.rb_razorpay:
-//                                            paymentGateway = "Razorpay";
-//                                            break;
-//                                    }
-//                                }
-//                            });
-//                            Button btn_ok = dialog.findViewById(R.id.btn_ok);
-//                            btn_ok.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    if (paymentGateway.equalsIgnoreCase("Paytm")) {
-//                                        generateCheckSum(amount);
-//                                    } else {
-//                                        startPayment(amount);
-////                                ActivityController.startNextActivity(getActivity(), PaymentRazorPayActivity.class, true);
-//                                    }
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                        }
-
-                        if(CommonUtility.isNotExpired(upComingMatchesDto.start_date,getActivity())) {
+                        if (CommonUtility.isNotExpired(upComingMatchesDto.start_date, getActivity())) {
                             callAPIJoinContest(teamIDDto.team_id);
-                        }else
-                        {
+                        } else {
                             if (mProgressDialog.isShowing())
                                 mProgressDialog.dismiss();
                         }
@@ -1091,7 +950,30 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         });
     }
 
-    private void startPayment(String amount) {
+    private void getRazorPayOrderId(String amount) {
+        try {
+            RazorpayClient razorpayClient = new RazorpayClient(Constants.RAZORPAY_KEY_ID, Constants.RAZORPAY_KEY_SECRET);
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", Float.valueOf(amount) * 100); // amount in paise
+            orderRequest.put("currency", "INR");
+            orderRequest.put("receipt", "test_1");
+            orderRequest.put("payment_capture", true);
+
+            Order order = razorpayClient.Orders.create(orderRequest);
+            System.out.println("order " + order.toString());
+            String orderId = order.get("id");
+            int paymentAmount = order.get("amount");
+            startPayment(paymentAmount, orderId);
+
+        } catch (RazorpayException e) {
+            // Handle Exception
+            System.out.println(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startPayment(int amount, String orderId) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -1100,11 +982,12 @@ public class TeamReadyFragment extends BaseFragment implements PaytmPaymentTrans
         try {
             JSONObject options = new JSONObject();
             options.put("name", "Stake For Win");
-            options.put("description", "Create Contest");
+            options.put("description", "Join Contest");
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", Float.valueOf(amount) * 100);
+            options.put("amount", amount);
+            options.put("order_id", orderId);
             options.put("theme", new JSONObject("{color: '#E93D29'}"));
 
            /* JSONObject preFill = new JSONObject();
